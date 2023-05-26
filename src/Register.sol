@@ -431,7 +431,7 @@ contract Register is
             next = 0;
         }
         // emit Debug("_initCurrentCoupon", index, current, gasleft());
-        _updateSnapshotTimestamp(current, _data.cutOffTime, next);
+        _updateSnapshotTimestamp(current, current+_data.cutOffTime, next);
     }
 
     function getBondData() public view override returns (BondData memory) {
@@ -489,16 +489,17 @@ contract Register is
     /**
      * @dev this function is called by Coupon.sol when Paying Agent validates the coupon Date.
      */
-    function setCurrentCouponDate(uint256 couponDate_, uint256 cutOffTime_)
+    function setCurrentCouponDate(uint256 couponDate_, uint256 recordDatetime_)
         external
         override
     {
         //TODO: rename this to setCurrentSnapshotDateTime()
         bytes32 hash = atReturningHash(msg.sender);
         require(_contractsAllowed[hash], "This contract is not whitelisted"); //can be called only by Coupon smart contract
+        require( recordDatetime_+(10*24*3600) > couponDate_, "Inconsistent record date more than 10 days before settlement date");
         _setCurrentSnapshotDatetime(
             couponDate_,
-            cutOffTime_,
+            recordDatetime_,
             _nextCouponDate(couponDate_)
         );
     }

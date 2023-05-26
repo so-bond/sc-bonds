@@ -90,6 +90,7 @@ abstract contract CouponSnapshotManagement is ERC20Snapshot {
             couponDateSnapshotId[_currentCouponDate] = id; // fix the coupon snapshot to the newly created one
             _currentSnapshotTimestamp = _nextSnapshotTimestamp>0 ? _makeDatetime(_nextSnapshotTimestamp, _currentSnapshotTimestamp) : 0;
             _currentCouponDate = _makeDatetime(_currentSnapshotTimestamp, 0);
+            emit SnapshotTimestampChange(_currentCouponDate, _currentSnapshotTimestamp, _nextSnapshotTimestamp);
             return id;
         } else return 0;
     }
@@ -111,8 +112,14 @@ abstract contract CouponSnapshotManagement is ERC20Snapshot {
         address to_,
         uint256 amount_
     ) internal virtual override {
-        require(_currentSnapshotTimestamp>0 || _forceAcceptNextTransfer, "the register is locked because no coupon is prepared or the maturity is reached");
-        _forceAcceptNextTransfer = false;
+        if (_forceAcceptNextTransfer) {
+            _forceAcceptNextTransfer = false;
+        } else {
+            require(_currentSnapshotTimestamp>0 , "the register is locked because no coupon is prepared or the maturity is reached");
+            if (block.timestamp >= _currentSnapshotTimestamp) {
+                require(_nextSnapshotTimestamp>0 , "the maturity cut-off time has passed");
+            }
+        }
         
         _checkAndProcessSnapshot();
 
@@ -124,17 +131,17 @@ abstract contract CouponSnapshotManagement is ERC20Snapshot {
         Assumes that the date_ did not already exists before, so it cannot be the current date / timestamp.   
         Assumes that the call is done after the Register coupons are modified
      */
-    function _updateSnapshotTimestamp(uint256 date_, uint256 cutOffTime_, uint256 next_) internal returns(bool) {
+    function _updateSnapshotTimestamp(uint256 date_, uint256 recordDatetime_, uint256 next_) internal returns(bool) {
         // emit Debug("_updateSnapshotTimestamp #1", date_, next_, gasleft());
         if (date_ != _currentCouponDate) {
             // emit Debug("_updateSnapshotTimestamp #2", date_, _currentCouponDate, gasleft());
             // the current dates are different
-            _setCurrentSnapshotDatetime(date_, cutOffTime_, next_);
+            _setCurrentSnapshotDatetime(date_, recordDatetime_, next_);
         } else if (next_ != _makeDatetime(_nextSnapshotTimestamp, 0) ) {
             // emit Debug("_updateSnapshotTimestamp #3", next_, _makeDatetime(_nextSnapshotTimestamp, 0), gasleft());
             // the next dates are different
-            uint256 currentCutOffTime_ = _makeDatetime(0, _currentSnapshotTimestamp); // extracts the cutofftime from the timestamp
-            _setCurrentSnapshotDatetime(_currentCouponDate, currentCutOffTime_, next_);
+            // uint256 currentCutOffTime_ = _makeDatetime(0, _currentSnapshotTimestamp); // extracts the cutofftime from the timestamp
+            _setCurrentSnapshotDatetime(_currentCouponDate, _currentSnapshotTimestamp, next_);
         } // else there is nothing to be done
         return true;
     }
@@ -152,23 +159,23 @@ abstract contract CouponSnapshotManagement is ERC20Snapshot {
      * @dev this function is called by Coupon.sol when Paying Agent validates the coupon Date.
      */
     function _setCurrentSnapshotDatetime(
-        uint256 date_,
-        uint256 cutOffTime_,
+        uint256 date_, // this is the value date of the coupon / redemption
+        uint256 recordDatetime_, // this is the record time , ie previous business day at cut off
         uint256 nextDate_
     ) internal {
+        uint256 recordDate = _makeDatetime(recordDatetime_, 0);
         require(
-            cutOffTime_ < 3600 * 24,
-            "cutofftime should be shorter that 24 hours"
+            recordDate <= date_,
+            "the record date cannot be after the settlement date"
         );
         require(
             nextDate_ == 0 || nextDate_>date_,
             "invalid next date when setting the current snapshot datetime"
         );
 
-        uint256 dateWithCutOff = _makeDatetime(date_, cutOffTime_);
         uint256 couponDateOnly = _makeDatetime(date_, 0);
         uint256 nextTimestamp = nextDate_;
-        if (nextTimestamp > 0 ) nextTimestamp = _makeDatetime(nextTimestamp, cutOffTime_);
+        if (nextTimestamp > 0 ) nextTimestamp = _makeDatetime(nextTimestamp, recordDatetime_);
 
         // Verify if the date has already been used for a snapshot
         require(
@@ -178,7 +185,7 @@ abstract contract CouponSnapshotManagement is ERC20Snapshot {
         // implicitly, we know there was no snapshot yet at couponDateOnly
         
         // the timestamp to be set should be in the future
-        require(block.timestamp < dateWithCutOff, "you have to define a new period ending after the current time");
+        require(block.timestamp < recordDatetime_, "you have to define a new period ending after the current time");
         // if the current timestamp has been reached then we take a snap shot
         _checkAndProcessSnapshot();
 
@@ -187,7 +194,7 @@ abstract contract CouponSnapshotManagement is ERC20Snapshot {
         // since we have past the timestamp we should not use the same or lower date
         // require(couponDateOnly >= _currentCouponDate,"you have to define a coupon date in the future");
 
-        _currentSnapshotTimestamp = dateWithCutOff;
+        _currentSnapshotTimestamp = recordDatetime_;
         _currentCouponDate = couponDateOnly;
         _nextSnapshotTimestamp = nextTimestamp;
 

@@ -3,8 +3,9 @@ import chaiAsPromised from "chai-as-promised";
 chai.use(chaiAsPromised);
 
 import Web3 from "web3";
-import Ganache from "ganache-core";
+import Ganache from "ganache";
 import { blockTimestamp, future, initWeb3Time, mineBlock } from "./dates";
+import { blockGasLimit } from "./gas.constant";
 
 
 describe('Verify the evm_mine evm_increaseTime', function() {
@@ -13,7 +14,7 @@ describe('Verify the evm_mine evm_increaseTime', function() {
   let mine: (newTimestampSec: number) => Promise<any>;
 
   async function init(): Promise<void> {
-    web3 = new Web3(Ganache.provider({ default_balance_ether: 10000 }) as any);
+    web3 = new Web3(Ganache.provider({ default_balance_ether: 1000, gasLimit: blockGasLimit, chain: {vmErrorsOnRPCResponse:true} }) as any);
 
     initWeb3Time(web3)
 

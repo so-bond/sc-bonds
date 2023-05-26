@@ -3,13 +3,13 @@ import chaiAsPromised from "chai-as-promised";
 chai.use(chaiAsPromised);
 
 import Web3 from "web3";
-import Ganache from "ganache-core";
+import Ganache from "ganache";
 import { Web3FunctionProvider } from "@saturn-chain/web3-functions";
 import { EthProviderInterface } from "@saturn-chain/dlt-tx-data-functions";
 
 import allContracts from "../contracts";
 import { SmartContract, SmartContractInstance } from "@saturn-chain/smart-contract";
-import { mintGas, registerGas } from "./gas.constant";
+import { blockGasLimit, mintGas, registerGas } from "./gas.constant";
 import { makeBondDate } from "./dates";
 
 const RegisterContractName = "Register";
@@ -25,13 +25,13 @@ describe("Register (Bond Issuance) contract interoperability", function () {
   let strangerAddress: string;
 
   async function deployRegisterContract(): Promise<void> {
-    web3 = new Web3(Ganache.provider({ default_balance_ether: 1000 }) as any);
+    web3 = new Web3(Ganache.provider({ default_balance_ether: 1000, gasLimit: blockGasLimit, chain: {vmErrorsOnRPCResponse:true} }) as any);
     cak = new Web3FunctionProvider(web3.currentProvider, (list) => Promise.resolve(list[0]));
     stranger = new Web3FunctionProvider(web3.currentProvider, (list) => Promise.resolve(list[1]));
     cakAddress = await cak.account(0);
     strangerAddress = await cak.account(1);
     const dates = makeBondDate(2, 12*30*24*3600)
-    const bondName = "SSA 3Y 1Bn SEK";
+    const bondName = "EIB 3Y 1Bn SEK";
     const isin = "EIB3Y";
     const expectedSupply = 1000;
     const currency = web3.utils.asciiToHex("SEK");
@@ -71,7 +71,7 @@ describe("Register (Bond Issuance) contract interoperability", function () {
 
     it("contract name be set", async () => {
       const actual = await instance.name(cak.call());
-      expect(actual).to.be.equal("SSA 3Y 1Bn SEK");
+      expect(actual).to.be.equal("EIB 3Y 1Bn SEK");
     });
 
     it("contract symbol be set", async () => {

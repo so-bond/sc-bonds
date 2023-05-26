@@ -3,12 +3,12 @@ import chaiAsPromised from "chai-as-promised";
 chai.use(chaiAsPromised);
 
 import Web3 from "web3";
-import Ganache from "ganache-core";
+import Ganache from "ganache";
 import { Web3FunctionProvider } from "@saturn-chain/web3-functions";
 import { EthProviderInterface } from "@saturn-chain/dlt-tx-data-functions";
 import allContracts from "../contracts";
 import { SmartContract, SmartContractInstance } from "@saturn-chain/smart-contract";
-import { makeReadyGas, registerGas } from "./gas.constant";
+import { blockGasLimit, makeReadyGas, registerGas } from "./gas.constant";
 import { addPart, initWeb3Time, makeBondDate, mineBlock, today } from "./dates";
 import { RegisterContractName, BilateralTradeContractName, CouponTradeContractName, PrimaryIssuanceContractName, bilateralTrade } from "./shared";
 
@@ -27,7 +27,7 @@ describe("Coupon process - payment", function () {
   let investorAAddress: string;
 
   async function init(): Promise<void> {
-    web3 = new Web3(Ganache.provider({ default_balance_ether: 10000 }) as any);
+    web3 = new Web3(Ganache.provider({ default_balance_ether: 1000, gasLimit: blockGasLimit, chain: {vmErrorsOnRPCResponse:true} }) as any);
     initWeb3Time(web3);
     cak = new Web3FunctionProvider(web3.currentProvider, (list) => Promise.resolve(list[0]));
     bnd = new Web3FunctionProvider(web3.currentProvider, (list) => Promise.resolve(list[1]));
@@ -39,7 +39,7 @@ describe("Coupon process - payment", function () {
 
     investorAAddress = await investorA.account();
     const dates = makeBondDate(3, 30 * 24 * 3600)
-    const bondName = "SSA 3Y 1Bn SEK";
+    const bondName = "EIB 3Y 1Bn SEK";
     const isin = "EIB3Y";
     const expectedSupply = 5000;
     const currency = web3.utils.asciiToHex("SEK");
@@ -78,10 +78,10 @@ describe("Coupon process - payment", function () {
 
     await register.grantPayRole(cak.send({ maxGas: 100000 }), await payingAgent.account());
 
-    await register.enableInvestorToWhitelist(custodianA.send({ maxGas: 120000 }), await cak.account()); // needed to deploy a test trade contract
-    await register.enableInvestorToWhitelist(custodianA.send({ maxGas: 120000 }), await bnd.account()); // B&D must be an investor as well
-    await register.enableInvestorToWhitelist(custodianA.send({ maxGas: 120000 }), await investorA.account());
-    await register.enableInvestorToWhitelist(custodianA.send({ maxGas: 120000 }), await investorB.account());
+    await register.enableInvestorToWhitelist(custodianA.send({ maxGas: 130000 }), await cak.account()); // needed to deploy a test trade contract
+    await register.enableInvestorToWhitelist(custodianA.send({ maxGas: 130000 }), await bnd.account()); // B&D must be an investor as well
+    await register.enableInvestorToWhitelist(custodianA.send({ maxGas: 130000 }), await investorA.account());
+    await register.enableInvestorToWhitelist(custodianA.send({ maxGas: 130000 }), await investorB.account());
 
     //initialization of the register  post issuance
     const primary = await allContracts.get(PrimaryIssuanceContractName).deploy(bnd.newi({ maxGas: 1000000 }), register.deployedAt, 5000);
@@ -111,13 +111,13 @@ describe("Coupon process - payment", function () {
     details.tradeDate = today() // Date.UTC(2022, 9, 10) / (1000 * 3600 * 24);
     details.valueDate = addPart(details.tradeDate, "D", 2) // Date.UTC(2022, 9, 12) / (1000 * 3600 * 24);
 
-    await trade.setDetails(bnd.send({ maxGas: 100000 }), details);
+    await trade.setDetails(bnd.send({ maxGas: 110000 }), details);
 
     await trade.approve(bnd.send({ maxGas: 100000 }));
     
     await trade.approve(investorA.send({ maxGas: 100000 }));
 
-    await trade.executeTransfer(bnd.send({ maxGas: 100000 }));
+    await trade.executeTransfer(bnd.send({ maxGas: 120000 }));
   }
 
   async function bilatTrade(from: EthProviderInterface, to: EthProviderInterface, 
@@ -129,10 +129,11 @@ describe("Coupon process - payment", function () {
 
   async function deployCoupon(): Promise<SmartContractInstance> {
     const couponDate = addPart(today(), "D", 30);
+    const recordDate = addPart(couponDate, "D", -1);
 
     const coupon = await allContracts
       .get(CouponTradeContractName)
-      .deploy(payingAgent.newi({ maxGas: 2000000 }), register.deployedAt, couponDate, 360, 17 * 3600);
+      .deploy(payingAgent.newi({ maxGas: 2000000 }), register.deployedAt, couponDate, 360, recordDate, 17 * 3600);
 
     let hash = await register.atReturningHash(cak.call(), coupon.deployedAt);
     await register.enableContractToWhitelist(cak.send({ maxGas: 100000 }), hash);
@@ -145,32 +146,32 @@ describe("Coupon process - payment", function () {
 
   it("investor payment status is not paid after coupon deploy", async () => {
     const coupon = await deployCoupon();
-    await coupon.setDateAsCurrentCoupon(payingAgent.send({maxGas: 100000}));
+    await coupon.setDateAsCurrentCoupon(payingAgent.send({maxGas: 110000}));
     const paymentStatusBefore = await coupon.getInvestorPayments(payingAgent.call(), investorAAddress);
     expect(paymentStatusBefore).to.equal("0", "coupon payment status ToBePaid expected after coupon deploy");
     const timestamp = await register.currentSnapshotDatetime(payingAgent.call());
     await mineBlock(Number.parseInt(timestamp)+1);
     
     //Act
-    await coupon.toggleCouponPayment(payingAgent.send({ maxGas: 300000 }), investorAAddress);
+    await coupon.toggleCouponPayment(cak.send({ maxGas: 300000 }), investorAAddress);
     const paymentStatusAfter = await coupon.getInvestorPayments(payingAgent.call(), investorAAddress);
 
     expect(paymentStatusAfter).to.equal("1", "coupon payment status Paid expected after setPaymentAsPaid");
   });
 
-  it("Paying Agent may reset payment status if status is paid", async () => {
+  it("Central Account Keeper may reset payment status if status is paid", async () => {
     //Arrange
     const coupon = await deployCoupon();
-    await coupon.setDateAsCurrentCoupon(payingAgent.send({maxGas: 100000}));
+    await coupon.setDateAsCurrentCoupon(payingAgent.send({maxGas: 110000}));
     const timestamp = await register.currentSnapshotDatetime(payingAgent.call());
     await mineBlock(Number.parseInt(timestamp)+1);
 
-    await coupon.toggleCouponPayment(payingAgent.send({ maxGas: 300000 }), investorAAddress);
+    await coupon.toggleCouponPayment(cak.send({ maxGas: 300000 }), investorAAddress);
     const paymentStatusBefore = await coupon.getInvestorPayments(payingAgent.call(), investorAAddress);
     expect(paymentStatusBefore).to.equal("1", "test precondition failed, Paid payment status expected");
 
     //Act
-    await coupon.toggleCouponPayment(payingAgent.send({ maxGas: 300000 }), investorAAddress);
+    await coupon.toggleCouponPayment(cak.send({ maxGas: 300000 }), investorAAddress);
     const paymentStatusAfter = await coupon.getInvestorPayments(payingAgent.call(), investorAAddress);
 
     //Assert
@@ -180,11 +181,11 @@ describe("Coupon process - payment", function () {
   it("Cusdotian may mark payment as received", async () => {
     //Arrange
     const coupon = await deployCoupon();
-    await coupon.setDateAsCurrentCoupon(payingAgent.send({maxGas: 100000}));
+    await coupon.setDateAsCurrentCoupon(payingAgent.send({maxGas: 110000}));
     const timestamp = await register.currentSnapshotDatetime(payingAgent.call());
     await mineBlock(Number.parseInt(timestamp)+1);
 
-    await coupon.toggleCouponPayment(payingAgent.send({ maxGas: 300000 }), investorAAddress);
+    await coupon.toggleCouponPayment(cak.send({ maxGas: 300000 }), investorAAddress);
     const paymentStatusBefore = await coupon.getInvestorPayments(payingAgent.call(), investorAAddress);
     expect(paymentStatusBefore).to.equal("1", "test precondition failed, Paid payment status expected");
 
@@ -198,7 +199,7 @@ describe("Coupon process - payment", function () {
 
   it("Custodian may not setPaymentAsPaid if status is tobePaid", async () => {
     const coupon = await deployCoupon();
-    await coupon.setDateAsCurrentCoupon(payingAgent.send({maxGas: 100000}));
+    await coupon.setDateAsCurrentCoupon(payingAgent.send({maxGas: 110000}));
     const timestamp = await register.currentSnapshotDatetime(payingAgent.call());
     await mineBlock(Number.parseInt(timestamp)+1);
 
@@ -209,18 +210,18 @@ describe("Coupon process - payment", function () {
 
   it("stranger may not setPaymentAsPaid", async () => {
     const coupon = await deployCoupon();
-    await coupon.setDateAsCurrentCoupon(payingAgent.send({maxGas: 100000}));
+    await coupon.setDateAsCurrentCoupon(payingAgent.send({maxGas: 110000}));
     const timestamp = await register.currentSnapshotDatetime(payingAgent.call());
     await mineBlock(Number.parseInt(timestamp)+1);
     
     await expect(coupon.toggleCouponPayment(investorA.send({ maxGas: 300000 }), investorAAddress)).to.be.rejectedWith(
-      "sender must be Paying Agent or Custodian"
+      "sender must be Central Account Keeper or Custodian"
     );
   });
 
-  it('paying agent can set the payment status event after the register has moved on to the next period', async () => {
+  it('Central account Keeper can set the payment status event after the register has moved on to the next period', async () => {
     const coupon = await deployCoupon();
-    await coupon.setDateAsCurrentCoupon(payingAgent.send({maxGas: 100000}));
+    await coupon.setDateAsCurrentCoupon(payingAgent.send({maxGas: 110000}));
     const paymentStatusBefore = await coupon.getInvestorPayments(payingAgent.call(), investorAAddress);
     expect(paymentStatusBefore).to.equal("0", "coupon payment status ToBePaid expected after coupon deploy");
     const timestamp = await register.currentSnapshotDatetime(payingAgent.call());
@@ -230,7 +231,7 @@ describe("Coupon process - payment", function () {
     await bilatTrade(investorA, investorB, 10, today());
 
     //Act
-    await coupon.toggleCouponPayment(payingAgent.send({ maxGas: 300000 }), investorAAddress);
+    await coupon.toggleCouponPayment(cak.send({ maxGas: 300000 }), investorAAddress);
     const paymentStatusAfter = await coupon.getInvestorPayments(payingAgent.call(), investorAAddress);
 
     expect(paymentStatusAfter).to.equal("1", "coupon payment status Paid expected after setPaymentAsPaid");

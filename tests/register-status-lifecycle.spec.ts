@@ -3,13 +3,13 @@ import chaiAsPromised from "chai-as-promised";
 chai.use(chaiAsPromised);
 
 import Web3 from "web3";
-import Ganache from "ganache-core";
+import Ganache from "ganache";
 import { Web3FunctionProvider } from "@saturn-chain/web3-functions";
 import { EthProviderInterface } from "@saturn-chain/dlt-tx-data-functions";
 
 import allContracts from "../contracts";
 import { SmartContract, SmartContractInstance } from "@saturn-chain/smart-contract";
-import { makeReadyGas, mintGas, registerGas } from "./gas.constant";
+import { blockGasLimit, makeReadyGas, mintGas, registerGas } from "./gas.constant";
 import { makeBondDate } from "./dates";
 
 const RegisterContractName = "Register";
@@ -31,7 +31,7 @@ describe("Register (Bond Issuance)", function () {
   let bndAddress: string;
 
   async function deployRegisterContract(): Promise<void> {
-    web3 = new Web3(Ganache.provider({ default_balance_ether: 1000, gasLimit:10000000 }) as any);
+    web3 = new Web3(Ganache.provider({ default_balance_ether: 1000, gasLimit: blockGasLimit, chain: {vmErrorsOnRPCResponse:true} }) as any);
     cak = new Web3FunctionProvider(web3.currentProvider, (list) => Promise.resolve(list[0]));
     stranger = new Web3FunctionProvider(web3.currentProvider, (list) => Promise.resolve(list[1]));
     custodian = new Web3FunctionProvider(web3.currentProvider, (list) => Promise.resolve(list[2]));
@@ -43,7 +43,7 @@ describe("Register (Bond Issuance)", function () {
     strangerAddress = await stranger.account();
     bndAddress = await bnd.account();
     const dates = makeBondDate(2)
-    const bondName = "SSA 3Y 1Bn SEK";
+    const bondName = "EIB 3Y 1Bn SEK";
     const isin = "EIB3Y";
     const expectedSupply = 1000;
     const currency = web3.utils.asciiToHex("SEK");
@@ -134,7 +134,7 @@ describe("Register (Bond Issuance)", function () {
       await registerInstance.makeReady(cak.send({ maxGas: makeReadyGas }));
 
       //Act
-      const txValidatePrimary = await primaryInstance.validate(bnd.send({ maxGas: 200000 }));
+      const txValidatePrimary = await primaryInstance.validate(bnd.send({ maxGas: 220000 }));
       // console.log((await web3.eth.getTransactionReceipt(txValidatePrimary)).logs); //uncomment this for debugging
 
 

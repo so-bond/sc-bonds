@@ -27,7 +27,7 @@ export async function bilateralTrade(register: SmartContractInstance, from: EthP
   details.valueDate = date;
   // console.log("Trade created", trade.deployedAt);
 
-  await trade.setDetails(from.send({ maxGas: 100000 }), details);
+  await trade.setDetails(from.send({ maxGas: 110000 }), details);
   // console.log("Trade updated", trade.deployedAt);
 
   if (["pending", "accepted", "executed"].includes(stage) ) {

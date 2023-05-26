@@ -3,14 +3,14 @@ import chaiAsPromised from "chai-as-promised";
 chai.use(chaiAsPromised);
 
 import Web3 from "web3";
-import Ganache from "ganache-core";
+import Ganache from "ganache";
 import { Web3FunctionProvider } from "@saturn-chain/web3-functions";
 import { EthProviderInterface } from "@saturn-chain/dlt-tx-data-functions";
 import { EventData } from "web3-eth-contract";
 
 import allContracts from "../contracts";
 import { EventReceiver, SmartContract, SmartContractInstance } from "@saturn-chain/smart-contract";
-import { mintGas, registerGas } from "./gas.constant";
+import { blockGasLimit, mintGas, registerGas } from "./gas.constant";
 import { makeBondDate, makeDateTime } from "./dates";
 
 const RegisterContractName = "Register";
@@ -30,7 +30,7 @@ describe("Register snapshot testing", function () {
   let custodianA: EthProviderInterface;
 
   async function deployRegisterContract(): Promise<void> {
-    web3 = new Web3(Ganache.provider({ default_balance_ether: 1000 }) as any);
+    web3 = new Web3(Ganache.provider({ default_balance_ether: 1000, gasLimit: blockGasLimit, chain: {vmErrorsOnRPCResponse:true} }) as any);
     cak = new Web3FunctionProvider(web3.currentProvider, (list) => Promise.resolve(list[0]));
     stranger = new Web3FunctionProvider(web3.currentProvider, (list) => Promise.resolve(list[1]));
     cakAddress = await cak.account(0);
@@ -39,7 +39,7 @@ describe("Register snapshot testing", function () {
     strangerAddress3 = await cak.account(3);
     custodianA = new Web3FunctionProvider(web3.currentProvider, (list) => Promise.resolve(list[2]));
     const dates = makeBondDate();
-    const bondName = "SSA 3Y 1Bn SEK";
+    const bondName = "EIB 3Y 1Bn SEK";
     const isin = "EIB3Y";
     const expectedSupply = 1000;
     const currency = web3.utils.asciiToHex("SEK");
@@ -124,7 +124,7 @@ describe("Register snapshot testing", function () {
 
   it("setCurrentCouponDate can only be called by whitelisted smart contract", async () => {
     const cDate = Math.floor(new Date().getTime() / 1000);
-    await expect(instance.setCurrentCouponDate(cak.send(gas(100000)), cDate, 17 * 3600)).to.be.rejectedWith(
+    await expect(instance.setCurrentCouponDate(cak.send(gas(100000)), cDate, (cDate - 24*3600) + 17 * 3600)).to.be.rejectedWith(
       "This contract is not whitelisted"
     );
   });

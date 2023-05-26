@@ -3,12 +3,12 @@ import chaiAsPromised from "chai-as-promised";
 chai.use(chaiAsPromised);
 
 import Web3 from "web3";
-import Ganache from "ganache-core";
+import Ganache from "ganache";
 import { Web3FunctionProvider } from "@saturn-chain/web3-functions";
 import { EthProviderInterface } from "@saturn-chain/dlt-tx-data-functions";
 import allContracts from "../contracts";
 import { SmartContract, SmartContractInstance } from "@saturn-chain/smart-contract";
-import { makeReadyGas, registerGas } from "./gas.constant";
+import { blockGasLimit, makeReadyGas, registerGas } from "./gas.constant";
 import { addPart, blockTimestamp, initWeb3Time, makeBondDate, makeDateTime, mineBlock, today } from "./dates";
 import { closeEvents, collectEvents, getEvents } from "./events";
 import { bilateralTrade } from "./shared";
@@ -52,7 +52,7 @@ describe("Run tests of the Redemption contract", function () {
 
 
   async function init(): Promise<void> {
-    web3 = new Web3(Ganache.provider({ default_balance_ether: 10000 }) as any);
+    web3 = new Web3(Ganache.provider({ default_balance_ether: 1000, gasLimit: blockGasLimit, chain: {vmErrorsOnRPCResponse:true}, logging: {quiet:true} }) as any);
     initWeb3Time(web3)
     cak = new Web3FunctionProvider(web3.currentProvider, (list) => Promise.resolve(list[0]));
     bnd = new Web3FunctionProvider(web3.currentProvider, (list) => Promise.resolve(list[1]));
@@ -73,7 +73,7 @@ describe("Run tests of the Redemption contract", function () {
     //console.log("coupon 1 : " + firstCouponDate);
 
 
-    const bondName = "SSA 3Y 1Bn SEK";
+    const bondName = "EIB 3Y 1Bn SEK";
     const isin = "EIB3Y";
     const currency = web3.utils.asciiToHex("SEK");
     const unitVal = 100000;
@@ -114,10 +114,10 @@ describe("Run tests of the Redemption contract", function () {
 
     // await register.enableInvestorToWhitelist(custodianA.send({maxGas:120000}), await cak.account()); // needed to deploy a test trade contract
     // await register.enableInvestorToWhitelist(custodianA.send({maxGas:120000}), await bnd.account()); // B&D must be an investor as well
-    await register.enableInvestorToWhitelist(custodianA.send({maxGas:120000}), await investorA.account());
-    await register.enableInvestorToWhitelist(custodianA.send({maxGas:120000}), await investorB.account());
-    await register.enableInvestorToWhitelist(custodianA.send({maxGas:120000}), await investorC.account());
-    await register.enableInvestorToWhitelist(custodianA.send({maxGas:120000}), await investorD.account());
+    await register.enableInvestorToWhitelist(custodianA.send({maxGas:130000}), await investorA.account());
+    await register.enableInvestorToWhitelist(custodianA.send({maxGas:130000}), await investorB.account());
+    await register.enableInvestorToWhitelist(custodianA.send({maxGas:130000}), await investorC.account());
+    await register.enableInvestorToWhitelist(custodianA.send({maxGas:130000}), await investorD.account());
 
 
     // await register.setExpectedSupply(cak.send({maxGas:100000}),1000);
@@ -173,7 +173,7 @@ describe("Run tests of the Redemption contract", function () {
       const isPay = await register.isPay(payer.call(), await payer.account());
       expect(isPay).to.be.true;
 
-      const p = allContracts.get(RedemptionTradeContractName).deploy(payer.newi({ maxGas: 2000000 }), register.deployedAt, firstCouponDate, 360 ,1500);
+      const p = allContracts.get(RedemptionTradeContractName).deploy(payer.newi({ maxGas: 2000000 }), register.deployedAt, firstCouponDate, 360 , addPart(firstCouponDate, "D", -1), 1500);
       await expect(p).to.be.rejectedWith("this maturity Date does not exists");
    
       });
@@ -185,7 +185,7 @@ describe("Run tests of the Redemption contract", function () {
     
       const redemption = await allContracts
         .get(RedemptionTradeContractName)
-        .deploy(payer.newi({ maxGas: 2000000 }), register.deployedAt, maturityDate, 360 ,1500);
+        .deploy(payer.newi({ maxGas: 2000000 }), register.deployedAt, maturityDate, 360 , addPart(maturityDate, "D", -1), 1500);
 
         let bal = await register.balanceOfCoupon(payer.call(), await investorA.account(), maturityDate);
 
@@ -203,7 +203,7 @@ describe("Run tests of the Redemption contract", function () {
       it("should try to toggle Redemption Payment but revert as the investor is not allowed", async () => {
         const redemption = await allContracts
         .get(RedemptionTradeContractName)
-        .deploy(payer.newi({ maxGas: 2000000 }), register.deployedAt, maturityDate, 360 ,1500);
+        .deploy(payer.newi({ maxGas: 2000000 }), register.deployedAt, maturityDate, 360 ,addPart(maturityDate, "D", -1), 1500);
 
         //whitelist redemption contract into register
         let hash1 = await register.atReturningHash(cak.call(), redemption.deployedAt);
@@ -220,7 +220,7 @@ describe("Run tests of the Redemption contract", function () {
       it("should try to toggle Redemption Payment but revert as the maturity cut off time has not passed", async () => {
         const redemption = await allContracts
         .get(RedemptionTradeContractName)
-        .deploy(payer.newi({ maxGas: 2000000 }), register.deployedAt, maturityDate, 360 ,1500);
+        .deploy(payer.newi({ maxGas: 2000000 }), register.deployedAt, maturityDate, 360 ,addPart(maturityDate, "D", -1), 1500);
 
         await collectEvents(payer, redemption)
         //whitelist redemption contract into register
@@ -230,7 +230,7 @@ describe("Run tests of the Redemption contract", function () {
         await redemption.setDateAsCurrentCoupon(payer.send({ maxGas: 300000 }));
 
         getEvents(redemption).print()
-        const p=redemption.toggleRedemptionPayment(payer.send({ maxGas: 300000 }), await investorA.account());
+        const p=redemption.toggleRedemptionPayment(cak.send({ maxGas: 300000 }), await investorA.account());
         await expect(p).to.be.rejectedWith("the maturity cut of time has not passed");
 
 
@@ -251,7 +251,7 @@ describe("Run tests of the Redemption contract", function () {
           let cutOffTimeInSec = 16 * 3600;
     
           //Given a first coupon is deployed
-          const coupon = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, nbDaysInPeriod, cutOffTimeInSec);
+          const coupon = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, nbDaysInPeriod, addPart(couponDate, "D", -1), cutOffTimeInSec);
           
           let hash = await register.atReturningHash(cak.call(), coupon.deployedAt);
           await register.enableContractToWhitelist(cak.send({maxGas:100000}), hash);
@@ -267,7 +267,7 @@ describe("Run tests of the Redemption contract", function () {
 
           const redemption = await allContracts
           .get(RedemptionTradeContractName)
-          .deploy(payer.newi({ maxGas: 2000000 }), register.deployedAt, maturityDate, nbDaysInPeriod ,cutOffTimeInSec);
+          .deploy(payer.newi({ maxGas: 2000000 }), register.deployedAt, maturityDate, nbDaysInPeriod ,addPart(maturityDate, "D", -1), cutOffTimeInSec);
 
           let redemptionPaymentStatus = await redemption.getInvestorRedemptionPayments(payer.call(), await investorA.account());
         
@@ -282,11 +282,11 @@ describe("Run tests of the Redemption contract", function () {
           await redemption.setDateAsCurrentCoupon(payer.send({ maxGas: 300000 }));
           await register.transferFrom(cak.send({maxGas:400000}), await bnd.account(), await investorC.account(), 100)
 
-          await mineBlock(maturityDate + cutOffTimeInSec + 1000);
+          await mineBlock(addPart(maturityDate, "D", -1) + cutOffTimeInSec + 1000);
 
           
-          await redemption.toggleRedemptionPayment(payer.send({maxGas:500000}), await investorA.account())
-          await redemption.toggleRedemptionPayment(payer.send({maxGas:500000}), await investorB.account())
+          await redemption.toggleRedemptionPayment(cak.send({maxGas:500000}), await investorA.account())
+          await redemption.toggleRedemptionPayment(cak.send({maxGas:500000}), await investorB.account())
           
           const p = register.transferFrom(cak.send({maxGas:400000}), await bnd.account(), await investorD.account(), 666);
           await expect(p).to.be.rejectedWith(/the maturity is reached/)
@@ -296,7 +296,7 @@ describe("Run tests of the Redemption contract", function () {
           // try placing a new maturity contract
           const redemption2 = await allContracts
           .get(RedemptionTradeContractName)
-          .deploy(payer.newi({ maxGas: 2000000 }), register.deployedAt, maturityDate, nbDaysInPeriod ,cutOffTimeInSec);
+          .deploy(payer.newi({ maxGas: 2000000 }), register.deployedAt, maturityDate, nbDaysInPeriod ,addPart(maturityDate, "D", -1), cutOffTimeInSec);
 
           await expect(redemption2.setDateAsCurrentCoupon(payer.send({ maxGas: 300000 }))).to.be.rejectedWith("Date of coupon or maturity already taken");
       });
@@ -305,6 +305,7 @@ describe("Run tests of the Redemption contract", function () {
       it("should try to close the register and burn the total balance", async () => {
     
           let couponDate = firstCouponDate;
+          let recordDate = addPart(couponDate, "D", -1);
           //console.log("coupon 1 : " + couponDate);
     
           let nbDaysInPeriod = 180;
@@ -317,18 +318,88 @@ describe("Run tests of the Redemption contract", function () {
 
           //Given a first coupon is deployed
           const coupon = await allContracts.get(CouponTradeContractName)
-            .deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, nbDaysInPeriod, cutOffTimeInSec);
+            .deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, nbDaysInPeriod, recordDate, cutOffTimeInSec);
           
           let hash = await register.atReturningHash(cak.call(), coupon.deployedAt);
           await register.enableContractToWhitelist(cak.send({maxGas:100000}), hash);
     
           await coupon.setDateAsCurrentCoupon(payer.send({maxGas: 300000}));  //implicit coupon validation
 
-          await mineBlock(couponDate + cutOffTimeInSec + 1000); // pass the cut of time
+          await mineBlock(recordDate + cutOffTimeInSec + 1000); // pass the cut of time
   
+          recordDate = addPart(maturityDate, "D", -1);
           const redemption = await allContracts
             .get(RedemptionTradeContractName)
-            .deploy(payer.newi({ maxGas: 2000000 }), register.deployedAt, maturityDate, nbDaysInPeriod ,cutOffTimeInSec);
+            .deploy(payer.newi({ maxGas: 2000000 }), register.deployedAt, maturityDate, nbDaysInPeriod , recordDate, cutOffTimeInSec);
+
+          //whitelist redemption contract into register
+          let hash1 = await register.atReturningHash(cak.call(), redemption.deployedAt);
+          await register.enableContractToWhitelist(cak.send({maxGas:120000}), hash1);
+
+
+          await redemption.setDateAsCurrentCoupon(payer.send({ maxGas: 300000 }));
+
+          // make a transfer between investors
+          await bilateralTrade(register, investorD, investorB, 20, today());
+
+          await mineBlock(recordDate + cutOffTimeInSec + 1000);
+
+          const investorsAtMaturity: string[] = await register.getInvestorListAtCoupon(payer.call(), maturityDate);
+          // console.log("List of investors at coupon",couponDate, investorsAtCoupon);
+          expect(investorsAtMaturity).not.include(await bnd.account())
+          const balancesAtMaturity = (await Promise.all(
+            investorsAtMaturity.map(inv=> register.balanceOfCoupon(payer.call(), inv, maturityDate))
+          )).map( (bal, i)=>({address:investorsAtMaturity[i], bal: Number.parseInt(bal)}))
+          console.log("Balances at coupon", balancesAtMaturity);
+          const totalBalance = balancesAtMaturity.reduce( (prev, current)=>prev+current.bal, 0)
+          expect(totalBalance).eq(expectedSupply);
+          
+          await redemption.toggleRedemptionPayment(cak.send({maxGas:500000}), await investorA.account())
+          await redemption.toggleRedemptionPayment(cak.send({maxGas:500000}), await investorB.account())
+          await redemption.toggleRedemptionPayment(cak.send({maxGas:500000}), await investorD.account())
+          
+          const totalSupply = await register.totalSupply(cak.call());
+          const primaryIssuanceBalance = await register.balanceOf(cak.call(), register.deployedAt);
+
+          expect(primaryIssuanceBalance).to.equal(totalSupply);
+          
+          await register.burn(cak.send({maxGas: 400000}), totalSupply);
+
+          await expect(register.mint(cak.send({maxGas: 400000}), 1000)).to.be.rejectedWith(/the Register is closed/i)
+
+          getEvents(register).print()
+
+      });
+
+      it("should not manage to perform a trade after the redemption cut off time", async () => {
+    
+          let couponDate = firstCouponDate;
+          let recordDate = addPart(couponDate, "D", -1);
+          //console.log("coupon 1 : " + couponDate);
+    
+          let nbDaysInPeriod = 180;
+          let cutOffTimeInSec = 16 * 3600;
+    
+          // Nedd all balances to be in an investor, not in the BnD
+          const bndBalance = await register.balanceOf(cak.call(), await bnd.account());
+          // await register.transferFrom(cak.send({maxGas: 500000}), await bnd.account(), await investorD.account(), bndBalance);
+          await bilateralTrade(register, bnd, investorD, bndBalance, today());
+
+          //Given a first coupon is deployed
+          const coupon = await allContracts.get(CouponTradeContractName)
+            .deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, nbDaysInPeriod, recordDate, cutOffTimeInSec);
+          
+          let hash = await register.atReturningHash(cak.call(), coupon.deployedAt);
+          await register.enableContractToWhitelist(cak.send({maxGas:100000}), hash);
+    
+          await coupon.setDateAsCurrentCoupon(payer.send({maxGas: 300000}));  //implicit coupon validation
+
+          await mineBlock(recordDate + cutOffTimeInSec + 1000); // pass the cut of time
+  
+          recordDate = addPart(maturityDate, "D", -1);
+          const redemption = await allContracts
+            .get(RedemptionTradeContractName)
+            .deploy(payer.newi({ maxGas: 2000000 }), register.deployedAt, maturityDate, nbDaysInPeriod , recordDate, cutOffTimeInSec);
 
           //whitelist redemption contract into register
           let hash1 = await register.atReturningHash(cak.call(), redemption.deployedAt);
@@ -342,31 +413,12 @@ describe("Run tests of the Redemption contract", function () {
 
           await mineBlock(maturityDate + cutOffTimeInSec + 1000);
 
-          const investorsAtMaturity: string[] = await register.getInvestorListAtCoupon(payer.call(), maturityDate);
-          // console.log("List of investors at coupon",couponDate, investorsAtCoupon);
-          expect(investorsAtMaturity).not.include(await bnd.account())
-          const balancesAtMaturity = (await Promise.all(
-            investorsAtMaturity.map(inv=> register.balanceOfCoupon(payer.call(), inv, maturityDate))
-          )).map( (bal, i)=>({address:investorsAtMaturity[i], bal: Number.parseInt(bal)}))
-          console.log("Balances at coupon", balancesAtMaturity);
-          const totalBalance = balancesAtMaturity.reduce( (prev, current)=>prev+current.bal, 0)
-          expect(totalBalance).eq(expectedSupply);
-          
-          await redemption.toggleRedemptionPayment(payer.send({maxGas:500000}), await investorA.account())
-          await redemption.toggleRedemptionPayment(payer.send({maxGas:500000}), await investorB.account())
-          await redemption.toggleRedemptionPayment(payer.send({maxGas:500000}), await investorD.account())
-          
-          const totalSupply = await register.totalSupply(cak.call());
-          const primaryIssuanceBalance = await register.balanceOf(cak.call(), register.deployedAt);
+          // try making a trade after the redemption cut off time
+          const p = bilateralTrade(register, investorD, investorB, 5, today());
+          await expect(p).to.be.rejectedWith(/the maturity cut-off time has passed/)
 
-          expect(primaryIssuanceBalance).to.equal(totalSupply);
-          
-          await register.burn(cak.send({maxGas: 400000}), totalSupply);
-
-          await expect(register.mint(cak.send({maxGas: 400000}), 1000)).to.be.rejectedWith(/the Register is closed/i)
-
+          // display register events
           getEvents(register).print()
-
       });
 
 

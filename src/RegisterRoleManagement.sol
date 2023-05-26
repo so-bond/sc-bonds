@@ -50,6 +50,10 @@ contract RegisterRoleManagement is AccessControl, IRegisterRoleManagement {
         return hasRole(CST_ROLE, account);
     }
 
+    function isCAK(address account) public view returns (bool) {
+        return hasRole(CAK_ROLE, account);
+    }
+
     /**
      * @dev The aim of this function is to enable the change of the DEFAULT_ADMIN_ROLE, when 2 CAK request it
      * When a CAK has already voted for an address, another CAK can erase the choice by voting for another address

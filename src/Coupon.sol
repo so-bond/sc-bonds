@@ -36,7 +36,7 @@ contract Coupon is ReentrancyGuard {
 
     uint256 public couponDate;
     uint256 public nbDays;
-    // TODO: Rename to CutOffTime
+    uint256 public recordDate;
     uint256 public cutOfTime;
     address public payingAgent;
     uint256 internal actualTimestamp; // initialized at time of recording in the register  
@@ -60,6 +60,7 @@ contract Coupon is ReentrancyGuard {
         address _registerContract,
         uint256 _couponDate,
         uint256 _nbDays,
+        uint256 _recordDate,
         uint256 _cutOfTime
     ) {
         register = IRegister(_registerContract);
@@ -75,7 +76,8 @@ contract Coupon is ReentrancyGuard {
         );
         couponDate = _couponDate;
         nbDays = _nbDays;
-        cutOfTime = _cutOfTime;
+        recordDate = _recordDate - _recordDate % (3600 * 24); // remove the time if any
+        cutOfTime = _cutOfTime % (3600 * 24); // remove the date part if any
         payingAgent = msg.sender;
         status = CouponStatus.Draft;
         emit CouponChanged(register, couponDate, status);
@@ -129,7 +131,7 @@ contract Coupon is ReentrancyGuard {
             "this couponDate does not exists"
         );
 
-        register.setCurrentCouponDate(couponDate, cutOfTime);
+        register.setCurrentCouponDate(couponDate, recordDate + cutOfTime);
         // get the timestamp when the coupon period is passed
         actualTimestamp = register2.currentSnapshotDatetime();
         status = CouponStatus.Ready;
@@ -144,15 +146,13 @@ contract Coupon is ReentrancyGuard {
         nbDays = _nbDays;
     }
 
-    // TODO: rename to setCutOffTime
-    function setCutOfTime(uint256 _cutOfTime) public onlyPAY_ROLE {
-        //FIXME: make sure cutofftime is < 86400 (24 h)
+    function setCutOffTime(uint256 _recordDate, uint256 _cutOfTime) public onlyPAY_ROLE {
         require(
             status == CouponStatus.Draft,
             "The coupon date can be modified only if the contract status is Draft"
         );
-        cutOfTime = _cutOfTime;
-        //FIXME: modify register cutofftime as well
+        recordDate = _recordDate - _recordDate % (24*3600);
+        cutOfTime = _cutOfTime % (24*3600);
     }
 
     function rejectCoupon() public onlyPAY_ROLE {
@@ -212,9 +212,9 @@ contract Coupon is ReentrancyGuard {
         require(status ==CouponStatus.Ready, "The status of the coupon should be Ready");
         PaymentStatus initialStatus = investorPayments[_investor];
 
-        if (register.isPay(msg.sender)) {
+        if (register.isCAK(msg.sender)) {
 
-            //payingAgent can make tobepaid to paid for all investors
+            //CAK can make tobepaid to paid for all investors
             if (investorPayments[_investor] == PaymentStatus.ToBePaid) {
                 require(
                     block.timestamp > actualTimestamp,
@@ -222,7 +222,7 @@ contract Coupon is ReentrancyGuard {
                 );
                 investorPayments[_investor] = PaymentStatus.Paid;
             } else 
-            //payingAgent peut faire passer de paid à tobepaid pour tous les investors
+            //CAK peut faire passer de paid à tobepaid pour tous les investors
             if ((investorPayments[_investor] == PaymentStatus.Paid)) {
                 investorPayments[_investor] = PaymentStatus.ToBePaid;
             } else
@@ -246,7 +246,7 @@ contract Coupon is ReentrancyGuard {
             }
         }
         else
-        require(false, "sender must be Paying Agent or Custodian");
+        require(false, "sender must be Central Account Keeper or Custodian");
 
         emit CouponPaymentStatusChanged(register, couponDate, _investor, investorPayments[_investor], initialStatus);
     }

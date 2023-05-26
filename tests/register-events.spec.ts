@@ -3,13 +3,13 @@ import chaiAsPromised from "chai-as-promised";
 chai.use(chaiAsPromised);
 
 import Web3 from "web3";
-import Ganache from "ganache-core";
+import Ganache from "ganache";
 import { Web3FunctionProvider } from "@saturn-chain/web3-functions";
 import { EthProviderInterface } from "@saturn-chain/dlt-tx-data-functions";
 import { EventData } from "web3-eth-contract";
 import allContracts from "../contracts";
 import { EventReceiver, SmartContract, SmartContractInstance } from "@saturn-chain/smart-contract";
-import { makeReadyGas, mintGas, registerGas } from "./gas.constant";
+import { blockGasLimit, makeReadyGas, mintGas, registerGas } from "./gas.constant";
 import { makeBondDate } from "./dates";
 
 const RegisterContractName = "Register";
@@ -27,7 +27,7 @@ describe("Register (Bond Issuance) contract events", function () {
   let custodianA: EthProviderInterface;
 
   async function deployRegisterContract(): Promise<void> {
-    web3 = new Web3(Ganache.provider({ default_balance_ether: 1000 }) as any);
+    web3 = new Web3(Ganache.provider({ default_balance_ether: 1000, gasLimit: blockGasLimit, chain: {vmErrorsOnRPCResponse:true} }) as any);
     cak = new Web3FunctionProvider(web3.currentProvider, (list) => Promise.resolve(list[0]));
     stranger = new Web3FunctionProvider(web3.currentProvider, (list) => Promise.resolve(list[1]));
     cakAddress = await cak.account(0);
@@ -35,7 +35,7 @@ describe("Register (Bond Issuance) contract events", function () {
     custodianA = new Web3FunctionProvider(web3.currentProvider, (list) => Promise.resolve(list[2]));
 
     const dates = makeBondDate(2)
-    const bondName = "SSA 3Y 1Bn SEK";
+    const bondName = "EIB 3Y 1Bn SEK";
     const isin = "EIB3Y";
     const expectedSupply = 1000;
     const currency = web3.utils.asciiToHex("SEK");
@@ -95,7 +95,7 @@ describe("Register (Bond Issuance) contract events", function () {
     expect(log.returnValues.creator).to.equal(cakAddress);
     // expect(log.returnValues.name).to.equal(web3.utils.sha3("James"), "indexed event arg hashed using keccak256(.) ");
 
-    expect(log.returnValues.name).to.equal("SSA 3Y 1Bn SEK", "non indexed event arg are in clear text for frontend parsing");
+    expect(log.returnValues.name).to.equal("EIB 3Y 1Bn SEK", "non indexed event arg are in clear text for frontend parsing");
     expect(log.returnValues.isin).to.equal("EIB3Y", "non indexed event arg are in clear text for frontend parsing");
   });
 
@@ -108,7 +108,7 @@ describe("Register (Bond Issuance) contract events", function () {
     expect(log.returnValues.emiter).to.equal(cakAddress);
     // expect(log.returnValues.name).to.equal(web3.utils.sha3("James"), "indexed event arg hashed using keccak256(.) ");
 
-    expect(log.returnValues.name).to.equal("SSA 3Y 1Bn SEK", "non indexed event arg are in clear text for frontend parsing");
+    expect(log.returnValues.name).to.equal("EIB 3Y 1Bn SEK", "non indexed event arg are in clear text for frontend parsing");
     expect(log.returnValues.isin).to.equal("EIB3Y", "non indexed event arg are in clear text for frontend parsing");
     expect(log.returnValues.status).to.equal("0", "Bond status should be Draft after deploy");
   });
@@ -131,7 +131,7 @@ describe("Register (Bond Issuance) contract events", function () {
     expect(nextLog).not.to.be.null;
     expect(nextLog.returnValues).not.to.be.null;
     expect(nextLog.returnValues.emiter).to.equal(cakAddress);
-    expect(nextLog.returnValues.name).to.equal("SSA 3Y 1Bn SEK", "non indexed event arg are in clear text for frontend parsing");
+    expect(nextLog.returnValues.name).to.equal("EIB 3Y 1Bn SEK", "non indexed event arg are in clear text for frontend parsing");
     expect(nextLog.returnValues.isin).to.equal("EIB3Y", "non indexed event arg are in clear text for frontend parsing");
     expect(nextLog.returnValues.status).to.equal("1", "Bond status should be Ready after makeReady()");
   });

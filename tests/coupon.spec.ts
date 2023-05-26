@@ -3,12 +3,12 @@ import chaiAsPromised from "chai-as-promised";
 chai.use(chaiAsPromised);
 
 import Web3 from "web3";
-import Ganache from "ganache-core";
+import Ganache from "ganache";
 import { Web3FunctionProvider } from "@saturn-chain/web3-functions";
 import { EthProviderInterface } from "@saturn-chain/dlt-tx-data-functions";
 import allContracts from "../contracts";
 import { SmartContract, SmartContractInstance } from "@saturn-chain/smart-contract";
-import { makeReadyGas, registerGas } from "./gas.constant";
+import { blockGasLimit, makeReadyGas, registerGas } from "./gas.constant";
 import { addPart, blockTimestamp, initWeb3Time, makeBondDate, makeDateTime, mineBlock } from "./dates";
 import { closeEvents, collectEvents, getEvents } from "./events";
 
@@ -40,7 +40,7 @@ describe("Run tests of the Coupon process", function () {
 
 
   async function init(): Promise<void> {
-    web3 = new Web3(Ganache.provider({ default_balance_ether: 10000 }) as any);
+    web3 = new Web3(Ganache.provider({ default_balance_ether: 1000, gasLimit: blockGasLimit, chain: {vmErrorsOnRPCResponse:true} }) as any);
     initWeb3Time(web3);
     let gas: number;
     cak = new Web3FunctionProvider(web3.currentProvider, (list) => Promise.resolve(list[0]));
@@ -59,7 +59,7 @@ describe("Run tests of the Coupon process", function () {
     firstCouponDate = dates.couponDates[0];
 
 
-    const bondName = "SSA 3Y 1Bn SEK";
+    const bondName = "EIB 3Y 1Bn SEK";
     const isin = "EIB3Y";
     const currency = web3.utils.asciiToHex("SEK");
     const unitVal = 100000;
@@ -101,11 +101,11 @@ describe("Run tests of the Coupon process", function () {
 
     // await register.enableInvestorToWhitelist(custodianA.send({maxGas:120000}), await cak.account()); // needed to deploy a test trade contract
     // await register.enableInvestorToWhitelist(custodianA.send({maxGas:120000}), await bnd.account()); // B&D must be an investor as well
-    await register.enableInvestorToWhitelist(custodianA.send({maxGas:120000}), await investorA.account());
-    await register.enableInvestorToWhitelist(custodianA.send({maxGas:120000}), await investorB.account());
+    await register.enableInvestorToWhitelist(custodianA.send({maxGas:130000}), await investorA.account());
+    await register.enableInvestorToWhitelist(custodianA.send({maxGas:130000}), await investorB.account());
 
-    await register.enableInvestorToWhitelist(custodianB.send({maxGas:120000}), await investorC.account());
-    await register.enableInvestorToWhitelist(custodianB.send({maxGas:120000}), await investorD.account());
+    await register.enableInvestorToWhitelist(custodianB.send({maxGas:130000}), await investorC.account());
+    await register.enableInvestorToWhitelist(custodianB.send({maxGas:130000}), await investorD.account());
 
 
     await register.setExpectedSupply(cak.send({maxGas:100000}),expectedSupply);
@@ -142,7 +142,7 @@ describe("Run tests of the Coupon process", function () {
 
     await trade.approve(investorA.send({maxGas:100000}));
 
-    await trade.executeTransfer(bnd.send({maxGas:100000}));
+    await trade.executeTransfer(bnd.send({maxGas:110000}));
   }
 
 
@@ -175,7 +175,7 @@ describe("Run tests of the Coupon process", function () {
       const isPay = await register.isPay(payer.call(), await payer.account());
       expect(isPay).to.be.true;
 
-      await expect(allContracts.get(CouponTradeContractName).deploy(cak.newi({maxGas:maxGasAmount}), register.deployedAt, firstCouponDate, 1500, 300000)).to.be.rejectedWith("Sender must be a Paying calculation agent");
+      await expect(allContracts.get(CouponTradeContractName).deploy(cak.newi({maxGas:maxGasAmount}), register.deployedAt, firstCouponDate, 1500, firstCouponDate, 300000)).to.be.rejectedWith("Sender must be a Paying calculation agent");
 
       //function setDateAsCurrentCoupon()
     });
@@ -184,18 +184,19 @@ describe("Run tests of the Coupon process", function () {
       const isPay = await register.isPay(payer.call(), await payer.account());
       expect(isPay).to.be.true;
 
-      const p = allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:1000000}), register.deployedAt, addPart(firstCouponDate, "D", 1) , 1500, 300000)
+      const p = allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:1000000}), register.deployedAt, addPart(firstCouponDate, "D", 1) , 1500, firstCouponDate, 300000)
       await expect(p).to.be.rejectedWith("this couponDate does not exists");
 
       //function setDateAsCurrentCoupon()
     });
 
 
+
     it('should deploy the coupon smart contract and check if Coupon Date exists', async () => {
       const isPay = await register.isPay(payer.call(), await payer.account());
       expect(isPay).to.be.true;
        
-      const coupon = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, firstCouponDate, 1500, 8);
+      const coupon = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, firstCouponDate, 1500, addPart(firstCouponDate, "D", -1), 8);
 
       //function setDateAsCurrentCoupon()
     });
@@ -206,7 +207,7 @@ describe("Run tests of the Coupon process", function () {
     
       const coupon = await allContracts
         .get(CouponTradeContractName)
-        .deploy(payer.newi({ maxGas: 2000000 }), register.deployedAt, firstCouponDate, 1500, 8);
+        .deploy(payer.newi({ maxGas: 2000000 }), register.deployedAt, firstCouponDate, 1500, addPart(firstCouponDate, "D", -1), 8);
       const investorAddress1 = await investorA.account();
       const concatenated = web3.utils.encodePacked(coupon.deployedAt, investorAddress1); //abi.encodePacked
       const expectedPaymentId = web3.utils.keccak256(concatenated ?? "").substring(0, 18);
@@ -221,23 +222,44 @@ describe("Run tests of the Coupon process", function () {
       const isPay = await register.isPay(payer.call(), await payer.account());
       expect(isPay).to.be.true;
        
-      const coupon = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, firstCouponDate, 1500, 8);
+      const coupon = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, firstCouponDate, 1500, addPart(firstCouponDate, "D", -1), 8);
       
       expect(await coupon.status(payer.call())).to.equal('0');
       //function setDateAsCurrentCoupon()
     });
 
 
+    it("should fail when the paying calculation agent activate a coupon with a too old record date", async () => {
+      const isPay = await register.isPay(payer.call(), await payer.account());
+      expect(isPay).to.be.true;
+    
+      const couponDate = firstCouponDate; // 17 dec 2022 00:00:00
+      const recordDate = addPart(firstCouponDate, "D", -11);
+      const cutofftime = 55000; //15:16:40
+      const coupon = await allContracts
+        .get(CouponTradeContractName)
+        .deploy(payer.newi({ maxGas: 2000000 }), register.deployedAt, couponDate, 1500, recordDate, cutofftime);
+    
+      let hash = await register.atReturningHash(cak.call(), coupon.deployedAt);
+      await register.enableContractToWhitelist(cak.send({ maxGas: 100000 }), hash);
+    
+      const p = coupon.setDateAsCurrentCoupon(payer.send({ maxGas: 300000 }));
+    
+      await expect(p).to.be.rejectedWith(/Inconsistent record date more than 10 days before settlement date/)
+    });
+    
+
     it("should enable the paying calculation agent to activate the coupon", async () => {
       const isPay = await register.isPay(payer.call(), await payer.account());
       expect(isPay).to.be.true;
     
       const couponDate = firstCouponDate; // 17 dec 2022 00:00:00
+      const recordDate = addPart(firstCouponDate, "D", -1);
       const cutofftime = 55000; //15:16:40
-      const expectedCurrentTS = couponDate + cutofftime;
+      const expectedCurrentTS = recordDate + cutofftime;
       const coupon = await allContracts
         .get(CouponTradeContractName)
-        .deploy(payer.newi({ maxGas: 2000000 }), register.deployedAt, couponDate, 1500, cutofftime);
+        .deploy(payer.newi({ maxGas: 2000000 }), register.deployedAt, couponDate, 1500, recordDate, cutofftime);
     
       let hash = await register.atReturningHash(cak.call(), coupon.deployedAt);
       await register.enableContractToWhitelist(cak.send({ maxGas: 100000 }), hash);
@@ -257,7 +279,7 @@ describe("Run tests of the Coupon process", function () {
 
       const couponDate = firstCouponDate;
        
-      const coupon = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, 1500, 55000);
+      const coupon = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, 1500, addPart(firstCouponDate, "D", -1), 55000);
       
       let hash = await register.atReturningHash(cak.call(), coupon.deployedAt);
       await register.enableContractToWhitelist(cak.send({maxGas:100000}), hash);
@@ -281,7 +303,7 @@ describe("Run tests of the Coupon process", function () {
 
       const couponDate = firstCouponDate;
        
-      const coupon = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, 100, 8);
+      const coupon = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, 100, addPart(firstCouponDate, "D", -1), 8);
       
       let hash = await register.atReturningHash(cak.call(), coupon.deployedAt);
       await register.enableContractToWhitelist(cak.send({maxGas:100000}), hash);
@@ -306,7 +328,7 @@ describe("Run tests of the Coupon process", function () {
 
       const couponDate = firstCouponDate;
        
-      const coupon = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, 100, 8);
+      const coupon = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, 100, addPart(firstCouponDate, "D", -1), 8);
       
       let hash = await register.atReturningHash(cak.call(), coupon.deployedAt);
       await register.enableContractToWhitelist(cak.send({maxGas:100000}), hash);
@@ -361,7 +383,7 @@ describe("Run tests of the Coupon process", function () {
       let cutOffTimeInSec = 16 * 3600;
       const couponDate = firstCouponDate;
        
-      const coupon2 = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, nbDaysInPeriod, cutOffTimeInSec);
+      const coupon2 = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, nbDaysInPeriod, addPart(couponDate, "D", -1), cutOffTimeInSec);
       
       //whitelist of the coupon smart contract into the register
       let hash = await register.atReturningHash(cak.call(), coupon2.deployedAt);
@@ -413,7 +435,7 @@ describe("Run tests of the Coupon process", function () {
 
 
       //test of the coupon
-      const coupon3 = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, nbDaysInPeriod, cutOffTimeInSec);
+      const coupon3 = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, nbDaysInPeriod, addPart(couponDate, "D", -1), cutOffTimeInSec);
       
       hash3 = await register.atReturningHash(cak.call(), coupon3.deployedAt);
       await register.enableContractToWhitelist(cak.send({maxGas:200000}), hash3);
@@ -462,7 +484,7 @@ describe("Run tests of the Coupon process", function () {
       await trade4.executeTransfer(bnd.send({maxGas:200000}));
 
       //test of the coupon
-      const coupon4 = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, nbDaysInPeriod, cutOffTimeInSec);
+      const coupon4 = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, nbDaysInPeriod, addPart(couponDate, "D", -1), cutOffTimeInSec);
       
       hash4 = await register.atReturningHash(cak.call(), coupon4.deployedAt);
       await register.enableContractToWhitelist(cak.send({maxGas:200000}), hash4);
@@ -514,14 +536,12 @@ describe("Run tests of the Coupon process", function () {
 
       
       //Given a first coupon is deployed
-      const coupon = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, nbDaysInPeriod, cutOffTimeInSec);
+      const coupon = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, nbDaysInPeriod, addPart(couponDate, "D", -1), cutOffTimeInSec);
       
       
       let hash = await register.atReturningHash(cak.call(), coupon.deployedAt);
       await register.enableContractToWhitelist(cak.send({maxGas:100000}), hash);
 
-      await mineBlock(timestamp + 1);
-      
       // await coupon.validateCoupon(payer.send({maxGas: 300000}));
       await coupon.setDateAsCurrentCoupon(payer.send({maxGas: 300000})); //implicit coupon validation
       expect(await coupon.status(payer.call())).to.equal('1');
@@ -530,9 +550,9 @@ describe("Run tests of the Coupon process", function () {
       await mineBlock(couponDate + cutOffTimeInSec + 1);
       // the transfert will create a snapshot
       await register.transferFrom(cak.send({maxGas:400000}), await bnd.account(), await investorB.account(), 100);
-
+      
       // but should fail creating a coupon on the same date when the snapshot has already been taken
-      const coupon2 = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, nbDaysInPeriod, cutOffTimeInSec+100);
+      const coupon2 = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, nbDaysInPeriod, addPart(couponDate, "D", -1), cutOffTimeInSec+100);
       await expect(coupon2.setDateAsCurrentCoupon(payer.send({maxGas: 300000}))).to.be.rejectedWith(/Date of coupon or maturity already taken/); 
       
       await collectEvents(cak, register);
@@ -546,11 +566,12 @@ describe("Run tests of the Coupon process", function () {
       expect(isPay).to.be.true;
 
       let couponDate = firstCouponDate;
+      let recordDate = addPart(couponDate, "D", -1);
 
       let nbDaysInPeriod = 100;
       let cutOffTimeInSec = 17 * 3600;
       //Given a first coupon is deployed
-      const coupon = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, nbDaysInPeriod, cutOffTimeInSec);
+      const coupon = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, nbDaysInPeriod, recordDate, cutOffTimeInSec);
 
 
       let hash = await register.atReturningHash(cak.call(), coupon.deployedAt);
@@ -625,7 +646,7 @@ describe("Run tests of the Coupon process", function () {
       //Time machine advance 100 blocks
 
       //await passBlocks(100);
-      await mineBlock(firstCouponDate + cutOffTimeInSec + 5) // Move beyond the coupon date + cutOff Time
+      await mineBlock(addPart(firstCouponDate, "D", -1) + cutOffTimeInSec + 5) // Move beyond the coupon date + cutOff Time
 
 
       console.log("block number after  : " + await web3.eth.getBlockNumber(), await blockTimestamp());
@@ -634,7 +655,8 @@ describe("Run tests of the Coupon process", function () {
 
       //Given a second coupon is deployed
       couponDate = firstCouponDate + 2 * 24 * 3600;
-      const coupon2 = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, nbDaysInPeriod, cutOffTimeInSec);
+      recordDate = addPart(couponDate, "D", -1);
+      const coupon2 = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, nbDaysInPeriod, recordDate, cutOffTimeInSec);
       
       let balAbefore = await register.balanceOf(cak.call(), await investorA.account());
       let balBbefore = await register.balanceOf(cak.call(), await investorB.account());
@@ -719,7 +741,7 @@ describe("Run tests of the Coupon process", function () {
       //console.log("------------------------------------------");
 
 
-      expect(await register.currentSnapshotDatetime(payer.call())).to.equal(`${makeDateTime(couponDate, cutOffTimeInSec)}`);
+      expect(await register.currentSnapshotDatetime(payer.call())).to.equal(`${makeDateTime(recordDate, cutOffTimeInSec)}`);
 
 
 
@@ -733,12 +755,13 @@ describe("Run tests of the Coupon process", function () {
       expect(isPay).to.be.true;
 
       let couponDate = firstCouponDate;
+      let recordDate = addPart(couponDate, "D", -1);
 
       let nbDaysInPeriod = 100;
       let cutOffTimeInSec = 17 * 3600;
 
       //Given a first coupon is deployed
-      const coupon = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:maxGasAmount}), register.deployedAt, couponDate, nbDaysInPeriod, cutOffTimeInSec);
+      const coupon = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:maxGasAmount}), register.deployedAt, couponDate, nbDaysInPeriod, recordDate, cutOffTimeInSec);
       
       let hash = await register.atReturningHash(cak.call(), coupon.deployedAt);
       await register.enableContractToWhitelist(cak.send({maxGas:100000}), hash);
@@ -843,12 +866,13 @@ describe("Run tests of the Coupon process", function () {
 
 
       //console.log("--------TIME---------MACHINE-------------");
-      await mineBlock(couponDate + cutOffTimeInSec + 3600)
+      await mineBlock(recordDate + cutOffTimeInSec + 3600)
 
       //Given a second coupon is deployed
       couponDate = firstCouponDate + 2 * 24 * 3600;
+      recordDate = addPart(couponDate, "D", -1);
     
-      const coupon2 = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:maxGasAmount}), register.deployedAt, couponDate, nbDaysInPeriod, cutOffTimeInSec);
+      const coupon2 = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:maxGasAmount}), register.deployedAt, couponDate, nbDaysInPeriod, recordDate, cutOffTimeInSec);
 
       //do a transfer 1 so the balance moves
       let gas = await register.transferFrom(cak.test(), await investorA.account(), await investorB.account(), 12)
@@ -1006,15 +1030,16 @@ describe("Run tests of the Coupon process", function () {
       //console.log("block number before : " + await web3.eth.getBlockNumber());
       //------------------------------------------------------------------------------------------------------------------
       //Time machine advance 100 blocks
-      await mineBlock(couponDate + cutOffTimeInSec + 3600)
+      await mineBlock(recordDate + cutOffTimeInSec + 3600)
       //console.log("block number after : " + await web3.eth.getBlockNumber());
       //------------------------------------------------------------------------------------------------------------------
       //console.log("------------------------------------------");
 
       //Given a second coupon is deployed
       couponDate = couponDate + 2 * 24 * 3600;
+      recordDate = addPart(couponDate, "D", -1);
 
-      const coupon3 = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:maxGasAmount}), register.deployedAt, couponDate, nbDaysInPeriod, cutOffTimeInSec);
+      const coupon3 = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:maxGasAmount}), register.deployedAt, couponDate, nbDaysInPeriod, recordDate, cutOffTimeInSec);
       
       //check balances before transfer 1
       let balAbeforetransfer3 = await register.balanceOf(cak.call(), await investorA.account());
@@ -1142,7 +1167,7 @@ describe("Run tests of the Coupon process", function () {
       //console.log("------------------------------------------");
 
 
-      expect(await register.currentSnapshotDatetime(payer.call())).to.equal(`${makeDateTime(couponDate, cutOffTimeInSec)}`);
+      expect(await register.currentSnapshotDatetime(payer.call())).to.equal(`${makeDateTime(recordDate, cutOffTimeInSec)}`);
 
   
       
@@ -1160,13 +1185,14 @@ describe("Run tests of the Coupon process", function () {
       expect(isPay).to.be.true;
 
       let couponDate = firstCouponDate;
+      let recordDate = addPart(couponDate, "D", -1);
 
       let nbDaysInPeriod = 100;
       let cutOffTimeInSec = 17 * 3600;
 
 
       //Given a first coupon is deployed
-      const coupon4 = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, nbDaysInPeriod, cutOffTimeInSec);
+      const coupon4 = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:2000000}), register.deployedAt, couponDate, nbDaysInPeriod, recordDate, cutOffTimeInSec);
       
       let hash = await register.atReturningHash(cak.call(), coupon4.deployedAt);
       await register.enableContractToWhitelist(cak.send({maxGas:100000}), hash);
@@ -1220,9 +1246,9 @@ describe("Run tests of the Coupon process", function () {
       //We then compare it to what the smart contract calculates
       expect(couponPaymentForInvestorA).to.equal(paymentA.toString());
 
-      await mineBlock(couponDate + cutOffTimeInSec + 1);
+      await mineBlock(recordDate + cutOffTimeInSec + 1);
 
-      await coupon4.toggleCouponPayment(payer.send({maxGas:100000}), await investorA.account());
+      await coupon4.toggleCouponPayment(cak.send({maxGas:100000}), await investorA.account());
 
       //console.log("investorPayments A : " + await coupon.getInvestorPayments(payer.call(), await investorA.account()));
 
@@ -1252,7 +1278,7 @@ describe("Run tests of the Coupon process", function () {
 
 
 
-      await coupon4.toggleCouponPayment(payer.send({maxGas:100000}), await investorB.account());
+      await coupon4.toggleCouponPayment(cak.send({maxGas:100000}), await investorB.account());
 
       //console.log("investorPayments B: " + await coupon.getInvestorPayments(payer.call(), await investorB.account()));
 
@@ -1278,9 +1304,9 @@ describe("Run tests of the Coupon process", function () {
       //We then compare it to what the smart contract calculates
       expect(couponPaymentForInvestorC).to.equal(paymentC.toString());
 
-      await coupon4.toggleCouponPayment(payer.send({maxGas:100000}), await investorC.account());
+      await coupon4.toggleCouponPayment(cak.send({maxGas:100000}), await investorC.account());
 
-      await coupon4.toggleCouponPayment(payer.send({maxGas:100000}), await investorD.account());
+      await coupon4.toggleCouponPayment(cak.send({maxGas:100000}), await investorD.account());
 
       //console.log("investorPayments C : " + await coupon.getInvestorPayments(payer.call(), await investorC.account()));
 
@@ -1328,7 +1354,7 @@ describe("Run tests of the Coupon process", function () {
 
 
 
-      await mineBlock(couponDate + cutOffTimeInSec + 3600)
+      await mineBlock(recordDate + cutOffTimeInSec + 3600)
 
       //console.log("block number after : " + await web3.eth.getBlockNumber());
       //------------------------------------------------------------------------------------------------------------------
@@ -1336,8 +1362,9 @@ describe("Run tests of the Coupon process", function () {
 
       //Given a second coupon is deployed
       couponDate = couponDate + 2 * 24 * 3600;
+      recordDate = addPart(couponDate, "D", -1);
 
-      const coupon5 = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:maxGasAmount}), register.deployedAt, couponDate, nbDaysInPeriod, cutOffTimeInSec);
+      const coupon5 = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:maxGasAmount}), register.deployedAt, couponDate, nbDaysInPeriod, recordDate, cutOffTimeInSec);
       
       //check balances before transfer 1
       let balAbeforetransfer1 = await register.balanceOf(cak.call(), await investorA.account());
@@ -1422,9 +1449,9 @@ describe("Run tests of the Coupon process", function () {
 
       expect(couponPaymentForInvestorA).to.equal(paymentA.toString());
 
-      await mineBlock(couponDate + cutOffTimeInSec + 1);
+      await mineBlock(recordDate + cutOffTimeInSec + 1);
 
-      await coupon5.toggleCouponPayment(payer.send({maxGas:100000}), await investorA.account());
+      await coupon5.toggleCouponPayment(cak.send({maxGas:100000}), await investorA.account());
 
       //console.log("investorPayments A: " + await coupon.getInvestorPayments(payer.call(), await investorA.account()));
 
@@ -1440,7 +1467,7 @@ describe("Run tests of the Coupon process", function () {
       expect(couponPaymentForInvestorB).to.equal(paymentB.toString());
 
 
-      await coupon5.toggleCouponPayment(payer.send({maxGas:100000}), await investorB.account());
+      await coupon5.toggleCouponPayment(cak.send({maxGas:100000}), await investorB.account());
 
       //console.log("investorPayments B: " + await coupon2.getInvestorPayments(payer.call(), await investorB.account()));
 
@@ -1470,9 +1497,9 @@ describe("Run tests of the Coupon process", function () {
       expect(couponPaymentForInvestorC).to.equal(paymentC.toString());
 
 
-      await coupon5.toggleCouponPayment(payer.send({maxGas:100000}), await investorC.account());
+      await coupon5.toggleCouponPayment(cak.send({maxGas:100000}), await investorC.account());
 
-      await coupon5.toggleCouponPayment(payer.send({maxGas:100000}), await investorD.account());
+      await coupon5.toggleCouponPayment(cak.send({maxGas:100000}), await investorD.account());
 
       //console.log("investorPayments C : " + await coupon2.getInvestorPayments(payer.call(), await investorC.account()));
 
@@ -1503,15 +1530,16 @@ describe("Run tests of the Coupon process", function () {
       //console.log("block number before : " + await web3.eth.getBlockNumber());
       //------------------------------------------------------------------------------------------------------------------
       //Time machine advance 100 blocks
-      await mineBlock(couponDate + cutOffTimeInSec + 3600)
+      await mineBlock(recordDate + cutOffTimeInSec + 3600)
       //console.log("block number after : " + await web3.eth.getBlockNumber());
       //------------------------------------------------------------------------------------------------------------------
       //console.log("------------------------------------------");
 
       //Given a second coupon is deployed
       couponDate = couponDate + 2 * 24 * 3600;
+      recordDate = addPart(couponDate, "D", -1);
 
-      const coupon6 = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:maxGasAmount}), register.deployedAt, couponDate, nbDaysInPeriod, cutOffTimeInSec);
+      const coupon6 = await allContracts.get(CouponTradeContractName).deploy(payer.newi({maxGas:maxGasAmount}), register.deployedAt, couponDate, nbDaysInPeriod, recordDate, cutOffTimeInSec);
       
       //check balances before transfer 1
       let balAbeforetransfer3 = await register.balanceOf(cak.call(), await investorA.account());
@@ -1595,9 +1623,9 @@ describe("Run tests of the Coupon process", function () {
 
       expect(couponPaymentForInvestorA).to.equal(paymentA.toString());
       
-      await mineBlock(couponDate + cutOffTimeInSec + 1)
+      await mineBlock(recordDate + cutOffTimeInSec + 1)
 
-      await coupon6.toggleCouponPayment(payer.send({maxGas:100000}), await investorA.account());
+      await coupon6.toggleCouponPayment(cak.send({maxGas:100000}), await investorA.account());
 
       //console.log("investorPayments A: " + await coupon3.getInvestorPayments(payer.call(), await investorA.account()));
 
@@ -1624,7 +1652,7 @@ describe("Run tests of the Coupon process", function () {
       //console.log("couponPaymentForInvestorB : " + couponPaymentForInvestorB);
       //console.log("------------------------------------------");
 
-      await coupon6.toggleCouponPayment(payer.send({maxGas:100000}), await investorB.account());
+      await coupon6.toggleCouponPayment(cak.send({maxGas:100000}), await investorB.account());
 
       //console.log("investorPayments B: " + await coupon3.getInvestorPayments(payer.call(), await investorB.account()));
 
@@ -1653,8 +1681,8 @@ describe("Run tests of the Coupon process", function () {
       //console.log("couponPaymentForInvestorC : " + couponPaymentForInvestorC);
       //console.log("------------------------------------------");
 
-      await coupon6.toggleCouponPayment(payer.send({maxGas:100000}), await investorC.account());
-      await coupon6.toggleCouponPayment(payer.send({maxGas:100000}), await investorD.account());
+      await coupon6.toggleCouponPayment(cak.send({maxGas:100000}), await investorC.account());
+      await coupon6.toggleCouponPayment(cak.send({maxGas:100000}), await investorD.account());
       
    
       //as bnd is in the list of investors, we make the payment ready, so we can finalize the coupon

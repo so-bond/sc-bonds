@@ -3,14 +3,14 @@ import chaiAsPromised from "chai-as-promised";
 chai.use(chaiAsPromised);
 
 import Web3 from "web3";
-import Ganache from "ganache-core";
+import Ganache from "ganache";
 import { Web3FunctionProvider } from "@saturn-chain/web3-functions";
 import { EthProviderInterface } from "@saturn-chain/dlt-tx-data-functions";
 
 import allContracts from "../contracts";
 import { SmartContract, SmartContractInstance } from "@saturn-chain/smart-contract";
-import { registerGas } from "./gas.constant";
-import { blockTimestamp, initWeb3Time, makeBondDate, mineBlock } from "./dates";
+import { blockGasLimit, registerGas } from "./gas.constant";
+import { addPart, blockTimestamp, initWeb3Time, makeBondDate, mineBlock } from "./dates";
 import { collectEvents, getEvents } from "./events";
 
 const RegisterContractName = "Register";
@@ -28,14 +28,14 @@ describe("Register (Bond Issuance) metadata", function () {
   let initialBondDates = makeBondDate(3, 12 * 30 * 24 * 3600);
 
   async function deployRegisterContract(): Promise<void> {
-    web3 = new Web3(Ganache.provider({ default_balance_ether: 1000 }) as any);
+    web3 = new Web3(Ganache.provider({ default_balance_ether: 1000, gasLimit: blockGasLimit, chain: {vmErrorsOnRPCResponse:true} }) as any);
     initWeb3Time(web3);
     cak = new Web3FunctionProvider(web3.currentProvider, (list) => Promise.resolve(list[0]));
     stranger = new Web3FunctionProvider(web3.currentProvider, (list) => Promise.resolve(list[1]));
     cakAddress = await cak.account(0);
     strangerAddress = await cak.account(1);
     
-    const bondName = "SSA 3Y 1Bn SEK";
+    const bondName = "EIB 3Y 1Bn SEK";
     const isin = "EIB3Y";
     const expectedSupply = 1000;
     const currency = web3.utils.asciiToHex("SEK");
@@ -75,7 +75,7 @@ describe("Register (Bond Issuance) metadata", function () {
 
 
   it("setBondData without the coupons", async () => {
-    const bondName = "SSA 3Y 1Bn SEK";
+    const bondName = "EIB 3Y 1Bn SEK";
     const symbol = "SEK";
     const expectedSupply = 1000;
     const currency = web3.utils.asciiToHex("SEK", 32);;
@@ -241,11 +241,12 @@ describe("Register (Bond Issuance) metadata", function () {
     async function passCoupon(datetime: number) {
       let hash = "";
       for (const couponDate of initialBondDates.couponDates) {
+        const recordDate = addPart(couponDate, "D", -1);
         if (couponDate <= datetime) {
-          await mineBlock(couponDate-1); // go to the date of the coupon but just before 
+          await mineBlock(recordDate-1); // go to the date of the coupon but just before 
           let coupon = await allContracts
             .get(CouponTradeContractName)
-            .deploy(pay.newi({ maxGas: 2_000_000 }), instance.deployedAt, couponDate, 360, initialBondDates.defaultCutofftime);
+            .deploy(pay.newi({ maxGas: 2_000_000 }), instance.deployedAt, couponDate, 360, recordDate, initialBondDates.defaultCutofftime);
           if (hash == "") {
             hash = await instance.atReturningHash(cak.call(), coupon.deployedAt);
             await instance.enableContractToWhitelist(cak.send({ maxGas: 200_000 }), hash);
@@ -386,7 +387,7 @@ describe("Register (Bond Issuance) metadata", function () {
   });
 
   it("setBondData should be denied if called is not CAK", async () => {
-    const bondName = "SSA 3Y 1Bn SEK";
+    const bondName = "EIB 3Y 1Bn SEK";
     const isin = web3.utils.asciiToHex("Code Isin");
     const expectedSupply = 1000;
     const currency = web3.utils.asciiToHex("SEK");;

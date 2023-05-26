@@ -13,6 +13,8 @@ interface IRegisterRoleManagement {
     
     function isCustodian(address account) external view returns(bool);
 
+    function isCAK(address account) external view returns(bool);
+
     function changeAdminRole(address account) external;
 
     function grantCakRole(address cakAddress) external;
@@ -94,7 +96,7 @@ interface IRegister is IERC20Metadata, IRegisterMetadata, IRegisterRoleManagemen
     function publicMessage(address to, string memory message) external;
     function status() external view returns (Status);
 
-    function setCurrentCouponDate(uint256 couponDate_, uint256 _cutOfTime) external;
+    function setCurrentCouponDate(uint256 couponDate_, uint256 recordDatetime_) external;
     // function removeFrominvestorsList(uint256 index) external; // should only be private
     function getInvestorListAtCoupon(uint256 CouponDate) external returns (address[] memory);
     function toggleFrozen() external;

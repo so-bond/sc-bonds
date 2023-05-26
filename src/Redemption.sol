@@ -32,8 +32,9 @@ contract Redemption is Coupon {
         address _registerContract,
         uint256 _maturityDate,
         uint256 _nbDays,
+        uint256 _recordDate,
         uint256 _cutOfTime
-    ) Coupon(_registerContract, _maturityDate, _nbDays, _cutOfTime) {
+    ) Coupon(_registerContract, _maturityDate, _nbDays, _recordDate, _cutOfTime) {
         //CASE1: maturity= last coupn
         //CASE 2 maturity is different from last coupon date
         // require( //already doen in parent constructor
@@ -93,7 +94,7 @@ contract Redemption is Coupon {
 
         PaymentStatus initialStatus = investorRedemptionPayments[_investor];
 
-        if (register.isPay(msg.sender)) {
+        if (register.isCAK(msg.sender)) {
             if (
                 investorRedemptionPayments[_investor] == PaymentStatus.ToBePaid
             ) {
@@ -143,7 +144,7 @@ contract Redemption is Coupon {
         } 
         
         else
-        require(false, "sender must be Paying Agent or Custodian");
+        require(false, "sender must be Central Account Keeper or Custodian");
 
         emit RedemptionPaymentStatusChanged(register, couponDate, _investor, investorRedemptionPayments[_investor], initialStatus);
     }

@@ -3,7 +3,7 @@ import chaiAsPromised from "chai-as-promised";
 chai.use(chaiAsPromised);
 
 import Web3 from "web3";
-import Ganache from "ganache-core";
+import Ganache from "ganache";
 import { Web3FunctionProvider } from "@saturn-chain/web3-functions";
 import { EthProviderInterface } from "@saturn-chain/dlt-tx-data-functions";
 import { EventData } from "web3-eth-contract";
@@ -35,7 +35,7 @@ describe("Run tests of the Issuance and Bilateral Trades contracts", function ()
   let wrongAccount: EthProviderInterface;
 
   async function init(): Promise<void> {
-    web3 = new Web3(Ganache.provider({ default_balance_ether: 10000, gasLimit: blockGasLimit }) as any);
+    web3 = new Web3(Ganache.provider({ default_balance_ether: 1000, gasLimit: blockGasLimit, chain: {vmErrorsOnRPCResponse:true} }) as any);
     cak = new Web3FunctionProvider(web3.currentProvider, (list) => Promise.resolve(list[0]));
     bnd = new Web3FunctionProvider(web3.currentProvider, (list) => Promise.resolve(list[1]));
     custodianA = new Web3FunctionProvider(web3.currentProvider, (list) => Promise.resolve(list[2]));
@@ -48,7 +48,7 @@ describe("Run tests of the Issuance and Bilateral Trades contracts", function ()
 
     const dates = makeBondDate(5, 1309402208-1309302208);
 
-    const bondName = "SSA 3Y 1Bn SEK";
+    const bondName = "EIB 3Y 1Bn SEK";
     const isin = "EIB3Y";
     const expectedSupply = 1000;
     const currency = web3.utils.asciiToHex("SEK");
@@ -65,7 +65,7 @@ describe("Run tests of the Issuance and Bilateral Trades contracts", function ()
       registerContract = allContracts.get(RegisterContractName);
       register = await registerContract.deploy(
         async (name, bytes)=>{
-          const r = await (cak.test()("",bytes));
+          const r = await (cak.test()(undefined as any,bytes));
           console.log("Deployment Required gas", r.result);
           
           return await cak.newi({maxGas: r.result})(name, bytes);
@@ -111,18 +111,18 @@ describe("Run tests of the Issuance and Bilateral Trades contracts", function ()
 
     await register.grantCstRole(cak.send({maxGas:100000}), await custodianB.account());
 
-    await register.enableInvestorToWhitelist(custodianA.send({maxGas:120000}), await cak.account()); // needed to deploy a test trade contract
+    await register.enableInvestorToWhitelist(custodianA.send({maxGas:130000}), await cak.account()); // needed to deploy a test trade contract
     
     //FIXME: maybe remove this since auto-bnd whitelisting was added in register transferFrom
     // await register.enableInvestorToWhitelist(custodianA.send({maxGas:120000}), await bnd.account()); // B&D must be an investor as well
     
-    await register.enableInvestorToWhitelist(custodianA.send({maxGas:120000}), await investorA.account());
+    await register.enableInvestorToWhitelist(custodianA.send({maxGas:130000}), await investorA.account());
     
-    await register.enableInvestorToWhitelist(custodianA.send({maxGas:120000}), await investorB.account());
+    await register.enableInvestorToWhitelist(custodianA.send({maxGas:130000}), await investorB.account());
     
-    await register.enableInvestorToWhitelist(custodianA.send({maxGas:120000}), await investorC.account());
+    await register.enableInvestorToWhitelist(custodianA.send({maxGas:130000}), await investorC.account());
     
-    await register.enableInvestorToWhitelist(custodianA.send({maxGas:120000}), await investorD.account());
+    await register.enableInvestorToWhitelist(custodianA.send({maxGas:130000}), await investorD.account());
     // Have the CAK register the smart contracts
     
     const primary = await allContracts.get(PrimaryIssuanceContractName).deploy(cak.newi({maxGas:1000000}), register.deployedAt, 1500);
@@ -275,7 +275,7 @@ describe("Run tests of the Issuance and Bilateral Trades contracts", function ()
       details.quantity = 155;
       details.tradeDate = Date.UTC(2022, 9, 10) / (1000*3600*24);
       details.valueDate = Date.UTC(2022, 9, 12) / (1000*3600*24);
-      await trade.setDetails(bnd.send({maxGas:100000}), details);
+      await trade.setDetails(bnd.send({maxGas:110000}), details);
       
       // When the B&D approve the trade
       const tx = await trade.approve(bnd.send({maxGas:100000}));
@@ -298,7 +298,7 @@ describe("Run tests of the Issuance and Bilateral Trades contracts", function ()
       details.quantity = 155;
       details.tradeDate = Date.UTC(2022, 9, 10) / (1000*3600*24);
       details.valueDate = Date.UTC(2022, 9, 12) / (1000*3600*24);
-      await trade.setDetails(bnd.send({maxGas:100000}), details);
+      await trade.setDetails(bnd.send({maxGas:110000}), details);
 
       details.buyer = await wrongAccount.account();
 
@@ -375,7 +375,7 @@ describe("Run tests of the Issuance and Bilateral Trades contracts", function ()
       details.quantity = 187;
       details.tradeDate = Date.UTC(2022, 14, 12) / (1000*3600*24);
       details.valueDate = Date.UTC(2022, 19, 12) / (1000*3600*24);
-      await trade.setDetails(bnd.send({maxGas:100000}), details);
+      await trade.setDetails(bnd.send({maxGas:110000}), details);
 
       // If the trade is approved
       await expect(trade.approve(bnd.send({maxGas:100000})));
@@ -400,7 +400,7 @@ describe("Run tests of the Issuance and Bilateral Trades contracts", function ()
       details.quantity = 187;
       details.tradeDate = Date.UTC(2022, 14, 12) / (1000*3600*24);
       details.valueDate = Date.UTC(2022, 19, 12) / (1000*3600*24);
-      await trade.setDetails(bnd.send({maxGas:100000}), details);
+      await trade.setDetails(bnd.send({maxGas:110000}), details);
 
       // If the trade is approved
       await expect(trade.approve(bnd.send({maxGas:100000})));
@@ -441,7 +441,7 @@ describe("Run tests of the Issuance and Bilateral Trades contracts", function ()
       details.quantity = 155;
       details.tradeDate = Date.UTC(2022, 9, 10) / (1000*3600*24);
       details.valueDate = Date.UTC(2022, 9, 12) / (1000*3600*24);
-      await trade.setDetails(bnd.send({maxGas:100000}), details);
+      await trade.setDetails(bnd.send({maxGas:110000}), details);
       
       // Then the trade to be propserly initialized
       expect(await trade.register(bnd.call())).to.equal(register.deployedAt);
@@ -477,7 +477,7 @@ describe("Run tests of the Issuance and Bilateral Trades contracts", function ()
       details.quantity = 155;
       details.tradeDate = Date.UTC(2022, 9, 10) / (1000*3600*24);
       details.valueDate = Date.UTC(2022, 9, 12) / (1000*3600*24);
-      await trade.setDetails(bnd.send({maxGas:100000}), details);
+      await trade.setDetails(bnd.send({maxGas:110000}), details);
       
       // Then the trade to be propserly initialized
       expect(await trade.register(bnd.call())).to.equal(register.deployedAt);
@@ -527,7 +527,7 @@ describe("Run tests of the Issuance and Bilateral Trades contracts", function ()
       details.quantity = 155;
       details.tradeDate = Date.UTC(2022, 9, 10) / (1000*3600*24);
       details.valueDate = Date.UTC(2022, 9, 12) / (1000*3600*24);
-      await trade.setDetails(bnd.send({maxGas:100000}), details);
+      await trade.setDetails(bnd.send({maxGas:110000}), details);
       
       // Then the trade to be propserly initialized
       expect(await trade.register(bnd.call())).to.equal(register.deployedAt);
@@ -643,7 +643,7 @@ describe("Run tests of the Issuance and Bilateral Trades contracts", function ()
       details1.quantity = 270;
       details1.tradeDate = Date.UTC(2022, 9, 10) / (1000*3600*24);
       details1.valueDate = Date.UTC(2022, 9, 12) / (1000*3600*24);
-      await trade3.setDetails(bnd.send({maxGas:100000}), details1);
+      await trade3.setDetails(bnd.send({maxGas:110000}), details1);
       
       // Then the trade to be propserly initialized
       expect(await trade3.register(bnd.call())).to.equal(register.deployedAt);
