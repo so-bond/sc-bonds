@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0
 
-pragma solidity 0.8.17;
+pragma solidity 0.8.19;
 
 // TODO: This interface is not used, we should decide what to do, either complete it and use it or remove it.
 

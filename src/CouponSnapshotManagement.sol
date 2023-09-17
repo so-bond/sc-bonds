@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // SATURN project (last updated v0.1.0)
 
-pragma solidity 0.8.17;
+pragma solidity 0.8.19;
 
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Snapshot.sol";
 

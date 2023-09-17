@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // SATURN project (last updated v0.1.0)
 
-pragma solidity 0.8.17;
+pragma solidity 0.8.19;
 
 import "./intf/IRegister.sol";
 
@@ -15,6 +15,15 @@ contract SmartContractAccessManagement is ISmartContractAccessManagement {
 
     function isCallerApprovedSmartContract() external override view returns(bool) {
       bytes32 hash = atReturningHash(msg.sender);
+      return _contractsAllowed[hash];
+    }
+
+   
+     /**
+      * @dev The aim of this function is to check if a smart contract is whitelisted through the hash of its bytecode
+      */
+    function isContractAllowed(address contractAddress_) public  view returns(bool) {
+      bytes32 hash = atReturningHash(contractAddress_);
       return _contractsAllowed[hash];
     }
 
