@@ -1,8 +1,9 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { loadFixture } from "@nomicfoundation/hardhat-toolbox/network-helpers";
-chai.use(chaiAsPromised);
 import { deployRegisterContractFixture } from "./deployer/register.deployer";
+
+chai.use(chaiAsPromised);
 
 describe("Register (Bond Issuance) contract interoperability", function () {
   let fixture: any;

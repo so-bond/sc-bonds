@@ -1,9 +1,9 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { loadFixture } from "@nomicfoundation/hardhat-toolbox/network-helpers";
-chai.use(chaiAsPromised);
-
 import { deployRegisterContractWithWhilistFixture } from "./deployer/register.deployer";
+
+chai.use(chaiAsPromised);
 
 describe("Register (Bond Issuance) whitelisting", function () {
   describe("whitelist investor", function () {

@@ -1,14 +1,11 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { loadFixture } from "@nomicfoundation/hardhat-toolbox/network-helpers";
-chai.use(chaiAsPromised);
-import {
-  deployRegisterContractFixture,
-  deployRegisterContractBondDataFixture,
-} from "./deployer/register.deployer";
+import { deployRegisterContractBondDataFixture } from "./deployer/register.deployer";
 import { addPart, makeBondDate, mineBlock } from "./utils/dates";
-import { EthProviderInterface } from "@saturn-chain/dlt-tx-data-functions";
 import { ethers } from "hardhat";
+
+chai.use(chaiAsPromised);
 
 describe("Register (Bond Issuance) metadata", function () {
   let fixture: any;

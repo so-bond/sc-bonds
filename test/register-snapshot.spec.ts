@@ -1,14 +1,14 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
 import { loadFixture } from "@nomicfoundation/hardhat-toolbox/network-helpers";
-chai.use(chaiAsPromised);
 import {
   deployRegisterContractWithWhilistFixture,
   deployRegisterContractFixture,
   deployRegisterContractSnapshotFixture,
 } from "./deployer/register.deployer";
-
 import { makeBondDate, makeDateTime } from "./utils/dates";
+
+chai.use(chaiAsPromised);
 
 describe("Register snapshot testing", function () {
   it("when creating the register the current stimestamp should be set", async () => {
