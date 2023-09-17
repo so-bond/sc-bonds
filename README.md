@@ -1,16 +1,21 @@
 # Bond smart contracts based on `so | bond` model 
 
-## getting started
+## Install
 
-If you are not at the root of this repo then change directory to `sc-bonds`.
-- `cd sc-bonds`
-- install `npm i`
-- build contract using solidity : `npm run build`
-- run tests `npm run test`
+install dependencies
 
-## setup constraints
-To run tests on MacOS, do the following preliminary step before launching npm run test
-
+```bash
+pnpm install
 ```
-export NODE_OPTIONS=--openssl-legacy-provider
+
+## Build Contracts
+
+```bash
+npm run build
+```
+ 
+## Run Tests
+
+```bash
+npm run test
 ```
