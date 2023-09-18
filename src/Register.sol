@@ -517,8 +517,10 @@ contract Register is
         uint256 recordDatetime_
     ) external override {
         //TODO: rename this to setCurrentSnapshotDateTime()
-        bytes32 hash = atReturningHash(msg.sender);
-        require(_contractsAllowed[hash], "This contract is not whitelisted"); //can be called only by Coupon smart contract
+        require(
+            isContractAllowed(msg.sender),
+            "This contract is not whitelisted"
+        ); //can be called only by Coupon smart contract
         require(
             recordDatetime_ + (10 * 24 * 3600) > couponDate_,
             "Inconsistent record date more than 10 days before settlement date"
@@ -595,9 +597,8 @@ contract Register is
         } else {
             // Not called directly from a CAK user
             /** @dev enforce caller contract is whitelisted */
-            bytes32 hash = atReturningHash(msg.sender);
             require(
-                _contractsAllowed[hash],
+                isContractAllowed(msg.sender),
                 "This contract is not whitelisted"
             );
 
@@ -653,8 +654,10 @@ contract Register is
     ) public override returns (bool) {
         // can only be called by allowed smart contract (typically the redemption contrat)
         /** @dev enforce caller contract is whitelisted */
-        bytes32 hash = atReturningHash(msg.sender);
-        require(_contractsAllowed[hash], "This contract is not whitelisted");
+        require(
+            isContractAllowed(msg.sender),
+            "This contract is not whitelisted"
+        );
         //make sure the investor is an allowed investor
         require(
             investorsAllowed(investor) == true,
