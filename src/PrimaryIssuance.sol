@@ -19,7 +19,7 @@ contract PrimaryIssuance is IPrimaryIssuance, ReentrancyGuard {
      * - we map the register contract to interact with it
      * - variable account gets msg.sender address
      *
-     * The constructor cannot be checked by the register by looking ain the hash of 
+     * The constructor cannot be checked by the register by looking ain the hash of
      * the runtime bytecode because this hash does not cover the constructor.
      * so controls in the constructors are to be replicated in the first interaction with a function
      */
@@ -103,22 +103,18 @@ contract PrimaryIssuance is IPrimaryIssuance, ReentrancyGuard {
     }
 
     function reject() public {
-        require(
-            msg.sender == account,
-            "only the beneficiary B&D can revert"
-        );
-        __status = Status.Rejected;     
+        require(msg.sender == account, "only the beneficiary B&D can revert");
+        __status = Status.Rejected;
         // get the primary issuance balance
         quantity = register.balanceOf(register.primaryIssuanceAccount());
-       
-        emit NotifyTrade(
-                register.primaryIssuanceAccount(),
-                account,
-                __status,
-                quantity
-            );
-    }
 
+        emit NotifyTrade(
+            register.primaryIssuanceAccount(),
+            account,
+            __status,
+            quantity
+        );
+    }
 
     function paymentID() public view returns (bytes8) {
         uint64 low = uint64(uint160(address(this)));

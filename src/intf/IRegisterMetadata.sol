@@ -44,6 +44,7 @@ interface IRegisterMetadata {
     ) external;
 
     function addCouponDate(uint256 date) external;
+
     function delCouponDate(uint256 date) external;
 
     function setExpectedSupply(uint256 expectedSupply) external;

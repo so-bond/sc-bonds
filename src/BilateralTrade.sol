@@ -13,13 +13,14 @@ contract BilateralTrade is IBilateralTrade, ReentrancyGuard {
     TradeDetail public details;
 
     /**
-     * @dev when the smart contract deploys :
+     * @dev When the smart contract deploys:
      * - we check that deployer has been whitelisted
      * - we check that buyer has been whitelisted
      * - we map the register contract to interact with it
      * - variable sellerAccount gets msg.sender address
      * - details struct buyer gets buyer address
      * - status of current contract is Draft
+     *
      * The constructor cannot be checked by the register by looking ain the hash of
      * the runtime bytecode because this hash does not cover the constructor.
      * so controls in the constructors are to be replicated in the first interaction with a function

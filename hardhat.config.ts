@@ -1,6 +1,8 @@
 import {HardhatUserConfig} from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 import "hardhat-contract-sizer";
+import "hardhat-gas-reporter";
+import "solidity-docgen";
 
 const config: HardhatUserConfig = {
   paths: {
