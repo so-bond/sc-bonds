@@ -1,12 +1,12 @@
 /** Module for test of solidity smart contract that simplifies the initialization
- * 
+ *
  * hanldes dates in seconds
  */
- 
-import * as hardhatHelpers from "@nomicfoundation/hardhat-network-helpers";
+
+import * as hardhatHelpers from '@nomicfoundation/hardhat-network-helpers';
 
 const _num = (v: number | string) =>
-  typeof v == "string" ? Number.parseInt(v) : v;
+  typeof v == 'string' ? Number.parseInt(v) : v;
 const toSec = (asMs: number) => Math.floor(_num(asMs) / 1000);
 const timePart = (asMs: number) => toSec(_num(asMs) % (24 * 3600 * 1000));
 const datePart = (asMs: number) => toSec(_num(asMs)) - timePart(asMs);
@@ -25,24 +25,24 @@ export function makeDateTime(dateSec: number, timeSec: number): number {
 
 export function addPart(
   asSec: number,
-  part: "Y" | "M" | "D" | "H" | "m" | "s",
+  part: 'Y' | 'M' | 'D' | 'H' | 'm' | 's',
   v: number
 ): number {
   let dt = new Date(asSec * 1000);
   let ms = Date.UTC(
-    dt.getUTCFullYear() + (part == "Y" ? v : 0),
-    dt.getUTCMonth() + (part == "M" ? v : 0),
-    dt.getUTCDate() + (part == "D" ? v : 0),
-    dt.getUTCHours() + (part == "H" ? v : 0),
-    dt.getUTCMinutes() + (part == "m" ? v : 0),
-    dt.getUTCSeconds() + (part == "s" ? v : 0),
+    dt.getUTCFullYear() + (part == 'Y' ? v : 0),
+    dt.getUTCMonth() + (part == 'M' ? v : 0),
+    dt.getUTCDate() + (part == 'D' ? v : 0),
+    dt.getUTCHours() + (part == 'H' ? v : 0),
+    dt.getUTCMinutes() + (part == 'm' ? v : 0),
+    dt.getUTCSeconds() + (part == 's' ? v : 0),
     dt.getUTCMilliseconds()
   );
   return toSec(ms);
 }
 
 export function future(moveToSec: number): number {
-  return addPart(toSec(Date.now()), "s", moveToSec);
+  return addPart(toSec(Date.now()), 's', moveToSec);
 }
 
 export function makeBondDate(
@@ -63,7 +63,7 @@ export function makeBondDate(
     issuanceDate: start,
     maturityDate: maturity,
     couponDates: coupons,
-    defaultCutofftime: 17 * 3600,
+    defaultCutofftime: 17 * 3600
   };
 }
 
@@ -75,6 +75,3 @@ export function makeBondDate(
 export let mineBlock = (timestampSec: number) => {
   return hardhatHelpers.time.increaseTo(timestampSec);
 };
-
- 
- 

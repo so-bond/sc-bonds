@@ -1,15 +1,15 @@
-import chai from "chai";
-import chaiAsPromised from "chai-as-promised";
+import chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
 chai.use(chaiAsPromised);
-import Web3 from "web3";
+import Web3 from 'web3';
 import {
   SmartContract,
-  SmartContractInstance,
-} from "@saturn-chain/smart-contract";
-import { makeBondDate } from "../utils/dates";
-import { ethers } from "hardhat";
-import Ganache from "ganache";
-import { blockGasLimit } from "../utils/gas.constant";
+  SmartContractInstance
+} from '@saturn-chain/smart-contract';
+import { makeBondDate } from '../utils/dates';
+import { ethers } from 'hardhat';
+import Ganache from 'ganache';
+import { blockGasLimit } from '../utils/gas.constant';
 
 export async function deployRegisterContractEvent(
   nbCoupons: number = 3,
@@ -26,15 +26,15 @@ export async function deployRegisterContractEvent(
   let strangerAddress2 = stranger2.address;
 
   const dates = makeBondDate(nbCoupons, couponSpaceSec);
-  const bondName = "EIB 3Y 1Bn SEK";
-  const isin = "EIB3Y";
+  const bondName = 'EIB 3Y 1Bn SEK';
+  const isin = 'EIB3Y';
   const expectedSupply = 1000;
   // TODO: fix this to be a normal string
-  const currency = web3.utils.soliditySha3("SEK");
+  const currency = web3.utils.soliditySha3('SEK');
   // const currency = web3.utils.soliditySha3("SEK");
 
   const unitVal = 100000;
-  const couponRate = web3.utils.asciiToHex("0.4");
+  const couponRate = web3.utils.asciiToHex('0.4');
   const creationDate = dates.creationDate;
   const issuanceDate = dates.issuanceDate;
   const maturityDate = dates.maturityDate;
@@ -72,8 +72,8 @@ export async function deployRegisterContractEvent(
       issuanceDate,
       maturityDate,
       couponDates,
-      defaultCutofftime,
-    },
+      defaultCutofftime
+    }
   };
 }
 
@@ -94,7 +94,7 @@ async function _deployRegisterContractFixture(
     Ganache.provider({
       default_balance_ether: 1000,
       gasLimit: blockGasLimit,
-      chain: { vmErrorsOnRPCResponse: true },
+      chain: { vmErrorsOnRPCResponse: true }
     }) as any
   );
 
@@ -103,24 +103,24 @@ async function _deployRegisterContractFixture(
   let strangerAddress2 = stranger2.address;
 
   const dates = makeBondDate(nbCoupons, couponSpaceSec);
-  const bondName = "EIB 3Y 1Bn SEK";
-  const isin = "EIB3Y";
+  const bondName = 'EIB 3Y 1Bn SEK';
+  const isin = 'EIB3Y';
   const expectedSupply = 1000;
   // TODO: fix this to be a normal string
-  const currency = web3.utils.soliditySha3("SEK");
+  const currency = web3.utils.soliditySha3('SEK');
   // const currency = web3.utils.soliditySha3("SEK");
 
   const unitVal = 100000;
   const couponRate = couponRateValue
     ? couponRateValue
-    : web3.utils.asciiToHex("0.4");
+    : web3.utils.asciiToHex('0.4');
   const creationDate = dates.creationDate;
   const issuanceDate = dates.issuanceDate;
   const maturityDate = dates.maturityDate;
   const couponDates = dates.couponDates;
   const defaultCutofftime = dates.defaultCutofftime;
 
-  Register = await ethers.getContractFactory("Register");
+  Register = await ethers.getContractFactory('Register');
   instance = await Register.deploy(
     // cak.newi({ maxGas: registerGas }),
     bondName,
@@ -157,7 +157,7 @@ async function _deployRegisterContractFixture(
     strangerAddress3: stranger3.address,
     strangerAddress4: stranger4.address,
     strangerAddress5: stranger5.address,
-    strangerAddress6: stranger6.address,
+    strangerAddress6: stranger6.address
   };
 }
 
@@ -173,7 +173,6 @@ export async function deployRegisterContractBondDataFixture(): Promise<any> {
   );
 }
 
-
 export async function deployRegisterContractWithWhilistFixture(): Promise<any> {
   const {
     instance,
@@ -184,7 +183,7 @@ export async function deployRegisterContractWithWhilistFixture(): Promise<any> {
     cakAccount,
     cakAddress,
     strangerAddress,
-    strangerAddress2,
+    strangerAddress2
   } = await _deployRegisterContractFixture(2, 12 * 30 * 24 * 3600);
   const investorAccount = strangerAccount;
   const investorAddress = strangerAddress;
@@ -204,7 +203,7 @@ export async function deployRegisterContractWithWhilistFixture(): Promise<any> {
     // address
     cakAddress,
     investorAddress,
-    custodianAddress,
+    custodianAddress
   };
 }
 
@@ -221,7 +220,7 @@ export async function deployRegisterContractSnapshotFixture(): Promise<any> {
     cakAddress,
     strangerAddress,
     strangerAddress2,
-    strangerAddress3,
+    strangerAddress3
   } = await _deployRegisterContractFixture(2, 12 * 30 * 24 * 3600);
 
   const custodianAccount = strangerAccount4;
@@ -245,7 +244,7 @@ export async function deployRegisterContractSnapshotFixture(): Promise<any> {
     strangerAddress,
     strangerAddress2,
     strangerAddress3,
-    custodianAddress,
+    custodianAddress
   };
 }
 
@@ -262,7 +261,7 @@ export async function deployRegisterContractAccessManagementFixture(): Promise<a
     cakAddress,
     strangerAddress,
     strangerAddress2,
-    strangerAddress3,
+    strangerAddress3
   } = await _deployRegisterContractFixture(2, 12 * 30 * 24 * 3600);
 
   const otherCakAccount = strangerAccount2;
@@ -299,6 +298,6 @@ export async function deployRegisterContractAccessManagementFixture(): Promise<a
     bndRole,
     custodianRole,
     payRole,
-    defaultAdminRole,
+    defaultAdminRole
   };
 }

@@ -13,7 +13,8 @@
     "size": "hardhat size-contracts",
     "docgen": "pnpm exec hardhat docgen",
     "size:no-compile": "pnpm exec hardhat size-contracts --no-compile",
-    "prettier": "prettier --write --plugin=prettier-plugin-solidity 'src/**/*.sol'"
+    "prettier": "prettier --write --plugin=prettier-plugin-solidity 'src/**/*.sol'",
+    "prettier-ts": "prettier --config .prettierrc 'test/**/*.ts' --write"
   },
   "prettier": {
     "bracketSpacing": true

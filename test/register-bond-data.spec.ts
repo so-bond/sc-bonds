@@ -1,13 +1,13 @@
-import chai, { expect } from "chai";
-import chaiAsPromised from "chai-as-promised";
-import { loadFixture } from "@nomicfoundation/hardhat-toolbox/network-helpers";
-import { deployRegisterContractBondDataFixture } from "./deployer/register.deployer";
-import { addPart, makeBondDate, mineBlock } from "./utils/dates";
-import { ethers } from "hardhat";
+import chai, { expect } from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+import { loadFixture } from '@nomicfoundation/hardhat-toolbox/network-helpers';
+import { deployRegisterContractBondDataFixture } from './deployer/register.deployer';
+import { addPart, makeBondDate, mineBlock } from './utils/dates';
+import { ethers } from 'hardhat';
 
 chai.use(chaiAsPromised);
 
-describe("Register (Bond Issuance) metadata", function () {
+describe('Register (Bond Issuance) metadata', function () {
   let fixture: any;
   this.beforeEach(async () => {
     fixture = await loadFixture(deployRegisterContractBondDataFixture);
@@ -17,12 +17,12 @@ describe("Register (Bond Issuance) metadata", function () {
     fixture = null;
   });
 
-  it("setBondData without the coupons", async () => {
+  it('setBondData without the coupons', async () => {
     const { web3, instance, cakAccount } = fixture;
-    const bondName = "EIB 3Y 1Bn SEK";
-    const symbol = "SEK";
+    const bondName = 'EIB 3Y 1Bn SEK';
+    const symbol = 'SEK';
     const expectedSupply = 1000;
-    const currency = web3.utils.soliditySha3("SEK");
+    const currency = web3.utils.soliditySha3('SEK');
     const unitVal = 100000;
     const couponRate = 0.5 * 100 * 10000;
     let initialBondDates = makeBondDate(3, 12 * 30 * 24 * 3600);
@@ -58,8 +58,8 @@ describe("Register (Bond Issuance) metadata", function () {
     expect(bondData.cutOffTime).equal(`${cutOffTime}`);
   });
 
-  describe("Test the setting of the coupons before time started", () => {
-    it("should add a coupon in the middle", async () => {
+  describe('Test the setting of the coupons before time started', () => {
+    it('should add a coupon in the middle', async () => {
       const { web3, instance, cakAccount } = fixture;
       let initialBondDates = makeBondDate(3, 12 * 30 * 24 * 3600);
 
@@ -85,7 +85,7 @@ describe("Register (Bond Issuance) metadata", function () {
       expect(bondData.couponDates).deep.equal(expectedCoupons);
     });
 
-    it("should add a coupon date in the first place", async () => {
+    it('should add a coupon date in the first place', async () => {
       const { web3, instance, cakAccount } = fixture;
       let initialBondDates = makeBondDate(3, 12 * 30 * 24 * 3600);
 
@@ -106,7 +106,7 @@ describe("Register (Bond Issuance) metadata", function () {
       expect(bondData.couponDates[0]).equal(`${newDate}`);
     });
 
-    it("should add a coupon date in the last place", async () => {
+    it('should add a coupon date in the last place', async () => {
       const { web3, instance, cakAccount } = fixture;
       let initialBondDates = makeBondDate(3, 12 * 30 * 24 * 3600);
 
@@ -132,7 +132,7 @@ describe("Register (Bond Issuance) metadata", function () {
       );
     });
 
-    it("should fail adding a coupon date after or on the maturity", async () => {
+    it('should fail adding a coupon date after or on the maturity', async () => {
       const { web3, instance, cakAccount } = fixture;
       let initialBondDates = makeBondDate(3, 12 * 30 * 24 * 3600);
       // ACT
@@ -144,7 +144,7 @@ describe("Register (Bond Issuance) metadata", function () {
       );
     });
 
-    it("should fail adding a coupon date before or on the issuance date", async () => {
+    it('should fail adding a coupon date before or on the issuance date', async () => {
       const { web3, instance, cakAccount } = fixture;
       let initialBondDates = makeBondDate(3, 12 * 30 * 24 * 3600);
       // ACT
@@ -156,7 +156,7 @@ describe("Register (Bond Issuance) metadata", function () {
       );
     });
 
-    it("should remove a coupon date in the last place", async () => {
+    it('should remove a coupon date in the last place', async () => {
       const { web3, instance, cakAccount } = fixture;
       let initialBondDates = makeBondDate(3, 12 * 30 * 24 * 3600);
 
@@ -181,7 +181,7 @@ describe("Register (Bond Issuance) metadata", function () {
       expect(bondData.couponDates).deep.equal(expectedCoupons);
     });
 
-    it("should remove a coupon date in the first place", async () => {
+    it('should remove a coupon date in the first place', async () => {
       const { web3, instance, cakAccount } = fixture;
       let initialBondDates = makeBondDate(3, 12 * 30 * 24 * 3600);
       // ACT
@@ -204,7 +204,7 @@ describe("Register (Bond Issuance) metadata", function () {
       expect(bondData.couponDates).deep.equal(expectedCoupons);
     });
 
-    it("should remove a coupon date in the middle", async () => {
+    it('should remove a coupon date in the middle', async () => {
       const { web3, instance, cakAccount } = fixture;
       let initialBondDates = makeBondDate(3, 12 * 30 * 24 * 3600);
       // ACT
@@ -227,7 +227,7 @@ describe("Register (Bond Issuance) metadata", function () {
     });
   });
 
-  describe("Test the setting of the coupons when the time passes", () => {
+  describe('Test the setting of the coupons when the time passes', () => {
     let payAccount: any;
 
     beforeEach(async () => {
@@ -240,14 +240,14 @@ describe("Register (Bond Issuance) metadata", function () {
 
     async function passCoupon(_fixture: any, datetime: number) {
       const { instanceAddress, web3, instance, cakAccount } = _fixture;
-      let hash = "";
+      let hash = '';
       let initialBondDates = makeBondDate(3, 12 * 30 * 24 * 3600);
       for (const couponDate of initialBondDates.couponDates) {
-        const recordDate = addPart(couponDate, "D", -1);
+        const recordDate = addPart(couponDate, 'D', -1);
 
         if (couponDate <= datetime) {
           await mineBlock(recordDate - 1);
-          const Coupon = await ethers.getContractFactory("Coupon");
+          const Coupon = await ethers.getContractFactory('Coupon');
           let coupon = await Coupon.deploy(
             instanceAddress,
             couponDate,
@@ -256,7 +256,7 @@ describe("Register (Bond Issuance) metadata", function () {
             initialBondDates.defaultCutofftime
           );
           const couponAddress = await coupon.getAddress();
-          if (hash == "") {
+          if (hash == '') {
             hash = await instance.atReturningHash(couponAddress);
             await instance.connect(cakAccount).enableContractToWhitelist(hash);
           }
@@ -270,7 +270,7 @@ describe("Register (Bond Issuance) metadata", function () {
       await mineBlock(datetime);
     }
 
-    it("should update the next timestamp if adding a coupon before the next one but after the current one", async () => {
+    it('should update the next timestamp if adding a coupon before the next one but after the current one', async () => {
       const { instance, cakAccount } = fixture;
 
       // Given the first coupon has been created but time is before the timestamp
@@ -304,25 +304,25 @@ describe("Register (Bond Issuance) metadata", function () {
       );
     });
 
-    it("should update the current timestamp if adding a coupon before the current", async () => {});
+    it('should update the current timestamp if adding a coupon before the current', async () => {});
 
-    it("should update the next timestamp if deleting the coupon following the current one", async () => {});
-    it("should update the current timestamp to the maturity when deleting all coupons", async () => {});
+    it('should update the next timestamp if deleting the coupon following the current one', async () => {});
+    it('should update the current timestamp to the maturity when deleting all coupons', async () => {});
 
-    it("should fail deleting a passed coupon ", async () => {});
+    it('should fail deleting a passed coupon ', async () => {});
 
-    it("should fail adding a coupon before the current one", async () => {});
+    it('should fail adding a coupon before the current one', async () => {});
   });
 
-  it("setBondData should be denied if called is not CAK", async () => {
+  it('setBondData should be denied if called is not CAK', async () => {
     const { web3, instance, strangerAccount } = fixture;
-    const bondName = "EIB 3Y 1Bn SEK";
-    const isin = web3.utils.asciiToHex("Code Isin");
+    const bondName = 'EIB 3Y 1Bn SEK';
+    const isin = web3.utils.asciiToHex('Code Isin');
     const expectedSupply = 1000;
-    const currency = web3.utils.soliditySha3("SEK");
+    const currency = web3.utils.soliditySha3('SEK');
 
     const unitVal = 100000;
-    const couponRate = web3.utils.asciiToHex("0.4");
+    const couponRate = web3.utils.asciiToHex('0.4');
     const issuanceDate = 1309102208; //UTC
     const maturityDate = 1309202208; //UTC
     // const couponDates = [1309302208, 1309402208]; //UTC
@@ -342,6 +342,6 @@ describe("Register (Bond Issuance) metadata", function () {
           maturityDate,
           defaultCutofftime
         )
-    ).to.be.rejectedWith("Caller must be CAK");
+    ).to.be.rejectedWith('Caller must be CAK');
   });
 });
