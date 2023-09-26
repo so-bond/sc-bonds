@@ -13,6 +13,8 @@
     "size": "hardhat size-contracts",
     "docgen": "pnpm exec hardhat docgen",
     "size:no-compile": "pnpm exec hardhat size-contracts --no-compile",
+    "solc-combined-json": "solc -o contracts-artifacts/solc --optimize --combined-json abi,bin,bin-runtime --metadata-hash none --overwrite --base-path . --include-path ./node_modules  src/*.sol",
+    "hardhat-combined-json": "pnpm clean && pnpm compile && pnpm exec hardhat combined-json --output contracts-artifacts/hardhat/combined.json",
     "prettier": "prettier --write --plugin=prettier-plugin-solidity 'src/**/*.sol'",
     "prettier-ts": "prettier --config .prettierrc 'test/**/*.ts' --write"
   },
@@ -45,6 +47,7 @@
     "prettier-plugin-solidity": "^1.1.3",
     "solidity-coverage": "^0.8.0",
     "solidity-docgen": "0.6.0-beta.36",
+    "strip-hex-prefix": "^1.0.0",
     "ts-node": ">=8.0.0",
     "typechain": "^8.1.0",
     "typescript": ">=4.5.0",
