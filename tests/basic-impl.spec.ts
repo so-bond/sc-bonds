@@ -103,13 +103,13 @@ describe("Run tests of the Issuance and Bilateral Trades contracts", function ()
 
 
     // Have the CAK declare the actors
-    await register.grantBndRole(cak.send({maxGas:100000}), await cak.account()); // needed to create a dummy primary issuance smart contract
+    await register.grantBndRole(cak.send({maxGas:116000}), await cak.account()); // needed to create a dummy primary issuance smart contract
 
-    await register.grantBndRole(cak.send({maxGas:100000}), await bnd.account());
+    await register.grantBndRole(cak.send({maxGas:116000}), await bnd.account());
 
-    await register.grantCstRole(cak.send({maxGas:100000}), await custodianA.account());
+    await register.grantCstRole(cak.send({maxGas:116000}), await custodianA.account());
 
-    await register.grantCstRole(cak.send({maxGas:100000}), await custodianB.account());
+    await register.grantCstRole(cak.send({maxGas:116000}), await custodianB.account());
 
     await register.enableInvestorToWhitelist(custodianA.send({maxGas:130000}), await cak.account()); // needed to deploy a test trade contract
     

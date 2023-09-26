@@ -235,7 +235,7 @@ describe("Register (Bond Issuance) metadata", function () {
     let pay: EthProviderInterface;
     beforeEach(async () => {
       pay = new Web3FunctionProvider(web3.currentProvider, (list) => Promise.resolve(list[2]));
-      await instance.grantPayRole(cak.send({maxGas: 100_000}), await pay.account());
+      await instance.grantPayRole(cak.send({maxGas: 116000}), await pay.account());
 
     });
     async function passCoupon(datetime: number) {

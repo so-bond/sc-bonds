@@ -107,7 +107,7 @@ describe("Register snapshot testing", function () {
   });
 
   it("when CAK transfer to stranger it should update stranger balance", async () => {
-    await instance.grantCstRole(cak.send({ maxGas: 100000 }), await custodianA.account());
+    await instance.grantCstRole(cak.send({ maxGas: 116000 }), await custodianA.account());
     await instance.enableInvestorToWhitelist(custodianA.send({ maxGas: 120000 }), strangerAddress); // needed to deploy a test trade contract
 
     await instance.transferFrom(cak.send(gas(300000)), instance.deployedAt, strangerAddress, 400);

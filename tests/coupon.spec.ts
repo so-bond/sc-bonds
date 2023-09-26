@@ -92,12 +92,12 @@ describe("Run tests of the Coupon process", function () {
     await collectEvents(cak, register);
     
     //Grant all roles and whitelist addresses
-    // await register.grantBndRole(cak.send({maxGas:100000}), await cak.account()); // needed to create a dummy primary issuance smart contract
-    await register.grantBndRole(cak.send({maxGas:100000}), await bnd.account());
-    await register.grantCstRole(cak.send({maxGas:100000}), await custodianA.account());
-    await register.grantCstRole(cak.send({maxGas:100000}), await custodianB.account());
+    // await register.grantBndRole(cak.send({maxGas:116000}), await cak.account()); // needed to create a dummy primary issuance smart contract
+    await register.grantBndRole(cak.send({maxGas:116000}), await bnd.account());
+    await register.grantCstRole(cak.send({maxGas:116000}), await custodianA.account());
+    await register.grantCstRole(cak.send({maxGas:116000}), await custodianB.account());
 
-    await register.grantPayRole(cak.send({maxGas:100000}), await payer.account());
+    await register.grantPayRole(cak.send({maxGas:116000}), await payer.account());
 
     // await register.enableInvestorToWhitelist(custodianA.send({maxGas:120000}), await cak.account()); // needed to deploy a test trade contract
     // await register.enableInvestorToWhitelist(custodianA.send({maxGas:120000}), await bnd.account()); // B&D must be an investor as well

@@ -119,7 +119,7 @@ describe("Register (Bond Issuance)", function () {
     it("should be Issued after issuance approval", async () => {
       // implicit: register has been minted
 
-      await registerInstance.grantBndRole(cak.send({ maxGas: 100000 }), bndAddress);
+      await registerInstance.grantBndRole(cak.send({ maxGas: 116000 }), bndAddress);
       const primaryInstance = await allContracts
         .get(PrimaryIssuanceContractName)
         .deploy(bnd.newi({ maxGas: 1000000 }), registerInstance.deployedAt, 1500);
@@ -128,7 +128,7 @@ describe("Register (Bond Issuance)", function () {
       let primaryHash = await registerInstance.atReturningHash(cak.call(), primaryInstance.deployedAt);
       await registerInstance.enableContractToWhitelist(cak.send({ maxGas: 100000 }), primaryHash);
       const before = await registerInstance.status(stranger.call());
-      await registerInstance.grantCstRole(cak.send({maxGas:100000}), await custodian.account());
+      await registerInstance.grantCstRole(cak.send({maxGas:116000}), await custodian.account());
       await registerInstance.enableInvestorToWhitelist(custodian.send({maxGas:120000}), bndAddress); // needed to deploy a test trade contract
    
       await registerInstance.makeReady(cak.send({ maxGas: makeReadyGas }));
@@ -149,7 +149,7 @@ describe("Register (Bond Issuance)", function () {
     beforeEach(async () => {
       await deployRegisterContract();
       //NOTE: only one Bond contract is deployed within this describe() scope
-      await registerInstance.grantBndRole(cak.send({ maxGas: 100000 }), bndAddress);
+      await registerInstance.grantBndRole(cak.send({ maxGas: 116000 }), bndAddress);
     });
 
     it('It should create a new bond, force some balances then force its issuance', async () => {

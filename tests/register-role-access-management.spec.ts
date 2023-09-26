@@ -145,7 +145,7 @@ describe("Register - role management", function () {
     });
 
     it("CAK can grant another CAK", async () => {
-      await sut.grantRole(cak.send({ maxGas: 100000 }), cakRole, otherCakAddress);
+      await sut.grantRole(cak.send({ maxGas: 116000 }), cakRole, otherCakAddress);
       const isAlsoCak = await sut.hasRole(stranger.call(), cakRole, otherCakAddress);
       expect(isAlsoCak).to.be.true;
     });
@@ -211,13 +211,13 @@ describe("Register - role management", function () {
       const isAlsoCak = await sut.hasRole(stranger.call(), cakRole, otherCakAddress);
       // console.log("Adding the other cak", isAlsoCak, otherCakAddress);
       if (!isAlsoCak) {
-        await sut.grantRole(cak.send({ maxGas: 100000 }), cakRole, otherCakAddress);
+        await sut.grantRole(cak.send({ maxGas: 116000 }), cakRole, otherCakAddress);
       }
       // Given the address of the stranger to become cak
 
       // WHEN we follow the process of changing the admin
-      await sut.changeAdminRole(cak.send({maxGas:100_000}), strangerAddress);
-      await sut.changeAdminRole(otherCak.send({maxGas: 100_000}), strangerAddress);
+      await sut.changeAdminRole(cak.send({maxGas:116000}), strangerAddress);
+      await sut.changeAdminRole(otherCak.send({maxGas: 116000}), strangerAddress);
 
       // THEN the admin should be the stranger address
       const isAdmin = await sut.hasRole(stranger.call(), defaultAdminRole, strangerAddress)

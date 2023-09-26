@@ -140,7 +140,7 @@ describe("Register (Bond Issuance) contract events", function () {
     const primaryIssuanceAccount = contractAddress;
     // let lastBlock = await web3.eth.getBlockNumber();
 
-    await instance.grantCstRole(cak.send({ maxGas: 100000 }), await custodianA.account());
+    await instance.grantCstRole(cak.send({ maxGas: 116000 }), await custodianA.account());
     await instance.enableInvestorToWhitelist(custodianA.send({ maxGas: 120000 }), strangerAddress); // needed to deploy a test trade contract
 
     await instance.mint(cak.send({ maxGas: mintGas }), 11); // have the primaryIssuanceAccount with non zero balance

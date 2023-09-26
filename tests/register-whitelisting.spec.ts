@@ -67,7 +67,7 @@ describe("Register (Bond Issuance) whitelisting", function () {
     } else {
       throw new Error(RegisterContractName + " contract not defined in the compilation result");
     }
-    await instance.grantCstRole(cak.send({maxGas:100000}), await custodian.account());
+    await instance.grantCstRole(cak.send({maxGas:116000}), await custodian.account());
 
   }
   describe("whitelist investor", function () {
