@@ -109,532 +109,6 @@ _enables the rejection of the bilateral trade in 2 possibilites :
 function executeTransfer() public returns (bool)
 ```
 
-## IBilateralTrade
-
-### setDetails
-
-```solidity
-function setDetails(struct ITrade.TradeDetail _details) external
-```
-
-### approve
-
-```solidity
-function approve() external returns (enum ITrade.Status)
-```
-
-### reject
-
-```solidity
-function reject() external
-```
-
-### executeTransfer
-
-```solidity
-function executeTransfer() external returns (bool)
-```
-
-## IRegisterRoleManagement
-
-### isBnD
-
-```solidity
-function isBnD(address account) external view returns (bool)
-```
-
-### isPay
-
-```solidity
-function isPay(address account) external view returns (bool)
-```
-
-### isCustodian
-
-```solidity
-function isCustodian(address account) external view returns (bool)
-```
-
-### isCAK
-
-```solidity
-function isCAK(address account) external view returns (bool)
-```
-
-### changeAdminRole
-
-```solidity
-function changeAdminRole(address account) external
-```
-
-### grantCakRole
-
-```solidity
-function grantCakRole(address cakAddress) external
-```
-
-### revokeCakRole
-
-```solidity
-function revokeCakRole(address cakAddress) external
-```
-
-### grantBndRole
-
-```solidity
-function grantBndRole(address bndAddress) external
-```
-
-### revokeBndRole
-
-```solidity
-function revokeBndRole(address bndAddress) external
-```
-
-### grantCstRole
-
-```solidity
-function grantCstRole(address cstAddress) external
-```
-
-### revokeCstRole
-
-```solidity
-function revokeCstRole(address cstAddress) external
-```
-
-### grantPayRole
-
-```solidity
-function grantPayRole(address cstAddress) external
-```
-
-### revokePayRole
-
-```solidity
-function revokePayRole(address cstAddress) external
-```
-
-### AdminChanged
-
-```solidity
-event AdminChanged(address _addressForNewAdmin)
-```
-
-## ICouponSnapshotManagement
-
-### _snapshot
-
-```solidity
-function _snapshot() external returns (uint256)
-```
-
-### Snapshot
-
-```solidity
-event Snapshot(uint256 id)
-```
-
-_Emitted by {_snapshot} when a snapshot identified by `id` is created._
-
-### balanceOfAt
-
-```solidity
-function balanceOfAt(address account, uint256 snapshotId) external view returns (uint256)
-```
-
-### balanceOfCoupon
-
-```solidity
-function balanceOfCoupon(address account, uint256 _couponDate) external view returns (uint256)
-```
-
-### totalSupplyAt
-
-```solidity
-function totalSupplyAt(uint256 snapshotId) external view returns (uint256)
-```
-
-### totalSupplyAtCoupon
-
-```solidity
-function totalSupplyAtCoupon(uint256 _couponDate) external view returns (uint256)
-```
-
-### currentSnapshotDatetime
-
-```solidity
-function currentSnapshotDatetime() external view returns (uint256)
-```
-
-### currentCouponDate
-
-```solidity
-function currentCouponDate() external view returns (uint256)
-```
-
-## ISmartContractAccessManagement
-
-### enableContractToWhitelist
-
-```solidity
-function enableContractToWhitelist(bytes32 contractHash) external
-```
-
-### disableContractFromWhitelist
-
-```solidity
-function disableContractFromWhitelist(bytes32 contractHash) external
-```
-
-### isCallerApprovedSmartContract
-
-```solidity
-function isCallerApprovedSmartContract() external view returns (bool)
-```
-
-### EnableContract
-
-```solidity
-event EnableContract(bytes32 contractHash)
-```
-
-### DisableContract
-
-```solidity
-event DisableContract(bytes32 contractHash)
-```
-
-## IRegister
-
-### Status
-
-```solidity
-enum Status {
-  Draft,
-  Ready,
-  Issued,
-  Repaid,
-  Frozen
-}
-```
-
-### primaryIssuanceAccount
-
-```solidity
-function primaryIssuanceAccount() external view returns (address)
-```
-
-### returnBalanceToPrimaryIssuanceAccount
-
-```solidity
-function returnBalanceToPrimaryIssuanceAccount(address investor) external returns (bool)
-```
-
-### getAllInvestors
-
-```solidity
-function getAllInvestors() external view returns (address[])
-```
-
-### disableInvestorFromWhitelist
-
-```solidity
-function disableInvestorFromWhitelist(address investor) external
-```
-
-### enableInvestorToWhitelist
-
-```solidity
-function enableInvestorToWhitelist(address investor) external
-```
-
-### investorsAllowed
-
-```solidity
-function investorsAllowed(address investor) external view returns (bool)
-```
-
-### investorCustodian
-
-```solidity
-function investorCustodian(address investor) external view returns (address)
-```
-
-### checkIfCouponDateExists
-
-```solidity
-function checkIfCouponDateExists(uint256 _couponDate) external returns (bool)
-```
-
-### checkIfMaturityDateExists
-
-```solidity
-function checkIfMaturityDateExists(uint256 _maturityDate) external returns (bool)
-```
-
-### makeReady
-
-```solidity
-function makeReady() external
-```
-
-### revertReady
-
-```solidity
-function revertReady() external
-```
-
-### publicMessage
-
-```solidity
-function publicMessage(address to, string message) external
-```
-
-### status
-
-```solidity
-function status() external view returns (enum IRegister.Status)
-```
-
-### setCurrentCouponDate
-
-```solidity
-function setCurrentCouponDate(uint256 couponDate_, uint256 recordDatetime_) external
-```
-
-### getInvestorListAtCoupon
-
-```solidity
-function getInvestorListAtCoupon(uint256 CouponDate) external returns (address[])
-```
-
-### toggleFrozen
-
-```solidity
-function toggleFrozen() external
-```
-
-### WalletAddedToWhitelist
-
-```solidity
-event WalletAddedToWhitelist(address toBeAdded)
-```
-
-### WalletDeletedFromWhitelist
-
-```solidity
-event WalletDeletedFromWhitelist(address toBeDeleted)
-```
-
-### EnableInvestor
-
-```solidity
-event EnableInvestor(address investor)
-```
-
-### DisableInvestor
-
-```solidity
-event DisableInvestor(address investor)
-```
-
-### NewBondDrafted
-
-```solidity
-event NewBondDrafted(address creator, string name, string isin)
-```
-
-### RegisterStatusChanged
-
-```solidity
-event RegisterStatusChanged(address emiter, string name, string isin, enum IRegister.Status status)
-```
-
-### PublicMessage
-
-```solidity
-event PublicMessage(address sender, address target, string message)
-```
-
-### InvestorInfo
-
-```solidity
-struct InvestorInfo {
-  address investor;
-  bool allowed;
-  uint256 index;
-  address custodian;
-}
-```
-
-## IRegisterMetadata
-
-### BondData
-
-```solidity
-struct BondData {
-  string name;
-  string isin;
-  uint256 expectedSupply;
-  bytes32 currency;
-  uint256 unitValue;
-  uint256 couponRate;
-  uint256 creationDate;
-  uint256 issuanceDate;
-  uint256 maturityDate;
-  uint256[] couponDates;
-  uint256 cutOffTime;
-}
-```
-
-### setIsinSymbol
-
-```solidity
-function setIsinSymbol(string isinSymbol) external
-```
-
-### setCurrency
-
-```solidity
-function setCurrency(bytes32 currency) external
-```
-
-### getCreationDate
-
-```solidity
-function getCreationDate() external view returns (uint256)
-```
-
-### getIssuanceDate
-
-```solidity
-function getIssuanceDate() external view returns (uint256)
-```
-
-### setCreationDate
-
-```solidity
-function setCreationDate(uint256 creationDate) external
-```
-
-### setIssuanceDate
-
-```solidity
-function setIssuanceDate(uint256 issuanceDate) external
-```
-
-### setBondData
-
-```solidity
-function setBondData(string name_, uint256 expectedSupply_, bytes32 currency_, uint256 unitVal_, uint256 couponRate_, uint256 issuanceDate_, uint256 maturityDate_, uint256 cutOffTime_) external
-```
-
-### addCouponDate
-
-```solidity
-function addCouponDate(uint256 date) external
-```
-
-### delCouponDate
-
-```solidity
-function delCouponDate(uint256 date) external
-```
-
-### setExpectedSupply
-
-```solidity
-function setExpectedSupply(uint256 expectedSupply) external
-```
-
-### getBondData
-
-```solidity
-function getBondData() external view returns (struct IRegisterMetadata.BondData)
-```
-
-### getBondCouponRate
-
-```solidity
-function getBondCouponRate() external view returns (uint256)
-```
-
-### getBondUnitValue
-
-```solidity
-function getBondUnitValue() external view returns (uint256)
-```
-
-## ITrade
-
-### Status
-
-```solidity
-enum Status {
-  Draft,
-  Pending,
-  Rejected,
-  Accepted,
-  Executed,
-  Paid
-}
-```
-
-### TradeDetail
-
-```solidity
-struct TradeDetail {
-  uint256 quantity;
-  address buyer;
-  uint256 tradeDate;
-  uint256 valueDate;
-  uint256 price;
-}
-```
-
-### register
-
-```solidity
-function register() external view returns (contract IRegister)
-```
-
-### status
-
-```solidity
-function status() external view returns (enum ITrade.Status)
-```
-
-### paymentID
-
-```solidity
-function paymentID() external view returns (bytes8)
-```
-
-### getDetails
-
-```solidity
-function getDetails() external view returns (struct ITrade.TradeDetail)
-```
-
-### sellerAccount
-
-```solidity
-function sellerAccount() external view returns (address)
-```
-
-### buyerAccount
-
-```solidity
-function buyerAccount() external view returns (address)
-```
-
-### NotifyTrade
-
-```solidity
-event NotifyTrade(address seller, address buyer, enum ITrade.Status status, uint256 quantity)
-```
-
 ## Coupon
 
 ### CouponStatus
@@ -1734,6 +1208,32 @@ function atReturningHash(address addr_) public view returns (bytes32 hash)
 _This function returns the bytecode'shash of the deployed smart contract address
 source : https://gist.github.com/andreafspeziale/557fa432e9929ccf049459972e322bdf_
 
+## IBilateralTrade
+
+### setDetails
+
+```solidity
+function setDetails(struct ITrade.TradeDetail _details) external
+```
+
+### approve
+
+```solidity
+function approve() external returns (enum ITrade.Status)
+```
+
+### reject
+
+```solidity
+function reject() external
+```
+
+### executeTransfer
+
+```solidity
+function executeTransfer() external returns (bool)
+```
+
 ## ICoupon
 
 ### computesCouponAmount
@@ -1774,5 +1274,505 @@ as a B&D execute the transfer from the security issuance account to the B&D acco
 
 ```solidity
 event PrimaryIssuanceCreated(address contractAddress)
+```
+
+## IRegisterRoleManagement
+
+### isBnD
+
+```solidity
+function isBnD(address account) external view returns (bool)
+```
+
+### isPay
+
+```solidity
+function isPay(address account) external view returns (bool)
+```
+
+### isCustodian
+
+```solidity
+function isCustodian(address account) external view returns (bool)
+```
+
+### isCAK
+
+```solidity
+function isCAK(address account) external view returns (bool)
+```
+
+### changeAdminRole
+
+```solidity
+function changeAdminRole(address account) external
+```
+
+### grantCakRole
+
+```solidity
+function grantCakRole(address cakAddress) external
+```
+
+### revokeCakRole
+
+```solidity
+function revokeCakRole(address cakAddress) external
+```
+
+### grantBndRole
+
+```solidity
+function grantBndRole(address bndAddress) external
+```
+
+### revokeBndRole
+
+```solidity
+function revokeBndRole(address bndAddress) external
+```
+
+### grantCstRole
+
+```solidity
+function grantCstRole(address cstAddress) external
+```
+
+### revokeCstRole
+
+```solidity
+function revokeCstRole(address cstAddress) external
+```
+
+### grantPayRole
+
+```solidity
+function grantPayRole(address cstAddress) external
+```
+
+### revokePayRole
+
+```solidity
+function revokePayRole(address cstAddress) external
+```
+
+### AdminChanged
+
+```solidity
+event AdminChanged(address _addressForNewAdmin)
+```
+
+## ICouponSnapshotManagement
+
+### _snapshot
+
+```solidity
+function _snapshot() external returns (uint256)
+```
+
+### Snapshot
+
+```solidity
+event Snapshot(uint256 id)
+```
+
+_Emitted by {_snapshot} when a snapshot identified by `id` is created._
+
+### balanceOfAt
+
+```solidity
+function balanceOfAt(address account, uint256 snapshotId) external view returns (uint256)
+```
+
+### balanceOfCoupon
+
+```solidity
+function balanceOfCoupon(address account, uint256 _couponDate) external view returns (uint256)
+```
+
+### totalSupplyAt
+
+```solidity
+function totalSupplyAt(uint256 snapshotId) external view returns (uint256)
+```
+
+### totalSupplyAtCoupon
+
+```solidity
+function totalSupplyAtCoupon(uint256 _couponDate) external view returns (uint256)
+```
+
+### currentSnapshotDatetime
+
+```solidity
+function currentSnapshotDatetime() external view returns (uint256)
+```
+
+### currentCouponDate
+
+```solidity
+function currentCouponDate() external view returns (uint256)
+```
+
+## ISmartContractAccessManagement
+
+### enableContractToWhitelist
+
+```solidity
+function enableContractToWhitelist(bytes32 contractHash) external
+```
+
+### disableContractFromWhitelist
+
+```solidity
+function disableContractFromWhitelist(bytes32 contractHash) external
+```
+
+### isCallerApprovedSmartContract
+
+```solidity
+function isCallerApprovedSmartContract() external view returns (bool)
+```
+
+### EnableContract
+
+```solidity
+event EnableContract(bytes32 contractHash)
+```
+
+### DisableContract
+
+```solidity
+event DisableContract(bytes32 contractHash)
+```
+
+## IRegister
+
+### Status
+
+```solidity
+enum Status {
+  Draft,
+  Ready,
+  Issued,
+  Repaid,
+  Frozen
+}
+```
+
+### primaryIssuanceAccount
+
+```solidity
+function primaryIssuanceAccount() external view returns (address)
+```
+
+### returnBalanceToPrimaryIssuanceAccount
+
+```solidity
+function returnBalanceToPrimaryIssuanceAccount(address investor) external returns (bool)
+```
+
+### getAllInvestors
+
+```solidity
+function getAllInvestors() external view returns (address[])
+```
+
+### disableInvestorFromWhitelist
+
+```solidity
+function disableInvestorFromWhitelist(address investor) external
+```
+
+### enableInvestorToWhitelist
+
+```solidity
+function enableInvestorToWhitelist(address investor) external
+```
+
+### investorsAllowed
+
+```solidity
+function investorsAllowed(address investor) external view returns (bool)
+```
+
+### investorCustodian
+
+```solidity
+function investorCustodian(address investor) external view returns (address)
+```
+
+### checkIfCouponDateExists
+
+```solidity
+function checkIfCouponDateExists(uint256 _couponDate) external returns (bool)
+```
+
+### checkIfMaturityDateExists
+
+```solidity
+function checkIfMaturityDateExists(uint256 _maturityDate) external returns (bool)
+```
+
+### makeReady
+
+```solidity
+function makeReady() external
+```
+
+### revertReady
+
+```solidity
+function revertReady() external
+```
+
+### publicMessage
+
+```solidity
+function publicMessage(address to, string message) external
+```
+
+### status
+
+```solidity
+function status() external view returns (enum IRegister.Status)
+```
+
+### setCurrentCouponDate
+
+```solidity
+function setCurrentCouponDate(uint256 couponDate_, uint256 recordDatetime_) external
+```
+
+### getInvestorListAtCoupon
+
+```solidity
+function getInvestorListAtCoupon(uint256 CouponDate) external returns (address[])
+```
+
+### toggleFrozen
+
+```solidity
+function toggleFrozen() external
+```
+
+### WalletAddedToWhitelist
+
+```solidity
+event WalletAddedToWhitelist(address toBeAdded)
+```
+
+### WalletDeletedFromWhitelist
+
+```solidity
+event WalletDeletedFromWhitelist(address toBeDeleted)
+```
+
+### EnableInvestor
+
+```solidity
+event EnableInvestor(address investor)
+```
+
+### DisableInvestor
+
+```solidity
+event DisableInvestor(address investor)
+```
+
+### NewBondDrafted
+
+```solidity
+event NewBondDrafted(address creator, string name, string isin)
+```
+
+### RegisterStatusChanged
+
+```solidity
+event RegisterStatusChanged(address emiter, string name, string isin, enum IRegister.Status status)
+```
+
+### PublicMessage
+
+```solidity
+event PublicMessage(address sender, address target, string message)
+```
+
+### InvestorInfo
+
+```solidity
+struct InvestorInfo {
+  address investor;
+  bool allowed;
+  uint256 index;
+  address custodian;
+}
+```
+
+## IRegisterMetadata
+
+### BondData
+
+```solidity
+struct BondData {
+  string name;
+  string isin;
+  uint256 expectedSupply;
+  bytes32 currency;
+  uint256 unitValue;
+  uint256 couponRate;
+  uint256 creationDate;
+  uint256 issuanceDate;
+  uint256 maturityDate;
+  uint256[] couponDates;
+  uint256 cutOffTime;
+}
+```
+
+### setIsinSymbol
+
+```solidity
+function setIsinSymbol(string isinSymbol) external
+```
+
+### setCurrency
+
+```solidity
+function setCurrency(bytes32 currency) external
+```
+
+### getCreationDate
+
+```solidity
+function getCreationDate() external view returns (uint256)
+```
+
+### getIssuanceDate
+
+```solidity
+function getIssuanceDate() external view returns (uint256)
+```
+
+### setCreationDate
+
+```solidity
+function setCreationDate(uint256 creationDate) external
+```
+
+### setIssuanceDate
+
+```solidity
+function setIssuanceDate(uint256 issuanceDate) external
+```
+
+### setBondData
+
+```solidity
+function setBondData(string name_, uint256 expectedSupply_, bytes32 currency_, uint256 unitVal_, uint256 couponRate_, uint256 issuanceDate_, uint256 maturityDate_, uint256 cutOffTime_) external
+```
+
+### addCouponDate
+
+```solidity
+function addCouponDate(uint256 date) external
+```
+
+### delCouponDate
+
+```solidity
+function delCouponDate(uint256 date) external
+```
+
+### setExpectedSupply
+
+```solidity
+function setExpectedSupply(uint256 expectedSupply) external
+```
+
+### getBondData
+
+```solidity
+function getBondData() external view returns (struct IRegisterMetadata.BondData)
+```
+
+### getBondCouponRate
+
+```solidity
+function getBondCouponRate() external view returns (uint256)
+```
+
+### getBondUnitValue
+
+```solidity
+function getBondUnitValue() external view returns (uint256)
+```
+
+## ITrade
+
+### Status
+
+```solidity
+enum Status {
+  Draft,
+  Pending,
+  Rejected,
+  Accepted,
+  Executed,
+  Paid
+}
+```
+
+### TradeDetail
+
+```solidity
+struct TradeDetail {
+  uint256 quantity;
+  address buyer;
+  uint256 tradeDate;
+  uint256 valueDate;
+  uint256 price;
+}
+```
+
+### register
+
+```solidity
+function register() external view returns (contract IRegister)
+```
+
+### status
+
+```solidity
+function status() external view returns (enum ITrade.Status)
+```
+
+### paymentID
+
+```solidity
+function paymentID() external view returns (bytes8)
+```
+
+### getDetails
+
+```solidity
+function getDetails() external view returns (struct ITrade.TradeDetail)
+```
+
+### sellerAccount
+
+```solidity
+function sellerAccount() external view returns (address)
+```
+
+### buyerAccount
+
+```solidity
+function buyerAccount() external view returns (address)
+```
+
+### NotifyTrade
+
+```solidity
+event NotifyTrade(address seller, address buyer, enum ITrade.Status status, uint256 quantity)
 ```
 
