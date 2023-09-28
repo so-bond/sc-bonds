@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.17;
+pragma solidity 0.8.19;
 
 import "./intf/IBilateralTrade.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
@@ -13,20 +13,22 @@ contract BilateralTrade is IBilateralTrade, ReentrancyGuard {
     TradeDetail public details;
 
     /**
-     * @dev when the smart contract deploys :
+     * @dev When the smart contract deploys:
      * - we check that deployer has been whitelisted
      * - we check that buyer has been whitelisted
      * - we map the register contract to interact with it
      * - variable sellerAccount gets msg.sender address
      * - details struct buyer gets buyer address
      * - status of current contract is Draft
-     * The constructor cannot be checked by the register by looking ain the hash of 
+     *
+     * The constructor cannot be checked by the register by looking ain the hash of
      * the runtime bytecode because this hash does not cover the constructor.
      * so controls in the constructors are to be replicated in the first interaction with a function
      */
     constructor(IRegister _register, address _buyer) {
         require(
-            _register.investorsAllowed(msg.sender) || _register.isBnD(msg.sender),
+            _register.investorsAllowed(msg.sender) ||
+                _register.isBnD(msg.sender),
             "Sender must be a valid investor"
         );
 
@@ -39,12 +41,7 @@ contract BilateralTrade is IBilateralTrade, ReentrancyGuard {
         sellerAccount = msg.sender;
         details.buyer = _buyer;
         status = Status.Draft;
-        emit NotifyTrade(
-            msg.sender,
-            _buyer,
-            status,
-            0
-        );
+        emit NotifyTrade(msg.sender, _buyer, status, 0);
     }
 
     /**
@@ -105,7 +102,7 @@ contract BilateralTrade is IBilateralTrade, ReentrancyGuard {
      * --> transfer the tokens from B&D account to buyer
      * --> status becomes Accepted and emits an event
      */
-    function approve() public returns(Status) {
+    function approve() public returns (Status) {
         if (msg.sender == sellerAccount && status == Status.Draft) {
             require(details.quantity > 0, "quantity not defined");
             require(details.tradeDate > 0, "trade date not defined");
@@ -124,7 +121,7 @@ contract BilateralTrade is IBilateralTrade, ReentrancyGuard {
                 status,
                 details.quantity
             );
-            return(status);
+            return (status);
         }
 
         if (msg.sender == details.buyer && status == Status.Pending) {
@@ -143,10 +140,10 @@ contract BilateralTrade is IBilateralTrade, ReentrancyGuard {
                 status,
                 details.quantity
             );
-            return(status);
+            return (status);
         }
-        require(false, "the trade cannot be approved in this current status");
-        return(status);
+        revert("the trade cannot be approved in this current status");
+        return (status);
     }
 
     /**
@@ -170,7 +167,10 @@ contract BilateralTrade is IBilateralTrade, ReentrancyGuard {
             return;
         }
         // buyer can cancel the trade when pending validation on his side or even after he has accepted the trade (but not when the seller prepares the trade (DRAFT))
-        if (msg.sender == details.buyer && (status == Status.Pending || status == Status.Accepted)) {
+        if (
+            msg.sender == details.buyer &&
+            (status == Status.Pending || status == Status.Accepted)
+        ) {
             status = Status.Rejected;
             emit NotifyTrade(
                 sellerAccount,
@@ -180,10 +180,10 @@ contract BilateralTrade is IBilateralTrade, ReentrancyGuard {
             );
             return;
         }
-        require(false, "the trade cannot be rejected in this current status");
+        revert("the trade cannot be rejected in this current status");
     }
 
-    function executeTransfer() public nonReentrant returns(bool) {
+    function executeTransfer() public nonReentrant returns (bool) {
         require(
             msg.sender == sellerAccount,
             "Only the seller can confirm the payment on this trade"
@@ -194,12 +194,12 @@ contract BilateralTrade is IBilateralTrade, ReentrancyGuard {
         );
         status = Status.Executed;
         // Actually make the transfer now
-        bool success = 
-            register.transferFrom(sellerAccount, details.buyer, details.quantity);
-        require(
-            success,
-            "the transfer has failed"
+        bool success = register.transferFrom(
+            sellerAccount,
+            details.buyer,
+            details.quantity
         );
+        require(success, "the transfer has failed");
         emit NotifyTrade(
             sellerAccount,
             details.buyer,
@@ -208,5 +208,4 @@ contract BilateralTrade is IBilateralTrade, ReentrancyGuard {
         );
         return true;
     }
-
 }
