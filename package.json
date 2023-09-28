@@ -2,41 +2,20 @@
   "name": "sc-bonds",
   "version": "1.0.0",
   "description": "",
-  "main": "contracts/index.js",
   "scripts": {
-    "test": "mocha --register ts-node/register --ignore 'node_modules/**/*' '**/*.spec.ts'",
-    "build": "./build.sh",
-    "build:mon": "nodemon -w src -e sol --exec ./build.sh",
-    "slither": "docker run --rm  -v $(pwd):/share --entrypoint '/share/slither-cmd.sh' trailofbits/eth-security-toolbox"
+    "postinstall": "npm run test-original:install && npm run initial-impl:install",
+    "test-original:install": "cd tests/original-unit-testing && npm install",
+    "initial-impl:install": "cd initial-eib-impl && npm install",
+    "initial-impl:build": "cd initial-eib-impl && npm run build",
+    "build": "npm run initial-impl:build"
   },
   "keywords": [],
   "author": "Guénolé de Cadoudal",
   "license": "Apache 2.0",
   "devDependencies": {
-    "@saturn-chain/dlt-tx-data-functions": "^1.0.9",
-    "@saturn-chain/web3-functions": "^1.0.13",
-    "@types/chai": "^4.2.22",
-    "@types/chai-as-promised": "^7.1.4",
-    "@types/mocha": "^9.0.0",
-    "chai": "^4.3.4",
-    "chai-as-promised": "^7.1.1",
-    "mocha": "^9.1.3",
-    "ts-node": "^10.4.0",
-    "typescript": "^4.4.4",
-    "web3": "^1.6.0",
-    "ganache": "^7.8.0"
+    "@saturn-chain/smart-contract": "^1.0.19"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^4.3.2",
-    "@saturn-chain/smart-contract": "^1.0.18"
-  },
-  "mocha": {
-    "spec": [
-      "**/*.spec.ts"
-    ],
-    "ignore": "node_modules/**/*",
-    "require": [
-      "ts-node/register"
-    ]
+    "@so-bond/interfaces": "github:so-bond/interfaces"
   }
 }

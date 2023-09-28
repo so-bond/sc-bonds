@@ -1,0 +1,11 @@
+{
+  "spec": [
+    "**/*.spec.ts"
+  ],
+  "ignore": [
+    "**/node_modules/**/*"
+  ],
+  "require": [
+    "ts-node/register"
+  ]
+}

@@ -1,6 +1,6 @@
 import { EthProviderInterface } from "@saturn-chain/dlt-tx-data-functions";
 import { SmartContractInstance } from "@saturn-chain/smart-contract";
-import allContracts from "../contracts";
+import allContracts from "../../contracts";
 import { today } from "./dates";
 
 export const RegisterContractName = "Register";

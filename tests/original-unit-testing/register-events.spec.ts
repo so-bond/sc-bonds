@@ -7,7 +7,7 @@ import Ganache from "ganache";
 import { Web3FunctionProvider } from "@saturn-chain/web3-functions";
 import { EthProviderInterface } from "@saturn-chain/dlt-tx-data-functions";
 import { EventData } from "web3-eth-contract";
-import allContracts from "../contracts";
+import allContracts from "../../contracts";
 import { EventReceiver, SmartContract, SmartContractInstance } from "@saturn-chain/smart-contract";
 import { blockGasLimit, makeReadyGas, mintGas, registerGas } from "./gas.constant";
 import { makeBondDate } from "./dates";
@@ -27,7 +27,7 @@ describe("Register (Bond Issuance) contract events", function () {
   let custodianA: EthProviderInterface;
 
   async function deployRegisterContract(): Promise<void> {
-    web3 = new Web3(Ganache.provider({ default_balance_ether: 1000, gasLimit: blockGasLimit, chain: {vmErrorsOnRPCResponse:true} }) as any);
+    web3 = new Web3(Ganache.provider({ wallet: {defaultBalance: 1000}, miner: {blockGasLimit:blockGasLimit}, chain: {vmErrorsOnRPCResponse:true} }) as any);
     cak = new Web3FunctionProvider(web3.currentProvider, (list) => Promise.resolve(list[0]));
     stranger = new Web3FunctionProvider(web3.currentProvider, (list) => Promise.resolve(list[1]));
     cakAddress = await cak.account(0);

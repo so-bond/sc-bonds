@@ -14,8 +14,8 @@ describe('Verify the evm_mine evm_increaseTime', function() {
   let mine: (newTimestampSec: number) => Promise<any>;
 
   async function init(): Promise<void> {
-    web3 = new Web3(Ganache.provider({ default_balance_ether: 1000, gasLimit: blockGasLimit, chain: {vmErrorsOnRPCResponse:true} }) as any);
-
+    web3 = new Web3(Ganache.provider({ wallet: {defaultBalance: 1000}, miner: {blockGasLimit:blockGasLimit}, chain: {vmErrorsOnRPCResponse:true} }) as any);
+    
     initWeb3Time(web3)
 
   }

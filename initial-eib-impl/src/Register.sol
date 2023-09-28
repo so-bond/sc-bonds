@@ -3,6 +3,8 @@
 
 pragma solidity 0.8.17;
 
+// TODO: extract the interfaces from the implementation to guarantee the same interface accross implementations
+// import "@so-bond/interfaces/src/IRegister.sol";
 import "./intf/IRegister.sol";
 import "./RegisterRoleManagement.sol";
 import "./CouponSnapshotManagement.sol";
