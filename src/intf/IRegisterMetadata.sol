@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0
 
-pragma solidity 0.8.17;
+pragma solidity 0.8.19;
 
 interface IRegisterMetadata {
     struct BondData {
@@ -44,6 +44,7 @@ interface IRegisterMetadata {
     ) external;
 
     function addCouponDate(uint256 date) external;
+
     function delCouponDate(uint256 date) external;
 
     function setExpectedSupply(uint256 expectedSupply) external;

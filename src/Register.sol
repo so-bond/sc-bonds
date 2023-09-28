@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // SATURN project (last updated v0.1.0)
 
-pragma solidity 0.8.17;
+pragma solidity 0.8.19;
 
 import "./intf/IRegister.sol";
 import "./RegisterRoleManagement.sol";
@@ -11,6 +11,7 @@ import "@openzeppelin/contracts/utils/Context.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/utils/Arrays.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+
 // import "@openzeppelin/contracts/utils/Strings.sol";
 /**
  * @dev This contract is based on ERC20 standard
@@ -111,7 +112,7 @@ contract Register is
         _data.maturityDate = maturityDate_;
         _data.couponDates = couponDates_;
         _data.cutOffTime = cutofftime_;
-        
+
         // emit Debug("before coupon init", couponDates_.length,0, gasleft());
         _initCurrentCoupon();
         // emit Debug("after coupon init", 0,0, gasleft());
@@ -122,7 +123,6 @@ contract Register is
 
         // emit Debug("end of constructor", 0,0, gasleft());
     }
-
 
     /**
      * @dev Return true if the caller is allowed to manage the smart contracts
@@ -205,24 +205,18 @@ contract Register is
     /**
      * @dev check whether investor is allowed for transfer (whitelisting)
      */
-    function investorsAllowed(address investor)
-        public
-        view
-        override
-        returns (bool)
-    {
+    function investorsAllowed(
+        address investor
+    ) public view override returns (bool) {
         return _investorInfos[investor].allowed;
     }
 
     /**
      * @dev Returns the custodian for a given investor.
      */
-    function investorCustodian(address investor)
-        public
-        view
-        override
-        returns (address)
-    {
+    function investorCustodian(
+        address investor
+    ) public view override returns (address) {
         return _investorInfos[investor].custodian;
     }
 
@@ -238,7 +232,11 @@ contract Register is
     /**
      * @dev called by _enebaleInvestor and the primary issuance to defined the BnD
      */
-    function _initInvestor(address investor_, address custodian_, bool allowed) internal {
+    function _initInvestor(
+        address investor_,
+        address custodian_,
+        bool allowed
+    ) internal {
         uint256 index = _investorsList.length;
         _investorsList.push(investor_);
         _investorInfos[investor_].index = index;
@@ -246,8 +244,9 @@ contract Register is
         _investorInfos[investor_].custodian = custodian_;
         _investorInfos[investor_].allowed = allowed;
     }
+
     /**
-     * @dev called by enableInvestorToWhitelist 
+     * @dev called by enableInvestorToWhitelist
      */
     function _enableInvestor(address investor_, address custodian_) internal {
         if (investorsAllowed(investor_)) {
@@ -315,12 +314,9 @@ contract Register is
         emit DisableInvestor(investor_);
     }
 
-    function getInvestorListAtCoupon(uint256 CouponDate)
-        public
-        view
-        override
-        returns (address[] memory)
-    {
+    function getInvestorListAtCoupon(
+        uint256 CouponDate
+    ) public view override returns (address[] memory) {
         //TODO: consistency check: do we have to iterate on whitelisted investors only ? if yes then change implementation
 
         // 1. Lister les investisseurs
@@ -356,9 +352,15 @@ contract Register is
     ) public override {
         require(hasRole(CAK_ROLE, msg.sender), "Caller must be CAK");
         //FIXME: add lifecyle check
-        if (_data.couponDates.length>0) {
-            require(_data.couponDates[0] > issuanceDate_, "Cannot set a issuance date after the first coupon date");
-            require(_data.couponDates[_data.couponDates.length-1] < maturityDate_, "Cannot set a maturity date before the last coupon date");
+        if (_data.couponDates.length > 0) {
+            require(
+                _data.couponDates[0] > issuanceDate_,
+                "Cannot set a issuance date after the first coupon date"
+            );
+            require(
+                _data.couponDates[_data.couponDates.length - 1] < maturityDate_,
+                "Cannot set a maturity date before the last coupon date"
+            );
         }
 
         _data.name = name_;
@@ -375,38 +377,60 @@ contract Register is
 
     function addCouponDate(uint256 date) public override {
         require(hasRole(CAK_ROLE, msg.sender), "Caller must be CAK");
-        require(date > _data.issuanceDate, "Cannot set a coupon date smaller or equal to the issuance date");
-        require(date < _data.maturityDate, "Cannot set a coupon date greater or equal to the maturity date");
+        require(
+            date > _data.issuanceDate,
+            "Cannot set a coupon date smaller or equal to the issuance date"
+        );
+        require(
+            date < _data.maturityDate,
+            "Cannot set a coupon date greater or equal to the maturity date"
+        );
         (uint256 index, bool found) = findCouponIndex(date);
-        if (!found) { 
-            require(_canInsertCouponDate(date), "Cannot insert this date, it is in the past");
+        if (!found) {
+            require(
+                _canInsertCouponDate(date),
+                "Cannot insert this date, it is in the past"
+            );
             // need to move the items up and insert the item
             if (_data.couponDates.length > 0) {
-                _data.couponDates.push(_data.couponDates[_data.couponDates.length-1]);
+                _data.couponDates.push(
+                    _data.couponDates[_data.couponDates.length - 1]
+                );
                 // now length has one more so length-2 is the previous latest element
-                if (_data.couponDates.length >= 3) { // we had at least 2 elements before so perform the copy
-                    for (uint256 i=_data.couponDates.length-3; i>=index; i--) {
-                        _data.couponDates[i+1] = _data.couponDates[i];
-                        if (i==0) break;
+                if (_data.couponDates.length >= 3) {
+                    // we had at least 2 elements before so perform the copy
+                    for (
+                        uint256 i = _data.couponDates.length - 3;
+                        i >= index;
+                        i--
+                    ) {
+                        _data.couponDates[i + 1] = _data.couponDates[i];
+                        if (i == 0) break;
                     }
                 }
                 // now add the new item
                 _data.couponDates[index] = date;
-            } else { // there was no item initially, so add the new item
+            } else {
+                // there was no item initially, so add the new item
                 _data.couponDates.push(date);
             }
             // ensure adding this date in the coupons will update the snapshot preparation properly
             _initCurrentCoupon();
         } // the coupon already exists do nothing
     }
+
     function delCouponDate(uint256 date) public override {
         require(hasRole(CAK_ROLE, msg.sender), "Caller must be CAK");
         (uint256 index, bool found) = findCouponIndex(date);
-        if (found) { // the index represents the position where the date is present
-            require(_canDeleteCouponDate(date), "This coupon date cannot be deleted");
-            if (index<_data.couponDates.length-1) {
-                for (uint256 i=index; i<_data.couponDates.length-1; i++) {
-                    _data.couponDates[i] = _data.couponDates[i+1];
+        if (found) {
+            // the index represents the position where the date is present
+            require(
+                _canDeleteCouponDate(date),
+                "This coupon date cannot be deleted"
+            );
+            if (index < _data.couponDates.length - 1) {
+                for (uint256 i = index; i < _data.couponDates.length - 1; i++) {
+                    _data.couponDates[i] = _data.couponDates[i + 1];
                 }
             }
             _data.couponDates.pop(); // remove the last item that can be the index item or not
@@ -416,13 +440,13 @@ contract Register is
 
     function _initCurrentCoupon() private {
         // first find the date that directly follows the current block
-        (uint256 index,) = findCouponIndex(block.timestamp);
+        (uint256 index, ) = findCouponIndex(block.timestamp);
         uint256 current = 0;
         uint256 next = 0;
-        if (index<_data.couponDates.length) {
+        if (index < _data.couponDates.length) {
             current = _data.couponDates[index];
-            if (index+1<_data.couponDates.length) {
-                next = _data.couponDates[index+1];
+            if (index + 1 < _data.couponDates.length) {
+                next = _data.couponDates[index + 1];
             } else {
                 next = _data.maturityDate;
             }
@@ -431,7 +455,7 @@ contract Register is
             next = 0;
         }
         // emit Debug("_initCurrentCoupon", index, current, gasleft());
-        _updateSnapshotTimestamp(current, current+_data.cutOffTime, next);
+        _updateSnapshotTimestamp(current, current + _data.cutOffTime, next);
     }
 
     function getBondData() public view override returns (BondData memory) {
@@ -485,18 +509,22 @@ contract Register is
         _data.issuanceDate = issuanceDate_;
     }
 
-
     /**
      * @dev this function is called by Coupon.sol when Paying Agent validates the coupon Date.
      */
-    function setCurrentCouponDate(uint256 couponDate_, uint256 recordDatetime_)
-        external
-        override
-    {
+    function setCurrentCouponDate(
+        uint256 couponDate_,
+        uint256 recordDatetime_
+    ) external override {
         //TODO: rename this to setCurrentSnapshotDateTime()
-        bytes32 hash = atReturningHash(msg.sender);
-        require(_contractsAllowed[hash], "This contract is not whitelisted"); //can be called only by Coupon smart contract
-        require( recordDatetime_+(10*24*3600) > couponDate_, "Inconsistent record date more than 10 days before settlement date");
+        require(
+            isContractAllowed(msg.sender),
+            "This contract is not whitelisted"
+        ); //can be called only by Coupon smart contract
+        require(
+            recordDatetime_ + (10 * 24 * 3600) > couponDate_,
+            "Inconsistent record date more than 10 days before settlement date"
+        );
         _setCurrentSnapshotDatetime(
             couponDate_,
             recordDatetime_,
@@ -510,14 +538,12 @@ contract Register is
             status = Status.Frozen;
         } else if (status == Status.Frozen) {
             status = Status.Issued;
-        } else 
-        require(false, "Cannot Freeze / Unfreeze the register as the status is not Issued or Frozen");
+        } else
+            revert(
+                "Cannot Freeze / Unfreeze the register as the status is not Issued or Frozen"
+            );
 
-        emit RegisterStatusChanged(
-            msg.sender,
-            _data.name,
-            _data.isin,
-            status);
+        emit RegisterStatusChanged(msg.sender, _data.name, _data.isin, status);
     }
 
     /**
@@ -529,7 +555,7 @@ contract Register is
      * - the caller must have a balance of at least `amount`.
      */
     function transfer(
-        address, /*to_*/
+        address /*to_*/,
         uint256 /*amount_*/
     ) public virtual override(ERC20, IERC20) returns (bool) {
         revert("transfer is disabled");
@@ -546,7 +572,7 @@ contract Register is
      * - `spender` cannot be the zero address.
      */
     function approve(
-        address, /*spender_*/
+        address /*spender_*/,
         uint256 /*amount_*/
     ) public virtual override(ERC20, IERC20) returns (bool) {
         revert("approve is disabled");
@@ -568,27 +594,31 @@ contract Register is
         if (hasRole(CAK_ROLE, msg.sender)) {
             _transfer(from_, to_, amount_);
             return true;
-        } else { // Not called directly from a CAK user
+        } else {
+            // Not called directly from a CAK user
             /** @dev enforce caller contract is whitelisted */
-            bytes32 hash = atReturningHash(msg.sender);
             require(
-                _contractsAllowed[hash],
+                isContractAllowed(msg.sender),
                 "This contract is not whitelisted"
             );
 
-            require(status != Status.Frozen, "No transfer can be done when the register is Frozen");
-
+            require(
+                status != Status.Frozen,
+                "No transfer can be done when the register is Frozen"
+            );
 
             // Additional checks depending on the situation
 
             // If we are called by the BnD / PrimaryIssuance smart contract
-            // Note: B&D wallet is only usable for the initial purchase and then the primary sell  
+            // Note: B&D wallet is only usable for the initial purchase and then the primary sell
             // we can change the status of the register, BnD wallet will not be whitelisted
-            if (status == Status.Ready 
-                && hasRole(BND_ROLE, to_)
-                && from_ == _primaryIssuanceAccount) {
+            if (
+                status == Status.Ready &&
+                hasRole(BND_ROLE, to_) &&
+                from_ == _primaryIssuanceAccount
+            ) {
                 status = Status.Issued;
-                // Change: We do not enable the B&D as investor to prevent the B&D to receive securities later 
+                // Change: We do not enable the B&D as investor to prevent the B&D to receive securities later
                 // but we still need the BnD to be declared as an investor
                 _initInvestor(to_, address(0), false);
 
@@ -599,7 +629,7 @@ contract Register is
                     status
                 );
             } else {
-                // standard case 
+                // standard case
 
                 //make sure the recipient is an allowed investor
                 require(
@@ -608,11 +638,10 @@ contract Register is
                 );
 
                 require(
-                    investorsAllowed(from_) == true // the seller must be a valid investor at the time of transfer
-                    || hasRole(BND_ROLE, from_), // or the seller is the B&D for the primary distribution
+                    investorsAllowed(from_) == true || // the seller must be a valid investor at the time of transfer
+                        hasRole(BND_ROLE, from_), // or the seller is the B&D for the primary distribution
                     "The sender is not allowed"
                 );
-
             }
 
             _transfer(from_, to_, amount_);
@@ -620,12 +649,13 @@ contract Register is
         }
     }
 
-    function returnBalanceToPrimaryIssuanceAccount(address investor) public override returns (bool) {
+    function returnBalanceToPrimaryIssuanceAccount(
+        address investor
+    ) public override returns (bool) {
         // can only be called by allowed smart contract (typically the redemption contrat)
         /** @dev enforce caller contract is whitelisted */
-        bytes32 hash = atReturningHash(msg.sender);
         require(
-            _contractsAllowed[hash],
+            isContractAllowed(msg.sender),
             "This contract is not whitelisted"
         );
         //make sure the investor is an allowed investor
@@ -635,13 +665,13 @@ contract Register is
         );
         // ensure the transfer only happens when the current time is after the maturity cut of time
         uint256 couponDate = this.currentCouponDate();
-        require (
-            (couponDate == _data.maturityDate || couponDate == 0) 
-            && block.timestamp > this.currentSnapshotDatetime(),
+        require(
+            (couponDate == _data.maturityDate || couponDate == 0) &&
+                block.timestamp > this.currentSnapshotDatetime(),
             "returning the balance to the primary issuance can only be done after the maturity cut off time"
         );
         uint256 balance = this.balanceOf(investor);
-        require (balance>0, "no balance to return for this investor");
+        require(balance > 0, "no balance to return for this investor");
         _forceNextTransfer(); // make the _beforeTokenTransfer control ignore the end of life of the bond
         _transfer(investor, primaryIssuanceAccount(), balance);
         return true;
@@ -650,11 +680,9 @@ contract Register is
     /**
      * @dev a.k.a issued quantity: set the amount of tokens minted when makeReady() is called.
      */
-    function setExpectedSupply(uint256 expectedSupply_)
-        public
-        virtual
-        override
-    {
+    function setExpectedSupply(
+        uint256 expectedSupply_
+    ) public virtual override {
         require(hasRole(CAK_ROLE, msg.sender), "Caller must be CAK");
         require(
             status == Status.Draft,
@@ -676,7 +704,7 @@ contract Register is
      * - `spender` cannot be the zero address.
      */
     function increaseAllowance(
-        address, /*spender_*/
+        address /*spender_*/,
         uint256 /*addedValue_*/
     ) public virtual override returns (bool) {
         revert("increaseAllowance is disabled");
@@ -697,7 +725,7 @@ contract Register is
      * `subtractedValue`.
      */
     function decreaseAllowance(
-        address, /*spender_*/
+        address /*spender_*/,
         uint256 /*subtractedValue_*/
     ) public virtual override returns (bool) {
         revert("decreaseAllowance is disabled");
@@ -731,7 +759,7 @@ contract Register is
         status = Status.Ready;
         emit RegisterStatusChanged(msg.sender, _data.name, _data.isin, status);
     }
-    
+
     /**
      * @dev In case of an error detected after the bond was made ready but before it was issued
      * place the bond back to draft mode
@@ -744,18 +772,20 @@ contract Register is
         emit RegisterStatusChanged(msg.sender, _data.name, _data.isin, status);
     }
 
-
     /**
      * @dev This function intent to allow institutions to communicate between them
      */
     function publicMessage(address to, string memory message) public {
-        require( hasRole(CAK_ROLE, msg.sender)
-                || hasRole(BND_ROLE, msg.sender)
-                || hasRole(CST_ROLE, msg.sender)
-                || hasRole(PAY_ROLE, msg.sender)
-        , "The caller must have a role in the transaction");
+        require(
+            hasRole(CAK_ROLE, msg.sender) ||
+                hasRole(BND_ROLE, msg.sender) ||
+                hasRole(CST_ROLE, msg.sender) ||
+                hasRole(PAY_ROLE, msg.sender),
+            "The caller must have a role in the transaction"
+        );
         emit PublicMessage(msg.sender, to, message);
     }
+
     /**
      * @dev The aim of this function is to enable the CAK or IP to burn some bond units
      */
@@ -768,45 +798,45 @@ contract Register is
         // But this is an accepted situation as we want to reach zero exactly
         if (balanceOf(_primaryIssuanceAccount) == 0 && totalSupply() == 0) {
             status = Status.Repaid;
-            emit RegisterStatusChanged(msg.sender, _data.name, _data.isin, status);
+            emit RegisterStatusChanged(
+                msg.sender,
+                _data.name,
+                _data.isin,
+                status
+            );
         }
     }
 
-/** Will return the index where the date can be inserted and if the date exists */
-    function findCouponIndex(uint256 _couponDate)
-        internal
-        view
-        returns (uint256 index, bool found)
-    {
+    /** Will return the index where the date can be inserted and if the date exists */
+    function findCouponIndex(
+        uint256 _couponDate
+    ) internal view returns (uint256 index, bool found) {
         // Works on the assumption that the list of coupons dates are sorted
         for (uint256 i = 0; i < _data.couponDates.length; i++) {
             // Raises a slither warning on https://github.com/crytic/slither/wiki/Detector-Documentation#dangerous-strict-equalities
             // But this is an accepted situation as we need to compare the provided date with the array
             if (_data.couponDates[i] == _couponDate) {
                 return (i, true);
-            } else if (_data.couponDates[i]>_couponDate) { // we wont find a coupon now that 
-                return (i, false); 
+            } else if (_data.couponDates[i] > _couponDate) {
+                // we wont find a coupon now that
+                return (i, false);
             }
         }
         return (_data.couponDates.length, false);
     }
 
-    function checkIfCouponDateExists(uint256 _couponDate)
-        public
-        view
-        returns (bool)
-    {
+    function checkIfCouponDateExists(
+        uint256 _couponDate
+    ) public view returns (bool) {
         (, bool found) = findCouponIndex(_couponDate);
         if (found) return true;
         if (_data.maturityDate == _couponDate) return true;
         return false;
     }
 
-    function checkIfMaturityDateExists(uint256 _maturityDate)
-        external
-        view
-        returns (bool)
-    {
+    function checkIfMaturityDateExists(
+        uint256 _maturityDate
+    ) external view returns (bool) {
         return _data.maturityDate == _maturityDate;
     }
 
@@ -836,7 +866,7 @@ contract Register is
         uint256 amount_
     ) internal virtual override {
         require(status != Status.Repaid, "the Register is closed");
-        
+
         super._beforeTokenTransfer(from_, to_, amount_);
     }
 }

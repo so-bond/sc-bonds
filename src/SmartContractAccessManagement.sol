@@ -1,21 +1,35 @@
 // SPDX-License-Identifier: MIT
 // SATURN project (last updated v0.1.0)
 
-pragma solidity 0.8.17;
+pragma solidity 0.8.19;
 
 import "./intf/IRegister.sol";
-
 
 contract SmartContractAccessManagement is ISmartContractAccessManagement {
     mapping(bytes32 => bool) public _contractsAllowed;
 
-    function canManageSmartContracts() internal virtual view returns(bool) {
-      return true;
+    function canManageSmartContracts() internal view virtual returns (bool) {
+        return true;
     }
 
-    function isCallerApprovedSmartContract() external override view returns(bool) {
-      bytes32 hash = atReturningHash(msg.sender);
-      return _contractsAllowed[hash];
+    function isCallerApprovedSmartContract()
+        external
+        view
+        override
+        returns (bool)
+    {
+        bytes32 hash = atReturningHash(msg.sender);
+        return _contractsAllowed[hash];
+    }
+
+    /**
+     * @dev The aim of this function is to check if a smart contract is whitelisted through the hash of its bytecode
+     */
+    function isContractAllowed(
+        address contractAddress_
+    ) public view returns (bool) {
+        bytes32 hash = atReturningHash(contractAddress_);
+        return _contractsAllowed[hash];
     }
 
     /**
@@ -30,15 +44,13 @@ contract SmartContractAccessManagement is ISmartContractAccessManagement {
     /**
      * @dev The aim of this function is to disable smart contract to be whitelisted through the hash of its bytecode
      */
-    function disableContractFromWhitelist(bytes32 contractHash_)
-        public
-        override
-    {
+    function disableContractFromWhitelist(
+        bytes32 contractHash_
+    ) public override {
         require(canManageSmartContracts(), "Caller must be CAK");
         _contractsAllowed[contractHash_] = false;
         emit DisableContract(contractHash_);
     }
-
 
     /**
      * @dev This function returns the bytecode'shash of the deployed smart contract address

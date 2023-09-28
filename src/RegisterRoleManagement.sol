@@ -1,21 +1,23 @@
 // SPDX-License-Identifier: MIT
 // SATURN project (last updated v0.1.0)
 
-pragma solidity 0.8.17;
+pragma solidity 0.8.19;
 
 import "./intf/IRegister.sol";
 import "@openzeppelin/contracts/utils/Context.sol";
-import "@openzeppelin/contracts/access/AccessControl.sol";
+// import "@openzeppelin/contracts/access/AccessControl.sol";
+import "@openzeppelin/contracts/access/AccessControlEnumerable.sol";
 import "@openzeppelin/contracts/utils/Arrays.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-
-contract RegisterRoleManagement is AccessControl, IRegisterRoleManagement {
+contract RegisterRoleManagement is
+    AccessControlEnumerable,
+    IRegisterRoleManagement
+{
     address public registerAdmin;
     uint8 public _votesForNewAdmin; // count the votes, 0 or 1
     address public _addressForNewAdmin; // the future admin address
     address public _firstVoterForNewAdmin; // the first CAK requesting the admin change
-
 
     /**
      * Roles
@@ -29,13 +31,13 @@ contract RegisterRoleManagement is AccessControl, IRegisterRoleManagement {
     bytes32 public constant PAY_ROLE = keccak256("PAY_ROLE"); //Paying agent role
 
     constructor() {
-      _setupRole(DEFAULT_ADMIN_ROLE, msg.sender); // contract deployer is DEFAULT_ADMIN_ROLE: AccessControl.sol magic: all roles can be administrated by the user having the DEFAULT_ADMIN_ROLE
-      _setRoleAdmin(CAK_ROLE, CAK_ROLE); // BND_ROLE admin is CAK_ROLE
-      registerAdmin = msg.sender; // We want a single admin for the register than can be changed by 2 CAK
-      _setupRole(CAK_ROLE, msg.sender); // contract deployer is CAK_ROLE
-      _setRoleAdmin(BND_ROLE, CAK_ROLE); // BND_ROLE admin is CAK_ROLE
-      _setRoleAdmin(CST_ROLE, CAK_ROLE); // CST_ROLE admin is CAK_ROLE
-      _setRoleAdmin(PAY_ROLE, CAK_ROLE); // PAY_ROLE admin is CAK_ROLE
+        _setupRole(DEFAULT_ADMIN_ROLE, msg.sender); // contract deployer is DEFAULT_ADMIN_ROLE: AccessControl.sol magic: all roles can be administrated by the user having the DEFAULT_ADMIN_ROLE
+        _setRoleAdmin(CAK_ROLE, CAK_ROLE); // BND_ROLE admin is CAK_ROLE
+        registerAdmin = msg.sender; // We want a single admin for the register than can be changed by 2 CAK
+        _setupRole(CAK_ROLE, msg.sender); // contract deployer is CAK_ROLE
+        _setRoleAdmin(BND_ROLE, CAK_ROLE); // BND_ROLE admin is CAK_ROLE
+        _setRoleAdmin(CST_ROLE, CAK_ROLE); // CST_ROLE admin is CAK_ROLE
+        _setRoleAdmin(PAY_ROLE, CAK_ROLE); // PAY_ROLE admin is CAK_ROLE
     }
 
     function isBnD(address account) public view returns (bool) {
@@ -60,7 +62,10 @@ contract RegisterRoleManagement is AccessControl, IRegisterRoleManagement {
      */
     function changeAdminRole(address account_) public override {
         require(hasRole(CAK_ROLE, msg.sender), "Caller must be CAK");
-        require(account_ != registerAdmin, "New admin is the same as current one");
+        require(
+            account_ != registerAdmin,
+            "New admin is the same as current one"
+        );
         // require( // removing this condition for now, might be usefull to allow an existing CAK to become admin
         //     account_ != msg.sender,
         //     "This CAK can not vote for his own address"
@@ -73,7 +78,10 @@ contract RegisterRoleManagement is AccessControl, IRegisterRoleManagement {
             _addressForNewAdmin = account_;
             return;
         }
-        require(account_ != address(0), "The proposed new admin cannot be the zero address");
+        require(
+            account_ != address(0),
+            "The proposed new admin cannot be the zero address"
+        );
 
         // First caller, initializa the change process
         if (_votesForNewAdmin == 0) {
@@ -109,36 +117,55 @@ contract RegisterRoleManagement is AccessControl, IRegisterRoleManagement {
     }
 
     /**
-    * @dev This function is the override of the public function in AccessControl
-    * That must be rewritted to cover the special case of the CAK role
+     * @dev This function is the override of the public function in AccessControl
+     * That must be rewritted to cover the special case of the CAK role
      */
-    function grantRole(bytes32 role, address account) public virtual override {
+    function grantRole(
+        bytes32 role,
+        address account
+    ) public virtual override(AccessControl, IAccessControl) {
         if (role == DEFAULT_ADMIN_ROLE) {
-            require(false, "Use function changeAdminRole instead");
+            revert("Use function changeAdminRole instead");
         } else if (role == CAK_ROLE) {
-            require( hasRole(CAK_ROLE, msg.sender) || hasRole(DEFAULT_ADMIN_ROLE, msg.sender)
-            , "Caller must be CAK or ADMIN to set another CAK");
+            require(
+                hasRole(CAK_ROLE, msg.sender) ||
+                    hasRole(DEFAULT_ADMIN_ROLE, msg.sender),
+                "Caller must be CAK or ADMIN to set another CAK"
+            );
         } else {
-            require(hasRole(CAK_ROLE, msg.sender), "Caller must be CAK to set a role");
+            require(
+                hasRole(CAK_ROLE, msg.sender),
+                "Caller must be CAK to set a role"
+            );
         }
         _grantRole(role, account);
     }
 
-    /** 
-    * @dev This function is the override of the public function in AccessControl
-    * That must be rewritted to cover the special case of the CAK role
+    /**
+     * @dev This function is the override of the public function in AccessControl
+     * That must be rewritted to cover the special case of the CAK role
      */
-    function revokeRole(bytes32 role, address account) public virtual override {
+    function revokeRole(
+        bytes32 role,
+        address account
+    ) public virtual override(AccessControl, IAccessControl) {
         if (role == DEFAULT_ADMIN_ROLE) {
-            require(false, "Use function changeAdminRole instead");
-        } if (role == CAK_ROLE) {
-            require( hasRole(DEFAULT_ADMIN_ROLE, msg.sender)
-            , "Caller must be ADMIN to remove a CAK");
+            revert("Use function changeAdminRole instead");
+        }
+        if (role == CAK_ROLE) {
+            require(
+                hasRole(DEFAULT_ADMIN_ROLE, msg.sender),
+                "Caller must be ADMIN to remove a CAK"
+            );
         } else {
-            require(hasRole(CAK_ROLE, msg.sender), "Caller must be CAK to remove a role");
+            require(
+                hasRole(CAK_ROLE, msg.sender),
+                "Caller must be CAK to remove a role"
+            );
         }
         _revokeRole(role, account);
     }
+
     /**
      * @dev The aim of this function is to enable an ADMIN or a CAK to grant CAK role to an address
      */
@@ -158,7 +185,6 @@ contract RegisterRoleManagement is AccessControl, IRegisterRoleManagement {
      */
     function grantBndRole(address bndAddress_) public override {
         grantRole(BND_ROLE, bndAddress_);
-        
     }
 
     /**
