@@ -1,22 +1,20 @@
 {
-  "name": "sc-bonds",
+  "name": "sc-bonds-hardhat-testing",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "keywords": [],
   "author": "Guénolé de Cadoudal",
   "license": "Apache 2.0",
   "scripts": {
-    "clean": "pnpm exec hardhat clean",
-    "compile": "pnpm exec hardhat compile",
+    "clean": "hardhat clean",
+    "compile": "hardhat compile",
     "test": "hardhat test",
     "size": "hardhat size-contracts",
-    "docgen": "pnpm exec hardhat docgen",
-    "size:no-compile": "pnpm exec hardhat size-contracts --no-compile",
-    "solc-combined-json": "solc -o contracts-artifacts/solc --optimize --combined-json abi,bin,bin-runtime --metadata-hash none --overwrite --base-path . --include-path ./node_modules  src/*.sol",
-    "hardhat-combined-json": "pnpm clean && pnpm compile && pnpm exec hardhat combined-json --output contracts-artifacts/hardhat/combined.json",
+    "docgen": "hardhat docgen",
+    "size:no-compile": "hardhat size-contracts --no-compile",
+    "hardhat-combined-json": "clean && compile && hardhat combined-json --output ../../contracts/combined.json",
     "prettier": "prettier --write --plugin=prettier-plugin-solidity 'src/**/*.sol'",
-    "prettier-ts": "prettier --config .prettierrc 'test/**/*.ts' --write"
+    "prettier-ts": "prettier --config .prettierrc '**/*.ts' --write"
   },
   "prettier": {
     "bracketSpacing": true

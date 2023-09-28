@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // SATURN project (last updated v0.1.0)
 
-pragma solidity 0.8.19;
+pragma solidity 0.8.20;
 
 // TODO: extract the interfaces from the implementation to guarantee the same interface accross implementations
 // import "@so-bond/interfaces/src/IRegister.sol";

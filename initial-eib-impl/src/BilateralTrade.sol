@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.19;
+pragma solidity 0.8.20;
 
 import "./intf/IBilateralTrade.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
@@ -143,7 +143,7 @@ contract BilateralTrade is IBilateralTrade, ReentrancyGuard {
             return (status);
         }
         revert("the trade cannot be approved in this current status");
-        return (status);
+        // return (status);
     }
 
     /**

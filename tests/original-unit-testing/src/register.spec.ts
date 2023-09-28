@@ -7,7 +7,7 @@ import Ganache from "ganache";
 import { Web3FunctionProvider } from "@saturn-chain/web3-functions";
 import { EthProviderInterface } from "@saturn-chain/dlt-tx-data-functions";
 
-import allContracts from "../../contracts";
+import allContracts from "../../../contracts";
 import { SmartContract, SmartContractInstance } from "@saturn-chain/smart-contract";
 import { blockGasLimit, mintGas, registerGas } from "./gas.constant";
 import { makeBondDate } from "./dates";
