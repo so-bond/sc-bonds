@@ -1,0 +1,6 @@
+{
+  "mochaExplorer.configFile": "./tests/original-unit-testing/mocha.config.json",
+  "mochaExplorer.mochaPath": "./tests/original-unit-testing/node_modules/mocha",
+  "mochaExplorer.cwd": "./tests/original-unit-testing",
+  "solidity.compileUsingRemoteVersion": "v0.8.20+commit.a1b79de6"
+}

@@ -1,0 +1,22 @@
+{
+  "name": "sc-bonds-initial-eib-impl",
+  "version": "1.0.0",
+  "description": "",
+  "main": "../contracts/index.js",
+  "scripts": {
+    "test": "mocha --register ts-node/register --ignore 'node_modules/**/*' '**/*.spec.ts'",
+    "build": "./build.sh",
+    "build:deps": "./gen-deps.sh",
+    "build:mon": "nodemon -w src -e sol --exec ./build.sh",
+    "slither": "docker run --rm  -v $(pwd):/share --entrypoint '/share/slither-cmd.sh' trailofbits/eth-security-toolbox"
+  },
+  "keywords": [],
+  "author": "Guénolé de Cadoudal",
+  "license": "Apache 2.0",
+  "devDependencies": {
+    "@saturn-chain/smart-contract": "^1.0.18"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.3.2"
+  }
+}
