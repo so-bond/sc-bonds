@@ -3,11 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "postinstall": "npm run test-original:install && npm run initial-impl:install",
+    "postinstall": "npm run test-original:install && npm run initial-impl:install && npm run hardhat:install",
     "test-original:install": "cd tests/original-unit-testing && npm install",
     "initial-impl:install": "cd initial-eib-impl && npm install",
     "initial-impl:build": "cd initial-eib-impl && npm run build",
-    "build": "npm run initial-impl:build"
+    "initial-impl:build-deps": "cd initial-eib-impl && npm run build:deps",
+    "hardhat:install": "cd tests/hardhat-unit-testing && npm install",
+    "hardhat:build": "cd tests/hardhat-unit-testing && npm run compile",
+    "hardhat:combined": "cd tests/hardhat-unit-testing && npm run hardhat-combined-json",
+    "build": "npm run initial-impl:build && hardhat:build",
+    "test:original": "npm run initial-impl:build && cd tests/original-unit-testing && npm run test",
+    "test:hardhat": "npm run hardhat:build && cd tests/hardhat-unit-testing && npm run test",
+    "test:original-hardhat-build": "npm run initial-impl:build-deps && npm run hardhat:combined && cd tests/original-unit-testing && npm run test"
   },
   "keywords": [],
   "author": "Guénolé de Cadoudal",

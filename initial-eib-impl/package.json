@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha --register ts-node/register --ignore 'node_modules/**/*' '**/*.spec.ts'",
     "build": "./build.sh",
+    "build:deps": "./gen-deps.sh",
     "build:mon": "nodemon -w src -e sol --exec ./build.sh",
     "slither": "docker run --rm  -v $(pwd):/share --entrypoint '/share/slither-cmd.sh' trailofbits/eth-security-toolbox"
   },

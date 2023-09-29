@@ -12,7 +12,7 @@
     "size": "hardhat size-contracts",
     "docgen": "hardhat docgen",
     "size:no-compile": "hardhat size-contracts --no-compile",
-    "hardhat-combined-json": "clean && compile && hardhat combined-json --output ../../contracts/combined.json",
+    "hardhat-combined-json": "hardhat clean && hardhat compile && hardhat combined-json --output ../../contracts/combined.json",
     "prettier": "prettier --write --plugin=prettier-plugin-solidity 'src/**/*.sol'",
     "prettier-ts": "prettier --config .prettierrc '**/*.ts' --write"
   },

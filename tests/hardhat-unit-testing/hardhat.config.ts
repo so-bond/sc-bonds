@@ -3,15 +3,15 @@ import "@nomicfoundation/hardhat-toolbox";
 import "hardhat-contract-sizer";
 import "hardhat-gas-reporter";
 import "solidity-docgen";
-import "../../hardhat-plugings/combined-json"
-
+import "./hardhat-plugings/combined-json"
 
 const config: HardhatUserConfig = {
   paths: {
-    sources: "./src",
-    tests: "./test",
-    cache: "./cache",
-    artifacts: "./artifacts",
+    root: "../..", // force hardhat to position itself in the root folder of the source to compile
+    sources: "initial-eib-impl/src", // location of the solidity files
+    tests: "tests/hardhat-unit-testing/src", // based on root, the location of the tests
+    cache: "initial-eib-impl/cache",
+    artifacts: "initial-eib-impl/artifacts",
   },
   solidity: {
     settings: {
@@ -22,7 +22,7 @@ const config: HardhatUserConfig = {
     },
     compilers: [
       {
-        version: "0.8.19",
+        version: "0.8.20",
         settings: {
           optimizer: {
             enabled: true,

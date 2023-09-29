@@ -1,5 +1,8 @@
 import { loadFixture } from '@nomicfoundation/hardhat-toolbox/network-helpers';
 import chai, { expect } from 'chai';
+import chaiAsPromised from "chai-as-promised";
+chai.use(chaiAsPromised);
+
 import { deployCouponContractFixture } from './deployer/coupon.deployer';
 import { ethers } from 'hardhat';
 import { addPart, today } from './utils/dates';
