@@ -1,5 +1,9 @@
 {
   "private": true,
+  "name": "sc-bonds",
+  "version": "1.0.0",
+  "license": "Apache 2.0",
+  "author": "Guénolé de Cadoudal",
   "scripts": {
     "compile": "turbo run compile",
     "dev": "turbo run dev",
@@ -45,6 +49,5 @@
     "web3-utils": "^1.7.3",
     "@saturn-chain/smart-contract": "^1.0.18"
   },
-  "packageManager": "pnpm@8.6.10",
-  "name": "sc-bonds-turbo"
+  "packageManager": "pnpm@8.6.10"
 }
