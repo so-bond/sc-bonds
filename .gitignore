@@ -39,4 +39,4 @@ yarn-error.log*
 # vanilla 
 apps/vanilla/node_modules
 apps/vanilla/artifacts/*
-apps/vanilla/cache/*
+solidity-files-cache.json
