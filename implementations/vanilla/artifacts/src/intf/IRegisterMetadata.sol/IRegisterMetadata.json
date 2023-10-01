@@ -1,0 +1,272 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "IRegisterMetadata",
+  "sourceName": "src/intf/IRegisterMetadata.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "date",
+          "type": "uint256"
+        }
+      ],
+      "name": "addCouponDate",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "date",
+          "type": "uint256"
+        }
+      ],
+      "name": "delCouponDate",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getBondCouponRate",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getBondData",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "isin",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "expectedSupply",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "currency",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "unitValue",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "couponRate",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "creationDate",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "issuanceDate",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "maturityDate",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256[]",
+              "name": "couponDates",
+              "type": "uint256[]"
+            },
+            {
+              "internalType": "uint256",
+              "name": "cutOffTime",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct IRegisterMetadata.BondData",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getBondUnitValue",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getCreationDate",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getIssuanceDate",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "name_",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "expectedSupply_",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "currency_",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint256",
+          "name": "unitVal_",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "couponRate_",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "issuanceDate_",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "maturityDate_",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "cutOffTime_",
+          "type": "uint256"
+        }
+      ],
+      "name": "setBondData",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "creationDate",
+          "type": "uint256"
+        }
+      ],
+      "name": "setCreationDate",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "currency",
+          "type": "bytes32"
+        }
+      ],
+      "name": "setCurrency",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "expectedSupply",
+          "type": "uint256"
+        }
+      ],
+      "name": "setExpectedSupply",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "isinSymbol",
+          "type": "string"
+        }
+      ],
+      "name": "setIsinSymbol",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "issuanceDate",
+          "type": "uint256"
+        }
+      ],
+      "name": "setIssuanceDate",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}
