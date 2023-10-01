@@ -38,5 +38,5 @@ yarn-error.log*
 
 # vanilla 
 apps/vanilla/node_modules
-apps/vanilla/artifacts
-apps/vanilla/cache
+apps/vanilla/artifacts/*
+apps/vanilla/cache/*
