@@ -1,3 +1,4 @@
 packages:
   - "implementations/*"
+  - "tests/*"
   - "packages/*"

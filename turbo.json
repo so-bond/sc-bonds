@@ -2,10 +2,16 @@
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
   "pipeline": {
-    "compile": {
-      "dependsOn": ["^compile"]
+    "compile": {},
+    "build": {},
+    "size": {},
+    "clean": {},
+    "test:solc": {
+      "dependsOn": ["build"]
     },
-    "test": {},
+    "test:hardhat": {
+      "dependsOn": ["compile"]
+    },
     "lint": {}
   }
 }

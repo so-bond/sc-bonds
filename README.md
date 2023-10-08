@@ -1,16 +1,27 @@
-
 ## What's inside?
 
 Bond smart contracts based on so|bond model.
-This Turborepo includes the following packages/implementations:
+This Turborepo includes the following implementations, tests, and packages:
 
-### Implementations and packages
+### Implementations
 
-- `vanilla`: the normal implementation of the solbonds
-- `diamond`: the diamond implementation of the solbonds
-- `tests-with-hardhat`: the tests for the solbonds
-- `tests-with-solc`: the tests for the solbonds
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+- `vanilla`: the normal implementation of the so|bond
+- `diamond`: the diamond implementation of the so|bond
+
+## Tests
+
+- `solc`: the orginal tests for the so|bond
+- `hardhat`: the new tests for the so|bond using hardhat
+
+### Packages
+
+- `tsconfig`: `base.json` used throughout the monorepo
+
+## Getting Started
+
+### Install Turbo
+
+`pnpm install turbo --global`
 
 ### Compile
 
@@ -27,7 +38,6 @@ To run test , run the following command:
 ```
 pnpm test
 ```
-
 
 ## Useful Links
 

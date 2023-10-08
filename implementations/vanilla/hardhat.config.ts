@@ -3,13 +3,12 @@ import "@nomicfoundation/hardhat-toolbox";
 import "hardhat-contract-sizer";
 import "hardhat-gas-reporter";
 import "solidity-docgen";
-import "./hardhat-plugings/combined-json"
-
+import "./hardhat-plugings/combined-json";
 
 const config: HardhatUserConfig = {
   paths: {
     sources: "./src",
-    tests: "../../packages/tests-with-hardhat",
+    tests: "../../tests/hardhat/tests",
     cache: "./cache",
     artifacts: "./artifacts",
   },
