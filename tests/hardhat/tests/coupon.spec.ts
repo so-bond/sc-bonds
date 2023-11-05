@@ -1,20 +1,20 @@
-import { ContractDeployTransaction } from "ethers";
-import { loadFixture } from "@nomicfoundation/hardhat-toolbox/network-helpers";
-import { deployCouponContractFixture } from "./deployer/coupon.deployer";
-import { addPart, mineBlock } from "./utils/dates";
-import { time } from "@nomicfoundation/hardhat-network-helpers";
-import chaiAsPromised from "chai-as-promised";
-import chai, { expect } from "chai";
-import { ethers } from "hardhat";
+import { ContractDeployTransaction } from 'ethers';
+import { loadFixture } from '@nomicfoundation/hardhat-toolbox/network-helpers';
+import { deployCouponContractFixture } from './deployer/coupon.deployer';
+import { addPart, mineBlock } from './utils/dates';
+import { time } from '@nomicfoundation/hardhat-network-helpers';
+import chaiAsPromised from 'chai-as-promised';
+import chai, { expect } from 'chai';
+import { ethers } from 'hardhat';
 
-import { makeBondDate, makeDateTime } from "./utils/dates";
-import exp from "constants";
+import { makeBondDate, makeDateTime } from './utils/dates';
+import exp from 'constants';
 
 chai.use(chaiAsPromised);
 
-describe("Run tests of the Coupon process", function () {
-  describe("Coupon process", function () {
-    it("should pass the initialization and check the status", async () => {
+describe('Run tests of the Coupon process', function () {
+  describe('Coupon process', function () {
+    it('should pass the initialization and check the status', async () => {
       const {
         registerInstance,
         payer,
@@ -23,19 +23,19 @@ describe("Run tests of the Coupon process", function () {
         investorA,
         bnd,
         firstCouponDate,
-        expectedSupply,
+        expectedSupply
       } = await loadFixture(deployCouponContractFixture);
       // The Bnd Balance should be equals to the expected full quantity
       // The total quantity in the register should be the expected quantity
 
       const totalSupply = Number.parseInt(
-        await registerInstance.totalSupply(cakAccount),
+        await registerInstance.totalSupply(cakAccount)
       );
       const bndBalance = Number.parseInt(
-        await registerInstance.connect(cakAccount).balanceOf(bnd),
+        await registerInstance.connect(cakAccount).balanceOf(bnd)
       );
       const invABalance = Number.parseInt(
-        await registerInstance.connect(cakAccount).balanceOf(investorA),
+        await registerInstance.connect(cakAccount).balanceOf(investorA)
       );
       const data = await registerInstance.getBondData(cakAccount);
       const isPay = await registerInstance.connect(payer).isPay(payer.address);
@@ -45,7 +45,7 @@ describe("Run tests of the Coupon process", function () {
       expect(isPay).to.be.true;
     });
 
-    it("should fail to deploy the coupon smart contract when the deployer has not the PAY role", async () => {
+    it('should fail to deploy the coupon smart contract when the deployer has not the PAY role', async () => {
       const {
         registerInstance,
         payer,
@@ -55,9 +55,9 @@ describe("Run tests of the Coupon process", function () {
         bnd,
         wrongAccount,
         firstCouponDate,
-        expectedSupply,
+        expectedSupply
       } = await loadFixture(deployCouponContractFixture);
-      const Coupon = await ethers.getContractFactory("Coupon");
+      const Coupon = await ethers.getContractFactory('Coupon');
       const coupon = await Coupon.connect(wrongAccount);
 
       await expect(
@@ -66,12 +66,12 @@ describe("Run tests of the Coupon process", function () {
           firstCouponDate,
           1500,
           firstCouponDate,
-          300000,
-        ),
-      ).to.be.revertedWith("Sender must be a Paying calculation agent");
+          300000
+        )
+      ).to.be.revertedWith('Sender must be a Paying calculation agent');
     });
 
-    it("should fail to deploy the coupon smart contract when the Coupon Date does not exist", async () => {
+    it('should fail to deploy the coupon smart contract when the Coupon Date does not exist', async () => {
       const {
         registerInstance,
         payer,
@@ -81,11 +81,11 @@ describe("Run tests of the Coupon process", function () {
         bnd,
         wrongAccount,
         firstCouponDate,
-        expectedSupply,
+        expectedSupply
       } = await loadFixture(deployCouponContractFixture);
-      const Coupon = await ethers.getContractFactory("Coupon");
+      const Coupon = await ethers.getContractFactory('Coupon');
       const coupon = await Coupon.connect(payer);
-      const wrongCouponDate = addPart(firstCouponDate, "D", 1);
+      const wrongCouponDate = addPart(firstCouponDate, 'D', 1);
 
       await expect(
         coupon.deploy(
@@ -93,12 +93,12 @@ describe("Run tests of the Coupon process", function () {
           wrongCouponDate,
           1500,
           firstCouponDate,
-          300000,
-        ),
-      ).to.be.revertedWith("this couponDate does not exists");
+          300000
+        )
+      ).to.be.revertedWith('this couponDate does not exists');
     });
 
-    it("should deploy the coupon smart contract and check if Coupon Date exists", async () => {
+    it('should deploy the coupon smart contract and check if Coupon Date exists', async () => {
       const {
         registerInstance,
         payer,
@@ -108,16 +108,16 @@ describe("Run tests of the Coupon process", function () {
         bnd,
         wrongAccount,
         firstCouponDate,
-        expectedSupply,
+        expectedSupply
       } = await loadFixture(deployCouponContractFixture);
-      const Coupon = await ethers.getContractFactory("Coupon");
+      const Coupon = await ethers.getContractFactory('Coupon');
       const coupon = await Coupon.connect(payer);
       await coupon.deploy(
         registerInstanceAddress,
         firstCouponDate,
         1500,
         firstCouponDate,
-        300000,
+        300000
       );
       const data = await registerInstance.getBondData();
       const couponDates = data.couponDates;
@@ -126,7 +126,7 @@ describe("Run tests of the Coupon process", function () {
       expect(couponDates).to.contain(firstCouponDateBigInt);
     });
 
-    it("should deploy the coupon and get paymentID for an investor (max 16 hexa chars excluding 0x)", async () => {
+    it('should deploy the coupon and get paymentID for an investor (max 16 hexa chars excluding 0x)', async () => {
       const {
         registerInstance,
         payer,
@@ -136,26 +136,26 @@ describe("Run tests of the Coupon process", function () {
         bnd,
         wrongAccount,
         firstCouponDate,
-        expectedSupply,
+        expectedSupply
       } = await loadFixture(deployCouponContractFixture);
-      const Coupon = await ethers.getContractFactory("Coupon");
+      const Coupon = await ethers.getContractFactory('Coupon');
       const coupon = await Coupon.connect(payer);
       const couponDeployment = await coupon.deploy(
         registerInstanceAddress,
         firstCouponDate,
         1500,
         firstCouponDate,
-        300000,
+        300000
       );
       const couponInstance = await couponDeployment.connect(payer);
       const paymentID = await couponInstance.paymentIdForInvest(
-        investorA.address,
+        investorA.address
       );
 
       expect(paymentID).to.be.properHex(16);
     });
 
-    it("should deploy the coupon smart contract and initialize the status", async () => {
+    it('should deploy the coupon smart contract and initialize the status', async () => {
       const {
         registerInstance,
         payer,
@@ -165,16 +165,16 @@ describe("Run tests of the Coupon process", function () {
         bnd,
         wrongAccount,
         firstCouponDate,
-        expectedSupply,
+        expectedSupply
       } = await loadFixture(deployCouponContractFixture);
-      const Coupon = await ethers.getContractFactory("Coupon");
+      const Coupon = await ethers.getContractFactory('Coupon');
       const coupon = await Coupon.connect(payer);
       const couponDeployment = await coupon.deploy(
         registerInstanceAddress,
         firstCouponDate,
         1500,
         firstCouponDate,
-        300000,
+        300000
       );
       const couponInstance = await couponDeployment.connect(payer);
       const status = await couponInstance.status();
@@ -182,7 +182,7 @@ describe("Run tests of the Coupon process", function () {
       expect(status).to.equal(0); // Draft
     });
 
-    it("should fail when the paying calculation agent activate a coupon with a too old record date", async () => {
+    it('should fail when the paying calculation agent activate a coupon with a too old record date', async () => {
       const {
         registerInstance,
         payer,
@@ -192,19 +192,19 @@ describe("Run tests of the Coupon process", function () {
         bnd,
         wrongAccount,
         firstCouponDate,
-        expectedSupply,
+        expectedSupply
       } = await loadFixture(deployCouponContractFixture);
       const couponDate = firstCouponDate; // 17 dec 2022 00:00:00
-      const recordDate = addPart(firstCouponDate, "D", -11);
+      const recordDate = addPart(firstCouponDate, 'D', -11);
       const cutofftime = 55000; //15:16:40
-      const Coupon = await ethers.getContractFactory("Coupon");
+      const Coupon = await ethers.getContractFactory('Coupon');
       const coupon = await Coupon.connect(payer);
       const couponDeployment = await coupon.deploy(
         registerInstanceAddress,
         couponDate,
         1500,
         recordDate,
-        cutofftime,
+        cutofftime
       );
       const couponInstance = await couponDeployment.connect(payer);
       const couponInstanceAddress = couponInstance.getAddress();
@@ -214,11 +214,11 @@ describe("Run tests of the Coupon process", function () {
       await registerInstance.enableContractToWhitelist(hash);
 
       await expect(couponInstance.setDateAsCurrentCoupon()).to.be.revertedWith(
-        "Inconsistent record date more than 10 days before settlement date",
+        'Inconsistent record date more than 10 days before settlement date'
       );
     });
 
-    it("should enable the paying calculation agent to activate the coupon", async () => {
+    it('should enable the paying calculation agent to activate the coupon', async () => {
       const {
         registerInstance,
         payer,
@@ -228,19 +228,19 @@ describe("Run tests of the Coupon process", function () {
         bnd,
         wrongAccount,
         firstCouponDate,
-        expectedSupply,
+        expectedSupply
       } = await loadFixture(deployCouponContractFixture);
       const couponDate = firstCouponDate; // 17 dec 2022 00:00:00
-      const recordDate = addPart(firstCouponDate, "D", -1);
+      const recordDate = addPart(firstCouponDate, 'D', -1);
       const cutofftime = 55000; //15:16:40
-      const Coupon = await ethers.getContractFactory("Coupon");
+      const Coupon = await ethers.getContractFactory('Coupon');
       const coupon = await Coupon.connect(payer);
       const couponDeployment = await coupon.deploy(
         registerInstanceAddress,
         couponDate,
         1500,
         recordDate,
-        cutofftime,
+        cutofftime
       );
       const couponInstance = await couponDeployment.connect(payer);
       const couponInstanceAddress = couponInstance.getAddress();
@@ -250,11 +250,11 @@ describe("Run tests of the Coupon process", function () {
       await registerInstance.enableContractToWhitelist(hash);
 
       await expect(couponInstance.setDateAsCurrentCoupon())
-        .to.emit(couponInstance, "CouponChanged")
+        .to.emit(couponInstance, 'CouponChanged')
         .withArgs(registerInstanceAddress, couponDate, 1);
     });
 
-    it("should enable the paying calculation agent to set the number of days (nbDays)", async () => {
+    it('should enable the paying calculation agent to set the number of days (nbDays)', async () => {
       const {
         registerInstance,
         payer,
@@ -264,19 +264,19 @@ describe("Run tests of the Coupon process", function () {
         bnd,
         wrongAccount,
         firstCouponDate,
-        expectedSupply,
+        expectedSupply
       } = await loadFixture(deployCouponContractFixture);
       const couponDate = firstCouponDate; // 17 dec 2022 00:00:00
-      const recordDate = addPart(firstCouponDate, "D", -1);
+      const recordDate = addPart(firstCouponDate, 'D', -1);
       const cutofftime = 55000; //15:16:40
-      const Coupon = await ethers.getContractFactory("Coupon");
+      const Coupon = await ethers.getContractFactory('Coupon');
       const coupon = await Coupon.connect(payer);
       const couponDeployment = await coupon.deploy(
         registerInstanceAddress,
         couponDate,
         1500,
         recordDate,
-        cutofftime,
+        cutofftime
       );
       const couponInstance = await couponDeployment.connect(payer);
       const couponInstanceAddress = couponInstance.getAddress();
@@ -286,10 +286,10 @@ describe("Run tests of the Coupon process", function () {
       await registerInstance.enableContractToWhitelist(hash);
 
       await couponInstance.setNbDays(360);
-      expect(await couponInstance.nbDays(payer.call())).to.equal("360");
+      expect(await couponInstance.nbDays(payer.call())).to.equal('360');
     });
 
-    it("should enable the paying calculation agent to validate the coupon by calling setDateAsCurrentCoupon so that coupon status is set to Ready", async () => {
+    it('should enable the paying calculation agent to validate the coupon by calling setDateAsCurrentCoupon so that coupon status is set to Ready', async () => {
       const {
         registerInstance,
         payer,
@@ -299,19 +299,19 @@ describe("Run tests of the Coupon process", function () {
         bnd,
         wrongAccount,
         firstCouponDate,
-        expectedSupply,
+        expectedSupply
       } = await loadFixture(deployCouponContractFixture);
       const couponDate = firstCouponDate; // 17 dec 2022 00:00:00
-      const recordDate = addPart(firstCouponDate, "D", -1);
+      const recordDate = addPart(firstCouponDate, 'D', -1);
       const cutofftime = 55000; //15:16:40
-      const Coupon = await ethers.getContractFactory("Coupon");
+      const Coupon = await ethers.getContractFactory('Coupon');
       const coupon = await Coupon.connect(payer);
       const couponDeployment = await coupon.deploy(
         registerInstanceAddress,
         couponDate,
         1500,
         recordDate,
-        cutofftime,
+        cutofftime
       );
       const couponInstance = await couponDeployment.connect(payer);
       const couponInstanceAddress = couponInstance.getAddress();
@@ -321,11 +321,11 @@ describe("Run tests of the Coupon process", function () {
       await registerInstance.enableContractToWhitelist(hash);
 
       await expect(couponInstance.setDateAsCurrentCoupon())
-        .to.emit(couponInstance, "CouponChanged")
+        .to.emit(couponInstance, 'CouponChanged')
         .withArgs(registerInstanceAddress, couponDate, 1);
     });
 
-    it("should calculate the payment amount for an investor", async () => {
+    it('should calculate the payment amount for an investor', async () => {
       const {
         registerInstance,
         payer,
@@ -335,19 +335,19 @@ describe("Run tests of the Coupon process", function () {
         bnd,
         wrongAccount,
         firstCouponDate,
-        expectedSupply,
+        expectedSupply
       } = await loadFixture(deployCouponContractFixture);
       const couponDate = firstCouponDate; // 17 dec 2022 00:00:00
-      const recordDate = addPart(firstCouponDate, "D", -1);
+      const recordDate = addPart(firstCouponDate, 'D', -1);
       const cutofftime = 55000; //15:16:40
-      const Coupon = await ethers.getContractFactory("Coupon");
+      const Coupon = await ethers.getContractFactory('Coupon');
       const coupon = await Coupon.connect(payer);
       const couponDeployment = await coupon.deploy(
         registerInstanceAddress,
         couponDate,
         1500,
         recordDate,
-        cutofftime,
+        cutofftime
       );
       const couponInstance = await couponDeployment.connect(payer);
       const couponInstanceAddress = couponInstance.getAddress();
@@ -357,34 +357,34 @@ describe("Run tests of the Coupon process", function () {
       await registerInstance.enableContractToWhitelist(hash);
 
       await couponInstance.setNbDays(360);
-      expect(await couponInstance.nbDays()).to.equal("360");
+      expect(await couponInstance.nbDays()).to.equal('360');
 
       await couponInstance.setDateAsCurrentCoupon(); //implicit coupon validation
-      expect(await couponInstance.status(payer.call())).to.equal("1");
+      expect(await couponInstance.status(payer.call())).to.equal('1');
 
       let unitValue = Number.parseInt(
-        await registerInstance.getBondUnitValue(),
+        await registerInstance.getBondUnitValue()
       );
 
       let couponRate = Number.parseInt(
-        await registerInstance.getBondCouponRate(),
+        await registerInstance.getBondCouponRate()
       );
 
       let bal = Number.parseInt(
         await registerInstance.balanceOfCoupon(
           investorA.address,
-          firstCouponDate,
-        ),
+          firstCouponDate
+        )
       );
 
       let payment = (unitValue * couponRate * bal * 360) / 360;
 
       expect(
-        await couponInstance.getPaymentAmountForInvestor(investorA.address),
+        await couponInstance.getPaymentAmountForInvestor(investorA.address)
       ).to.equal(payment);
     });
 
-    it("should calculate the payment amount for several investors ", async () => {
+    it('should calculate the payment amount for several investors ', async () => {
       const {
         registerInstance,
         payer,
@@ -397,19 +397,19 @@ describe("Run tests of the Coupon process", function () {
         bnd,
         wrongAccount,
         firstCouponDate,
-        expectedSupply,
+        expectedSupply
       } = await loadFixture(deployCouponContractFixture);
       const couponDate = firstCouponDate; // 17 dec 2022 00:00:00
-      const recordDate = addPart(firstCouponDate, "D", -1);
+      const recordDate = addPart(firstCouponDate, 'D', -1);
       const cutofftime = 55000; //15:16:40
-      const Coupon = await ethers.getContractFactory("Coupon");
+      const Coupon = await ethers.getContractFactory('Coupon');
       const coupon = await Coupon.connect(payer);
       const couponDeployment = await coupon.deploy(
         registerInstanceAddress,
         couponDate,
         1500,
         recordDate,
-        cutofftime,
+        cutofftime
       );
       const couponInstance = await couponDeployment.connect(payer);
       const couponInstanceAddress = couponInstance.getAddress();
@@ -419,78 +419,78 @@ describe("Run tests of the Coupon process", function () {
       await registerInstance.enableContractToWhitelist(hash);
 
       await couponInstance.setNbDays(360);
-      expect(await couponInstance.nbDays()).to.equal("360");
+      expect(await couponInstance.nbDays()).to.equal('360');
 
       await couponInstance.setDateAsCurrentCoupon(); //implicit coupon validation
-      expect(await couponInstance.status(payer.call())).to.equal("1");
+      expect(await couponInstance.status(payer.call())).to.equal('1');
 
       let unitValue = Number.parseInt(
-        await registerInstance.getBondUnitValue(),
+        await registerInstance.getBondUnitValue()
       );
 
       let couponRate = Number.parseInt(
-        await registerInstance.getBondCouponRate(),
+        await registerInstance.getBondCouponRate()
       );
 
       let balanceInvestorA = Number.parseInt(
         await registerInstance.balanceOfCoupon(
           investorA.address,
-          firstCouponDate,
-        ),
+          firstCouponDate
+        )
       );
 
       let balanceInvestorB = Number.parseInt(
         await registerInstance.balanceOfCoupon(
           investorB.address,
-          firstCouponDate,
-        ),
+          firstCouponDate
+        )
       );
 
       let balanceInvestorC = Number.parseInt(
         await registerInstance.balanceOfCoupon(
           investorC.address,
-          firstCouponDate,
-        ),
+          firstCouponDate
+        )
       );
 
       let balanceInvestorD = Number.parseInt(
         await registerInstance.balanceOfCoupon(
           investorD.address,
-          firstCouponDate,
-        ),
+          firstCouponDate
+        )
       );
 
       let paymentInvestorA = Math.floor(
-        (unitValue * couponRate * balanceInvestorA * 360) / 360,
+        (unitValue * couponRate * balanceInvestorA * 360) / 360
       );
       let paymentInvestorB = Math.floor(
-        (unitValue * couponRate * balanceInvestorB * 360) / 360,
+        (unitValue * couponRate * balanceInvestorB * 360) / 360
       );
       let paymentInvestorC = Math.floor(
-        (unitValue * couponRate * balanceInvestorC * 360) / 360,
+        (unitValue * couponRate * balanceInvestorC * 360) / 360
       );
       let paymentInvestorD = Math.floor(
-        (unitValue * couponRate * balanceInvestorD * 360) / 360,
+        (unitValue * couponRate * balanceInvestorD * 360) / 360
       );
 
       expect(
-        await couponInstance.getPaymentAmountForInvestor(investorA.address),
+        await couponInstance.getPaymentAmountForInvestor(investorA.address)
       ).to.equal(paymentInvestorA);
 
       expect(
-        await couponInstance.getPaymentAmountForInvestor(investorB.address),
+        await couponInstance.getPaymentAmountForInvestor(investorB.address)
       ).to.equal(paymentInvestorB);
 
       expect(
-        await couponInstance.getPaymentAmountForInvestor(investorC.address),
+        await couponInstance.getPaymentAmountForInvestor(investorC.address)
       ).to.equal(paymentInvestorC);
 
       expect(
-        await couponInstance.getPaymentAmountForInvestor(investorD.address),
+        await couponInstance.getPaymentAmountForInvestor(investorD.address)
       ).to.equal(paymentInvestorD);
     });
 
-    it("should not allow creating a coupon smart contract after the cutoff time", async () => {
+    it('should not allow creating a coupon smart contract after the cutoff time', async () => {
       const {
         registerInstance,
         payer,
@@ -500,12 +500,12 @@ describe("Run tests of the Coupon process", function () {
         bnd,
         wrongAccount,
         firstCouponDate,
-        expectedSupply,
+        expectedSupply
       } = await loadFixture(deployCouponContractFixture);
       const couponDate = firstCouponDate; // 17 dec 2022 00:00:00
-      const recordDate = addPart(firstCouponDate, "D", -1);
+      const recordDate = addPart(firstCouponDate, 'D', -1);
       const cutofftime = 55000; //15:16:40
-      const Coupon = await ethers.getContractFactory("Coupon");
+      const Coupon = await ethers.getContractFactory('Coupon');
       const coupon = await Coupon.connect(payer);
 
       const couponDeployment = await coupon.deploy(
@@ -513,7 +513,7 @@ describe("Run tests of the Coupon process", function () {
         couponDate,
         1500,
         recordDate,
-        cutofftime,
+        cutofftime
       );
       const couponInstance = await couponDeployment.connect(payer);
       const couponInstanceAddress = couponInstance.getAddress();
@@ -525,11 +525,11 @@ describe("Run tests of the Coupon process", function () {
       time.increaseTo(couponDate + cutofftime + 1000);
 
       await expect(couponInstance.setDateAsCurrentCoupon()).to.be.revertedWith(
-        "you have to define a new period ending after the current time",
+        'you have to define a new period ending after the current time'
       );
     });
 
-    it("should deploy a second coupon and take snapshot of evolving balances", async () => {
+    it('should deploy a second coupon and take snapshot of evolving balances', async () => {
       const {
         registerInstance,
         payer,
@@ -540,21 +540,21 @@ describe("Run tests of the Coupon process", function () {
         bnd,
         wrongAccount,
         firstCouponDate,
-        expectedSupply,
+        expectedSupply
       } = await loadFixture(deployCouponContractFixture);
       let couponDate = firstCouponDate;
-      let recordDate = addPart(couponDate, "D", -1);
+      let recordDate = addPart(couponDate, 'D', -1);
       let nbDays = 100;
       let cutofftime = 17 * 3600;
 
-      const Coupon = await ethers.getContractFactory("Coupon");
+      const Coupon = await ethers.getContractFactory('Coupon');
       const coupon = await Coupon.connect(payer);
       const couponDeployment1 = await coupon.deploy(
         registerInstanceAddress,
         couponDate,
         nbDays,
         recordDate,
-        cutofftime,
+        cutofftime
       );
       const couponInstance1 = await couponDeployment1.connect(payer);
       const couponInstance1Address = couponInstance1.getAddress();
@@ -568,36 +568,36 @@ describe("Run tests of the Coupon process", function () {
       expect(await couponInstance1.nbDays()).to.equal(`${nbDays}`);
 
       await couponInstance1.setDateAsCurrentCoupon(); //implicit coupon validation
-      expect(await couponInstance1.status(payer.call())).to.equal("1");
+      expect(await couponInstance1.status(payer.call())).to.equal('1');
 
       let unitValue = Number.parseInt(
-        await registerInstance.getBondUnitValue(),
+        await registerInstance.getBondUnitValue()
       );
 
       let couponRate = Number.parseInt(
-        await registerInstance.getBondCouponRate(),
+        await registerInstance.getBondCouponRate()
       );
 
       let balanceInvestorA = Number.parseInt(
         await registerInstance.balanceOfCoupon(
           investorA.address,
-          firstCouponDate,
-        ),
+          firstCouponDate
+        )
       );
 
       let balanceInvestorB = Number.parseInt(
         await registerInstance.balanceOfCoupon(
           investorB.address,
-          firstCouponDate,
-        ),
+          firstCouponDate
+        )
       );
 
       let paymentInvestorA = Math.floor(
-        (unitValue * couponRate * balanceInvestorA * nbDays) / 360,
+        (unitValue * couponRate * balanceInvestorA * nbDays) / 360
       );
 
       let paymentInvestorB = Math.floor(
-        (unitValue * couponRate * balanceInvestorB * nbDays) / 360,
+        (unitValue * couponRate * balanceInvestorB * nbDays) / 360
       );
 
       let couponPaymentForInvestorA =
@@ -612,18 +612,18 @@ describe("Run tests of the Coupon process", function () {
 
       //------------------------------------------------------------------------------------------------------------------
       // Time machine advance
-      await time.increaseTo(addPart(firstCouponDate, "D", -1) + cutofftime + 5); // Move beyond the coupon date + cutOff Time
+      await time.increaseTo(addPart(firstCouponDate, 'D', -1) + cutofftime + 5); // Move beyond the coupon date + cutOff Time
 
       //Given a second coupon is deployed
       couponDate = firstCouponDate + 2 * 24 * 3600;
-      recordDate = addPart(couponDate, "D", -1);
+      recordDate = addPart(couponDate, 'D', -1);
 
       const couponDeployment2 = await coupon.deploy(
         registerInstanceAddress,
         couponDate,
         nbDays,
         recordDate,
-        cutofftime,
+        cutofftime
       );
       const couponInstance2 = await couponDeployment2.connect(payer);
       const couponInstance2Address = couponInstance2.getAddress();
@@ -634,7 +634,7 @@ describe("Run tests of the Coupon process", function () {
       await registerInstance.transferFrom(
         investorA.address,
         investorB.address,
-        12,
+        12
       );
 
       nbDays = 180;
@@ -642,18 +642,18 @@ describe("Run tests of the Coupon process", function () {
       expect(await couponInstance2.nbDays()).to.equal(`${nbDays}`);
 
       await couponInstance2.setDateAsCurrentCoupon(); //implicit coupon validation
-      expect(await couponInstance2.status(payer.call())).to.equal("1");
+      expect(await couponInstance2.status(payer.call())).to.equal('1');
 
       //We calculate the payment amount for the second coupon for investorA
       balanceInvestorA = Number.parseInt(
-        await registerInstance.balanceOfCoupon(investorA.address, couponDate),
+        await registerInstance.balanceOfCoupon(investorA.address, couponDate)
       );
 
       unitValue = Number.parseInt(await registerInstance.getBondUnitValue());
       couponRate = Number.parseInt(await registerInstance.getBondCouponRate());
 
       paymentInvestorA = Math.floor(
-        (unitValue * couponRate * balanceInvestorA * nbDays) / 360,
+        (unitValue * couponRate * balanceInvestorA * nbDays) / 360
       );
 
       couponPaymentForInvestorA =
@@ -663,14 +663,14 @@ describe("Run tests of the Coupon process", function () {
 
       //We calculate the payment amount for the second coupon for investorB
       balanceInvestorB = Number.parseInt(
-        await registerInstance.balanceOfCoupon(investorB.address, couponDate),
+        await registerInstance.balanceOfCoupon(investorB.address, couponDate)
       );
 
       unitValue = Number.parseInt(await registerInstance.getBondUnitValue());
       couponRate = Number.parseInt(await registerInstance.getBondCouponRate());
 
       paymentInvestorB = Math.floor(
-        (unitValue * couponRate * balanceInvestorB * nbDays) / 360,
+        (unitValue * couponRate * balanceInvestorB * nbDays) / 360
       );
 
       couponPaymentForInvestorB =
@@ -679,11 +679,11 @@ describe("Run tests of the Coupon process", function () {
       expect(couponPaymentForInvestorB).to.equal(paymentInvestorB);
 
       expect(await registerInstance.currentSnapshotDatetime()).to.equal(
-        `${makeDateTime(recordDate, cutofftime)}`,
+        `${makeDateTime(recordDate, cutofftime)}`
       );
     });
 
-    it("should deploy a third coupon, take snapshot of evolving balances for 3 investors", async () => {
+    it('should deploy a third coupon, take snapshot of evolving balances for 3 investors', async () => {
       const {
         registerInstance,
         payer,
@@ -695,21 +695,21 @@ describe("Run tests of the Coupon process", function () {
         bnd,
         wrongAccount,
         firstCouponDate,
-        expectedSupply,
+        expectedSupply
       } = await loadFixture(deployCouponContractFixture);
       let couponDate = firstCouponDate;
-      let recordDate = addPart(couponDate, "D", -1);
+      let recordDate = addPart(couponDate, 'D', -1);
       let nbDays = 100;
       let cutofftime = 17 * 3600;
 
-      const Coupon = await ethers.getContractFactory("Coupon");
+      const Coupon = await ethers.getContractFactory('Coupon');
       const coupon = await Coupon.connect(payer);
       const couponDeployment1 = await coupon.deploy(
         registerInstanceAddress,
         couponDate,
         nbDays,
         recordDate,
-        cutofftime,
+        cutofftime
       );
       const couponInstance1 = await couponDeployment1.connect(payer);
       const couponInstance1Address = couponInstance1.getAddress();
@@ -723,47 +723,47 @@ describe("Run tests of the Coupon process", function () {
       expect(await couponInstance1.nbDays()).to.equal(`${nbDays}`);
 
       await couponInstance1.setDateAsCurrentCoupon(); //implicit coupon validation
-      expect(await couponInstance1.status(payer.call())).to.equal("1");
+      expect(await couponInstance1.status(payer.call())).to.equal('1');
 
       let unitValue = Number.parseInt(
-        await registerInstance.getBondUnitValue(),
+        await registerInstance.getBondUnitValue()
       );
 
       let couponRate = Number.parseInt(
-        await registerInstance.getBondCouponRate(),
+        await registerInstance.getBondCouponRate()
       );
 
       let balanceInvestorA = Number.parseInt(
         await registerInstance.balanceOfCoupon(
           investorA.address,
-          firstCouponDate,
-        ),
+          firstCouponDate
+        )
       );
 
       let balanceInvestorB = Number.parseInt(
         await registerInstance.balanceOfCoupon(
           investorB.address,
-          firstCouponDate,
-        ),
+          firstCouponDate
+        )
       );
 
       let balanceInvestorC = Number.parseInt(
         await registerInstance.balanceOfCoupon(
           investorC.address,
-          firstCouponDate,
-        ),
+          firstCouponDate
+        )
       );
 
       let paymentInvestorA = Math.floor(
-        (unitValue * couponRate * balanceInvestorA * nbDays) / 360,
+        (unitValue * couponRate * balanceInvestorA * nbDays) / 360
       );
 
       let paymentInvestorB = Math.floor(
-        (unitValue * couponRate * balanceInvestorB * nbDays) / 360,
+        (unitValue * couponRate * balanceInvestorB * nbDays) / 360
       );
 
       let paymentInvestorC = Math.floor(
-        (unitValue * couponRate * balanceInvestorC * nbDays) / 360,
+        (unitValue * couponRate * balanceInvestorC * nbDays) / 360
       );
 
       let couponPaymentForInvestorA =
@@ -784,40 +784,40 @@ describe("Run tests of the Coupon process", function () {
       let balancesBeforeSnapshot = [
         await registerInstance.balanceOf(investorA.address),
         await registerInstance.balanceOf(investorB.address),
-        await registerInstance.balanceOf(investorC.address),
+        await registerInstance.balanceOf(investorC.address)
       ];
 
       let balancesOfCoupon1Before = [
         await registerInstance.balanceOfCoupon(
           investorA.address,
-          firstCouponDate,
+          firstCouponDate
         ),
         await registerInstance.balanceOfCoupon(
           investorB.address,
-          firstCouponDate,
+          firstCouponDate
         ),
         await registerInstance.balanceOfCoupon(
           investorC.address,
-          firstCouponDate,
-        ),
+          firstCouponDate
+        )
       ];
 
       expect(balancesBeforeSnapshot).to.deep.equal(balancesOfCoupon1Before);
 
       //------------------------------------------------------------------------------------------------------------------
       // Time machine advance
-      await time.increaseTo(addPart(firstCouponDate, "D", -1) + cutofftime + 5); // Move beyond the coupon date + cutOff Time
+      await time.increaseTo(addPart(firstCouponDate, 'D', -1) + cutofftime + 5); // Move beyond the coupon date + cutOff Time
 
       //Given a second coupon is deployed
       couponDate = firstCouponDate + 2 * 24 * 3600;
-      recordDate = addPart(couponDate, "D", -1);
+      recordDate = addPart(couponDate, 'D', -1);
 
       const couponDeployment2 = await coupon.deploy(
         registerInstanceAddress,
         couponDate,
         nbDays,
         recordDate,
-        cutofftime,
+        cutofftime
       );
       const couponInstance2 = await couponDeployment2.connect(payer);
       const couponInstance2Address = couponInstance2.getAddress();
@@ -825,40 +825,40 @@ describe("Run tests of the Coupon process", function () {
       await registerInstance.transferFrom(
         investorA.address,
         investorB.address,
-        12,
+        12
       );
 
       await registerInstance.transferFrom(
         investorB.address,
         investorC.address,
-        10,
+        10
       );
 
       let balancesOfCoupon1After = [
         await registerInstance.balanceOfCoupon(
           investorA.address,
-          firstCouponDate,
+          firstCouponDate
         ),
         await registerInstance.balanceOfCoupon(
           investorB.address,
-          firstCouponDate,
+          firstCouponDate
         ),
         await registerInstance.balanceOfCoupon(
           investorC.address,
-          firstCouponDate,
-        ),
+          firstCouponDate
+        )
       ];
 
       let balancesOfCoupon2Before = [
         await registerInstance.balanceOfCoupon(investorA.address, couponDate),
         await registerInstance.balanceOfCoupon(investorB.address, couponDate),
-        await registerInstance.balanceOfCoupon(investorC.address, couponDate),
+        await registerInstance.balanceOfCoupon(investorC.address, couponDate)
       ];
 
       let balancesAfterSnapshot = [
         await registerInstance.balanceOf(investorA.address),
         await registerInstance.balanceOf(investorB.address),
-        await registerInstance.balanceOf(investorC.address),
+        await registerInstance.balanceOf(investorC.address)
       ];
 
       expect(balancesOfCoupon1Before[0]).to.be.equal(balancesOfCoupon1After[0]);
@@ -874,18 +874,18 @@ describe("Run tests of the Coupon process", function () {
       expect(await couponInstance2.nbDays()).to.equal(`${nbDays}`);
 
       await couponInstance2.setDateAsCurrentCoupon(); //implicit coupon validation
-      expect(await couponInstance2.status(payer.call())).to.equal("1");
+      expect(await couponInstance2.status(payer.call())).to.equal('1');
 
       //We calculate the payment amount for the second coupon for investorA
       balanceInvestorA = Number.parseInt(
-        await registerInstance.balanceOfCoupon(investorA.address, couponDate),
+        await registerInstance.balanceOfCoupon(investorA.address, couponDate)
       );
 
       unitValue = Number.parseInt(await registerInstance.getBondUnitValue());
       couponRate = Number.parseInt(await registerInstance.getBondCouponRate());
 
       paymentInvestorA = Math.floor(
-        (unitValue * couponRate * balanceInvestorA * nbDays) / 360,
+        (unitValue * couponRate * balanceInvestorA * nbDays) / 360
       );
 
       couponPaymentForInvestorA =
@@ -895,14 +895,14 @@ describe("Run tests of the Coupon process", function () {
 
       //We calculate the payment amount for the second coupon for investorB
       balanceInvestorB = Number.parseInt(
-        await registerInstance.balanceOfCoupon(investorB.address, couponDate),
+        await registerInstance.balanceOfCoupon(investorB.address, couponDate)
       );
 
       unitValue = Number.parseInt(await registerInstance.getBondUnitValue());
       couponRate = Number.parseInt(await registerInstance.getBondCouponRate());
 
       paymentInvestorB = Math.floor(
-        (unitValue * couponRate * balanceInvestorB * nbDays) / 360,
+        (unitValue * couponRate * balanceInvestorB * nbDays) / 360
       );
 
       couponPaymentForInvestorB =
@@ -912,14 +912,14 @@ describe("Run tests of the Coupon process", function () {
 
       //We calculate the payment amount for the second coupon for investorC
       balanceInvestorC = Number.parseInt(
-        await registerInstance.balanceOfCoupon(investorC.address, couponDate),
+        await registerInstance.balanceOfCoupon(investorC.address, couponDate)
       );
 
       unitValue = Number.parseInt(await registerInstance.getBondUnitValue());
       couponRate = Number.parseInt(await registerInstance.getBondCouponRate());
 
       paymentInvestorC = Math.floor(
-        (unitValue * couponRate * balanceInvestorC * nbDays) / 360,
+        (unitValue * couponRate * balanceInvestorC * nbDays) / 360
       );
 
       couponPaymentForInvestorC =
@@ -933,14 +933,14 @@ describe("Run tests of the Coupon process", function () {
 
       //Given a second coupon is deployed
       couponDate = couponDate + 2 * 24 * 3600;
-      recordDate = addPart(couponDate, "D", -1);
+      recordDate = addPart(couponDate, 'D', -1);
 
       const couponDeployment3 = await coupon.deploy(
         registerInstanceAddress,
         couponDate,
         nbDays,
         recordDate,
-        cutofftime,
+        cutofftime
       );
       const couponInstance3 = await couponDeployment3.connect(payer);
       const couponInstance3Address = couponInstance3.getAddress();
@@ -949,30 +949,30 @@ describe("Run tests of the Coupon process", function () {
       await registerInstance.transferFrom(
         investorA.address,
         investorB.address,
-        23,
+        23
       );
 
       await registerInstance.transferFrom(
         investorB.address,
         investorC.address,
-        18,
+        18
       );
 
       //do a transfer 2 so the balance moves
       await registerInstance.transferFrom(
         investorA.address,
         investorB.address,
-        2,
+        2
       );
       await registerInstance.transferFrom(
         investorB.address,
         investorC.address,
-        3,
+        3
       );
       await registerInstance.transferFrom(
         investorC.address,
         investorA.address,
-        6,
+        6
       );
 
       nbDays = 180;
@@ -980,18 +980,18 @@ describe("Run tests of the Coupon process", function () {
       expect(await couponInstance3.nbDays()).to.equal(`${nbDays}`);
 
       await couponInstance3.setDateAsCurrentCoupon(); //implicit coupon validation
-      expect(await couponInstance3.status(payer.call())).to.equal("1");
+      expect(await couponInstance3.status(payer.call())).to.equal('1');
 
       //We calculate the payment amount for the second coupon for investorA
       balanceInvestorA = Number.parseInt(
-        await registerInstance.balanceOfCoupon(investorA.address, couponDate),
+        await registerInstance.balanceOfCoupon(investorA.address, couponDate)
       );
 
       unitValue = Number.parseInt(await registerInstance.getBondUnitValue());
       couponRate = Number.parseInt(await registerInstance.getBondCouponRate());
 
       paymentInvestorA = Math.floor(
-        (unitValue * couponRate * balanceInvestorA * nbDays) / 360,
+        (unitValue * couponRate * balanceInvestorA * nbDays) / 360
       );
 
       couponPaymentForInvestorA =
@@ -1001,14 +1001,14 @@ describe("Run tests of the Coupon process", function () {
 
       //We calculate the payment amount for the second coupon for investorB
       balanceInvestorB = Number.parseInt(
-        await registerInstance.balanceOfCoupon(investorB.address, couponDate),
+        await registerInstance.balanceOfCoupon(investorB.address, couponDate)
       );
 
       unitValue = Number.parseInt(await registerInstance.getBondUnitValue());
       couponRate = Number.parseInt(await registerInstance.getBondCouponRate());
 
       paymentInvestorB = Math.floor(
-        (unitValue * couponRate * balanceInvestorB * nbDays) / 360,
+        (unitValue * couponRate * balanceInvestorB * nbDays) / 360
       );
 
       couponPaymentForInvestorB =
@@ -1018,14 +1018,14 @@ describe("Run tests of the Coupon process", function () {
 
       //We calculate the payment amount for the second coupon for investorC
       balanceInvestorC = Number.parseInt(
-        await registerInstance.balanceOfCoupon(investorC.address, couponDate),
+        await registerInstance.balanceOfCoupon(investorC.address, couponDate)
       );
 
       unitValue = Number.parseInt(await registerInstance.getBondUnitValue());
       couponRate = Number.parseInt(await registerInstance.getBondCouponRate());
 
       paymentInvestorC = Math.floor(
-        (unitValue * couponRate * balanceInvestorC * nbDays) / 360,
+        (unitValue * couponRate * balanceInvestorC * nbDays) / 360
       );
 
       couponPaymentForInvestorC =
@@ -1034,11 +1034,11 @@ describe("Run tests of the Coupon process", function () {
       expect(couponPaymentForInvestorC).to.equal(paymentInvestorC);
 
       expect(await registerInstance.currentSnapshotDatetime()).to.equal(
-        `${makeDateTime(recordDate, cutofftime)}`,
+        `${makeDateTime(recordDate, cutofftime)}`
       );
     });
 
-    it("should deploy a third coupon, take snapshot of evolving balances for 3 investors make payment Ready, close coupon and finalize it", async () => {
+    it('should deploy a third coupon, take snapshot of evolving balances for 3 investors make payment Ready, close coupon and finalize it', async () => {
       const {
         registerInstance,
         payer,
@@ -1051,22 +1051,22 @@ describe("Run tests of the Coupon process", function () {
         bnd,
         wrongAccount,
         firstCouponDate,
-        expectedSupply,
+        expectedSupply
       } = await loadFixture(deployCouponContractFixture);
       let couponDate = firstCouponDate;
-      let recordDate = addPart(couponDate, "D", -1);
+      let recordDate = addPart(couponDate, 'D', -1);
 
       let nbDays = 100;
       let cutofftime = 17 * 3600;
 
-      const Coupon = await ethers.getContractFactory("Coupon");
+      const Coupon = await ethers.getContractFactory('Coupon');
       const coupon = await Coupon.connect(payer);
       const couponDeployment4 = await coupon.deploy(
         registerInstanceAddress,
         couponDate,
         nbDays,
         recordDate,
-        cutofftime,
+        cutofftime
       );
       const couponInstance4 = await couponDeployment4.connect(payer);
       const couponInstance4Address = couponInstance4.getAddress();
@@ -1079,23 +1079,23 @@ describe("Run tests of the Coupon process", function () {
       expect(await couponInstance4.nbDays()).to.equal(`${nbDays}`);
 
       await couponInstance4.setDateAsCurrentCoupon(); //implicit coupon validation
-      expect(await couponInstance4.status(payer.call())).to.equal("1");
+      expect(await couponInstance4.status(payer.call())).to.equal('1');
 
       //We calculate the payment amount for the second coupon for investorA
       let balanceInvestorA = Number.parseInt(
-        await registerInstance.balanceOfCoupon(investorA.address, couponDate),
+        await registerInstance.balanceOfCoupon(investorA.address, couponDate)
       );
 
       let unitValue = Number.parseInt(
-        await registerInstance.getBondUnitValue(),
+        await registerInstance.getBondUnitValue()
       );
 
       let couponRate = Number.parseInt(
-        await registerInstance.getBondCouponRate(),
+        await registerInstance.getBondCouponRate()
       );
 
       let paymentInvestorA = Math.floor(
-        (unitValue * couponRate * balanceInvestorA * nbDays) / 360,
+        (unitValue * couponRate * balanceInvestorA * nbDays) / 360
       );
 
       let couponPaymentForInvestorA =
@@ -1106,14 +1106,14 @@ describe("Run tests of the Coupon process", function () {
 
       //We calculate the payment amount for the second coupon for investorB
       let balanceInvestorB = Number.parseInt(
-        await registerInstance.balanceOfCoupon(investorB.address, couponDate),
+        await registerInstance.balanceOfCoupon(investorB.address, couponDate)
       );
 
       unitValue = Number.parseInt(await registerInstance.getBondUnitValue());
       couponRate = Number.parseInt(await registerInstance.getBondCouponRate());
 
       let paymentInvestorB = Math.floor(
-        (unitValue * couponRate * balanceInvestorB * nbDays) / 360,
+        (unitValue * couponRate * balanceInvestorB * nbDays) / 360
       );
 
       let couponPaymentForInvestorB =
@@ -1123,14 +1123,14 @@ describe("Run tests of the Coupon process", function () {
 
       //We calculate the payment amount for the second coupon for investorC
       let balanceInvestorC = Number.parseInt(
-        await registerInstance.balanceOfCoupon(investorC.address, couponDate),
+        await registerInstance.balanceOfCoupon(investorC.address, couponDate)
       );
 
       unitValue = Number.parseInt(await registerInstance.getBondUnitValue());
       couponRate = Number.parseInt(await registerInstance.getBondCouponRate());
 
       let paymentInvestorC = Math.floor(
-        (unitValue * couponRate * balanceInvestorC * nbDays) / 360,
+        (unitValue * couponRate * balanceInvestorC * nbDays) / 360
       );
 
       let couponPaymentForInvestorC =
@@ -1159,14 +1159,14 @@ describe("Run tests of the Coupon process", function () {
       await time.increaseTo(recordDate + cutofftime + 3600); // Move beyond the coupon date + cutOff Time
 
       couponDate = couponDate + 2 * 24 * 3600;
-      recordDate = addPart(couponDate, "D", -1);
+      recordDate = addPart(couponDate, 'D', -1);
 
       const couponDeployment5 = await coupon.deploy(
         registerInstanceAddress,
         couponDate,
         nbDays,
         recordDate,
-        cutofftime,
+        cutofftime
       );
       const couponInstance5 = await couponDeployment5.connect(payer);
       const couponInstance5Address = couponInstance5.getAddress();
@@ -1174,41 +1174,41 @@ describe("Run tests of the Coupon process", function () {
       await registerInstance.transferFrom(
         investorA.address,
         investorB.address,
-        12,
+        12
       );
       await registerInstance.transferFrom(
         investorB.address,
         investorC.address,
-        10,
+        10
       );
 
       await registerInstance.transferFrom(
         investorA.address,
         investorB.address,
-        12,
+        12
       );
 
       await registerInstance.transferFrom(
         investorB.address,
         investorC.address,
-        10,
+        10
       );
 
       await registerInstance.transferFrom(
         investorC.address,
         investorA.address,
-        7,
+        7
       );
 
       await couponInstance5.setNbDays(nbDays);
       expect(await couponInstance5.nbDays()).to.equal(`${nbDays}`);
 
       await couponInstance5.setDateAsCurrentCoupon(); //implicit coupon validation
-      expect(await couponInstance5.status(payer.call())).to.equal("1");
+      expect(await couponInstance5.status(payer.call())).to.equal('1');
 
       //We calculate the payment amount for the second coupon for investorA
       balanceInvestorA = Number.parseInt(
-        await registerInstance.balanceOfCoupon(investorA.address, couponDate),
+        await registerInstance.balanceOfCoupon(investorA.address, couponDate)
       );
 
       unitValue = Number.parseInt(await registerInstance.getBondUnitValue());
@@ -1216,7 +1216,7 @@ describe("Run tests of the Coupon process", function () {
       couponRate = Number.parseInt(await registerInstance.getBondCouponRate());
 
       paymentInvestorA = Math.floor(
-        (unitValue * couponRate * balanceInvestorA * nbDays) / 360,
+        (unitValue * couponRate * balanceInvestorA * nbDays) / 360
       );
 
       couponPaymentForInvestorA =
@@ -1227,14 +1227,14 @@ describe("Run tests of the Coupon process", function () {
 
       //We calculate the payment amount for the second coupon for investorB
       balanceInvestorB = Number.parseInt(
-        await registerInstance.balanceOfCoupon(investorB.address, couponDate),
+        await registerInstance.balanceOfCoupon(investorB.address, couponDate)
       );
 
       unitValue = Number.parseInt(await registerInstance.getBondUnitValue());
       couponRate = Number.parseInt(await registerInstance.getBondCouponRate());
 
       paymentInvestorB = Math.floor(
-        (unitValue * couponRate * balanceInvestorB * nbDays) / 360,
+        (unitValue * couponRate * balanceInvestorB * nbDays) / 360
       );
 
       couponPaymentForInvestorB =
@@ -1244,14 +1244,14 @@ describe("Run tests of the Coupon process", function () {
 
       //We calculate the payment amount for the second coupon for investorC
       balanceInvestorC = Number.parseInt(
-        await registerInstance.balanceOfCoupon(investorC.address, couponDate),
+        await registerInstance.balanceOfCoupon(investorC.address, couponDate)
       );
 
       unitValue = Number.parseInt(await registerInstance.getBondUnitValue());
       couponRate = Number.parseInt(await registerInstance.getBondCouponRate());
 
       paymentInvestorC = Math.floor(
-        (unitValue * couponRate * balanceInvestorC * nbDays) / 360,
+        (unitValue * couponRate * balanceInvestorC * nbDays) / 360
       );
 
       couponPaymentForInvestorC =
@@ -1280,14 +1280,14 @@ describe("Run tests of the Coupon process", function () {
       await time.increaseTo(recordDate + cutofftime + 3600); // Move beyond the coupon date + cutOff Time
 
       couponDate = couponDate + 2 * 24 * 3600;
-      recordDate = addPart(couponDate, "D", -1);
+      recordDate = addPart(couponDate, 'D', -1);
 
       const couponDeployment6 = await coupon.deploy(
         registerInstanceAddress,
         couponDate,
         nbDays,
         recordDate,
-        cutofftime,
+        cutofftime
       );
       const couponInstance6 = await couponDeployment6.connect(payer);
       const couponInstance6Address = couponInstance6.getAddress();
@@ -1295,41 +1295,41 @@ describe("Run tests of the Coupon process", function () {
       await registerInstance.transferFrom(
         investorA.address,
         investorB.address,
-        12,
+        12
       );
       await registerInstance.transferFrom(
         investorB.address,
         investorC.address,
-        10,
+        10
       );
 
       await registerInstance.transferFrom(
         investorA.address,
         investorB.address,
-        12,
+        12
       );
 
       await registerInstance.transferFrom(
         investorB.address,
         investorC.address,
-        10,
+        10
       );
 
       await registerInstance.transferFrom(
         investorC.address,
         investorA.address,
-        7,
+        7
       );
 
       await couponInstance6.setNbDays(nbDays);
       expect(await couponInstance6.nbDays()).to.equal(`${nbDays}`);
 
       await couponInstance6.setDateAsCurrentCoupon(); //implicit coupon validation
-      expect(await couponInstance6.status(payer.call())).to.equal("1");
+      expect(await couponInstance6.status(payer.call())).to.equal('1');
 
       //We calculate the payment amount for the second coupon for investorA
       balanceInvestorA = Number.parseInt(
-        await registerInstance.balanceOfCoupon(investorA.address, couponDate),
+        await registerInstance.balanceOfCoupon(investorA.address, couponDate)
       );
 
       unitValue = Number.parseInt(await registerInstance.getBondUnitValue());
@@ -1337,7 +1337,7 @@ describe("Run tests of the Coupon process", function () {
       couponRate = Number.parseInt(await registerInstance.getBondCouponRate());
 
       paymentInvestorA = Math.floor(
-        (unitValue * couponRate * balanceInvestorA * nbDays) / 360,
+        (unitValue * couponRate * balanceInvestorA * nbDays) / 360
       );
 
       couponPaymentForInvestorA =
@@ -1348,14 +1348,14 @@ describe("Run tests of the Coupon process", function () {
 
       //We calculate the payment amount for the second coupon for investorB
       balanceInvestorB = Number.parseInt(
-        await registerInstance.balanceOfCoupon(investorB.address, couponDate),
+        await registerInstance.balanceOfCoupon(investorB.address, couponDate)
       );
 
       unitValue = Number.parseInt(await registerInstance.getBondUnitValue());
       couponRate = Number.parseInt(await registerInstance.getBondCouponRate());
 
       paymentInvestorB = Math.floor(
-        (unitValue * couponRate * balanceInvestorB * nbDays) / 360,
+        (unitValue * couponRate * balanceInvestorB * nbDays) / 360
       );
 
       couponPaymentForInvestorB =
@@ -1365,14 +1365,14 @@ describe("Run tests of the Coupon process", function () {
 
       //We calculate the payment amount for the second coupon for investorC
       balanceInvestorC = Number.parseInt(
-        await registerInstance.balanceOfCoupon(investorC.address, couponDate),
+        await registerInstance.balanceOfCoupon(investorC.address, couponDate)
       );
 
       unitValue = Number.parseInt(await registerInstance.getBondUnitValue());
       couponRate = Number.parseInt(await registerInstance.getBondCouponRate());
 
       paymentInvestorC = Math.floor(
-        (unitValue * couponRate * balanceInvestorC * nbDays) / 360,
+        (unitValue * couponRate * balanceInvestorC * nbDays) / 360
       );
 
       couponPaymentForInvestorC =

@@ -1,39 +1,39 @@
-import { loadFixture } from "@nomicfoundation/hardhat-toolbox/network-helpers";
-import chai, { expect } from "chai";
-import { deployCouponContractFixture } from "./deployer/coupon.deployer";
-import { ethers } from "hardhat";
-import { addPart, today } from "./utils/dates";
-import { bilateralTrade } from "./utils/shared";
-import { time } from "@nomicfoundation/hardhat-network-helpers";
+import { loadFixture } from '@nomicfoundation/hardhat-toolbox/network-helpers';
+import chai, { expect } from 'chai';
+import { deployCouponContractFixture } from './deployer/coupon.deployer';
+import { ethers } from 'hardhat';
+import { addPart, today } from './utils/dates';
+import { bilateralTrade } from './utils/shared';
+import { time } from '@nomicfoundation/hardhat-network-helpers';
 
-describe("Run tests of the Redemption contract", function () {
-  describe("Redemption process", function () {
-    it("should fail to deploy the redemption when maturity date is not known by the register", async function () {
+describe('Run tests of the Redemption contract', function () {
+  describe('Redemption process', function () {
+    it('should fail to deploy the redemption when maturity date is not known by the register', async function () {
       const {
         registerInstance,
         payer,
         registerInstanceAddress,
-        firstCouponDate,
+        firstCouponDate
       } = await loadFixture(deployCouponContractFixture);
 
       const isPay = await registerInstance.connect(payer).isPay(payer.address);
       expect(isPay).to.be.true;
 
-      const BilateralTrade = await ethers.getContractFactory("Redemption");
+      const BilateralTrade = await ethers.getContractFactory('Redemption');
       const trade = BilateralTrade.connect(payer).deploy(
         registerInstanceAddress,
         firstCouponDate,
         360,
-        addPart(firstCouponDate, "D", -1),
+        addPart(firstCouponDate, 'D', -1),
         1500
       );
 
       await expect(trade).to.be.rejectedWith(
-        "this maturity Date does not exists"
+        'this maturity Date does not exists'
       );
     });
 
-    it("should deploy the redemption and get maturity amount for investor", async () => {
+    it('should deploy the redemption and get maturity amount for investor', async () => {
       const {
         registerInstance,
         payer,
@@ -41,17 +41,17 @@ describe("Run tests of the Redemption contract", function () {
         firstCouponDate,
         maturityDate,
         investorA,
-        cakAccount,
+        cakAccount
       } = await loadFixture(deployCouponContractFixture);
 
       const isPay = await registerInstance.connect(payer).isPay(payer.address);
       expect(isPay).to.be.true;
-      const Redemption = await ethers.getContractFactory("Redemption");
+      const Redemption = await ethers.getContractFactory('Redemption');
       const redemptionInstance = await Redemption.connect(payer).deploy(
         registerInstanceAddress,
         maturityDate,
         360,
-        addPart(maturityDate, "D", -1),
+        addPart(maturityDate, 'D', -1),
         1500
       );
       let balenceOfInvestorA = await registerInstance
@@ -67,7 +67,7 @@ describe("Run tests of the Redemption contract", function () {
       expect(actual).to.equal(maturityAmount.toString());
     });
 
-    it("should try to toggle Redemption Payment but revert as the investor is not allowed", async () => {
+    it('should try to toggle Redemption Payment but revert as the investor is not allowed', async () => {
       const {
         registerInstance,
         payer,
@@ -76,17 +76,17 @@ describe("Run tests of the Redemption contract", function () {
         maturityDate,
         investorA,
         cakAccount,
-        wrongAccount,
+        wrongAccount
       } = await loadFixture(deployCouponContractFixture);
 
       const isPay = await registerInstance.connect(payer).isPay(payer.address);
       expect(isPay).to.be.true;
-      const Redemption = await ethers.getContractFactory("Redemption");
+      const Redemption = await ethers.getContractFactory('Redemption');
       const redemptionInstance = await Redemption.connect(payer).deploy(
         registerInstanceAddress,
         maturityDate,
         360,
-        addPart(maturityDate, "D", -1),
+        addPart(maturityDate, 'D', -1),
         1500
       );
       const redemptionInstanceAddress = await redemptionInstance.getAddress();
@@ -94,7 +94,7 @@ describe("Run tests of the Redemption contract", function () {
         registerInstanceAddress,
         maturityDate,
         10,
-        addPart(maturityDate, "D", -1),
+        addPart(maturityDate, 'D', -1),
         1500
       );
       const redemptionInstanceAddress1 = await redemptionInstance1.getAddress();
@@ -120,10 +120,10 @@ describe("Run tests of the Redemption contract", function () {
         redemptionInstance
           .connect(payer)
           .toggleRedemptionPayment(wrongAccount.address)
-      ).to.be.rejectedWith("This investor is not allowed");
+      ).to.be.rejectedWith('This investor is not allowed');
     });
 
-    it("should try to toggle Redemption Payment but revert as the maturity cut off time has not passed", async () => {
+    it('should try to toggle Redemption Payment but revert as the maturity cut off time has not passed', async () => {
       const {
         registerInstance,
         payer,
@@ -132,17 +132,17 @@ describe("Run tests of the Redemption contract", function () {
         maturityDate,
         investorA,
         cakAccount,
-        wrongAccount,
+        wrongAccount
       } = await loadFixture(deployCouponContractFixture);
 
       const isPay = await registerInstance.connect(payer).isPay(payer.address);
       expect(isPay).to.be.true;
-      const Redemption = await ethers.getContractFactory("Redemption");
+      const Redemption = await ethers.getContractFactory('Redemption');
       const redemptionInstance = await Redemption.connect(payer).deploy(
         registerInstanceAddress,
         maturityDate,
         360,
-        addPart(maturityDate, "D", -1),
+        addPart(maturityDate, 'D', -1),
         1500
       );
       const redemptionInstanceAddress = await redemptionInstance.getAddress();
@@ -160,11 +160,11 @@ describe("Run tests of the Redemption contract", function () {
         .connect(cakAccount)
         .toggleRedemptionPayment(investorA.address);
       await expect(paymentsResponse).to.be.rejectedWith(
-        "the maturity cut of time has not passed"
+        'the maturity cut of time has not passed'
       );
     });
 
-    it("should try to toggle Redemption Payment after coupon process", async () => {
+    it('should try to toggle Redemption Payment after coupon process', async () => {
       const {
         registerInstance,
         payer,
@@ -177,7 +177,7 @@ describe("Run tests of the Redemption contract", function () {
         web3,
         bnd,
         investorB,
-        investorD,
+        investorD
       } = await loadFixture(deployCouponContractFixture);
 
       const isPay = await registerInstance.connect(payer).isPay(payer.address);
@@ -186,12 +186,12 @@ describe("Run tests of the Redemption contract", function () {
 
       let nbDaysInPeriod = 180;
       let cutOffTimeInSec = 16 * 3600;
-      const Coupon = await ethers.getContractFactory("Coupon");
+      const Coupon = await ethers.getContractFactory('Coupon');
       const couponInstance = await Coupon.connect(payer).deploy(
         registerInstanceAddress,
         couponDate,
         nbDaysInPeriod,
-        addPart(couponDate, "D", -1),
+        addPart(couponDate, 'D', -1),
         cutOffTimeInSec
       );
       const couponInstanceAddress = await couponInstance.getAddress();
@@ -224,13 +224,13 @@ describe("Run tests of the Redemption contract", function () {
 
       expect(balanceOfInvestorB).to.equal(100);
 
-      const Redemption = await ethers.getContractFactory("Redemption");
+      const Redemption = await ethers.getContractFactory('Redemption');
 
       const redemptionInstance = await Redemption.connect(payer).deploy(
         registerInstanceAddress,
         maturityDate,
         nbDaysInPeriod,
-        addPart(maturityDate, "D", -1),
+        addPart(maturityDate, 'D', -1),
         cutOffTimeInSec
       );
 
@@ -257,7 +257,7 @@ describe("Run tests of the Redemption contract", function () {
         .connect(cakAccount)
         .transferFrom(bnd.address, investorA.address, 100);
 
-      time.increaseTo(addPart(maturityDate, "D", -1) + cutOffTimeInSec + 1000);
+      time.increaseTo(addPart(maturityDate, 'D', -1) + cutOffTimeInSec + 1000);
 
       await redemptionInstance
         .connect(cakAccount)
@@ -272,11 +272,11 @@ describe("Run tests of the Redemption contract", function () {
           .connect(cakAccount)
           .transferFrom(bnd.address, investorD.address, 666)
       ).to.be.revertedWith(
-        "the register is locked because no coupon is prepared or the maturity is reached"
+        'the register is locked because no coupon is prepared or the maturity is reached'
       );
     });
 
-    it.skip("should try to close the register and burn the total balance", async () => {
+    it('should try to close the register and burn the total balance', async () => {
       const {
         registerInstance,
         payer,
@@ -290,11 +290,11 @@ describe("Run tests of the Redemption contract", function () {
         bnd,
         investorB,
         investorD,
-        expectedSupply,
+        expectedSupply
       } = await loadFixture(deployCouponContractFixture);
 
       let couponDate = firstCouponDate;
-      let recordDate = addPart(couponDate, "D", -1);
+      let recordDate = addPart(couponDate, 'D', -1);
 
       let nbDaysInPeriod = 180;
       let cutOffTimeInSec = 16 * 3600;
@@ -327,7 +327,7 @@ describe("Run tests of the Redemption contract", function () {
         .balanceOf(bnd.address);
       expect(bndBalanceAfterTrade).to.equal(0);
 
-      const Coupon = await ethers.getContractFactory("Coupon");
+      const Coupon = await ethers.getContractFactory('Coupon');
       const couponInstance = await Coupon.connect(payer).deploy(
         registerInstanceAddress,
         couponDate,
@@ -349,9 +349,9 @@ describe("Run tests of the Redemption contract", function () {
 
       time.increaseTo(recordDate + cutOffTimeInSec + 1000);
 
-      recordDate = addPart(maturityDate, "D", -1);
+      recordDate = addPart(maturityDate, 'D', -1);
 
-      const Redemption = await ethers.getContractFactory("Redemption");
+      const Redemption = await ethers.getContractFactory('Redemption');
 
       const redemptionInstance = await Redemption.connect(payer).deploy(
         registerInstanceAddress,
@@ -394,7 +394,7 @@ describe("Run tests of the Redemption contract", function () {
             .then((balance: any) => {
               return {
                 address: investorAddress,
-                bal: Number.parseInt(balance),
+                bal: Number.parseInt(balance)
               };
             })
         )
@@ -433,7 +433,7 @@ describe("Run tests of the Redemption contract", function () {
       ).to.be.rejectedWith(/the Register is closed/i);
     });
 
-    it.skip("should not manage to perform a trade after the redemption cut off time", async () => {
+    it('should not manage to perform a trade after the redemption cut off time', async () => {
       const {
         registerInstance,
         payer,
@@ -447,11 +447,11 @@ describe("Run tests of the Redemption contract", function () {
         bnd,
         investorB,
         investorD,
-        expectedSupply,
+        expectedSupply
       } = await loadFixture(deployCouponContractFixture);
 
       let couponDate = firstCouponDate;
-      let recordDate = addPart(couponDate, "D", -1);
+      let recordDate = addPart(couponDate, 'D', -1);
 
       let nbDaysInPeriod = 180;
       let cutOffTimeInSec = 16 * 3600;
@@ -467,7 +467,7 @@ describe("Run tests of the Redemption contract", function () {
         today()
       );
 
-      const Coupon = await ethers.getContractFactory("Coupon");
+      const Coupon = await ethers.getContractFactory('Coupon');
       const couponInstance = await Coupon.connect(payer).deploy(
         registerInstanceAddress,
         couponDate,
@@ -488,9 +488,9 @@ describe("Run tests of the Redemption contract", function () {
       await couponInstance.connect(payer).setDateAsCurrentCoupon();
 
       await time.increaseTo(recordDate + cutOffTimeInSec + 1000);
-      recordDate = addPart(maturityDate, "D", -1);
+      recordDate = addPart(maturityDate, 'D', -1);
 
-      const Redemption = await ethers.getContractFactory("Redemption");
+      const Redemption = await ethers.getContractFactory('Redemption');
 
       const redemptionInstance = await Redemption.connect(payer).deploy(
         registerInstanceAddress,
