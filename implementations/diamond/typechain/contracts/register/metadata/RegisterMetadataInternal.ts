@@ -36,11 +36,13 @@ export interface RegisterMetadataInternalInterface extends Interface {
       | "balanceOf"
       | "balanceOfAt"
       | "decimals"
+      | "decreaseAllowance"
       | "getRoleAdmin"
       | "getRoleMember"
       | "getRoleMemberCount"
       | "grantRole"
       | "hasRole"
+      | "increaseAllowance"
       | "isTrustedForwarder"
       | "name"
       | "renounceRole"
@@ -101,6 +103,10 @@ export interface RegisterMetadataInternalInterface extends Interface {
   ): string;
   encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
   encodeFunctionData(
+    functionFragment: "decreaseAllowance",
+    values: [AddressLike, BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "getRoleAdmin",
     values: [BytesLike]
   ): string;
@@ -119,6 +125,10 @@ export interface RegisterMetadataInternalInterface extends Interface {
   encodeFunctionData(
     functionFragment: "hasRole",
     values: [BytesLike, AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "increaseAllowance",
+    values: [AddressLike, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "isTrustedForwarder",
@@ -172,6 +182,10 @@ export interface RegisterMetadataInternalInterface extends Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
   decodeFunctionResult(
+    functionFragment: "decreaseAllowance",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "getRoleAdmin",
     data: BytesLike
   ): Result;
@@ -185,6 +199,10 @@ export interface RegisterMetadataInternalInterface extends Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "grantRole", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "hasRole", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "increaseAllowance",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "isTrustedForwarder",
     data: BytesLike
@@ -575,6 +593,12 @@ export interface RegisterMetadataInternal extends BaseContract {
 
   decimals: TypedContractMethod<[], [bigint], "view">;
 
+  decreaseAllowance: TypedContractMethod<
+    [spender: AddressLike, subtractedValue: BigNumberish],
+    [boolean],
+    "nonpayable"
+  >;
+
   getRoleAdmin: TypedContractMethod<[role: BytesLike], [string], "view">;
 
   getRoleMember: TypedContractMethod<
@@ -595,6 +619,12 @@ export interface RegisterMetadataInternal extends BaseContract {
     [role: BytesLike, account: AddressLike],
     [boolean],
     "view"
+  >;
+
+  increaseAllowance: TypedContractMethod<
+    [spender: AddressLike, addedValue: BigNumberish],
+    [boolean],
+    "nonpayable"
   >;
 
   isTrustedForwarder: TypedContractMethod<
@@ -684,6 +714,13 @@ export interface RegisterMetadataInternal extends BaseContract {
     nameOrSignature: "decimals"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
+    nameOrSignature: "decreaseAllowance"
+  ): TypedContractMethod<
+    [spender: AddressLike, subtractedValue: BigNumberish],
+    [boolean],
+    "nonpayable"
+  >;
+  getFunction(
     nameOrSignature: "getRoleAdmin"
   ): TypedContractMethod<[role: BytesLike], [string], "view">;
   getFunction(
@@ -709,6 +746,13 @@ export interface RegisterMetadataInternal extends BaseContract {
     [role: BytesLike, account: AddressLike],
     [boolean],
     "view"
+  >;
+  getFunction(
+    nameOrSignature: "increaseAllowance"
+  ): TypedContractMethod<
+    [spender: AddressLike, addedValue: BigNumberish],
+    [boolean],
+    "nonpayable"
   >;
   getFunction(
     nameOrSignature: "isTrustedForwarder"

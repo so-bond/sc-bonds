@@ -38,5 +38,6 @@ yarn-error.log*
 
 # vanilla 
 implementations/*/node_modules
+implementations/*/typechain
 apps/*/artifacts/*
 solidity-files-cache.json

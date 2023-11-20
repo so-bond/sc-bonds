@@ -53,6 +53,7 @@ export interface RegisterRoleManagementInterface extends Interface {
       | "revokeCstRole"
       | "revokePayRole"
       | "revokeRole"
+      | "votesForNewAdmin"
   ): FunctionFragment;
 
   getEvent(
@@ -151,6 +152,10 @@ export interface RegisterRoleManagementInterface extends Interface {
     functionFragment: "revokeRole",
     values: [BytesLike, AddressLike]
   ): string;
+  encodeFunctionData(
+    functionFragment: "votesForNewAdmin",
+    values?: undefined
+  ): string;
 
   decodeFunctionResult(functionFragment: "BND_ROLE", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "CAK_ROLE", data: BytesLike): Result;
@@ -230,6 +235,10 @@ export interface RegisterRoleManagementInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "revokeRole", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "votesForNewAdmin",
+    data: BytesLike
+  ): Result;
 }
 
 export namespace AdminChangedEvent {
@@ -463,6 +472,8 @@ export interface RegisterRoleManagement extends BaseContract {
     "nonpayable"
   >;
 
+  votesForNewAdmin: TypedContractMethod<[], [bigint], "view">;
+
   getFunction<T extends ContractMethod = ContractMethod>(
     key: string | FunctionFragment
   ): T;
@@ -564,6 +575,9 @@ export interface RegisterRoleManagement extends BaseContract {
     [void],
     "nonpayable"
   >;
+  getFunction(
+    nameOrSignature: "votesForNewAdmin"
+  ): TypedContractMethod<[], [bigint], "view">;
 
   getEvent(
     key: "AdminChanged"

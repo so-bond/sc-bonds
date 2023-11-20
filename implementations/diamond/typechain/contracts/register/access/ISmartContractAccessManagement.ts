@@ -25,6 +25,7 @@ import type {
 export interface ISmartContractAccessManagementInterface extends Interface {
   getFunction(
     nameOrSignature:
+      | "atReturningHash"
       | "disableContractFromWhitelist"
       | "enableContractToWhitelist"
       | "isCallerApprovedSmartContract"
@@ -35,6 +36,10 @@ export interface ISmartContractAccessManagementInterface extends Interface {
     nameOrSignatureOrTopic: "DisableContract" | "EnableContract"
   ): EventFragment;
 
+  encodeFunctionData(
+    functionFragment: "atReturningHash",
+    values: [AddressLike]
+  ): string;
   encodeFunctionData(
     functionFragment: "disableContractFromWhitelist",
     values: [BytesLike]
@@ -52,6 +57,10 @@ export interface ISmartContractAccessManagementInterface extends Interface {
     values: [AddressLike]
   ): string;
 
+  decodeFunctionResult(
+    functionFragment: "atReturningHash",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "disableContractFromWhitelist",
     data: BytesLike
@@ -137,6 +146,8 @@ export interface ISmartContractAccessManagement extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
+  atReturningHash: TypedContractMethod<[addr: AddressLike], [string], "view">;
+
   disableContractFromWhitelist: TypedContractMethod<
     [contractHash: BytesLike],
     [void],
@@ -152,7 +163,7 @@ export interface ISmartContractAccessManagement extends BaseContract {
   isCallerApprovedSmartContract: TypedContractMethod<[], [boolean], "view">;
 
   isContractAllowed: TypedContractMethod<
-    [contractAddress_: AddressLike],
+    [contractAddress: AddressLike],
     [boolean],
     "view"
   >;
@@ -161,6 +172,9 @@ export interface ISmartContractAccessManagement extends BaseContract {
     key: string | FunctionFragment
   ): T;
 
+  getFunction(
+    nameOrSignature: "atReturningHash"
+  ): TypedContractMethod<[addr: AddressLike], [string], "view">;
   getFunction(
     nameOrSignature: "disableContractFromWhitelist"
   ): TypedContractMethod<[contractHash: BytesLike], [void], "nonpayable">;
@@ -172,7 +186,7 @@ export interface ISmartContractAccessManagement extends BaseContract {
   ): TypedContractMethod<[], [boolean], "view">;
   getFunction(
     nameOrSignature: "isContractAllowed"
-  ): TypedContractMethod<[contractAddress_: AddressLike], [boolean], "view">;
+  ): TypedContractMethod<[contractAddress: AddressLike], [boolean], "view">;
 
   getEvent(
     key: "DisableContract"

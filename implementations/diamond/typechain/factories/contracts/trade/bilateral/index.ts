@@ -2,6 +2,4 @@
 /* tslint:disable */
 /* eslint-disable */
 export { BilateralTrade__factory } from "./BilateralTrade__factory";
-export { BilateralTradeInternal__factory } from "./BilateralTradeInternal__factory";
 export { IBilateralTrade__factory } from "./IBilateralTrade__factory";
-export { IBilateralTradeInternal__factory } from "./IBilateralTradeInternal__factory";

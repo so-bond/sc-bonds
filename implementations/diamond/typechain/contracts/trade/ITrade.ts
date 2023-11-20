@@ -23,7 +23,7 @@ import type {
   TypedContractMethod,
 } from "../../common";
 
-export declare namespace ITradeInternal {
+export declare namespace ITrade {
   export type TradeDetailStruct = {
     quantity: BigNumberish;
     buyer: AddressLike;
@@ -160,11 +160,7 @@ export interface ITrade extends BaseContract {
 
   buyerAccount: TypedContractMethod<[], [string], "view">;
 
-  getDetails: TypedContractMethod<
-    [],
-    [ITradeInternal.TradeDetailStructOutput],
-    "view"
-  >;
+  getDetails: TypedContractMethod<[], [ITrade.TradeDetailStructOutput], "view">;
 
   paymentID: TypedContractMethod<[], [string], "view">;
 
@@ -183,7 +179,7 @@ export interface ITrade extends BaseContract {
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "getDetails"
-  ): TypedContractMethod<[], [ITradeInternal.TradeDetailStructOutput], "view">;
+  ): TypedContractMethod<[], [ITrade.TradeDetailStructOutput], "view">;
   getFunction(
     nameOrSignature: "paymentID"
   ): TypedContractMethod<[], [string], "view">;

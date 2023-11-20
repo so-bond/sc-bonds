@@ -6,7 +6,6 @@ pragma solidity ^0.8.20;
 import { IRegisterRoleManagementInternal } from "./IRegisterRoleManagementInternal.sol";
 import { RegisterRoleManagementStorage } from "./RegisterRoleManagementStorage.sol";
 import { AccessControl } from "../../access/rbac/AccessControl.sol";
-import { ERC2771ContextInternal } from "../../metatx/ERC2771ContextInternal.sol";
 
 abstract contract RegisterRoleManagementInternal is
     IRegisterRoleManagementInternal,
@@ -17,11 +16,22 @@ abstract contract RegisterRoleManagementInternal is
      * They are managed through AccessControl smart contract
      * The roles are declared below
      */
-
     bytes32 public constant CAK_ROLE = keccak256("CAK_ROLE");
     bytes32 public constant BND_ROLE = keccak256("BND_ROLE"); //B&D role
     bytes32 public constant CST_ROLE = keccak256("CST_ROLE"); //Custodian role
     bytes32 public constant PAY_ROLE = keccak256("PAY_ROLE"); //Paying agent role
+
+    function _initialize() internal {
+        RegisterRoleManagementStorage.Layout
+            storage l = RegisterRoleManagementStorage.layout();
+        l.registerAdmin = _msgSender(); // We want a single admin for the register than can be changed by 2 CAK
+        _setupRole(DEFAULT_ADMIN_ROLE, _msgSender()); // contract deployer is DEFAULT_ADMIN_ROLE: AccessControl.sol magic: all roles can be administrated by the user having the DEFAULT_ADMIN_ROLE
+        _setupRole(CAK_ROLE, _msgSender()); // contract deployer is CAK_ROLE
+        _setRoleAdmin(CAK_ROLE, CAK_ROLE); // BND_ROLE admin is CAK_ROLE
+        _setRoleAdmin(BND_ROLE, CAK_ROLE); // BND_ROLE admin is CAK_ROLE
+        _setRoleAdmin(CST_ROLE, CAK_ROLE); // CST_ROLE admin is CAK_ROLE
+        _setRoleAdmin(PAY_ROLE, CAK_ROLE); // PAY_ROLE admin is CAK_ROLE
+    }
 
     function _registerAdmin() internal view returns (address) {
         RegisterRoleManagementStorage.Layout
@@ -39,6 +49,12 @@ abstract contract RegisterRoleManagementInternal is
         RegisterRoleManagementStorage.Layout
             storage l = RegisterRoleManagementStorage.layout();
         return l.firstVoterForNewAdmin;
+    }
+
+    function _votesForNewAdmin() internal view returns (uint8) {
+        RegisterRoleManagementStorage.Layout
+            storage l = RegisterRoleManagementStorage.layout();
+        return l.votesForNewAdmin;
     }
 
     function _isBnD(address account) internal view returns (bool) {

@@ -23,7 +23,7 @@ import type {
   TypedContractMethod,
 } from "../../../common";
 
-export declare namespace ITradeInternal {
+export declare namespace ITrade {
   export type TradeDetailStruct = {
     quantity: BigNumberish;
     buyer: AddressLike;
@@ -52,25 +52,27 @@ export interface BilateralTradeInterface extends Interface {
     nameOrSignature:
       | "approve"
       | "buyerAccount"
+      | "details"
       | "executeTransfer"
       | "getDetails"
+      | "isTrustedForwarder"
       | "paymentID"
       | "register"
       | "reject"
       | "sellerAccount"
       | "setDetails"
       | "status"
+      | "trustedForwarder"
   ): FunctionFragment;
 
-  getEvent(
-    nameOrSignatureOrTopic: "Initialized" | "NotifyTrade"
-  ): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "NotifyTrade"): EventFragment;
 
   encodeFunctionData(functionFragment: "approve", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "buyerAccount",
     values?: undefined
   ): string;
+  encodeFunctionData(functionFragment: "details", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "executeTransfer",
     values?: undefined
@@ -78,6 +80,10 @@ export interface BilateralTradeInterface extends Interface {
   encodeFunctionData(
     functionFragment: "getDetails",
     values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "isTrustedForwarder",
+    values: [AddressLike]
   ): string;
   encodeFunctionData(functionFragment: "paymentID", values?: undefined): string;
   encodeFunctionData(functionFragment: "register", values?: undefined): string;
@@ -88,20 +94,29 @@ export interface BilateralTradeInterface extends Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "setDetails",
-    values: [ITradeInternal.TradeDetailStruct]
+    values: [ITrade.TradeDetailStruct]
   ): string;
   encodeFunctionData(functionFragment: "status", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "trustedForwarder",
+    values?: undefined
+  ): string;
 
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "buyerAccount",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "details", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "executeTransfer",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "getDetails", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "isTrustedForwarder",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "paymentID", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "register", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "reject", data: BytesLike): Result;
@@ -111,18 +126,10 @@ export interface BilateralTradeInterface extends Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "setDetails", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "status", data: BytesLike): Result;
-}
-
-export namespace InitializedEvent {
-  export type InputTuple = [version: BigNumberish];
-  export type OutputTuple = [version: bigint];
-  export interface OutputObject {
-    version: bigint;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
+  decodeFunctionResult(
+    functionFragment: "trustedForwarder",
+    data: BytesLike
+  ): Result;
 }
 
 export namespace NotifyTradeEvent {
@@ -197,11 +204,27 @@ export interface BilateralTrade extends BaseContract {
 
   buyerAccount: TypedContractMethod<[], [string], "view">;
 
+  details: TypedContractMethod<
+    [],
+    [
+      [bigint, string, bigint, bigint, bigint] & {
+        quantity: bigint;
+        buyer: string;
+        tradeDate: bigint;
+        valueDate: bigint;
+        price: bigint;
+      }
+    ],
+    "view"
+  >;
+
   executeTransfer: TypedContractMethod<[], [boolean], "nonpayable">;
 
-  getDetails: TypedContractMethod<
-    [],
-    [ITradeInternal.TradeDetailStructOutput],
+  getDetails: TypedContractMethod<[], [ITrade.TradeDetailStructOutput], "view">;
+
+  isTrustedForwarder: TypedContractMethod<
+    [forwarder: AddressLike],
+    [boolean],
     "view"
   >;
 
@@ -214,12 +237,14 @@ export interface BilateralTrade extends BaseContract {
   sellerAccount: TypedContractMethod<[], [string], "view">;
 
   setDetails: TypedContractMethod<
-    [_details: ITradeInternal.TradeDetailStruct],
+    [_details: ITrade.TradeDetailStruct],
     [void],
     "nonpayable"
   >;
 
   status: TypedContractMethod<[], [bigint], "view">;
+
+  trustedForwarder: TypedContractMethod<[], [string], "view">;
 
   getFunction<T extends ContractMethod = ContractMethod>(
     key: string | FunctionFragment
@@ -232,11 +257,29 @@ export interface BilateralTrade extends BaseContract {
     nameOrSignature: "buyerAccount"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
+    nameOrSignature: "details"
+  ): TypedContractMethod<
+    [],
+    [
+      [bigint, string, bigint, bigint, bigint] & {
+        quantity: bigint;
+        buyer: string;
+        tradeDate: bigint;
+        valueDate: bigint;
+        price: bigint;
+      }
+    ],
+    "view"
+  >;
+  getFunction(
     nameOrSignature: "executeTransfer"
   ): TypedContractMethod<[], [boolean], "nonpayable">;
   getFunction(
     nameOrSignature: "getDetails"
-  ): TypedContractMethod<[], [ITradeInternal.TradeDetailStructOutput], "view">;
+  ): TypedContractMethod<[], [ITrade.TradeDetailStructOutput], "view">;
+  getFunction(
+    nameOrSignature: "isTrustedForwarder"
+  ): TypedContractMethod<[forwarder: AddressLike], [boolean], "view">;
   getFunction(
     nameOrSignature: "paymentID"
   ): TypedContractMethod<[], [string], "view">;
@@ -252,21 +295,17 @@ export interface BilateralTrade extends BaseContract {
   getFunction(
     nameOrSignature: "setDetails"
   ): TypedContractMethod<
-    [_details: ITradeInternal.TradeDetailStruct],
+    [_details: ITrade.TradeDetailStruct],
     [void],
     "nonpayable"
   >;
   getFunction(
     nameOrSignature: "status"
   ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "trustedForwarder"
+  ): TypedContractMethod<[], [string], "view">;
 
-  getEvent(
-    key: "Initialized"
-  ): TypedContractEvent<
-    InitializedEvent.InputTuple,
-    InitializedEvent.OutputTuple,
-    InitializedEvent.OutputObject
-  >;
   getEvent(
     key: "NotifyTrade"
   ): TypedContractEvent<
@@ -276,17 +315,6 @@ export interface BilateralTrade extends BaseContract {
   >;
 
   filters: {
-    "Initialized(uint64)": TypedContractEvent<
-      InitializedEvent.InputTuple,
-      InitializedEvent.OutputTuple,
-      InitializedEvent.OutputObject
-    >;
-    Initialized: TypedContractEvent<
-      InitializedEvent.InputTuple,
-      InitializedEvent.OutputTuple,
-      InitializedEvent.OutputObject
-    >;
-
     "NotifyTrade(address,address,uint8,uint256)": TypedContractEvent<
       NotifyTradeEvent.InputTuple,
       NotifyTradeEvent.OutputTuple,

@@ -5,68 +5,99 @@ pragma solidity ^0.8.20;
 
 import { IRegisterRoleManagement } from "./IRegisterRoleManagement.sol";
 import { RegisterRoleManagementInternal } from "./RegisterRoleManagementInternal.sol";
-import { AccessControl, IAccessControl } from "../../access/rbac/AccessControl.sol";
+import { IAccessControl } from "../../access/rbac/AccessControl.sol";
 
 contract RegisterRoleManagement is
     IRegisterRoleManagement,
     RegisterRoleManagementInternal
 {
-    /// @inheritdoc IRegisterRoleManagement
+    /**
+     * @inheritdoc IRegisterRoleManagement
+     */
     function registerAdmin() public view returns (address) {
         return _registerAdmin();
     }
 
-    /// @inheritdoc IRegisterRoleManagement
+    /**
+     * @inheritdoc IRegisterRoleManagement
+     */
     function addressForNewAdmin() public view returns (address) {
         return _addressForNewAdmin();
     }
 
-    /// @inheritdoc IRegisterRoleManagement
+    /**
+     * @inheritdoc IRegisterRoleManagement
+     */
     function firstVoterForNewAdmin() public view returns (address) {
         return _firstVoterForNewAdmin();
     }
 
-    /// @inheritdoc IRegisterRoleManagement
+    /**
+     * @inheritdoc IRegisterRoleManagement
+     */
+    function votesForNewAdmin() public view returns (uint8) {
+        return _votesForNewAdmin();
+    }
+
+    /**
+     * @inheritdoc IRegisterRoleManagement
+     */
     function isBnD(address account) public view returns (bool) {
         return _isBnD(account);
     }
 
-    /// @inheritdoc IRegisterRoleManagement
+    /**
+     * @inheritdoc IRegisterRoleManagement
+     */
     function isPay(address account) public view returns (bool) {
         return _isPay(account);
     }
 
-    /// @inheritdoc IRegisterRoleManagement
+    /**
+     * @inheritdoc IRegisterRoleManagement
+     */
     function isCustodian(address account) public view returns (bool) {
         return _isCustodian(account);
     }
 
-    /// @inheritdoc IRegisterRoleManagement
+    /**
+     * @inheritdoc IRegisterRoleManagement
+     */
     function isCAK(address account) public view returns (bool) {
         return _isCAK(account);
     }
 
-    /// @inheritdoc IRegisterRoleManagement
+    /**
+     * @inheritdoc IRegisterRoleManagement
+     */
     function changeAdminRole(address account) public override {
         _changeAdminRole(account);
     }
 
-    /// @inheritdoc IAccessControl
+    /**
+     * @inheritdoc IAccessControl
+     */
     function grantRole(bytes32 role, address account) public virtual override {
         _grantRole(role, account);
     }
 
-    /// @inheritdoc IAccessControl
+    /**
+     * @inheritdoc IAccessControl
+     */
     function revokeRole(bytes32 role, address account) public virtual override {
         _revokeRole(role, account);
     }
 
-    /// @inheritdoc IRegisterRoleManagement
+    /**
+     * @inheritdoc IRegisterRoleManagement
+     */
     function grantCakRole(address cakAddress_) public override {
         _grantCakRole(cakAddress_);
     }
 
-    /// @inheritdoc IRegisterRoleManagement
+    /**
+     * @inheritdoc IRegisterRoleManagement
+     */
     function revokeCakRole(address cakAddress_) public override {
         _revokeCakRole(cakAddress_);
     }
@@ -111,19 +142,5 @@ contract RegisterRoleManagement is
      */
     function revokePayRole(address payAddress_) public override {
         _revokePayRole(payAddress_);
-    }
-
-    function _revokeRole(
-        bytes32 role,
-        address account
-    ) internal virtual override {
-        super._revokeRole(role, account);
-    }
-
-    function _grantRole(
-        bytes32 role,
-        address account
-    ) internal virtual override {
-        super._grantRole(role, account);
     }
 }

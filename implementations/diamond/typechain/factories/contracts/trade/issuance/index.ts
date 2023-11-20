@@ -2,6 +2,4 @@
 /* tslint:disable */
 /* eslint-disable */
 export { IPrimaryIssuance__factory } from "./IPrimaryIssuance__factory";
-export { IPrimaryIssuanceInternal__factory } from "./IPrimaryIssuanceInternal__factory";
 export { PrimaryIssuance__factory } from "./PrimaryIssuance__factory";
-export { PrimaryIssuanceInternal__factory } from "./PrimaryIssuanceInternal__factory";

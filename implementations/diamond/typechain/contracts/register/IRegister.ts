@@ -72,15 +72,18 @@ export interface IRegisterInterface extends Interface {
       | "addressForNewAdmin"
       | "allowance"
       | "approve"
+      | "atReturningHash"
       | "balanceOf"
       | "balanceOfAt"
       | "balanceOfCoupon"
+      | "burn"
       | "changeAdminRole"
       | "checkIfCouponDateExists"
       | "checkIfMaturityDateExists"
       | "currentCouponDate"
       | "currentSnapshotDatetime"
       | "decimals"
+      | "decreaseAllowance"
       | "delCouponDate"
       | "disableContractFromWhitelist"
       | "disableInvestorFromWhitelist"
@@ -98,6 +101,7 @@ export interface IRegisterInterface extends Interface {
       | "grantCakRole"
       | "grantCstRole"
       | "grantPayRole"
+      | "increaseAllowance"
       | "investorCustodian"
       | "investorsAllowed"
       | "isBnD"
@@ -107,6 +111,7 @@ export interface IRegisterInterface extends Interface {
       | "isCustodian"
       | "isPay"
       | "makeReady"
+      | "mint"
       | "name"
       | "nextSnapshotDatetime"
       | "primaryIssuanceAccount"
@@ -125,6 +130,7 @@ export interface IRegisterInterface extends Interface {
       | "setExpectedSupply"
       | "setIsinSymbol"
       | "setIssuanceDate"
+      | "setName"
       | "status"
       | "symbol"
       | "toggleFrozen"
@@ -133,6 +139,7 @@ export interface IRegisterInterface extends Interface {
       | "totalSupplyAtCoupon"
       | "transfer"
       | "transferFrom"
+      | "votesForNewAdmin"
   ): FunctionFragment;
 
   getEvent(
@@ -173,6 +180,10 @@ export interface IRegisterInterface extends Interface {
     values: [AddressLike, BigNumberish]
   ): string;
   encodeFunctionData(
+    functionFragment: "atReturningHash",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
     functionFragment: "balanceOf",
     values: [AddressLike]
   ): string;
@@ -184,6 +195,7 @@ export interface IRegisterInterface extends Interface {
     functionFragment: "balanceOfCoupon",
     values: [AddressLike, BigNumberish]
   ): string;
+  encodeFunctionData(functionFragment: "burn", values: [BigNumberish]): string;
   encodeFunctionData(
     functionFragment: "changeAdminRole",
     values: [AddressLike]
@@ -205,6 +217,10 @@ export interface IRegisterInterface extends Interface {
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "decreaseAllowance",
+    values: [AddressLike, BigNumberish]
+  ): string;
   encodeFunctionData(
     functionFragment: "delCouponDate",
     values: [BigNumberish]
@@ -274,6 +290,10 @@ export interface IRegisterInterface extends Interface {
     values: [AddressLike]
   ): string;
   encodeFunctionData(
+    functionFragment: "increaseAllowance",
+    values: [AddressLike, BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "investorCustodian",
     values: [AddressLike]
   ): string;
@@ -297,6 +317,7 @@ export interface IRegisterInterface extends Interface {
   ): string;
   encodeFunctionData(functionFragment: "isPay", values: [AddressLike]): string;
   encodeFunctionData(functionFragment: "makeReady", values?: undefined): string;
+  encodeFunctionData(functionFragment: "mint", values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "nextSnapshotDatetime",
@@ -375,6 +396,7 @@ export interface IRegisterInterface extends Interface {
     functionFragment: "setIssuanceDate",
     values: [BigNumberish]
   ): string;
+  encodeFunctionData(functionFragment: "setName", values: [string]): string;
   encodeFunctionData(functionFragment: "status", values?: undefined): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
   encodeFunctionData(
@@ -401,6 +423,10 @@ export interface IRegisterInterface extends Interface {
     functionFragment: "transferFrom",
     values: [AddressLike, AddressLike, BigNumberish]
   ): string;
+  encodeFunctionData(
+    functionFragment: "votesForNewAdmin",
+    values?: undefined
+  ): string;
 
   decodeFunctionResult(
     functionFragment: "addCouponDate",
@@ -412,6 +438,10 @@ export interface IRegisterInterface extends Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "allowance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "atReturningHash",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "balanceOfAt",
@@ -421,6 +451,7 @@ export interface IRegisterInterface extends Interface {
     functionFragment: "balanceOfCoupon",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "changeAdminRole",
     data: BytesLike
@@ -442,6 +473,10 @@ export interface IRegisterInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "decreaseAllowance",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "delCouponDate",
     data: BytesLike
@@ -511,6 +546,10 @@ export interface IRegisterInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "increaseAllowance",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "investorCustodian",
     data: BytesLike
   ): Result;
@@ -534,6 +573,7 @@ export interface IRegisterInterface extends Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "isPay", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "makeReady", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "nextSnapshotDatetime",
@@ -603,6 +643,7 @@ export interface IRegisterInterface extends Interface {
     functionFragment: "setIssuanceDate",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "setName", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "status", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
   decodeFunctionResult(
@@ -624,6 +665,10 @@ export interface IRegisterInterface extends Interface {
   decodeFunctionResult(functionFragment: "transfer", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "transferFrom",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "votesForNewAdmin",
     data: BytesLike
   ): Result;
 }
@@ -960,6 +1005,8 @@ export interface IRegister extends BaseContract {
     "nonpayable"
   >;
 
+  atReturningHash: TypedContractMethod<[addr: AddressLike], [string], "view">;
+
   balanceOf: TypedContractMethod<[account: AddressLike], [bigint], "view">;
 
   balanceOfAt: TypedContractMethod<
@@ -973,6 +1020,8 @@ export interface IRegister extends BaseContract {
     [bigint],
     "view"
   >;
+
+  burn: TypedContractMethod<[amount_: BigNumberish], [void], "nonpayable">;
 
   changeAdminRole: TypedContractMethod<
     [account: AddressLike],
@@ -997,6 +1046,12 @@ export interface IRegister extends BaseContract {
   currentSnapshotDatetime: TypedContractMethod<[], [bigint], "view">;
 
   decimals: TypedContractMethod<[], [bigint], "view">;
+
+  decreaseAllowance: TypedContractMethod<
+    [spender: AddressLike, subtractedValue: BigNumberish],
+    [boolean],
+    "nonpayable"
+  >;
 
   delCouponDate: TypedContractMethod<
     [date: BigNumberish],
@@ -1076,6 +1131,12 @@ export interface IRegister extends BaseContract {
     "nonpayable"
   >;
 
+  increaseAllowance: TypedContractMethod<
+    [spender: AddressLike, addedValue: BigNumberish],
+    [boolean],
+    "nonpayable"
+  >;
+
   investorCustodian: TypedContractMethod<
     [investor: AddressLike],
     [string],
@@ -1095,7 +1156,7 @@ export interface IRegister extends BaseContract {
   isCallerApprovedSmartContract: TypedContractMethod<[], [boolean], "view">;
 
   isContractAllowed: TypedContractMethod<
-    [contractAddress_: AddressLike],
+    [contractAddress: AddressLike],
     [boolean],
     "view"
   >;
@@ -1105,6 +1166,8 @@ export interface IRegister extends BaseContract {
   isPay: TypedContractMethod<[account: AddressLike], [boolean], "view">;
 
   makeReady: TypedContractMethod<[], [void], "nonpayable">;
+
+  mint: TypedContractMethod<[amount_: BigNumberish], [void], "nonpayable">;
 
   name: TypedContractMethod<[], [string], "view">;
 
@@ -1199,6 +1262,8 @@ export interface IRegister extends BaseContract {
     "nonpayable"
   >;
 
+  setName: TypedContractMethod<[name_: string], [void], "nonpayable">;
+
   status: TypedContractMethod<[], [bigint], "view">;
 
   symbol: TypedContractMethod<[], [string], "view">;
@@ -1231,6 +1296,8 @@ export interface IRegister extends BaseContract {
     "nonpayable"
   >;
 
+  votesForNewAdmin: TypedContractMethod<[], [bigint], "view">;
+
   getFunction<T extends ContractMethod = ContractMethod>(
     key: string | FunctionFragment
   ): T;
@@ -1256,6 +1323,9 @@ export interface IRegister extends BaseContract {
     "nonpayable"
   >;
   getFunction(
+    nameOrSignature: "atReturningHash"
+  ): TypedContractMethod<[addr: AddressLike], [string], "view">;
+  getFunction(
     nameOrSignature: "balanceOf"
   ): TypedContractMethod<[account: AddressLike], [bigint], "view">;
   getFunction(
@@ -1272,6 +1342,9 @@ export interface IRegister extends BaseContract {
     [bigint],
     "view"
   >;
+  getFunction(
+    nameOrSignature: "burn"
+  ): TypedContractMethod<[amount_: BigNumberish], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "changeAdminRole"
   ): TypedContractMethod<[account: AddressLike], [void], "nonpayable">;
@@ -1294,6 +1367,13 @@ export interface IRegister extends BaseContract {
   getFunction(
     nameOrSignature: "decimals"
   ): TypedContractMethod<[], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "decreaseAllowance"
+  ): TypedContractMethod<
+    [spender: AddressLike, subtractedValue: BigNumberish],
+    [boolean],
+    "nonpayable"
+  >;
   getFunction(
     nameOrSignature: "delCouponDate"
   ): TypedContractMethod<[date: BigNumberish], [void], "nonpayable">;
@@ -1350,6 +1430,13 @@ export interface IRegister extends BaseContract {
     nameOrSignature: "grantPayRole"
   ): TypedContractMethod<[cstAddress: AddressLike], [void], "nonpayable">;
   getFunction(
+    nameOrSignature: "increaseAllowance"
+  ): TypedContractMethod<
+    [spender: AddressLike, addedValue: BigNumberish],
+    [boolean],
+    "nonpayable"
+  >;
+  getFunction(
     nameOrSignature: "investorCustodian"
   ): TypedContractMethod<[investor: AddressLike], [string], "view">;
   getFunction(
@@ -1366,7 +1453,7 @@ export interface IRegister extends BaseContract {
   ): TypedContractMethod<[], [boolean], "view">;
   getFunction(
     nameOrSignature: "isContractAllowed"
-  ): TypedContractMethod<[contractAddress_: AddressLike], [boolean], "view">;
+  ): TypedContractMethod<[contractAddress: AddressLike], [boolean], "view">;
   getFunction(
     nameOrSignature: "isCustodian"
   ): TypedContractMethod<[account: AddressLike], [boolean], "view">;
@@ -1376,6 +1463,9 @@ export interface IRegister extends BaseContract {
   getFunction(
     nameOrSignature: "makeReady"
   ): TypedContractMethod<[], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "mint"
+  ): TypedContractMethod<[amount_: BigNumberish], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "name"
   ): TypedContractMethod<[], [string], "view">;
@@ -1452,6 +1542,9 @@ export interface IRegister extends BaseContract {
     nameOrSignature: "setIssuanceDate"
   ): TypedContractMethod<[issuanceDate: BigNumberish], [void], "nonpayable">;
   getFunction(
+    nameOrSignature: "setName"
+  ): TypedContractMethod<[name_: string], [void], "nonpayable">;
+  getFunction(
     nameOrSignature: "status"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
@@ -1483,6 +1576,9 @@ export interface IRegister extends BaseContract {
     [boolean],
     "nonpayable"
   >;
+  getFunction(
+    nameOrSignature: "votesForNewAdmin"
+  ): TypedContractMethod<[], [bigint], "view">;
 
   getEvent(
     key: "AdminChanged"

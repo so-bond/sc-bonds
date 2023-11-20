@@ -73,48 +73,60 @@ abstract contract ERC20BaseInternal is IERC20BaseInternal, PackageInternal {
     }
 
     /**
-     * @notice decrease spend amount granted by holder to spender
-     * @param holder address on whose behalf tokens may be spent
-     * @param spender address whose allowance to decrease
-     * @param amount quantity by which to decrease allowance
+     * @dev Atomically increases the allowance granted to `spender` by the caller.
+     *
+     * This is an alternative to {approve} that can be used as a mitigation for
+     * problems described in {IERC20-approve}.
+     *
+     * Emits an {Approval} event indicating the updated allowance.
+     *
+     * Requirements:
+     *
+     * - `spender` cannot be the zero address.
      */
-    function _decreaseAllowance(
-        address holder,
+    function _increaseAllowance(
         address spender,
-        uint256 amount
-    ) internal {
-        uint256 allowance = _allowance(holder, spender);
-
-        if (amount > allowance) revert ERC20Base__InsufficientAllowance();
-
-        unchecked {
-            _approve(holder, spender, allowance - amount);
+        uint256 addedValue
+    ) internal virtual returns (bool) {
+        address holder = _msgSender();
+        uint256 currentAllowance = _allowance(holder, spender);
+        if (currentAllowance != type(uint256).max) {
+            unchecked {
+                _approve(holder, spender, currentAllowance + addedValue);
+            }
         }
+
+        return true;
     }
 
     /**
-     * @dev Updates `holder` s allowance for `spender` based on spent `amount`.
+     * @dev Atomically decreases the allowance granted to `spender` by the caller.
      *
-     * Does not update the allowance amount in case of infinite allowance.
-     * Revert if not enough allowance is available.
+     * This is an alternative to {approve} that can be used as a mitigation for
+     * problems described in {IERC20-approve}.
      *
-     * Might emit an {Approval} event.
+     * Emits an {Approval} event indicating the updated allowance.
+     *
+     * Requirements:
+     *
+     * - `spender` cannot be the zero address.
+     * - `spender` must have allowance for the caller of at least
+     * `subtractedValue`.
      */
-    function _spendAllowance(
-        address holder,
+    function _decreaseAllowance(
         address spender,
-        uint256 amount
-    ) internal virtual {
-        uint256 currentAllowance = _allowance(holder, spender);
-        if (currentAllowance != type(uint256).max) {
-            require(
-                currentAllowance >= amount,
-                "ERC20: insufficient allowance"
-            );
-            unchecked {
-                _approve(holder, spender, currentAllowance - amount);
-            }
+        uint256 subtractedValue
+    ) internal virtual returns (bool) {
+        address holder = _msgSender();
+        uint256 allowance = _allowance(holder, spender);
+        if (subtractedValue > allowance)
+            revert ERC20Base__InsufficientAllowance();
+
+        unchecked {
+            _approve(holder, spender, allowance - subtractedValue);
         }
+
+        return true;
     }
 
     /**
@@ -197,7 +209,7 @@ abstract contract ERC20BaseInternal is IERC20BaseInternal, PackageInternal {
         address recipient,
         uint256 amount
     ) internal virtual returns (bool) {
-        _decreaseAllowance(holder, _msgSender(), amount);
+        _decreaseAllowance(_msgSender(), amount);
 
         _transfer(holder, recipient, amount);
 

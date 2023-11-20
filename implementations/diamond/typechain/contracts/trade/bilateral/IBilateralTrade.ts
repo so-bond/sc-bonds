@@ -23,7 +23,7 @@ import type {
   TypedContractMethod,
 } from "../../../common";
 
-export declare namespace ITradeInternal {
+export declare namespace ITrade {
   export type TradeDetailStruct = {
     quantity: BigNumberish;
     buyer: AddressLike;
@@ -86,7 +86,7 @@ export interface IBilateralTradeInterface extends Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "setDetails",
-    values: [ITradeInternal.TradeDetailStruct]
+    values: [ITrade.TradeDetailStruct]
   ): string;
   encodeFunctionData(functionFragment: "status", values?: undefined): string;
 
@@ -185,11 +185,7 @@ export interface IBilateralTrade extends BaseContract {
 
   executeTransfer: TypedContractMethod<[], [boolean], "nonpayable">;
 
-  getDetails: TypedContractMethod<
-    [],
-    [ITradeInternal.TradeDetailStructOutput],
-    "view"
-  >;
+  getDetails: TypedContractMethod<[], [ITrade.TradeDetailStructOutput], "view">;
 
   paymentID: TypedContractMethod<[], [string], "view">;
 
@@ -200,7 +196,7 @@ export interface IBilateralTrade extends BaseContract {
   sellerAccount: TypedContractMethod<[], [string], "view">;
 
   setDetails: TypedContractMethod<
-    [_details: ITradeInternal.TradeDetailStruct],
+    [_details: ITrade.TradeDetailStruct],
     [void],
     "nonpayable"
   >;
@@ -222,7 +218,7 @@ export interface IBilateralTrade extends BaseContract {
   ): TypedContractMethod<[], [boolean], "nonpayable">;
   getFunction(
     nameOrSignature: "getDetails"
-  ): TypedContractMethod<[], [ITradeInternal.TradeDetailStructOutput], "view">;
+  ): TypedContractMethod<[], [ITrade.TradeDetailStructOutput], "view">;
   getFunction(
     nameOrSignature: "paymentID"
   ): TypedContractMethod<[], [string], "view">;
@@ -238,7 +234,7 @@ export interface IBilateralTrade extends BaseContract {
   getFunction(
     nameOrSignature: "setDetails"
   ): TypedContractMethod<
-    [_details: ITradeInternal.TradeDetailStruct],
+    [_details: ITrade.TradeDetailStruct],
     [void],
     "nonpayable"
   >;

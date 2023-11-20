@@ -10,19 +10,9 @@ contract SmartContractAccessManagement is
     ISmartContractAccessManagement,
     SmartContractAccessManagementInternal
 {
-    /// @inheritdoc ISmartContractAccessManagement
-    function enableContractToWhitelist(bytes32 contractHash) public override {
-        _enableContractToWhitelist(contractHash);
-    }
-
-    /// @inheritdoc ISmartContractAccessManagement
-    function disableContractFromWhitelist(
-        bytes32 contractHash
-    ) public override {
-        _disableContractFromWhitelist(contractHash);
-    }
-
-    /// @inheritdoc ISmartContractAccessManagement
+    /**
+     * @inheritdoc ISmartContractAccessManagement
+     */
     function isCallerApprovedSmartContract()
         external
         view
@@ -32,10 +22,35 @@ contract SmartContractAccessManagement is
         return _isCallerApprovedSmartContract();
     }
 
-    /// @inheritdoc ISmartContractAccessManagement
+    /**
+     * @inheritdoc ISmartContractAccessManagement
+     */
     function isContractAllowed(
         address contractAddress_
     ) public view returns (bool) {
         return _isContractAllowed(contractAddress_);
+    }
+
+    /**
+     * @inheritdoc ISmartContractAccessManagement
+     */
+    function enableContractToWhitelist(bytes32 contractHash) public override {
+        _enableContractToWhitelist(contractHash);
+    }
+
+    /**
+     * @inheritdoc ISmartContractAccessManagement
+     */
+    function disableContractFromWhitelist(
+        bytes32 contractHash
+    ) public override {
+        _disableContractFromWhitelist(contractHash);
+    }
+
+    /**
+     * @inheritdoc ISmartContractAccessManagement
+     */
+    function atReturningHash(address addr_) public view returns (bytes32 hash) {
+        return _atReturningHash(addr_);
     }
 }

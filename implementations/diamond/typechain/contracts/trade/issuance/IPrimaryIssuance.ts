@@ -23,7 +23,7 @@ import type {
   TypedContractMethod,
 } from "../../../common";
 
-export declare namespace ITradeInternal {
+export declare namespace ITrade {
   export type TradeDetailStruct = {
     quantity: BigNumberish;
     buyer: AddressLike;
@@ -55,7 +55,6 @@ export interface IPrimaryIssuanceInterface extends Interface {
       | "getDetails"
       | "offerPrice"
       | "paymentID"
-      | "primaryIssuanceAccount"
       | "register"
       | "reject"
       | "sellerAccount"
@@ -81,10 +80,6 @@ export interface IPrimaryIssuanceInterface extends Interface {
     values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "paymentID", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "primaryIssuanceAccount",
-    values?: undefined
-  ): string;
   encodeFunctionData(functionFragment: "register", values?: undefined): string;
   encodeFunctionData(functionFragment: "reject", values?: undefined): string;
   encodeFunctionData(
@@ -102,10 +97,6 @@ export interface IPrimaryIssuanceInterface extends Interface {
   decodeFunctionResult(functionFragment: "getDetails", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "offerPrice", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "paymentID", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "primaryIssuanceAccount",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "register", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "reject", data: BytesLike): Result;
   decodeFunctionResult(
@@ -200,17 +191,11 @@ export interface IPrimaryIssuance extends BaseContract {
 
   buyerAccount: TypedContractMethod<[], [string], "view">;
 
-  getDetails: TypedContractMethod<
-    [],
-    [ITradeInternal.TradeDetailStructOutput],
-    "view"
-  >;
+  getDetails: TypedContractMethod<[], [ITrade.TradeDetailStructOutput], "view">;
 
   offerPrice: TypedContractMethod<[], [bigint], "view">;
 
   paymentID: TypedContractMethod<[], [string], "view">;
-
-  primaryIssuanceAccount: TypedContractMethod<[], [string], "view">;
 
   register: TypedContractMethod<[], [string], "view">;
 
@@ -234,15 +219,12 @@ export interface IPrimaryIssuance extends BaseContract {
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "getDetails"
-  ): TypedContractMethod<[], [ITradeInternal.TradeDetailStructOutput], "view">;
+  ): TypedContractMethod<[], [ITrade.TradeDetailStructOutput], "view">;
   getFunction(
     nameOrSignature: "offerPrice"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "paymentID"
-  ): TypedContractMethod<[], [string], "view">;
-  getFunction(
-    nameOrSignature: "primaryIssuanceAccount"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "register"

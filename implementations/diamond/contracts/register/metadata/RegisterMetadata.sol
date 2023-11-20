@@ -7,37 +7,58 @@ import { IRegisterMetadata } from "./IRegisterMetadata.sol";
 import { RegisterMetadataInternal } from "./RegisterMetadataInternal.sol";
 
 contract RegisterMetadata is IRegisterMetadata, RegisterMetadataInternal {
-    /// @inheritdoc IRegisterMetadata
+    /**
+     * @inheritdoc IRegisterMetadata
+     */
+    function setName(string memory name_) public {
+        _setName(name_);
+    }
+
+    /**
+     * @inheritdoc IRegisterMetadata
+     */
     function setIsinSymbol(string memory isinSymbol) public {
         _setIsinSymbol(isinSymbol);
     }
 
-    /// @inheritdoc IRegisterMetadata
+    /**
+     * @inheritdoc IRegisterMetadata
+     */
     function setCurrency(bytes32 currency) public {
         _setCurrency(currency);
     }
 
-    /// @inheritdoc IRegisterMetadata
+    /**
+     * @inheritdoc IRegisterMetadata
+     */
     function getCreationDate() public view returns (uint256) {
         return _getCreationDate();
     }
 
-    /// @inheritdoc IRegisterMetadata
+    /**
+     * @inheritdoc IRegisterMetadata
+     */
     function getIssuanceDate() public view returns (uint256) {
         return _getIssuanceDate();
     }
 
-    /// @inheritdoc IRegisterMetadata
+    /**
+     * @inheritdoc IRegisterMetadata
+     */
     function setCreationDate(uint256 creationDate) public {
         _setCreationDate(creationDate);
     }
 
-    /// @inheritdoc IRegisterMetadata
+    /**
+     * @inheritdoc IRegisterMetadata
+     */
     function setIssuanceDate(uint256 issuanceDate) public {
         _setIssuanceDate(issuanceDate);
     }
 
-    /// @inheritdoc IRegisterMetadata
+    /**
+     * @inheritdoc IRegisterMetadata
+     */
     function setBondData(
         string memory name_,
         uint256 expectedSupply_,
@@ -60,37 +81,51 @@ contract RegisterMetadata is IRegisterMetadata, RegisterMetadataInternal {
         );
     }
 
-    /// @inheritdoc IRegisterMetadata
+    /**
+     * @inheritdoc IRegisterMetadata
+     */
     function addCouponDate(uint256 date) public {
         _addCouponDate(date);
     }
 
-    /// @inheritdoc IRegisterMetadata
+    /**
+     * @inheritdoc IRegisterMetadata
+     */
     function delCouponDate(uint256 date) public {
         _delCouponDate(date);
     }
 
-    /// @inheritdoc IRegisterMetadata
+    /**
+     * @inheritdoc IRegisterMetadata
+     */
     function setExpectedSupply(uint256 expectedSupply) public {
         _setExpectedSupply(expectedSupply);
     }
 
-    /// @inheritdoc IRegisterMetadata
+    /**
+     * @inheritdoc IRegisterMetadata
+     */
     function getBondData() public view returns (BondData memory) {
         return _getBondData();
     }
 
-    /// @inheritdoc IRegisterMetadata
+    /**
+     * @inheritdoc IRegisterMetadata
+     */
     function getBondCouponRate() public view returns (uint256) {
         return _getBondCouponRate();
     }
 
-    /// @inheritdoc IRegisterMetadata
+    /**
+     * @inheritdoc IRegisterMetadata
+     */
     function getBondUnitValue() public view returns (uint256) {
         return _getBondUnitValue();
     }
 
-    /// @inheritdoc IRegisterMetadata
+    /**
+     * @inheritdoc IRegisterMetadata
+     */
     function primaryIssuanceAccount()
         public
         view
@@ -101,42 +136,27 @@ contract RegisterMetadata is IRegisterMetadata, RegisterMetadataInternal {
         return _primaryIssuanceAccount();
     }
 
+    /**
+     * @inheritdoc IRegisterMetadata
+     */
     function returnBalanceToPrimaryIssuanceAccount(
         address investor
     ) public override returns (bool) {
         return _returnBalanceToPrimaryIssuanceAccount(investor);
     }
 
-    /// @inheritdoc IRegisterMetadata
-    function getAllInvestors() public view returns (address[] memory) {
-        return _getAllInvestors();
-    }
-
-    /// @inheritdoc IRegisterMetadata
-    function disableInvestorFromWhitelist(address investor_) public {
-        _disableInvestorFromWhitelist(investor_);
-    }
-
-    ///@inheritdoc IRegisterMetadata
-    function enableInvestorToWhitelist(address investor_) public {
-        _enableInvestorToWhitelist(investor_);
-    }
-
-    function investorsAllowed(address investor) public view returns (bool) {
-        return _investorsAllowed(investor);
-    }
-
-    /// @inheritdoc IRegisterMetadata
-    function investorCustodian(address investor) public view returns (address) {
-        return _investorCustodian(investor);
-    }
-
+    /**
+     * @inheritdoc IRegisterMetadata
+     */
     function checkIfCouponDateExists(
         uint256 _couponDate
     ) public view returns (bool) {
         return _checkIfCouponDateExists(_couponDate);
     }
 
+    /**
+     * @inheritdoc IRegisterMetadata
+     */
     function checkIfMaturityDateExists(
         uint256 _maturityDate
     ) external view returns (bool) {
@@ -144,34 +164,28 @@ contract RegisterMetadata is IRegisterMetadata, RegisterMetadataInternal {
     }
 
     /**
-     * @notice Initialize the total amount definitively and freeze the register attributes.
-     * Takes the expected supply to mint to the security issuance account and set the status to Ready.
+     * @inheritdoc IRegisterMetadata
      */
     function makeReady() public {
         _makeReady();
     }
 
     /**
-     * @notice In case of an error detected after the bond was made ready but before it was issued
-     * place the bond back to draft mode
+     * @inheritdoc IRegisterMetadata
      */
     function revertReady() public {
         _revertReady();
     }
 
     /**
-     * @notice This function intent to allow institutions to communicate between them
-     * @param to The address of the receiver
-     * @param message The message to send
+     * @inheritdoc IRegisterMetadata
      */
     function publicMessage(address to, string memory message) public {
         _publicMessage(to, message);
     }
 
     /**
-     * @notice this function is called by Coupon.sol when Paying Agent validates the coupon Date.
-     * @param couponDate_ The coupon date to set
-     * @param recordDatetime_ The record date to set
+     * @inheritdoc IRegisterMetadata
      */
     function setCurrentCouponDate(
         uint256 couponDate_,
@@ -180,16 +194,16 @@ contract RegisterMetadata is IRegisterMetadata, RegisterMetadataInternal {
         _setCurrentCouponDate(couponDate_, recordDatetime_);
     }
 
-    function getInvestorListAtCoupon(
-        uint256 CouponDate
-    ) public view override returns (address[] memory) {
-        return _getInvestorListAtCoupon(CouponDate);
-    }
-
+    /**
+     * @inheritdoc IRegisterMetadata
+     */
     function toggleFrozen() external override {
         _toggleFrozen();
     }
 
+    /**
+     * @inheritdoc IRegisterMetadata
+     */
     function status() public view override returns (Status) {
         return _status();
     }

@@ -14,7 +14,7 @@ abstract contract ERC20BurnableInternal is
     ERC20BaseInternal
 {
     function _burnFrom(address account, uint256 amount) public virtual {
-        _spendAllowance(account, _msgSender(), amount);
+        _decreaseAllowance(_msgSender(), amount);
         _burn(account, amount);
     }
 }

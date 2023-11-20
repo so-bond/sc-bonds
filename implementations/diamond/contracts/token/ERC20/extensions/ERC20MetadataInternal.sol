@@ -5,14 +5,14 @@ pragma solidity ^0.8.20;
 
 import { IERC20MetadataInternal } from "./IERC20MetadataInternal.sol";
 import { ERC20MetadataStorage } from "./ERC20MetadataStorage.sol";
-import { PackageInternal } from "../../../package/PackageInternal.sol";
+import { Initializable } from "../../../initializable/Initializable.sol";
 
 /**
  * @title ERC20Metadata internal functions
  */
 abstract contract ERC20MetadataInternal is
     IERC20MetadataInternal,
-    PackageInternal
+    Initializable
 {
     function __init__ERC20MetadataInternal(
         string calldata name_,
@@ -20,7 +20,6 @@ abstract contract ERC20MetadataInternal is
         uint8 decimals_
     ) internal initializer {
         __init_ERC20MetadataInternal_unchained(name_, symbol_, decimals_);
-        __Package_init();
     }
 
     function __init_ERC20MetadataInternal_unchained(
@@ -28,9 +27,11 @@ abstract contract ERC20MetadataInternal is
         string calldata symbol_,
         uint8 decimals_
     ) internal initializer {
-        _setName(name_);
-        _setSymbol(symbol_);
-        _setDecimals(decimals_);
+        ERC20MetadataStorage.Layout storage l = ERC20MetadataStorage.layout();
+
+        l.name = name_;
+        l.symbol = symbol_;
+        l.decimals = decimals_;
     }
 
     /**
@@ -55,17 +56,5 @@ abstract contract ERC20MetadataInternal is
      */
     function _decimals() internal view virtual returns (uint8) {
         return ERC20MetadataStorage.layout().decimals;
-    }
-
-    function _setName(string memory name) internal virtual {
-        ERC20MetadataStorage.layout().name = name;
-    }
-
-    function _setSymbol(string memory symbol) internal virtual {
-        ERC20MetadataStorage.layout().symbol = symbol;
-    }
-
-    function _setDecimals(uint8 decimals) internal virtual {
-        ERC20MetadataStorage.layout().decimals = decimals;
     }
 }

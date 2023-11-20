@@ -3,6 +3,8 @@
 /* eslint-disable */
 export * as access from "./access";
 export * as coupon from "./coupon";
+export * as investors from "./investors";
 export * as metadata from "./metadata";
 export * as role from "./role";
+export * as snapshot from "./snapshot";
 export { IRegister__factory } from "./IRegister__factory";

@@ -10,11 +10,6 @@ import type {
 
 const _abi = [
   {
-    inputs: [],
-    name: "ReentrancyGuard__ReentrantCall",
-    type: "error",
-  },
-  {
     anonymous: false,
     inputs: [
       {
@@ -26,38 +21,6 @@ const _abi = [
     ],
     name: "Initialized",
     type: "event",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "forwarder",
-        type: "address",
-      },
-    ],
-    name: "isTrustedForwarder",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "trustedForwarder",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
   },
 ] as const;
 

@@ -1,0 +1,430 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "IRedemption",
+  "sourceName": "contracts/register/coupon/redemption/IRedemption.sol",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "contract IRegister",
+          "name": "register",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "couponDate",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "enum ICoupon.CouponStatus",
+          "name": "status",
+          "type": "uint8"
+        }
+      ],
+      "name": "CouponChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "contract IRegister",
+          "name": "register",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "couponDate",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "investor",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum ICoupon.PaymentStatus",
+          "name": "status",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum ICoupon.PaymentStatus",
+          "name": "previousStatus",
+          "type": "uint8"
+        }
+      ],
+      "name": "CouponPaymentStatusChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "contract IRegister",
+          "name": "register",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "couponDate",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "enum ICoupon.CouponStatus",
+          "name": "status",
+          "type": "uint8"
+        }
+      ],
+      "name": "RedemptionChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "contract IRegister",
+          "name": "register",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "couponDate",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "investor",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum ICoupon.PaymentStatus",
+          "name": "status",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum ICoupon.PaymentStatus",
+          "name": "previousStatus",
+          "type": "uint8"
+        }
+      ],
+      "name": "RedemptionPaymentStatusChanged",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "couponDate",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "cutOfTime",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_investor",
+          "type": "address"
+        }
+      ],
+      "name": "getInvestorPayments",
+      "outputs": [
+        {
+          "internalType": "enum ICoupon.PaymentStatus",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_investor",
+          "type": "address"
+        }
+      ],
+      "name": "getInvestorRedemptionPayments",
+      "outputs": [
+        {
+          "internalType": "enum ICoupon.PaymentStatus",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_investor",
+          "type": "address"
+        }
+      ],
+      "name": "getMaturityAmountForInvestor",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "paymentAmount",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_investor",
+          "type": "address"
+        }
+      ],
+      "name": "getPaymentAmountForInvestor",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "paymentAmount",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getTotalMaturityAmount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "paymentAmount",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getTotalPaymentAmount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "paymentAmount",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_investor",
+          "type": "address"
+        }
+      ],
+      "name": "investorRedemptionPayments",
+      "outputs": [
+        {
+          "internalType": "enum ICoupon.PaymentStatus",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "nbDays",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "payingAgent",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_investor",
+          "type": "address"
+        }
+      ],
+      "name": "paymentIdForInvest",
+      "outputs": [
+        {
+          "internalType": "bytes8",
+          "name": "",
+          "type": "bytes8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_investor",
+          "type": "address"
+        }
+      ],
+      "name": "paymentIdRedemptionForInvest",
+      "outputs": [
+        {
+          "internalType": "bytes8",
+          "name": "",
+          "type": "bytes8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "recordDate",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "rejectCoupon",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_recordDate",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_cutOfTime",
+          "type": "uint256"
+        }
+      ],
+      "name": "setCutOffTime",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "setDateAsCurrentCoupon",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_nbDays",
+          "type": "uint256"
+        }
+      ],
+      "name": "setNbDays",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_investor",
+          "type": "address"
+        }
+      ],
+      "name": "toggleCouponPayment",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_investor",
+          "type": "address"
+        }
+      ],
+      "name": "toggleRedemptionPayment",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

@@ -2,6 +2,4 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { IPrimaryIssuance } from "./IPrimaryIssuance";
-export type { IPrimaryIssuanceInternal } from "./IPrimaryIssuanceInternal";
 export type { PrimaryIssuance } from "./PrimaryIssuance";
-export type { PrimaryIssuanceInternal } from "./PrimaryIssuanceInternal";

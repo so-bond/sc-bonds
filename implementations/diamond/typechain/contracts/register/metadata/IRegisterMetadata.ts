@@ -72,17 +72,11 @@ export interface IRegisterMetadataInterface extends Interface {
       | "checkIfCouponDateExists"
       | "checkIfMaturityDateExists"
       | "delCouponDate"
-      | "disableInvestorFromWhitelist"
-      | "enableInvestorToWhitelist"
-      | "getAllInvestors"
       | "getBondCouponRate"
       | "getBondData"
       | "getBondUnitValue"
       | "getCreationDate"
-      | "getInvestorListAtCoupon"
       | "getIssuanceDate"
-      | "investorCustodian"
-      | "investorsAllowed"
       | "makeReady"
       | "primaryIssuanceAccount"
       | "publicMessage"
@@ -95,19 +89,16 @@ export interface IRegisterMetadataInterface extends Interface {
       | "setExpectedSupply"
       | "setIsinSymbol"
       | "setIssuanceDate"
+      | "setName"
       | "status"
       | "toggleFrozen"
   ): FunctionFragment;
 
   getEvent(
     nameOrSignatureOrTopic:
-      | "DisableInvestor"
-      | "EnableInvestor"
       | "NewBondDrafted"
       | "PublicMessage"
       | "RegisterStatusChanged"
-      | "WalletAddedToWhitelist"
-      | "WalletDeletedFromWhitelist"
   ): EventFragment;
 
   encodeFunctionData(
@@ -127,18 +118,6 @@ export interface IRegisterMetadataInterface extends Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "disableInvestorFromWhitelist",
-    values: [AddressLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "enableInvestorToWhitelist",
-    values: [AddressLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getAllInvestors",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "getBondCouponRate",
     values?: undefined
   ): string;
@@ -155,20 +134,8 @@ export interface IRegisterMetadataInterface extends Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "getInvestorListAtCoupon",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
     functionFragment: "getIssuanceDate",
     values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "investorCustodian",
-    values: [AddressLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "investorsAllowed",
-    values: [AddressLike]
   ): string;
   encodeFunctionData(functionFragment: "makeReady", values?: undefined): string;
   encodeFunctionData(
@@ -224,6 +191,7 @@ export interface IRegisterMetadataInterface extends Interface {
     functionFragment: "setIssuanceDate",
     values: [BigNumberish]
   ): string;
+  encodeFunctionData(functionFragment: "setName", values: [string]): string;
   encodeFunctionData(functionFragment: "status", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "toggleFrozen",
@@ -247,18 +215,6 @@ export interface IRegisterMetadataInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "disableInvestorFromWhitelist",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "enableInvestorToWhitelist",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getAllInvestors",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "getBondCouponRate",
     data: BytesLike
   ): Result;
@@ -275,19 +231,7 @@ export interface IRegisterMetadataInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getInvestorListAtCoupon",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "getIssuanceDate",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "investorCustodian",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "investorsAllowed",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "makeReady", data: BytesLike): Result;
@@ -335,35 +279,12 @@ export interface IRegisterMetadataInterface extends Interface {
     functionFragment: "setIssuanceDate",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "setName", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "status", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "toggleFrozen",
     data: BytesLike
   ): Result;
-}
-
-export namespace DisableInvestorEvent {
-  export type InputTuple = [investor: AddressLike];
-  export type OutputTuple = [investor: string];
-  export interface OutputObject {
-    investor: string;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace EnableInvestorEvent {
-  export type InputTuple = [investor: AddressLike];
-  export type OutputTuple = [investor: string];
-  export interface OutputObject {
-    investor: string;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
 }
 
 export namespace NewBondDraftedEvent {
@@ -416,30 +337,6 @@ export namespace RegisterStatusChangedEvent {
     name: string;
     isin: string;
     status: bigint;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace WalletAddedToWhitelistEvent {
-  export type InputTuple = [toBeAdded: AddressLike];
-  export type OutputTuple = [toBeAdded: string];
-  export interface OutputObject {
-    toBeAdded: string;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace WalletDeletedFromWhitelistEvent {
-  export type InputTuple = [toBeDeleted: AddressLike];
-  export type OutputTuple = [toBeDeleted: string];
-  export interface OutputObject {
-    toBeDeleted: string;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -514,20 +411,6 @@ export interface IRegisterMetadata extends BaseContract {
     "nonpayable"
   >;
 
-  disableInvestorFromWhitelist: TypedContractMethod<
-    [investor: AddressLike],
-    [void],
-    "nonpayable"
-  >;
-
-  enableInvestorToWhitelist: TypedContractMethod<
-    [investor: AddressLike],
-    [void],
-    "nonpayable"
-  >;
-
-  getAllInvestors: TypedContractMethod<[], [string[]], "view">;
-
   getBondCouponRate: TypedContractMethod<[], [bigint], "view">;
 
   getBondData: TypedContractMethod<
@@ -540,25 +423,7 @@ export interface IRegisterMetadata extends BaseContract {
 
   getCreationDate: TypedContractMethod<[], [bigint], "view">;
 
-  getInvestorListAtCoupon: TypedContractMethod<
-    [CouponDate: BigNumberish],
-    [string[]],
-    "nonpayable"
-  >;
-
   getIssuanceDate: TypedContractMethod<[], [bigint], "view">;
-
-  investorCustodian: TypedContractMethod<
-    [investor: AddressLike],
-    [string],
-    "view"
-  >;
-
-  investorsAllowed: TypedContractMethod<
-    [investor: AddressLike],
-    [boolean],
-    "view"
-  >;
 
   makeReady: TypedContractMethod<[], [void], "nonpayable">;
 
@@ -625,6 +490,8 @@ export interface IRegisterMetadata extends BaseContract {
     "nonpayable"
   >;
 
+  setName: TypedContractMethod<[name_: string], [void], "nonpayable">;
+
   status: TypedContractMethod<[], [bigint], "view">;
 
   toggleFrozen: TypedContractMethod<[], [void], "nonpayable">;
@@ -650,15 +517,6 @@ export interface IRegisterMetadata extends BaseContract {
     nameOrSignature: "delCouponDate"
   ): TypedContractMethod<[date: BigNumberish], [void], "nonpayable">;
   getFunction(
-    nameOrSignature: "disableInvestorFromWhitelist"
-  ): TypedContractMethod<[investor: AddressLike], [void], "nonpayable">;
-  getFunction(
-    nameOrSignature: "enableInvestorToWhitelist"
-  ): TypedContractMethod<[investor: AddressLike], [void], "nonpayable">;
-  getFunction(
-    nameOrSignature: "getAllInvestors"
-  ): TypedContractMethod<[], [string[]], "view">;
-  getFunction(
     nameOrSignature: "getBondCouponRate"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
@@ -675,17 +533,8 @@ export interface IRegisterMetadata extends BaseContract {
     nameOrSignature: "getCreationDate"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
-    nameOrSignature: "getInvestorListAtCoupon"
-  ): TypedContractMethod<[CouponDate: BigNumberish], [string[]], "nonpayable">;
-  getFunction(
     nameOrSignature: "getIssuanceDate"
   ): TypedContractMethod<[], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "investorCustodian"
-  ): TypedContractMethod<[investor: AddressLike], [string], "view">;
-  getFunction(
-    nameOrSignature: "investorsAllowed"
-  ): TypedContractMethod<[investor: AddressLike], [boolean], "view">;
   getFunction(
     nameOrSignature: "makeReady"
   ): TypedContractMethod<[], [void], "nonpayable">;
@@ -744,26 +593,15 @@ export interface IRegisterMetadata extends BaseContract {
     nameOrSignature: "setIssuanceDate"
   ): TypedContractMethod<[issuanceDate: BigNumberish], [void], "nonpayable">;
   getFunction(
+    nameOrSignature: "setName"
+  ): TypedContractMethod<[name_: string], [void], "nonpayable">;
+  getFunction(
     nameOrSignature: "status"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
     nameOrSignature: "toggleFrozen"
   ): TypedContractMethod<[], [void], "nonpayable">;
 
-  getEvent(
-    key: "DisableInvestor"
-  ): TypedContractEvent<
-    DisableInvestorEvent.InputTuple,
-    DisableInvestorEvent.OutputTuple,
-    DisableInvestorEvent.OutputObject
-  >;
-  getEvent(
-    key: "EnableInvestor"
-  ): TypedContractEvent<
-    EnableInvestorEvent.InputTuple,
-    EnableInvestorEvent.OutputTuple,
-    EnableInvestorEvent.OutputObject
-  >;
   getEvent(
     key: "NewBondDrafted"
   ): TypedContractEvent<
@@ -785,44 +623,8 @@ export interface IRegisterMetadata extends BaseContract {
     RegisterStatusChangedEvent.OutputTuple,
     RegisterStatusChangedEvent.OutputObject
   >;
-  getEvent(
-    key: "WalletAddedToWhitelist"
-  ): TypedContractEvent<
-    WalletAddedToWhitelistEvent.InputTuple,
-    WalletAddedToWhitelistEvent.OutputTuple,
-    WalletAddedToWhitelistEvent.OutputObject
-  >;
-  getEvent(
-    key: "WalletDeletedFromWhitelist"
-  ): TypedContractEvent<
-    WalletDeletedFromWhitelistEvent.InputTuple,
-    WalletDeletedFromWhitelistEvent.OutputTuple,
-    WalletDeletedFromWhitelistEvent.OutputObject
-  >;
 
   filters: {
-    "DisableInvestor(address)": TypedContractEvent<
-      DisableInvestorEvent.InputTuple,
-      DisableInvestorEvent.OutputTuple,
-      DisableInvestorEvent.OutputObject
-    >;
-    DisableInvestor: TypedContractEvent<
-      DisableInvestorEvent.InputTuple,
-      DisableInvestorEvent.OutputTuple,
-      DisableInvestorEvent.OutputObject
-    >;
-
-    "EnableInvestor(address)": TypedContractEvent<
-      EnableInvestorEvent.InputTuple,
-      EnableInvestorEvent.OutputTuple,
-      EnableInvestorEvent.OutputObject
-    >;
-    EnableInvestor: TypedContractEvent<
-      EnableInvestorEvent.InputTuple,
-      EnableInvestorEvent.OutputTuple,
-      EnableInvestorEvent.OutputObject
-    >;
-
     "NewBondDrafted(address,string,string)": TypedContractEvent<
       NewBondDraftedEvent.InputTuple,
       NewBondDraftedEvent.OutputTuple,
@@ -854,28 +656,6 @@ export interface IRegisterMetadata extends BaseContract {
       RegisterStatusChangedEvent.InputTuple,
       RegisterStatusChangedEvent.OutputTuple,
       RegisterStatusChangedEvent.OutputObject
-    >;
-
-    "WalletAddedToWhitelist(address)": TypedContractEvent<
-      WalletAddedToWhitelistEvent.InputTuple,
-      WalletAddedToWhitelistEvent.OutputTuple,
-      WalletAddedToWhitelistEvent.OutputObject
-    >;
-    WalletAddedToWhitelist: TypedContractEvent<
-      WalletAddedToWhitelistEvent.InputTuple,
-      WalletAddedToWhitelistEvent.OutputTuple,
-      WalletAddedToWhitelistEvent.OutputObject
-    >;
-
-    "WalletDeletedFromWhitelist(address)": TypedContractEvent<
-      WalletDeletedFromWhitelistEvent.InputTuple,
-      WalletDeletedFromWhitelistEvent.OutputTuple,
-      WalletDeletedFromWhitelistEvent.OutputObject
-    >;
-    WalletDeletedFromWhitelist: TypedContractEvent<
-      WalletDeletedFromWhitelistEvent.InputTuple,
-      WalletDeletedFromWhitelistEvent.OutputTuple,
-      WalletDeletedFromWhitelistEvent.OutputObject
     >;
   };
 }

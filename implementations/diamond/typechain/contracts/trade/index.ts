@@ -6,4 +6,3 @@ export type { bilateral };
 import type * as issuance from "./issuance";
 export type { issuance };
 export type { ITrade } from "./ITrade";
-export type { ITradeInternal } from "./ITradeInternal";

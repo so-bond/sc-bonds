@@ -20,7 +20,7 @@
         },
         {
           "indexed": true,
-          "internalType": "enum ITradeInternal.TradeStatus",
+          "internalType": "enum ITrade.Status",
           "name": "status",
           "type": "uint8"
         },
@@ -105,7 +105,7 @@
               "type": "uint256"
             }
           ],
-          "internalType": "struct ITradeInternal.TradeDetail",
+          "internalType": "struct ITrade.TradeDetail",
           "name": "",
           "type": "tuple"
         }
@@ -134,19 +134,6 @@
           "internalType": "bytes8",
           "name": "",
           "type": "bytes8"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "primaryIssuanceAccount",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
         }
       ],
       "stateMutability": "view",
@@ -190,7 +177,7 @@
       "name": "status",
       "outputs": [
         {
-          "internalType": "enum ITradeInternal.TradeStatus",
+          "internalType": "enum ITrade.Status",
           "name": "",
           "type": "uint8"
         }

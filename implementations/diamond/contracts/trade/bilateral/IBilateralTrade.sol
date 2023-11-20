@@ -4,9 +4,8 @@
 pragma solidity ^0.8.20;
 
 import { ITrade } from "../ITrade.sol";
-import { IBilateralTradeInternal } from "./IBilateralTradeInternal.sol";
 
-interface IBilateralTrade is IBilateralTradeInternal, ITrade {
+interface IBilateralTrade is ITrade {
     /**
      * @notice Set trade details
      * @param _details trade details
@@ -17,12 +16,12 @@ interface IBilateralTrade is IBilateralTradeInternal, ITrade {
      * @notice Approve trade
      * @return trade status
      */
-    function approve() external returns (TradeStatus);
+    function approve() external returns (Status);
 
     /**
      * @notice Reject trade
      */
-    function reject() external; // TODO add return value
+    function reject() external;
 
     /**
      * @notice Execute transfer

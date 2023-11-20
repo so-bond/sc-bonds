@@ -4,14 +4,19 @@
 pragma solidity ^0.8.20;
 
 import { ITrade } from "../ITrade.sol";
-import { IPrimaryIssuanceInternal } from "./IPrimaryIssuanceInternal.sol";
 
-interface IPrimaryIssuance is IPrimaryIssuanceInternal, ITrade {
+interface IPrimaryIssuance is ITrade {
     /**
-     * @notice Return the account which receives the minted tokens
-     * @return address of the primary issuance account (Registry)
+     * @notice Emitted when a primary issuance is created
+     * @param contractAddress address of the primary issuance
      */
-    function primaryIssuanceAccount() external view returns (address);
+    event PrimaryIssuanceCreated(address contractAddress);
+
+    // /**
+    //  * @notice Return the account which receives the minted tokens
+    //  * @return address of the primary issuance account (Registry)
+    //  */
+    // function primaryIssuanceAccount() external view returns (address);
 
     /**
      * @notice Return the account of the BnD

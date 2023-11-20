@@ -9,7 +9,7 @@ library SmartContractAccessManagementStorage {
     }
 
     bytes32 internal constant STORAGE_SLOT =
-        keccak256("cacib.contracts.storage.SmartContractAccessManagement");
+        keccak256("sobond.contracts.storage.SmartContractAccessManagement");
 
     function layout() internal pure returns (Layout storage l) {
         bytes32 slot = STORAGE_SLOT;

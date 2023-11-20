@@ -4,8 +4,7 @@
 pragma solidity ^0.8.20;
 
 import { IERC20Snapshot } from "./IERC20Snapshot.sol";
-import { ERC20SnapshotStorage, ERC20SnapshotInternal } from "./ERC20SnapshotInternal.sol";
-import { Math } from "../../../utils/Math.sol";
+import { ERC20SnapshotInternal } from "./ERC20SnapshotInternal.sol";
 
 /**
  * @title ERC20 base implementation with support for token balance and supply snapshots

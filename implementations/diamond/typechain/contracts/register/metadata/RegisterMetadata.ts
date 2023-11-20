@@ -81,23 +81,19 @@ export interface RegisterMetadataInterface extends Interface {
       | "checkIfCouponDateExists"
       | "checkIfMaturityDateExists"
       | "decimals"
+      | "decreaseAllowance"
       | "delCouponDate"
-      | "disableInvestorFromWhitelist"
-      | "enableInvestorToWhitelist"
-      | "getAllInvestors"
       | "getBondCouponRate"
       | "getBondData"
       | "getBondUnitValue"
       | "getCreationDate"
-      | "getInvestorListAtCoupon"
       | "getIssuanceDate"
       | "getRoleAdmin"
       | "getRoleMember"
       | "getRoleMemberCount"
       | "grantRole"
       | "hasRole"
-      | "investorCustodian"
-      | "investorsAllowed"
+      | "increaseAllowance"
       | "isTrustedForwarder"
       | "makeReady"
       | "name"
@@ -114,6 +110,7 @@ export interface RegisterMetadataInterface extends Interface {
       | "setExpectedSupply"
       | "setIsinSymbol"
       | "setIssuanceDate"
+      | "setName"
       | "status"
       | "symbol"
       | "toggleFrozen"
@@ -184,20 +181,12 @@ export interface RegisterMetadataInterface extends Interface {
   ): string;
   encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
   encodeFunctionData(
+    functionFragment: "decreaseAllowance",
+    values: [AddressLike, BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "delCouponDate",
     values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "disableInvestorFromWhitelist",
-    values: [AddressLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "enableInvestorToWhitelist",
-    values: [AddressLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getAllInvestors",
-    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "getBondCouponRate",
@@ -214,10 +203,6 @@ export interface RegisterMetadataInterface extends Interface {
   encodeFunctionData(
     functionFragment: "getCreationDate",
     values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getInvestorListAtCoupon",
-    values: [BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "getIssuanceDate",
@@ -244,12 +229,8 @@ export interface RegisterMetadataInterface extends Interface {
     values: [BytesLike, AddressLike]
   ): string;
   encodeFunctionData(
-    functionFragment: "investorCustodian",
-    values: [AddressLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "investorsAllowed",
-    values: [AddressLike]
+    functionFragment: "increaseAllowance",
+    values: [AddressLike, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "isTrustedForwarder",
@@ -318,6 +299,7 @@ export interface RegisterMetadataInterface extends Interface {
     functionFragment: "setIssuanceDate",
     values: [BigNumberish]
   ): string;
+  encodeFunctionData(functionFragment: "setName", values: [string]): string;
   encodeFunctionData(functionFragment: "status", values?: undefined): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
   encodeFunctionData(
@@ -374,19 +356,11 @@ export interface RegisterMetadataInterface extends Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
   decodeFunctionResult(
+    functionFragment: "decreaseAllowance",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "delCouponDate",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "disableInvestorFromWhitelist",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "enableInvestorToWhitelist",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getAllInvestors",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -403,10 +377,6 @@ export interface RegisterMetadataInterface extends Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "getCreationDate",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getInvestorListAtCoupon",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -428,11 +398,7 @@ export interface RegisterMetadataInterface extends Interface {
   decodeFunctionResult(functionFragment: "grantRole", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "hasRole", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "investorCustodian",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "investorsAllowed",
+    functionFragment: "increaseAllowance",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -490,6 +456,7 @@ export interface RegisterMetadataInterface extends Interface {
     functionFragment: "setIssuanceDate",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "setName", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "status", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
   decodeFunctionResult(
@@ -893,25 +860,17 @@ export interface RegisterMetadata extends BaseContract {
 
   decimals: TypedContractMethod<[], [bigint], "view">;
 
+  decreaseAllowance: TypedContractMethod<
+    [spender: AddressLike, subtractedValue: BigNumberish],
+    [boolean],
+    "nonpayable"
+  >;
+
   delCouponDate: TypedContractMethod<
     [date: BigNumberish],
     [void],
     "nonpayable"
   >;
-
-  disableInvestorFromWhitelist: TypedContractMethod<
-    [investor_: AddressLike],
-    [void],
-    "nonpayable"
-  >;
-
-  enableInvestorToWhitelist: TypedContractMethod<
-    [investor_: AddressLike],
-    [void],
-    "nonpayable"
-  >;
-
-  getAllInvestors: TypedContractMethod<[], [string[]], "view">;
 
   getBondCouponRate: TypedContractMethod<[], [bigint], "view">;
 
@@ -924,12 +883,6 @@ export interface RegisterMetadata extends BaseContract {
   getBondUnitValue: TypedContractMethod<[], [bigint], "view">;
 
   getCreationDate: TypedContractMethod<[], [bigint], "view">;
-
-  getInvestorListAtCoupon: TypedContractMethod<
-    [CouponDate: BigNumberish],
-    [string[]],
-    "view"
-  >;
 
   getIssuanceDate: TypedContractMethod<[], [bigint], "view">;
 
@@ -955,16 +908,10 @@ export interface RegisterMetadata extends BaseContract {
     "view"
   >;
 
-  investorCustodian: TypedContractMethod<
-    [investor: AddressLike],
-    [string],
-    "view"
-  >;
-
-  investorsAllowed: TypedContractMethod<
-    [investor: AddressLike],
+  increaseAllowance: TypedContractMethod<
+    [spender: AddressLike, addedValue: BigNumberish],
     [boolean],
-    "view"
+    "nonpayable"
   >;
 
   isTrustedForwarder: TypedContractMethod<
@@ -1047,6 +994,8 @@ export interface RegisterMetadata extends BaseContract {
     [void],
     "nonpayable"
   >;
+
+  setName: TypedContractMethod<[name_: string], [void], "nonpayable">;
 
   status: TypedContractMethod<[], [bigint], "view">;
 
@@ -1132,17 +1081,15 @@ export interface RegisterMetadata extends BaseContract {
     nameOrSignature: "decimals"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
+    nameOrSignature: "decreaseAllowance"
+  ): TypedContractMethod<
+    [spender: AddressLike, subtractedValue: BigNumberish],
+    [boolean],
+    "nonpayable"
+  >;
+  getFunction(
     nameOrSignature: "delCouponDate"
   ): TypedContractMethod<[date: BigNumberish], [void], "nonpayable">;
-  getFunction(
-    nameOrSignature: "disableInvestorFromWhitelist"
-  ): TypedContractMethod<[investor_: AddressLike], [void], "nonpayable">;
-  getFunction(
-    nameOrSignature: "enableInvestorToWhitelist"
-  ): TypedContractMethod<[investor_: AddressLike], [void], "nonpayable">;
-  getFunction(
-    nameOrSignature: "getAllInvestors"
-  ): TypedContractMethod<[], [string[]], "view">;
   getFunction(
     nameOrSignature: "getBondCouponRate"
   ): TypedContractMethod<[], [bigint], "view">;
@@ -1159,9 +1106,6 @@ export interface RegisterMetadata extends BaseContract {
   getFunction(
     nameOrSignature: "getCreationDate"
   ): TypedContractMethod<[], [bigint], "view">;
-  getFunction(
-    nameOrSignature: "getInvestorListAtCoupon"
-  ): TypedContractMethod<[CouponDate: BigNumberish], [string[]], "view">;
   getFunction(
     nameOrSignature: "getIssuanceDate"
   ): TypedContractMethod<[], [bigint], "view">;
@@ -1193,11 +1137,12 @@ export interface RegisterMetadata extends BaseContract {
     "view"
   >;
   getFunction(
-    nameOrSignature: "investorCustodian"
-  ): TypedContractMethod<[investor: AddressLike], [string], "view">;
-  getFunction(
-    nameOrSignature: "investorsAllowed"
-  ): TypedContractMethod<[investor: AddressLike], [boolean], "view">;
+    nameOrSignature: "increaseAllowance"
+  ): TypedContractMethod<
+    [spender: AddressLike, addedValue: BigNumberish],
+    [boolean],
+    "nonpayable"
+  >;
   getFunction(
     nameOrSignature: "isTrustedForwarder"
   ): TypedContractMethod<[forwarder: AddressLike], [boolean], "view">;
@@ -1271,6 +1216,9 @@ export interface RegisterMetadata extends BaseContract {
   getFunction(
     nameOrSignature: "setIssuanceDate"
   ): TypedContractMethod<[issuanceDate: BigNumberish], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "setName"
+  ): TypedContractMethod<[name_: string], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "status"
   ): TypedContractMethod<[], [bigint], "view">;

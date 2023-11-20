@@ -3,59 +3,217 @@
 
 pragma solidity ^0.8.20;
 
-import { ITrade } from "../ITrade.sol";
+// import { ITrade } from "../ITrade.sol";
 import { IBilateralTrade } from "./IBilateralTrade.sol";
-import { BilateralTradeInternal } from "./BilateralTradeInternal.sol";
 import { IRegister } from "../../register/IRegister.sol";
+import "@openzeppelin/contracts/access/AccessControl.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/metatx/ERC2771Context.sol";
 
-contract BilateralTrade is IBilateralTrade, BilateralTradeInternal {
-    /// @inheritdoc ITrade
-    function register() external view returns (IRegister) {
-        return _register();
+contract BilateralTrade is IBilateralTrade, ERC2771Context, ReentrancyGuard {
+    IRegister public register;
+    Status public status;
+    address public sellerAccount;
+    TradeDetail public details;
+
+    /**
+     * @dev When the smart contract deploys:
+     * - we check that deployer has been whitelisted
+     * - we check that buyer has been whitelisted
+     * - we map the register contract to interact with it
+     * - variable sellerAccount gets msg.sender address
+     * - details struct buyer gets buyer address
+     * - status of current contract is Draft
+     *
+     * The constructor cannot be checked by the register by looking ain the hash of
+     * the runtime bytecode because this hash does not cover the constructor.
+     * so controls in the constructors are to be replicated in the first interaction with a function
+     */
+    constructor(
+        IRegister _register,
+        address _buyer,
+        address _forwarder
+    ) ERC2771Context(_forwarder) {
+        require(
+            _register.investorsAllowed(_msgSender()) ||
+                _register.isBnD(_msgSender()),
+            "Sender must be a valid investor"
+        );
+
+        require(
+            _register.investorsAllowed(_buyer),
+            "Buyer must be a valid investor"
+        );
+
+        register = _register;
+        sellerAccount = _msgSender();
+        details.buyer = _buyer;
+        status = Status.Draft;
+        emit NotifyTrade(_msgSender(), _buyer, status, 0);
     }
 
-    /// @inheritdoc ITrade
-    function status() external view returns (TradeStatus) {
-        return _status();
+    /**
+     * @dev gets the buyer address
+     */
+    function buyerAccount() public view returns (address) {
+        return details.buyer;
     }
 
-    /// @inheritdoc ITrade
-    function paymentID() external view returns (bytes8) {
-        return _paymentID();
+    /**
+     * @dev produces a unique payiment identifier
+     */
+    function paymentID() public view returns (bytes8) {
+        uint64 low = uint64(uint160(address(this)));
+        return bytes8(low);
     }
 
-    /// @inheritdoc ITrade
-    function getDetails() external view returns (TradeDetail memory) {
-        return _getDetails();
+    /**
+     * @dev enables the sellerAccount address to update the bilateral trade detail
+     * can be called only if status of current contract is Draft
+     can be called only if buyer updated is whitelisted
+    */
+    function setDetails(TradeDetail memory _details) public {
+        require(
+            _msgSender() == sellerAccount,
+            "Only the seller can update this trade"
+        );
+        require(
+            status == Status.Draft,
+            "Cannot change the trade details unless in draft status"
+        );
+        require(
+            register.investorsAllowed(_details.buyer),
+            "Buyer must be a valid investor even on changing details"
+        );
+        details = _details;
+        // an event needs to be generated to enable the back end to know that the trade has been changed
+        emit NotifyTrade(
+            sellerAccount,
+            _details.buyer,
+            status,
+            _details.quantity
+        );
     }
 
-    /// @inheritdoc ITrade
-    function sellerAccount() external view returns (address) {
-        return _sellerAccount();
+    /**
+     * @dev gets the bilateral trade details
+     */
+    function getDetails() public view returns (TradeDetail memory) {
+        return details;
     }
 
-    /// @inheritdoc ITrade
-    function buyerAccount() external view returns (address) {
-        return _buyerAccount();
+    /**
+     * @dev enables the approval of the bilateral trade in 2 steps :
+     * 1) caller is seller account address and smart contract is in status Draft
+     * --> status becomes Pending and emits an event
+     * 2) Caller is buyer account address and smart contract is in status Pending
+     * --> transfer the tokens from B&D account to buyer
+     * --> status becomes Accepted and emits an event
+     */
+    function approve() public returns (Status) {
+        if (_msgSender() == sellerAccount && status == Status.Draft) {
+            require(details.quantity > 0, "quantity not defined");
+            require(details.tradeDate > 0, "trade date not defined");
+            // Remove the control because it is functionally possible to need to create a back value trade
+            // But add the control that the value is defined
+            require(details.valueDate > 0, "value date not defined");
+
+            // require(
+            //     details.valueDate >= details.tradeDate,
+            //     "value date not defined greater or equal than the trade date"
+            // );
+            status = Status.Pending;
+            emit NotifyTrade(
+                sellerAccount,
+                details.buyer,
+                status,
+                details.quantity
+            );
+            return (status);
+        }
+
+        if (_msgSender() == details.buyer && status == Status.Pending) {
+            // require(
+            //     register.transferFrom(
+            //         sellerAccount,
+            //         details.buyer,
+            //         details.quantity
+            //     ),
+            //     "the transfer has failed"
+            // );
+            status = Status.Accepted;
+            emit NotifyTrade(
+                sellerAccount,
+                details.buyer,
+                status,
+                details.quantity
+            );
+            return (status);
+        }
+        revert("the trade cannot be approved in this current status");
+        return (status);
     }
 
-    /// @inheritdoc IBilateralTrade
-    function setDetails(TradeDetail memory _details) external {
-        _setDetails(_details);
+    /**
+     * @dev enables the rejection of the bilateral trade in 2 possibilites :
+     * 1) caller is seller account address and smart contract is in status Draft or Pending
+     * --> status becomes Rejected and emits an event
+     * 2) Caller is buyer account address and smart contract is in status Pending
+     * --> status becomes Rejected and emits an event
+     */
+    function reject() public {
+        require(status != Status.Rejected, "Trade already rejected");
+        // seller can cancel the trade at any active state before the trade is executed
+        if (_msgSender() == sellerAccount && (status != Status.Executed)) {
+            status = Status.Rejected;
+            emit NotifyTrade(
+                sellerAccount,
+                details.buyer,
+                status,
+                details.quantity
+            );
+            return;
+        }
+        // buyer can cancel the trade when pending validation on his side or even after he has accepted the trade (but not when the seller prepares the trade (DRAFT))
+        if (
+            _msgSender() == details.buyer &&
+            (status == Status.Pending || status == Status.Accepted)
+        ) {
+            status = Status.Rejected;
+            emit NotifyTrade(
+                sellerAccount,
+                details.buyer,
+                status,
+                details.quantity
+            );
+            return;
+        }
+        revert("the trade cannot be rejected in this current status");
     }
 
-    /// @inheritdoc IBilateralTrade
-    function approve() external returns (TradeStatus) {
-        return _approve();
-    }
-
-    /// @inheritdoc IBilateralTrade
-    function reject() external {
-        _reject();
-    }
-
-    /// @inheritdoc IBilateralTrade
-    function executeTransfer() external returns (bool) {
-        return _executeTransfer();
+    function executeTransfer() public nonReentrant returns (bool) {
+        require(
+            _msgSender() == sellerAccount,
+            "Only the seller can confirm the payment on this trade"
+        );
+        require(
+            status == Status.Accepted,
+            "The trade must be accepted by the buyer before"
+        );
+        status = Status.Executed;
+        // Actually make the transfer now
+        bool success = register.transferFrom(
+            sellerAccount,
+            details.buyer,
+            details.quantity
+        );
+        require(success, "the transfer has failed");
+        emit NotifyTrade(
+            sellerAccount,
+            details.buyer,
+            status,
+            details.quantity
+        );
+        return true;
     }
 }

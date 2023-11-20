@@ -26,7 +26,7 @@ const _abi = [
       },
       {
         indexed: true,
-        internalType: "enum ITradeInternal.TradeStatus",
+        internalType: "enum ITrade.Status",
         name: "status",
         type: "uint8",
       },
@@ -111,7 +111,7 @@ const _abi = [
             type: "uint256",
           },
         ],
-        internalType: "struct ITradeInternal.TradeDetail",
+        internalType: "struct ITrade.TradeDetail",
         name: "",
         type: "tuple",
       },
@@ -140,19 +140,6 @@ const _abi = [
         internalType: "bytes8",
         name: "",
         type: "bytes8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "primaryIssuanceAccount",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
       },
     ],
     stateMutability: "view",
@@ -196,7 +183,7 @@ const _abi = [
     name: "status",
     outputs: [
       {
-        internalType: "enum ITradeInternal.TradeStatus",
+        internalType: "enum ITrade.Status",
         name: "",
         type: "uint8",
       },

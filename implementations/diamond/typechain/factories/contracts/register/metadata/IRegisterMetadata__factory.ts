@@ -13,32 +13,6 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
-        indexed: false,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "DisableInvestor",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "EnableInvestor",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
         indexed: true,
         internalType: "address",
         name: "creator",
@@ -117,32 +91,6 @@ const _abi = [
     type: "event",
   },
   {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "toBeAdded",
-        type: "address",
-      },
-    ],
-    name: "WalletAddedToWhitelist",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "toBeDeleted",
-        type: "address",
-      },
-    ],
-    name: "WalletDeletedFromWhitelist",
-    type: "event",
-  },
-  {
     inputs: [
       {
         internalType: "uint256",
@@ -204,45 +152,6 @@ const _abi = [
     name: "delCouponDate",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "disableInvestorFromWhitelist",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "enableInvestorToWhitelist",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getAllInvestors",
-    outputs: [
-      {
-        internalType: "address[]",
-        name: "",
-        type: "address[]",
-      },
-    ],
-    stateMutability: "view",
     type: "function",
   },
   {
@@ -355,25 +264,6 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "CouponDate",
-        type: "uint256",
-      },
-    ],
-    name: "getInvestorListAtCoupon",
-    outputs: [
-      {
-        internalType: "address[]",
-        name: "",
-        type: "address[]",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
     inputs: [],
     name: "getIssuanceDate",
     outputs: [
@@ -381,44 +271,6 @@ const _abi = [
         internalType: "uint256",
         name: "",
         type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "investorCustodian",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "investorsAllowed",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
       },
     ],
     stateMutability: "view",
@@ -615,6 +467,19 @@ const _abi = [
       },
     ],
     name: "setIssuanceDate",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "name_",
+        type: "string",
+      },
+    ],
+    name: "setName",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

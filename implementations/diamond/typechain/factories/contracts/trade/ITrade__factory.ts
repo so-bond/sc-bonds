@@ -23,7 +23,7 @@ const _abi = [
       },
       {
         indexed: true,
-        internalType: "enum ITradeInternal.TradeStatus",
+        internalType: "enum ITrade.Status",
         name: "status",
         type: "uint8",
       },
@@ -82,7 +82,7 @@ const _abi = [
             type: "uint256",
           },
         ],
-        internalType: "struct ITradeInternal.TradeDetail",
+        internalType: "struct ITrade.TradeDetail",
         name: "",
         type: "tuple",
       },
@@ -134,7 +134,7 @@ const _abi = [
     name: "status",
     outputs: [
       {
-        internalType: "enum ITradeInternal.TradeStatus",
+        internalType: "enum ITrade.Status",
         name: "",
         type: "uint8",
       },

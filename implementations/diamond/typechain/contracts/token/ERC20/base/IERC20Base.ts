@@ -29,6 +29,8 @@ export interface IERC20BaseInterface extends Interface {
       | "allowance"
       | "approve"
       | "balanceOf"
+      | "decreaseAllowance"
+      | "increaseAllowance"
       | "totalSupply"
       | "transfer"
       | "transferFrom"
@@ -49,6 +51,14 @@ export interface IERC20BaseInterface extends Interface {
     values: [AddressLike]
   ): string;
   encodeFunctionData(
+    functionFragment: "decreaseAllowance",
+    values: [AddressLike, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "increaseAllowance",
+    values: [AddressLike, BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "totalSupply",
     values?: undefined
   ): string;
@@ -64,6 +74,14 @@ export interface IERC20BaseInterface extends Interface {
   decodeFunctionResult(functionFragment: "allowance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "decreaseAllowance",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "increaseAllowance",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "totalSupply",
     data: BytesLike
@@ -168,6 +186,18 @@ export interface IERC20Base extends BaseContract {
 
   balanceOf: TypedContractMethod<[account: AddressLike], [bigint], "view">;
 
+  decreaseAllowance: TypedContractMethod<
+    [spender: AddressLike, subtractedValue: BigNumberish],
+    [boolean],
+    "nonpayable"
+  >;
+
+  increaseAllowance: TypedContractMethod<
+    [spender: AddressLike, addedValue: BigNumberish],
+    [boolean],
+    "nonpayable"
+  >;
+
   totalSupply: TypedContractMethod<[], [bigint], "view">;
 
   transfer: TypedContractMethod<
@@ -203,6 +233,20 @@ export interface IERC20Base extends BaseContract {
   getFunction(
     nameOrSignature: "balanceOf"
   ): TypedContractMethod<[account: AddressLike], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "decreaseAllowance"
+  ): TypedContractMethod<
+    [spender: AddressLike, subtractedValue: BigNumberish],
+    [boolean],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "increaseAllowance"
+  ): TypedContractMethod<
+    [spender: AddressLike, addedValue: BigNumberish],
+    [boolean],
+    "nonpayable"
+  >;
   getFunction(
     nameOrSignature: "totalSupply"
   ): TypedContractMethod<[], [bigint], "view">;

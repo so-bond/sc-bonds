@@ -141,9 +141,18 @@ export interface ICouponInterface extends Interface {
 }
 
 export namespace CouponChangedEvent {
-  export type InputTuple = [couponDate: BigNumberish, status: BigNumberish];
-  export type OutputTuple = [couponDate: bigint, status: bigint];
+  export type InputTuple = [
+    register: AddressLike,
+    couponDate: BigNumberish,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    register: string,
+    couponDate: bigint,
+    status: bigint
+  ];
   export interface OutputObject {
+    register: string;
     couponDate: bigint;
     status: bigint;
   }
@@ -155,18 +164,21 @@ export namespace CouponChangedEvent {
 
 export namespace CouponPaymentStatusChangedEvent {
   export type InputTuple = [
+    register: AddressLike,
     couponDate: BigNumberish,
     investor: AddressLike,
     status: BigNumberish,
     previousStatus: BigNumberish
   ];
   export type OutputTuple = [
+    register: string,
     couponDate: bigint,
     investor: string,
     status: bigint,
     previousStatus: bigint
   ];
   export interface OutputObject {
+    register: string;
     couponDate: bigint;
     investor: string;
     status: bigint;
@@ -336,7 +348,7 @@ export interface ICoupon extends BaseContract {
   >;
 
   filters: {
-    "CouponChanged(uint256,uint8)": TypedContractEvent<
+    "CouponChanged(address,uint256,uint8)": TypedContractEvent<
       CouponChangedEvent.InputTuple,
       CouponChangedEvent.OutputTuple,
       CouponChangedEvent.OutputObject
@@ -347,7 +359,7 @@ export interface ICoupon extends BaseContract {
       CouponChangedEvent.OutputObject
     >;
 
-    "CouponPaymentStatusChanged(uint256,address,uint8,uint8)": TypedContractEvent<
+    "CouponPaymentStatusChanged(address,uint256,address,uint8,uint8)": TypedContractEvent<
       CouponPaymentStatusChangedEvent.InputTuple,
       CouponPaymentStatusChangedEvent.OutputTuple,
       CouponPaymentStatusChangedEvent.OutputObject

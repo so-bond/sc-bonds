@@ -4,6 +4,9 @@
 pragma solidity ^0.8.20;
 
 interface IRegisterMetadataInternal {
+    /**
+     * @notice Status of the bond
+     */
     enum Status {
         Draft,
         Ready,
@@ -11,6 +14,21 @@ interface IRegisterMetadataInternal {
         Repaid,
         Frozen
     }
+
+    /**
+     * @notice Bond data
+     * @param name The name of the bond
+     * @param isin The ISIN of the bond
+     * @param expectedSupply The expected supply
+     * @param currency The currency
+     * @param unitValue The unit value
+     * @param couponRate The coupon rate
+     * @param creationDate The creation date
+     * @param issuanceDate The issuance date
+     * @param maturityDate The maturity date
+     * @param couponDates The coupon dates
+     * @param cutOffTime The cut off time
+     */
     struct BondData {
         string name;
         string isin;
@@ -25,23 +43,21 @@ interface IRegisterMetadataInternal {
         uint256 cutOffTime; /// @dev The time part of the coupon snapshot (must be lower than 24*300 sec)
     }
 
-    struct InvestorInfo {
-        address investor; //TODO: de-normalisation maybe not needed
-        bool allowed; // true if investor whitelisted for transfer
-        uint256 index; // zero-based index on investor list
-        address custodian;
-    }
-
-    event WalletAddedToWhitelist(address indexed toBeAdded);
-
-    event WalletDeletedFromWhitelist(address indexed toBeDeleted);
-
-    event EnableInvestor(address investor);
-
-    event DisableInvestor(address investor);
-
+    /**
+     * @notice Emitted when a new bond is drafted
+     * @param creator The creator
+     * @param name The name of the bond
+     * @param isin The ISIN of the bond
+     */
     event NewBondDrafted(address indexed creator, string name, string isin); //FIXME: remove this and replace by RegisterStatusChanged
 
+    /**
+     * @notice Emitted when the status of the register changes
+     * @param emiter The emiter
+     * @param name The name of the bond
+     * @param isin The ISIN of the bond
+     * @param status The status
+     */
     event RegisterStatusChanged(
         address indexed emiter,
         string name,
@@ -49,6 +65,12 @@ interface IRegisterMetadataInternal {
         Status status
     );
 
+    /**
+     * @notice Emitted when a public message is sent
+     * @param sender The sender
+     * @param target The target
+     * @param message The message
+     */
     event PublicMessage(
         address indexed sender,
         address indexed target,

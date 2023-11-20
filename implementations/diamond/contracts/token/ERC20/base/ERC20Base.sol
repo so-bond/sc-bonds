@@ -6,16 +6,13 @@ pragma solidity ^0.8.20;
 import { IERC20 } from "../IERC20.sol"; /// @dev this is required to inherit documentation only
 import { IERC20Base } from "./IERC20Base.sol";
 import { ERC20BaseInternal } from "./ERC20BaseInternal.sol";
-import { ERC2771ContextInternal } from "../../../metatx/ERC2771ContextInternal.sol";
+
+// import { ERC2771ContextInternal } from "../../../metatx/ERC2771ContextInternal.sol";
 
 /**
  * @title Base ERC20 implementation, excluding optional extensions
  */
-abstract contract ERC20Base is
-    IERC20Base,
-    ERC2771ContextInternal,
-    ERC20BaseInternal
-{
+abstract contract ERC20Base is IERC20Base, ERC20BaseInternal {
     /// @inheritdoc IERC20
     function totalSupply() external view virtual returns (uint256) {
         return _totalSupply();
@@ -59,5 +56,25 @@ abstract contract ERC20Base is
         uint256 amount
     ) external virtual returns (bool) {
         return _transferFrom(holder, recipient, amount);
+    }
+
+    /**
+     * @inheritdoc IERC20Base
+     */
+    function increaseAllowance(
+        address spender,
+        uint256 addedValue
+    ) public virtual returns (bool) {
+        return _increaseAllowance(spender, addedValue);
+    }
+
+    /**
+     * @inheritdoc IERC20Base
+     */
+    function decreaseAllowance(
+        address spender,
+        uint256 subtractedValue
+    ) public virtual returns (bool) {
+        return _decreaseAllowance(spender, subtractedValue);
     }
 }

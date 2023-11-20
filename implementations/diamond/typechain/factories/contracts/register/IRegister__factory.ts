@@ -477,6 +477,25 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
+        name: "addr",
+        type: "address",
+      },
+    ],
+    name: "atReturningHash",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
         name: "account",
         type: "address",
       },
@@ -538,6 +557,19 @@ const _abi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "amount_",
+        type: "uint256",
+      },
+    ],
+    name: "burn",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -628,6 +660,30 @@ const _abi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "subtractedValue",
+        type: "uint256",
+      },
+    ],
+    name: "decreaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -918,6 +974,30 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "addedValue",
+        type: "uint256",
+      },
+    ],
+    name: "increaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
         name: "investor",
         type: "address",
       },
@@ -1007,7 +1087,7 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
-        name: "contractAddress_",
+        name: "contractAddress",
         type: "address",
       },
     ],
@@ -1063,6 +1143,19 @@ const _abi = [
   {
     inputs: [],
     name: "makeReady",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "amount_",
+        type: "uint256",
+      },
+    ],
+    name: "mint",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -1347,6 +1440,19 @@ const _abi = [
     type: "function",
   },
   {
+    inputs: [
+      {
+        internalType: "string",
+        name: "name_",
+        type: "string",
+      },
+    ],
+    name: "setName",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "status",
     outputs: [
@@ -1481,6 +1587,19 @@ const _abi = [
       },
     ],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "votesForNewAdmin",
+    outputs: [
+      {
+        internalType: "uint8",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "view",
     type: "function",
   },
 ] as const;

@@ -2,6 +2,4 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { BilateralTrade } from "./BilateralTrade";
-export type { BilateralTradeInternal } from "./BilateralTradeInternal";
 export type { IBilateralTrade } from "./IBilateralTrade";
-export type { IBilateralTradeInternal } from "./IBilateralTradeInternal";

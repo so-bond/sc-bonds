@@ -13,32 +13,6 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
-        indexed: false,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "DisableInvestor",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "EnableInvestor",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
         indexed: true,
         internalType: "address",
         name: "creator",
@@ -114,32 +88,6 @@ const _abi = [
       },
     ],
     name: "RegisterStatusChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "toBeAdded",
-        type: "address",
-      },
-    ],
-    name: "WalletAddedToWhitelist",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "toBeDeleted",
-        type: "address",
-      },
-    ],
-    name: "WalletDeletedFromWhitelist",
     type: "event",
   },
 ] as const;

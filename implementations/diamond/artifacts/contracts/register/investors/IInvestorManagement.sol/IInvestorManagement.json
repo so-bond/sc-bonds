@@ -1,0 +1,140 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "IInvestorManagement",
+  "sourceName": "contracts/register/investors/IInvestorManagement.sol",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "investor",
+          "type": "address"
+        }
+      ],
+      "name": "DisableInvestor",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "investor",
+          "type": "address"
+        }
+      ],
+      "name": "EnableInvestor",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "toBeAdded",
+          "type": "address"
+        }
+      ],
+      "name": "WalletAddedToWhitelist",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "toBeDeleted",
+          "type": "address"
+        }
+      ],
+      "name": "WalletDeletedFromWhitelist",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "investor",
+          "type": "address"
+        }
+      ],
+      "name": "disableInvestorFromWhitelist",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "investor",
+          "type": "address"
+        }
+      ],
+      "name": "enableInvestorToWhitelist",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getAllInvestors",
+      "outputs": [
+        {
+          "internalType": "address[]",
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "investor",
+          "type": "address"
+        }
+      ],
+      "name": "investorCustodian",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "investor",
+          "type": "address"
+        }
+      ],
+      "name": "investorsAllowed",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

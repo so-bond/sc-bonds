@@ -5,4 +5,3 @@ export type { IRegisterMetadata } from "./IRegisterMetadata";
 export type { IRegisterMetadataInternal } from "./IRegisterMetadataInternal";
 export type { RegisterMetadata } from "./RegisterMetadata";
 export type { RegisterMetadataInternal } from "./RegisterMetadataInternal";
-export type { RegisterMetadataStorage } from "./RegisterMetadataStorage";

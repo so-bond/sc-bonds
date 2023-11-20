@@ -3,82 +3,96 @@
 
 pragma solidity ^0.8.20;
 
-import { CouponSnapshotManagementInternal } from "../coupon/CouponSnapshotManagementInternal.sol";
 import { IRegisterMetadataInternal } from "./IRegisterMetadataInternal.sol";
 import { RegisterMetadataStorage } from "./RegisterMetadataStorage.sol";
-import { RegisterRoleManagementInternal } from "../role/RegisterRoleManagementInternal.sol";
+import { CouponSnapshotManagementInternal } from "../snapshot/CouponSnapshotManagementInternal.sol";
+import { InvestorManagementInternal } from "../investors/InvestorManagementInternal.sol";
 import { ERC2771ContextInternal } from "../../metatx/ERC2771ContextInternal.sol";
 import { ContextInternal } from "../../metatx/ContextInternal.sol";
 
 abstract contract RegisterMetadataInternal is
     IRegisterMetadataInternal,
-    ERC2771ContextInternal,
+    InvestorManagementInternal,
     CouponSnapshotManagementInternal
 {
-    // TODO check if necessary
+    function _initialize(
+        string calldata name_,
+        string calldata isin_,
+        uint256 expectedSupply_,
+        bytes32 currency_,
+        uint256 unitVal_,
+        uint256 couponRate_,
+        uint256 creationDate_,
+        uint256 issuanceDate_,
+        uint256 maturityDate_,
+        uint256[] memory couponDates_,
+        uint256 cutofftime_
+    ) internal initializer {
+        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
+            .layout();
+
+        __init__ERC20MetadataInternal(name_, isin_, 0);
+
+        //  emit Debug("start constructor", couponDates_.length,0, gasleft());
+        l.data.name = name_;
+        l.data.isin = isin_;
+        l.data.expectedSupply = expectedSupply_;
+        l.data.currency = currency_;
+        l.data.unitValue = unitVal_;
+        l.data.couponRate = couponRate_;
+        l.data.creationDate = creationDate_;
+        l.data.issuanceDate = issuanceDate_;
+        l.data.maturityDate = maturityDate_;
+        l.data.couponDates = couponDates_;
+        l.data.cutOffTime = cutofftime_;
+
+        // emit Debug("before coupon init", couponDates_.length,0, gasleft());
+        _initCurrentCoupon();
+        // emit Debug("after coupon init", 0,0, gasleft());
+
+        l.status = Status.Draft;
+        emit NewBondDrafted(_msgSender(), name_, isin_);
+        emit RegisterStatusChanged(
+            _msgSender(),
+            l.data.name,
+            l.data.isin,
+            l.status
+        );
+
+        // emit Debug("end of constructor", 0,0, gasleft());
+    }
+
     function _msgSender()
         internal
         view
         virtual
-        override(CouponSnapshotManagementInternal, ERC2771ContextInternal)
+        override(ContextInternal, CouponSnapshotManagementInternal)
         returns (address)
     {
-        return super._msgSender();
+        return CouponSnapshotManagementInternal._msgSender();
     }
 
-    // TODO check if necessary
     function _msgData()
         internal
         view
         virtual
-        override(CouponSnapshotManagementInternal, ERC2771ContextInternal)
+        override(ContextInternal, CouponSnapshotManagementInternal)
         returns (bytes calldata)
     {
-        return super._msgData();
+        return CouponSnapshotManagementInternal._msgData();
     }
 
-    function _setIsinSymbol(
-        string memory _isinSymbol
-    ) internal virtual onlyRole(CAK_ROLE) {
+    function _primaryIssuanceAccount() internal view returns (address) {
         RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
             .layout();
-        l.data.isin = _isinSymbol;
+        return l.primaryIssuanceAccount;
     }
 
-    function _setCurrency(
-        bytes32 _currency
-    ) internal virtual onlyRole(CAK_ROLE) {
+    function _setName(string memory name_) internal {
+        require(_hasRole(CAK_ROLE, _msgSender()), "Caller must be CAK");
         RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
             .layout();
-        l.data.currency = _currency;
-    }
-
-    function _getCreationDate() internal view virtual returns (uint256) {
-        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
-            .layout();
-        return l.data.creationDate;
-    }
-
-    function _getIssuanceDate() internal view virtual returns (uint256) {
-        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
-            .layout();
-        return l.data.issuanceDate;
-    }
-
-    function _setCreationDate(
-        uint256 _creationDate
-    ) internal virtual onlyRole(CAK_ROLE) {
-        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
-            .layout();
-        l.data.creationDate = _creationDate;
-    }
-
-    function _setIssuanceDate(
-        uint256 issuanceDate_
-    ) internal virtual onlyRole(CAK_ROLE) {
-        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
-            .layout();
-        l.data.issuanceDate = issuanceDate_;
+        l.data.name = name_;
     }
 
     function _setBondData(
@@ -90,7 +104,9 @@ abstract contract RegisterMetadataInternal is
         uint256 issuanceDate_,
         uint256 maturityDate_,
         uint256 cutOffTime_
-    ) internal virtual onlyRole(CAK_ROLE) {
+    ) internal {
+        require(_hasRole(CAK_ROLE, _msgSender()), "Caller must be CAK");
+
         RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
             .layout();
 
@@ -116,9 +132,12 @@ abstract contract RegisterMetadataInternal is
         l.data.cutOffTime = cutOffTime_;
     }
 
-    function _addCouponDate(uint256 date) internal virtual onlyRole(CAK_ROLE) {
+    function _addCouponDate(uint256 date) internal {
+        require(_hasRole(CAK_ROLE, _msgSender()), "Caller must be CAK");
+
         RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
             .layout();
+
         require(
             date > l.data.issuanceDate,
             "Cannot set a coupon date smaller or equal to the issuance date"
@@ -161,9 +180,12 @@ abstract contract RegisterMetadataInternal is
         } // the coupon already exists do nothing
     }
 
-    function _delCouponDate(uint256 date) internal virtual onlyRole(CAK_ROLE) {
+    function _delCouponDate(uint256 date) internal {
+        require(_hasRole(CAK_ROLE, _msgSender()), "Caller must be CAK");
+
         RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
             .layout();
+
         (uint256 index, bool found) = _findCouponIndex(date);
         if (found) {
             // the index represents the position where the date is present
@@ -185,9 +207,133 @@ abstract contract RegisterMetadataInternal is
         } // else not found so no need to delete
     }
 
-    function _setExpectedSupply(
-        uint256 expectedSupply_
-    ) internal virtual onlyRole(CAK_ROLE) {
+    function _initCurrentCoupon() private {
+        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
+            .layout();
+        // first find the date that directly follows the current block
+        (uint256 index, ) = _findCouponIndex(block.timestamp);
+        uint256 current = 0;
+        uint256 next = 0;
+        if (index < l.data.couponDates.length) {
+            current = l.data.couponDates[index];
+            if (index + 1 < l.data.couponDates.length) {
+                next = l.data.couponDates[index + 1];
+            } else {
+                next = l.data.maturityDate;
+            }
+        } else {
+            current = l.data.maturityDate;
+            next = 0;
+        }
+        // emit Debug("_initCurrentCoupon", index, current, gasleft());
+        _updateSnapshotTimestamp(current, current + l.data.cutOffTime, next);
+    }
+
+    function _getBondData() internal view returns (BondData memory) {
+        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
+            .layout();
+        return l.data;
+    }
+
+    function _getBondCouponRate() internal view returns (uint256) {
+        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
+            .layout();
+        return l.data.couponRate;
+    }
+
+    function _getBondUnitValue() internal view returns (uint256) {
+        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
+            .layout();
+        return l.data.unitValue;
+    }
+
+    function _setIsinSymbol(string memory _isinSymbol) internal {
+        require(_hasRole(CAK_ROLE, _msgSender()), "Caller must be CAK");
+
+        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
+            .layout();
+        l.data.isin = _isinSymbol;
+    }
+
+    function _setCurrency(bytes32 _currency) internal {
+        require(_hasRole(CAK_ROLE, _msgSender()), "Caller must be CAK");
+
+        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
+            .layout();
+        l.data.currency = _currency;
+    }
+
+    function _getCreationDate() internal view returns (uint256) {
+        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
+            .layout();
+        return l.data.creationDate;
+    }
+
+    function _getIssuanceDate() internal view returns (uint256) {
+        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
+            .layout();
+        return l.data.issuanceDate;
+    }
+
+    function _setCreationDate(uint256 _creationDate) internal {
+        require(_hasRole(CAK_ROLE, _msgSender()), "Caller must be CAK");
+
+        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
+            .layout();
+        l.data.creationDate = _creationDate;
+    }
+
+    function _setIssuanceDate(uint256 issuanceDate_) internal {
+        require(_hasRole(CAK_ROLE, _msgSender()), "Caller must be CAK");
+
+        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
+            .layout();
+        l.data.issuanceDate = issuanceDate_;
+    }
+
+    function _setCurrentCouponDate(
+        uint256 couponDate_,
+        uint256 recordDatetime_
+    ) internal {
+        //TODO: rename this to setCurrentSnapshotDateTime()
+        require(
+            _isContractAllowed(_msgSender()),
+            "This contract is not whitelisted"
+        ); //can be called only by Coupon smart contract
+        require(
+            recordDatetime_ + (10 * 24 * 3600) > couponDate_,
+            "Inconsistent record date more than 10 days before settlement date"
+        );
+        _setCurrentSnapshotDatetime(
+            couponDate_,
+            recordDatetime_,
+            _nextCouponDate(couponDate_)
+        );
+    }
+
+    function _toggleFrozen() internal virtual {
+        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
+            .layout();
+        require(_hasRole(CAK_ROLE, _msgSender()), "Caller must be CAK");
+        if (l.status == Status.Issued) {
+            l.status = Status.Frozen;
+        } else if (l.status == Status.Frozen) {
+            l.status = Status.Issued;
+        } else
+            revert(
+                "Cannot Freeze / Unfreeze the register as the status is not Issued or Frozen"
+            );
+
+        emit RegisterStatusChanged(
+            _msgSender(),
+            l.data.name,
+            l.data.isin,
+            l.status
+        );
+    }
+
+    function _setExpectedSupply(uint256 expectedSupply_) internal virtual {
+        require(_hasRole(CAK_ROLE, _msgSender()), "Caller must be CAK");
         RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
             .layout();
         require(
@@ -195,32 +341,6 @@ abstract contract RegisterMetadataInternal is
             "lifecycle violation - only allowed when status is in draft"
         );
         l.data.expectedSupply = expectedSupply_;
-    }
-
-    function _getBondData() internal view virtual returns (BondData memory) {
-        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
-            .layout();
-        return l.data;
-    }
-
-    function _getBondCouponRate() internal view virtual returns (uint256) {
-        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
-            .layout();
-        return l.data.couponRate;
-    }
-
-    function _getBondUnitValue() internal view virtual returns (uint256) {
-        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
-            .layout();
-        return l.data.unitValue;
-    }
-
-    /***** ##### Other Internal funtions ##### *****/
-
-    function _primaryIssuanceAccount() internal view returns (address) {
-        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
-            .layout();
-        return l.primaryIssuanceAccount;
     }
 
     function _returnBalanceToPrimaryIssuanceAccount(
@@ -251,107 +371,6 @@ abstract contract RegisterMetadataInternal is
         _forceNextTransfer(); // make the _beforeTokenTransfer control ignore the end of life of the bond
         _transfer(investor, _primaryIssuanceAccount(), balance);
         return true;
-    }
-
-    function _getAllInvestors() internal view returns (address[] memory) {
-        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
-            .layout();
-        return l.investorsList;
-    }
-
-    function _disableInvestorFromWhitelist(address investor_) internal {
-        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
-            .layout();
-        require(investor_ != address(0), "investor address cannot be zero");
-
-        //CAK may edit investor allowed status if whitelisting exist.
-        if (_hasRole(CAK_ROLE, _msgSender())) {
-            require(
-                l.investorInfos[investor_].custodian != address(0),
-                "investor must be set up first"
-            );
-            l.investorInfos[investor_].allowed = false;
-            return;
-        }
-
-        require(_hasRole(CST_ROLE, _msgSender()), "Caller must be CST");
-        require(
-            l.investorInfos[investor_].custodian == _msgSender(),
-            "only the custodian can disallow the investor"
-        );
-        l.investorInfos[investor_].allowed = false;
-
-        emit DisableInvestor(investor_);
-    }
-
-    function _enableInvestorToWhitelist(address investor_) internal {
-        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
-            .layout();
-        require(investor_ != address(0), "investor address cannot be zero");
-        bool isNew = l.investorInfos[investor_].custodian == address(0);
-
-        //CAK may edit investor allowed status if whitelisting exist.
-        if (_hasRole(CAK_ROLE, _msgSender())) {
-            require(!isNew, "investor must be set up first");
-            l.investorInfos[investor_].allowed = true;
-            return;
-        }
-
-        require(_hasRole(CST_ROLE, _msgSender()), "Caller must be CST");
-
-        _enableInvestor(investor_, _msgSender());
-    }
-
-    /**
-     * @dev called by enableInvestorToWhitelist
-     */
-    // function _enableInvestor(address investor_, address custodian_) internal {
-    //     RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
-    //         .layout();
-    //     if (_investorsAllowed(investor_)) {
-    //         //since _enableInvestor is called upon each transferFrom, do nothing if already enabled
-    //         return;
-    //     }
-
-    //     bool isNew = l.investorInfos[investor_].custodian == address(0);
-    //     if (isNew) {
-    //         // first whitelisting
-    //         _initInvestor(investor_, custodian_, true);
-    //     } else {
-    //         //only investor's custodian may re-enable the investor state
-    //         require(
-    //             l.investorInfos[investor_].custodian == custodian_,
-    //             "only the custodian can disallow the investor"
-    //         );
-    //         l.investorInfos[investor_].allowed = true;
-    //     }
-    //     emit EnableInvestor(investor_);
-    // }
-
-    /**
-     * @dev called by _enebaleInvestor and the primary issuance to defined the BnD
-     */
-    // function _initInvestor(
-    //     address investor_,
-    //     address custodian_,
-    //     bool allowed
-    // ) internal {
-    //     RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
-    //         .layout();
-    //     uint256 index = l.investorsList.length;
-    //     l.investorsList.push(investor_);
-    //     l.investorInfos[investor_].index = index;
-    //     l.investorInfos[investor_].investor = investor_;
-    //     l.investorInfos[investor_].custodian = custodian_;
-    //     l.investorInfos[investor_].allowed = allowed;
-    // }
-
-    function _investorCustodian(
-        address investor
-    ) internal view returns (address) {
-        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
-            .layout();
-        return l.investorInfos[investor].custodian;
     }
 
     function _findCouponIndex(
@@ -449,100 +468,11 @@ abstract contract RegisterMetadataInternal is
         emit PublicMessage(_msgSender(), to, message);
     }
 
-    function _initCurrentCoupon() private {
-        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
-            .layout();
-        // first find the date that directly follows the current block
-        (uint256 index, ) = _findCouponIndex(block.timestamp);
-        uint256 current = 0;
-        uint256 next = 0;
-        if (index < l.data.couponDates.length) {
-            current = l.data.couponDates[index];
-            if (index + 1 < l.data.couponDates.length) {
-                next = l.data.couponDates[index + 1];
-            } else {
-                next = l.data.maturityDate;
-            }
-        } else {
-            current = l.data.maturityDate;
-            next = 0;
-        }
-        // emit Debug("_initCurrentCoupon", index, current, gasleft());
-        _updateSnapshotTimestamp(current, current + l.data.cutOffTime, next);
-    }
-
     /// @dev called by CouponInternal to set coupon rate
     function _setCouponRate(uint256 _couponRate) internal virtual {
         RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
             .layout();
         l.data.couponRate = _couponRate;
-    }
-
-    function _setCurrentCouponDate(
-        uint256 couponDate_,
-        uint256 recordDatetime_
-    ) internal {
-        //TODO: rename this to setCurrentSnapshotDateTime()
-        require(
-            _isContractAllowed(_msgSender()),
-            "This contract is not whitelisted"
-        ); //can be called only by Coupon smart contract
-        require(
-            recordDatetime_ + (10 * 24 * 3600) > couponDate_,
-            "Inconsistent record date more than 10 days before settlement date"
-        );
-        _setCurrentSnapshotDatetime(
-            couponDate_,
-            recordDatetime_,
-            _nextCouponDate(couponDate_)
-        );
-    }
-
-    function _getInvestorListAtCoupon(
-        uint256 CouponDate
-    ) internal view virtual returns (address[] memory) {
-        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
-            .layout();
-        //TODO: consistency check: do we have to iterate on whitelisted investors only ? if yes then change implementation
-
-        // 1. Lister les investisseurs
-        address[] memory _investor = new address[](l.investorsList.length);
-
-        uint256 arrayLength = 0;
-
-        for (uint256 i = 0; i < l.investorsList.length; i++) {
-            if (_balanceOfCoupon(l.investorsList[i], CouponDate) > 0) {
-                _investor[arrayLength] = l.investorsList[i];
-                arrayLength++;
-            }
-        }
-        address[] memory _investorResult = new address[](arrayLength);
-        for (uint256 i = 0; i < arrayLength; i++) {
-            _investorResult[i] = _investor[i];
-        }
-        // 3. Return list of
-        return (_investorResult);
-    }
-
-    function _toggleFrozen() internal virtual {
-        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
-            .layout();
-        require(_hasRole(CAK_ROLE, _msgSender()), "Caller must be CAK");
-        if (l.status == Status.Issued) {
-            l.status = Status.Frozen;
-        } else if (l.status == Status.Frozen) {
-            l.status = Status.Issued;
-        } else
-            revert(
-                "Cannot Freeze / Unfreeze the register as the status is not Issued or Frozen"
-            );
-
-        emit RegisterStatusChanged(
-            _msgSender(),
-            l.data.name,
-            l.data.isin,
-            l.status
-        );
     }
 
     function _status() internal view virtual returns (Status) {

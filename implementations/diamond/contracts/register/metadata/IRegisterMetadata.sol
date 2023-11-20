@@ -7,6 +7,12 @@ import { IRegisterMetadataInternal } from "./IRegisterMetadataInternal.sol";
 
 interface IRegisterMetadata is IRegisterMetadataInternal {
     /**
+     * @notice Set the name of this contract
+     * @param name_ The name of the contract
+     */
+    function setName(string memory name_) external;
+
+    /**
      * @notice Set the ISIN Symbol of the registar
      * @param isinSymbol The ISIN Symbol
      */
@@ -116,63 +122,62 @@ interface IRegisterMetadata is IRegisterMetadataInternal {
     ) external returns (bool);
 
     /**
-     * @notice Get list of all investors
-     * @return The addresses of all investors
+     * @notice Check if a coupon date exists
+     * @param _couponDate The coupon date
+     * @return True if exists
      */
-    function getAllInvestors() external view returns (address[] memory);
-
-    /**
-     * @notice Disable an investor from the whitelist
-     * @param investor The investor address
-     */
-    function disableInvestorFromWhitelist(address investor) external;
-
-    /**
-     * @notice Enable an investor to the whitelist
-     * @param investor The investor address
-     */
-    function enableInvestorToWhitelist(address investor) external; //TODO: maybe expose getInvestorInfo(address investor) returns (InvestorInfo)
-
-    /**
-     * @notice Check if an investor is allowed
-     * @param investor The investor address
-     * @return True if allowed
-     */
-    function investorsAllowed(address investor) external view returns (bool);
-
-    /**
-     * @notice Returns the custodian for a given investor.
-     * @param investor The investor address
-     * @return The custodian address
-     */
-    function investorCustodian(
-        address investor
-    ) external view returns (address);
-
     function checkIfCouponDateExists(
         uint256 _couponDate
     ) external returns (bool);
 
+    /**
+     * @notice Check if a maturity date exists
+     * @param _maturityDate The maturity date
+     * @return True if exists
+     */
     function checkIfMaturityDateExists(
         uint256 _maturityDate
     ) external returns (bool);
 
+    /**
+     * @notice Initialize the total amount definitively and freeze the register attributes.
+     *
+     * @dev Takes the expected supply to mint to the security issuance account and set the status to Ready.
+     */
     function makeReady() external;
 
+    /**
+     * @notice Revert the register attributes to draft status.
+     */
     function revertReady() external;
 
+    /**
+     * @notice Send a message to a specific address
+     * @param to The address to send the message to
+     * @param message The message to send
+     */
     function publicMessage(address to, string memory message) external;
 
+    /**
+     * @notice Set the current coupon date
+     * @param couponDate_ The coupon date
+     * @param recordDatetime_ The record date
+     *
+     * @dev This function is called by the Coupon when Paying Agent validates the coupon Date.
+     */
     function setCurrentCouponDate(
         uint256 couponDate_,
         uint256 recordDatetime_
     ) external;
 
-    function getInvestorListAtCoupon(
-        uint256 CouponDate
-    ) external returns (address[] memory);
-
+    /**
+     * @notice Toggle frozen status
+     */
     function toggleFrozen() external;
 
+    /**
+     * @notice Get the status of the register
+     * @return The status
+     */
     function status() external view returns (Status);
 }

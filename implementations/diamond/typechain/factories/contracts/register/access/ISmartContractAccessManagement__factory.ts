@@ -38,6 +38,25 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "address",
+        name: "addr",
+        type: "address",
+      },
+    ],
+    name: "atReturningHash",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "bytes32",
         name: "contractHash",
         type: "bytes32",
@@ -78,7 +97,7 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
-        name: "contractAddress_",
+        name: "contractAddress",
         type: "address",
       },
     ],

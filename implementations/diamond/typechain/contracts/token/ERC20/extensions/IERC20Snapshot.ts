@@ -30,6 +30,8 @@ export interface IERC20SnapshotInterface extends Interface {
       | "approve"
       | "balanceOf"
       | "balanceOfAt"
+      | "decreaseAllowance"
+      | "increaseAllowance"
       | "totalSupply"
       | "totalSupplyAt"
       | "transfer"
@@ -57,6 +59,14 @@ export interface IERC20SnapshotInterface extends Interface {
     values: [AddressLike, BigNumberish]
   ): string;
   encodeFunctionData(
+    functionFragment: "decreaseAllowance",
+    values: [AddressLike, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "increaseAllowance",
+    values: [AddressLike, BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "totalSupply",
     values?: undefined
   ): string;
@@ -78,6 +88,14 @@ export interface IERC20SnapshotInterface extends Interface {
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "balanceOfAt",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "decreaseAllowance",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "increaseAllowance",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -206,6 +224,18 @@ export interface IERC20Snapshot extends BaseContract {
     "view"
   >;
 
+  decreaseAllowance: TypedContractMethod<
+    [spender: AddressLike, subtractedValue: BigNumberish],
+    [boolean],
+    "nonpayable"
+  >;
+
+  increaseAllowance: TypedContractMethod<
+    [spender: AddressLike, addedValue: BigNumberish],
+    [boolean],
+    "nonpayable"
+  >;
+
   totalSupply: TypedContractMethod<[], [bigint], "view">;
 
   totalSupplyAt: TypedContractMethod<
@@ -253,6 +283,20 @@ export interface IERC20Snapshot extends BaseContract {
     [account: AddressLike, snapshotId: BigNumberish],
     [bigint],
     "view"
+  >;
+  getFunction(
+    nameOrSignature: "decreaseAllowance"
+  ): TypedContractMethod<
+    [spender: AddressLike, subtractedValue: BigNumberish],
+    [boolean],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "increaseAllowance"
+  ): TypedContractMethod<
+    [spender: AddressLike, addedValue: BigNumberish],
+    [boolean],
+    "nonpayable"
   >;
   getFunction(
     nameOrSignature: "totalSupply"

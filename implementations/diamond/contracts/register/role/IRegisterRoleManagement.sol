@@ -26,6 +26,12 @@ interface IRegisterRoleManagement is IRegisterRoleManagementInternal {
     function firstVoterForNewAdmin() external view returns (address);
 
     /**
+     * @notice Return the number of votes for the new Register admin
+     * @return number of votes for the new Register admin
+     */
+    function votesForNewAdmin() external view returns (uint8);
+
+    /**
      * @notice Check if the caller has the B&D role
      * @param account The address of the caller
      * @return true if the caller has the B&D role

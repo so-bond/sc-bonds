@@ -29,6 +29,8 @@ export interface ERC20BaseInterface extends Interface {
       | "allowance"
       | "approve"
       | "balanceOf"
+      | "decreaseAllowance"
+      | "increaseAllowance"
       | "isTrustedForwarder"
       | "totalSupply"
       | "transfer"
@@ -51,6 +53,14 @@ export interface ERC20BaseInterface extends Interface {
   encodeFunctionData(
     functionFragment: "balanceOf",
     values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "decreaseAllowance",
+    values: [AddressLike, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "increaseAllowance",
+    values: [AddressLike, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "isTrustedForwarder",
@@ -76,6 +86,14 @@ export interface ERC20BaseInterface extends Interface {
   decodeFunctionResult(functionFragment: "allowance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "decreaseAllowance",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "increaseAllowance",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "isTrustedForwarder",
     data: BytesLike
@@ -200,6 +218,18 @@ export interface ERC20Base extends BaseContract {
 
   balanceOf: TypedContractMethod<[account: AddressLike], [bigint], "view">;
 
+  decreaseAllowance: TypedContractMethod<
+    [spender: AddressLike, subtractedValue: BigNumberish],
+    [boolean],
+    "nonpayable"
+  >;
+
+  increaseAllowance: TypedContractMethod<
+    [spender: AddressLike, addedValue: BigNumberish],
+    [boolean],
+    "nonpayable"
+  >;
+
   isTrustedForwarder: TypedContractMethod<
     [forwarder: AddressLike],
     [boolean],
@@ -243,6 +273,20 @@ export interface ERC20Base extends BaseContract {
   getFunction(
     nameOrSignature: "balanceOf"
   ): TypedContractMethod<[account: AddressLike], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "decreaseAllowance"
+  ): TypedContractMethod<
+    [spender: AddressLike, subtractedValue: BigNumberish],
+    [boolean],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "increaseAllowance"
+  ): TypedContractMethod<
+    [spender: AddressLike, addedValue: BigNumberish],
+    [boolean],
+    "nonpayable"
+  >;
   getFunction(
     nameOrSignature: "isTrustedForwarder"
   ): TypedContractMethod<[forwarder: AddressLike], [boolean], "view">;

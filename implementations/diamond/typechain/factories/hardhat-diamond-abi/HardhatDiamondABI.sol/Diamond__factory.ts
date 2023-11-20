@@ -10,6 +10,499 @@ import type {
 
 const _abi = [
   {
+    inputs: [],
+    name: "AccessControlBadConfirmation",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+      {
+        internalType: "bytes32",
+        name: "neededRole",
+        type: "bytes32",
+      },
+    ],
+    name: "AccessControlUnauthorizedAccount",
+    type: "error",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "previousAdminRole",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "newAdminRole",
+        type: "bytes32",
+      },
+    ],
+    name: "RoleAdminChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+    ],
+    name: "RoleGranted",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+    ],
+    name: "RoleRevoked",
+    type: "event",
+  },
+  {
+    inputs: [],
+    name: "DEFAULT_ADMIN_ROLE",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+    ],
+    name: "getRoleAdmin",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "grantRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "hasRole",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        internalType: "address",
+        name: "callerConfirmation",
+        type: "address",
+      },
+    ],
+    name: "renounceRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "revokeRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes4",
+        name: "interfaceId",
+        type: "bytes4",
+      },
+    ],
+    name: "supportsInterface",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "AccessControlBadConfirmation",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+      {
+        internalType: "bytes32",
+        name: "neededRole",
+        type: "bytes32",
+      },
+    ],
+    name: "AccessControlUnauthorizedAccount",
+    type: "error",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "previousAdminRole",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "newAdminRole",
+        type: "bytes32",
+      },
+    ],
+    name: "RoleAdminChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+    ],
+    name: "RoleGranted",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+    ],
+    name: "RoleRevoked",
+    type: "event",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+    ],
+    name: "getRoleAdmin",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "grantRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "hasRole",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        internalType: "address",
+        name: "callerConfirmation",
+        type: "address",
+      },
+    ],
+    name: "renounceRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "revokeRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "forwarder",
+        type: "address",
+      },
+    ],
+    name: "isTrustedForwarder",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "trustedForwarder",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "ReentrancyGuardReentrantCall",
+    type: "error",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes4",
+        name: "interfaceId",
+        type: "bytes4",
+      },
+    ],
+    name: "supportsInterface",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes4",
+        name: "interfaceId",
+        type: "bytes4",
+      },
+    ],
+    name: "supportsInterface",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     anonymous: false,
     inputs: [
       {
@@ -5121,6 +5614,25 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
+        name: "addr",
+        type: "address",
+      },
+    ],
+    name: "atReturningHash",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
         name: "account",
         type: "address",
       },
@@ -5182,6 +5694,19 @@ const _abi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "amount_",
+        type: "uint256",
+      },
+    ],
+    name: "burn",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -5272,6 +5797,30 @@ const _abi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "subtractedValue",
+        type: "uint256",
+      },
+    ],
+    name: "decreaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -5562,6 +6111,30 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "addedValue",
+        type: "uint256",
+      },
+    ],
+    name: "increaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
         name: "investor",
         type: "address",
       },
@@ -5651,7 +6224,7 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
-        name: "contractAddress_",
+        name: "contractAddress",
         type: "address",
       },
     ],
@@ -5707,6 +6280,19 @@ const _abi = [
   {
     inputs: [],
     name: "makeReady",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "amount_",
+        type: "uint256",
+      },
+    ],
+    name: "mint",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -5991,6 +6577,19 @@ const _abi = [
     type: "function",
   },
   {
+    inputs: [
+      {
+        internalType: "string",
+        name: "name_",
+        type: "string",
+      },
+    ],
+    name: "setName",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "status",
     outputs: [
@@ -6128,6 +6727,19 @@ const _abi = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "votesForNewAdmin",
+    outputs: [
+      {
+        internalType: "uint8",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     anonymous: false,
     inputs: [
       {
@@ -6152,6 +6764,25 @@ const _abi = [
     ],
     name: "EnableContract",
     type: "event",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "addr",
+        type: "address",
+      },
+    ],
+    name: "atReturningHash",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
   },
   {
     inputs: [
@@ -6196,7 +6827,7 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
-        name: "contractAddress_",
+        name: "contractAddress",
         type: "address",
       },
     ],
@@ -6236,206 +6867,10 @@ const _abi = [
     ],
     name: "EnableContract",
     type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "bytes32",
-        name: "contractHash",
-        type: "bytes32",
-      },
-    ],
-    name: "DisableContract",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "bytes32",
-        name: "contractHash",
-        type: "bytes32",
-      },
-    ],
-    name: "EnableContract",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint64",
-        name: "version",
-        type: "uint64",
-      },
-    ],
-    name: "Initialized",
-    type: "event",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "contractHash",
-        type: "bytes32",
-      },
-    ],
-    name: "disableContractFromWhitelist",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "contractHash",
-        type: "bytes32",
-      },
-    ],
-    name: "enableContractToWhitelist",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "isCallerApprovedSmartContract",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "contractAddress_",
-        type: "address",
-      },
-    ],
-    name: "isContractAllowed",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "bytes32",
-        name: "contractHash",
-        type: "bytes32",
-      },
-    ],
-    name: "DisableContract",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "bytes32",
-        name: "contractHash",
-        type: "bytes32",
-      },
-    ],
-    name: "EnableContract",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint64",
-        name: "version",
-        type: "uint64",
-      },
-    ],
-    name: "Initialized",
-    type: "event",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__ApproveFromZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__ApproveToZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__BurnExceedsBalance",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__BurnFromZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__InsufficientAllowance",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__MintToZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__TransferExceedsBalance",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__TransferFromZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__TransferToZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Snapshot__SnapshotIdDoesNotExists",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Snapshot__SnapshotIdIsZero",
-    type: "error",
   },
   {
     inputs: [],
     name: "EnumerableSet__IndexOutOfBounds",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ReentrancyGuard__ReentrantCall",
     type: "error",
   },
   {
@@ -6460,81 +6895,6 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
-        indexed: true,
-        internalType: "address",
-        name: "owner",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
-      },
-    ],
-    name: "Approval",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "enum ICouponInternal.CouponStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "CouponChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "status",
-        type: "uint8",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "previousStatus",
-        type: "uint8",
-      },
-    ],
-    name: "CouponPaymentStatusChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
         indexed: false,
         internalType: "bytes32",
         name: "contractHash",
@@ -6542,19 +6902,6 @@ const _abi = [
       },
     ],
     name: "DisableContract",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "DisableInvestor",
     type: "event",
   },
   {
@@ -6575,106 +6922,12 @@ const _abi = [
     inputs: [
       {
         indexed: false,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "EnableInvestor",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
         internalType: "uint64",
         name: "version",
         type: "uint64",
       },
     ],
     name: "Initialized",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "creator",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "isin",
-        type: "string",
-      },
-    ],
-    name: "NewBondDrafted",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "target",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "message",
-        type: "string",
-      },
-    ],
-    name: "PublicMessage",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "emiter",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "isin",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "enum IRegisterMetadataInternal.Status",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "RegisterStatusChanged",
     type: "event",
   },
   {
@@ -6753,95 +7006,6 @@ const _abi = [
     type: "event",
   },
   {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
-      },
-    ],
-    name: "Snapshot",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "currentTimestamp",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "nextTimestamp",
-        type: "uint256",
-      },
-    ],
-    name: "SnapshotTimestampChange",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "from",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
-      },
-    ],
-    name: "Transfer",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "toBeAdded",
-        type: "address",
-      },
-    ],
-    name: "WalletAddedToWhitelist",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "toBeDeleted",
-        type: "address",
-      },
-    ],
-    name: "WalletDeletedFromWhitelist",
-    type: "event",
-  },
-  {
     inputs: [],
     name: "BND_ROLE",
     outputs: [
@@ -6896,12 +7060,100 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "address",
+        name: "addr_",
+        type: "address",
+      },
+    ],
+    name: "atReturningHash",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "hash",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "contractHash",
+        type: "bytes32",
+      },
+    ],
+    name: "disableContractFromWhitelist",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "contractHash",
+        type: "bytes32",
+      },
+    ],
+    name: "enableContractToWhitelist",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+    ],
+    name: "getRoleAdmin",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
         internalType: "uint256",
-        name: "_couponDate",
+        name: "index",
         type: "uint256",
       },
     ],
-    name: "_totalSupplyAtCoupon",
+    name: "getRoleMember",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+    ],
+    name: "getRoleMemberCount",
     outputs: [
       {
         internalType: "uint256",
@@ -6915,41 +7167,35 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "holder",
-        type: "address",
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
       },
       {
         internalType: "address",
-        name: "spender",
+        name: "account",
         type: "address",
       },
     ],
-    name: "allowance",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
+    name: "grantRole",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "spender",
-        type: "address",
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
       },
       {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
+        internalType: "address",
+        name: "account",
+        type: "address",
       },
     ],
-    name: "approve",
+    name: "hasRole",
     outputs: [
       {
         internalType: "bool",
@@ -6957,124 +7203,256 @@ const _abi = [
         type: "bool",
       },
     ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "isCallerApprovedSmartContract",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "contractAddress_",
+        type: "address",
+      },
+    ],
+    name: "isContractAllowed",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+    ],
+    name: "renounceRole",
+    outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
     inputs: [
       {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
         internalType: "address",
         name: "account",
         type: "address",
       },
     ],
-    name: "balanceOf",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
+    name: "revokeRole",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
+    inputs: [],
+    name: "EnumerableSet__IndexOutOfBounds",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "UintUtils__InsufficientHexLength",
+    type: "error",
+  },
+  {
+    anonymous: false,
     inputs: [
       {
+        indexed: true,
+        internalType: "address",
+        name: "_addressForNewAdmin",
+        type: "address",
+      },
+    ],
+    name: "AdminChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "bytes32",
+        name: "contractHash",
+        type: "bytes32",
+      },
+    ],
+    name: "DisableContract",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "bytes32",
+        name: "contractHash",
+        type: "bytes32",
+      },
+    ],
+    name: "EnableContract",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint64",
+        name: "version",
+        type: "uint64",
+      },
+    ],
+    name: "Initialized",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "previousAdminRole",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "newAdminRole",
+        type: "bytes32",
+      },
+    ],
+    name: "RoleAdminChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
         internalType: "address",
         name: "account",
         type: "address",
       },
       {
-        internalType: "uint256",
-        name: "snapshotId",
-        type: "uint256",
-      },
-    ],
-    name: "balanceOfAt",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "couponDate",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "cutOfTime",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "decimals",
-    outputs: [
-      {
-        internalType: "uint8",
-        name: "",
-        type: "uint8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
+        indexed: true,
         internalType: "address",
-        name: "_investor",
+        name: "sender",
         type: "address",
       },
     ],
-    name: "getInvestorPayments",
+    name: "RoleGranted",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+    ],
+    name: "RoleRevoked",
+    type: "event",
+  },
+  {
+    inputs: [],
+    name: "BND_ROLE",
     outputs: [
       {
-        internalType: "enum ICouponInternal.PaymentStatus",
+        internalType: "bytes32",
         name: "",
-        type: "uint8",
+        type: "bytes32",
       },
     ],
     stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "getPaymentAmountForInvestor",
+    inputs: [],
+    name: "CAK_ROLE",
     outputs: [
       {
-        internalType: "uint256",
-        name: "paymentAmount",
-        type: "uint256",
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "CST_ROLE",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "PAY_ROLE",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
       },
     ],
     stateMutability: "view",
@@ -7143,19 +7521,6 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "getTotalPaymentAmount",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "paymentAmount",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       {
         internalType: "bytes32",
@@ -7200,17 +7565,109 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+    ],
+    name: "renounceRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
         internalType: "address",
-        name: "forwarder",
+        name: "account",
         type: "address",
       },
     ],
-    name: "isTrustedForwarder",
+    name: "revokeRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "ReentrancyGuardReentrantCall",
+    type: "error",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "contract IRegister",
+        name: "register",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "couponDate",
+        type: "uint256",
+      },
+      {
+        indexed: true,
+        internalType: "enum ICoupon.CouponStatus",
+        name: "status",
+        type: "uint8",
+      },
+    ],
+    name: "CouponChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "contract IRegister",
+        name: "register",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "couponDate",
+        type: "uint256",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "investor",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "enum ICoupon.PaymentStatus",
+        name: "status",
+        type: "uint8",
+      },
+      {
+        indexed: false,
+        internalType: "enum ICoupon.PaymentStatus",
+        name: "previousStatus",
+        type: "uint8",
+      },
+    ],
+    name: "CouponPaymentStatusChanged",
+    type: "event",
+  },
+  {
+    inputs: [],
+    name: "couponDate",
     outputs: [
       {
-        internalType: "bool",
+        internalType: "uint256",
         name: "",
-        type: "bool",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -7218,12 +7675,363 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "name",
+    name: "cutOfTime",
     outputs: [
       {
-        internalType: "string",
+        internalType: "uint256",
         name: "",
-        type: "string",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_investor",
+        type: "address",
+      },
+    ],
+    name: "getInvestorPayments",
+    outputs: [
+      {
+        internalType: "enum ICoupon.PaymentStatus",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_investor",
+        type: "address",
+      },
+    ],
+    name: "getPaymentAmountForInvestor",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "paymentAmount",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getTotalPaymentAmount",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "paymentAmount",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    name: "investorPayments",
+    outputs: [
+      {
+        internalType: "enum ICoupon.PaymentStatus",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "nbDays",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "payingAgent",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_investor",
+        type: "address",
+      },
+    ],
+    name: "paymentIdForInvest",
+    outputs: [
+      {
+        internalType: "bytes8",
+        name: "",
+        type: "bytes8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "recordDate",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "register",
+    outputs: [
+      {
+        internalType: "contract IRegister",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "rejectCoupon",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_recordDate",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_cutOfTime",
+        type: "uint256",
+      },
+    ],
+    name: "setCutOffTime",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "setDateAsCurrentCoupon",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_nbDays",
+        type: "uint256",
+      },
+    ],
+    name: "setNbDays",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "status",
+    outputs: [
+      {
+        internalType: "enum ICoupon.CouponStatus",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_investor",
+        type: "address",
+      },
+    ],
+    name: "toggleCouponPayment",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "contract IRegister",
+        name: "register",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "couponDate",
+        type: "uint256",
+      },
+      {
+        indexed: true,
+        internalType: "enum ICoupon.CouponStatus",
+        name: "status",
+        type: "uint8",
+      },
+    ],
+    name: "CouponChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "contract IRegister",
+        name: "register",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "couponDate",
+        type: "uint256",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "investor",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "enum ICoupon.PaymentStatus",
+        name: "status",
+        type: "uint8",
+      },
+      {
+        indexed: false,
+        internalType: "enum ICoupon.PaymentStatus",
+        name: "previousStatus",
+        type: "uint8",
+      },
+    ],
+    name: "CouponPaymentStatusChanged",
+    type: "event",
+  },
+  {
+    inputs: [],
+    name: "couponDate",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "cutOfTime",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_investor",
+        type: "address",
+      },
+    ],
+    name: "getInvestorPayments",
+    outputs: [
+      {
+        internalType: "enum ICoupon.PaymentStatus",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_investor",
+        type: "address",
+      },
+    ],
+    name: "getPaymentAmountForInvestor",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "paymentAmount",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getTotalPaymentAmount",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "paymentAmount",
+        type: "uint256",
       },
     ],
     stateMutability: "view",
@@ -7297,6 +8105,1522 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "uint256",
+        name: "_recordDate",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_cutOfTime",
+        type: "uint256",
+      },
+    ],
+    name: "setCutOffTime",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "setDateAsCurrentCoupon",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_nbDays",
+        type: "uint256",
+      },
+    ],
+    name: "setNbDays",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_investor",
+        type: "address",
+      },
+    ],
+    name: "toggleCouponPayment",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "contract IRegister",
+        name: "register",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "couponDate",
+        type: "uint256",
+      },
+      {
+        indexed: true,
+        internalType: "enum ICoupon.CouponStatus",
+        name: "status",
+        type: "uint8",
+      },
+    ],
+    name: "CouponChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "contract IRegister",
+        name: "register",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "couponDate",
+        type: "uint256",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "investor",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "enum ICoupon.PaymentStatus",
+        name: "status",
+        type: "uint8",
+      },
+      {
+        indexed: false,
+        internalType: "enum ICoupon.PaymentStatus",
+        name: "previousStatus",
+        type: "uint8",
+      },
+    ],
+    name: "CouponPaymentStatusChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "contract IRegister",
+        name: "register",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "couponDate",
+        type: "uint256",
+      },
+      {
+        indexed: true,
+        internalType: "enum ICoupon.CouponStatus",
+        name: "status",
+        type: "uint8",
+      },
+    ],
+    name: "RedemptionChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "contract IRegister",
+        name: "register",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "couponDate",
+        type: "uint256",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "investor",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "enum ICoupon.PaymentStatus",
+        name: "status",
+        type: "uint8",
+      },
+      {
+        indexed: false,
+        internalType: "enum ICoupon.PaymentStatus",
+        name: "previousStatus",
+        type: "uint8",
+      },
+    ],
+    name: "RedemptionPaymentStatusChanged",
+    type: "event",
+  },
+  {
+    inputs: [],
+    name: "couponDate",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "cutOfTime",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_investor",
+        type: "address",
+      },
+    ],
+    name: "getInvestorPayments",
+    outputs: [
+      {
+        internalType: "enum ICoupon.PaymentStatus",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_investor",
+        type: "address",
+      },
+    ],
+    name: "getInvestorRedemptionPayments",
+    outputs: [
+      {
+        internalType: "enum ICoupon.PaymentStatus",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_investor",
+        type: "address",
+      },
+    ],
+    name: "getMaturityAmountForInvestor",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "paymentAmount",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_investor",
+        type: "address",
+      },
+    ],
+    name: "getPaymentAmountForInvestor",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "paymentAmount",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getTotalMaturityAmount",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "paymentAmount",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getTotalPaymentAmount",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "paymentAmount",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_investor",
+        type: "address",
+      },
+    ],
+    name: "investorRedemptionPayments",
+    outputs: [
+      {
+        internalType: "enum ICoupon.PaymentStatus",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "nbDays",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "payingAgent",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_investor",
+        type: "address",
+      },
+    ],
+    name: "paymentIdForInvest",
+    outputs: [
+      {
+        internalType: "bytes8",
+        name: "",
+        type: "bytes8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_investor",
+        type: "address",
+      },
+    ],
+    name: "paymentIdRedemptionForInvest",
+    outputs: [
+      {
+        internalType: "bytes8",
+        name: "",
+        type: "bytes8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "recordDate",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "rejectCoupon",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_recordDate",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_cutOfTime",
+        type: "uint256",
+      },
+    ],
+    name: "setCutOffTime",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "setDateAsCurrentCoupon",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_nbDays",
+        type: "uint256",
+      },
+    ],
+    name: "setNbDays",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_investor",
+        type: "address",
+      },
+    ],
+    name: "toggleCouponPayment",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_investor",
+        type: "address",
+      },
+    ],
+    name: "toggleRedemptionPayment",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "ReentrancyGuardReentrantCall",
+    type: "error",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "contract IRegister",
+        name: "register",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "couponDate",
+        type: "uint256",
+      },
+      {
+        indexed: true,
+        internalType: "enum ICoupon.CouponStatus",
+        name: "status",
+        type: "uint8",
+      },
+    ],
+    name: "CouponChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "contract IRegister",
+        name: "register",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "couponDate",
+        type: "uint256",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "investor",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "enum ICoupon.PaymentStatus",
+        name: "status",
+        type: "uint8",
+      },
+      {
+        indexed: false,
+        internalType: "enum ICoupon.PaymentStatus",
+        name: "previousStatus",
+        type: "uint8",
+      },
+    ],
+    name: "CouponPaymentStatusChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "contract IRegister",
+        name: "register",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "couponDate",
+        type: "uint256",
+      },
+      {
+        indexed: true,
+        internalType: "enum ICoupon.CouponStatus",
+        name: "status",
+        type: "uint8",
+      },
+    ],
+    name: "RedemptionChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "contract IRegister",
+        name: "register",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "couponDate",
+        type: "uint256",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "investor",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "enum ICoupon.PaymentStatus",
+        name: "status",
+        type: "uint8",
+      },
+      {
+        indexed: false,
+        internalType: "enum ICoupon.PaymentStatus",
+        name: "previousStatus",
+        type: "uint8",
+      },
+    ],
+    name: "RedemptionPaymentStatusChanged",
+    type: "event",
+  },
+  {
+    inputs: [],
+    name: "couponDate",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "cutOfTime",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_investor",
+        type: "address",
+      },
+    ],
+    name: "getInvestorPayments",
+    outputs: [
+      {
+        internalType: "enum ICoupon.PaymentStatus",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_investor",
+        type: "address",
+      },
+    ],
+    name: "getInvestorRedemptionPayments",
+    outputs: [
+      {
+        internalType: "enum ICoupon.PaymentStatus",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_investor",
+        type: "address",
+      },
+    ],
+    name: "getMaturityAmountForInvestor",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "paymentAmount",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_investor",
+        type: "address",
+      },
+    ],
+    name: "getPaymentAmountForInvestor",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "paymentAmount",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getTotalMaturityAmount",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "paymentAmount",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getTotalPaymentAmount",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "paymentAmount",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    name: "investorPayments",
+    outputs: [
+      {
+        internalType: "enum ICoupon.PaymentStatus",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    name: "investorRedemptionPayments",
+    outputs: [
+      {
+        internalType: "enum ICoupon.PaymentStatus",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "nbDays",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "payingAgent",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_investor",
+        type: "address",
+      },
+    ],
+    name: "paymentIdForInvest",
+    outputs: [
+      {
+        internalType: "bytes8",
+        name: "",
+        type: "bytes8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_investor",
+        type: "address",
+      },
+    ],
+    name: "paymentIdRedemptionForInvest",
+    outputs: [
+      {
+        internalType: "bytes8",
+        name: "",
+        type: "bytes8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "recordDate",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "register",
+    outputs: [
+      {
+        internalType: "contract IRegister",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "rejectCoupon",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_recordDate",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_cutOfTime",
+        type: "uint256",
+      },
+    ],
+    name: "setCutOffTime",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "setDateAsCurrentCoupon",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_nbDays",
+        type: "uint256",
+      },
+    ],
+    name: "setNbDays",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "status",
+    outputs: [
+      {
+        internalType: "enum ICoupon.CouponStatus",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_investor",
+        type: "address",
+      },
+    ],
+    name: "toggleCouponPayment",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_investor",
+        type: "address",
+      },
+    ],
+    name: "toggleRedemptionPayment",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "investor",
+        type: "address",
+      },
+    ],
+    name: "DisableInvestor",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "investor",
+        type: "address",
+      },
+    ],
+    name: "EnableInvestor",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "toBeAdded",
+        type: "address",
+      },
+    ],
+    name: "WalletAddedToWhitelist",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "toBeDeleted",
+        type: "address",
+      },
+    ],
+    name: "WalletDeletedFromWhitelist",
+    type: "event",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "investor",
+        type: "address",
+      },
+    ],
+    name: "disableInvestorFromWhitelist",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "investor",
+        type: "address",
+      },
+    ],
+    name: "enableInvestorToWhitelist",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getAllInvestors",
+    outputs: [
+      {
+        internalType: "address[]",
+        name: "",
+        type: "address[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "investor",
+        type: "address",
+      },
+    ],
+    name: "investorCustodian",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "investor",
+        type: "address",
+      },
+    ],
+    name: "investorsAllowed",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "investor",
+        type: "address",
+      },
+    ],
+    name: "DisableInvestor",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "investor",
+        type: "address",
+      },
+    ],
+    name: "EnableInvestor",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "toBeAdded",
+        type: "address",
+      },
+    ],
+    name: "WalletAddedToWhitelist",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "toBeDeleted",
+        type: "address",
+      },
+    ],
+    name: "WalletDeletedFromWhitelist",
+    type: "event",
+  },
+  {
+    inputs: [],
+    name: "EnumerableSet__IndexOutOfBounds",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "UintUtils__InsufficientHexLength",
+    type: "error",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "_addressForNewAdmin",
+        type: "address",
+      },
+    ],
+    name: "AdminChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "investor",
+        type: "address",
+      },
+    ],
+    name: "DisableInvestor",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "investor",
+        type: "address",
+      },
+    ],
+    name: "EnableInvestor",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint64",
+        name: "version",
+        type: "uint64",
+      },
+    ],
+    name: "Initialized",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "previousAdminRole",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "newAdminRole",
+        type: "bytes32",
+      },
+    ],
+    name: "RoleAdminChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+    ],
+    name: "RoleGranted",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+    ],
+    name: "RoleRevoked",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "toBeAdded",
+        type: "address",
+      },
+    ],
+    name: "WalletAddedToWhitelist",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "toBeDeleted",
+        type: "address",
+      },
+    ],
+    name: "WalletDeletedFromWhitelist",
+    type: "event",
+  },
+  {
+    inputs: [],
+    name: "BND_ROLE",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "CAK_ROLE",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "CST_ROLE",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "PAY_ROLE",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "investor_",
+        type: "address",
+      },
+    ],
+    name: "disableInvestorFromWhitelist",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "investor_",
+        type: "address",
+      },
+    ],
+    name: "enableInvestorToWhitelist",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getAllInvestors",
+    outputs: [
+      {
+        internalType: "address[]",
+        name: "",
+        type: "address[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+    ],
+    name: "getRoleAdmin",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        internalType: "uint256",
+        name: "index",
+        type: "uint256",
+      },
+    ],
+    name: "getRoleMember",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+    ],
+    name: "getRoleMemberCount",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "grantRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "hasRole",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "investor",
+        type: "address",
+      },
+    ],
+    name: "investorCustodian",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "investor",
+        type: "address",
+      },
+    ],
+    name: "investorsAllowed",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "bytes32",
         name: "role",
         type: "bytes32",
@@ -7326,26 +9650,730 @@ const _abi = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "EnumerableSet__IndexOutOfBounds",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "UintUtils__InsufficientHexLength",
+    type: "error",
+  },
+  {
+    anonymous: false,
     inputs: [
       {
-        internalType: "uint256",
-        name: "recordDate_",
-        type: "uint256",
+        indexed: true,
+        internalType: "address",
+        name: "_addressForNewAdmin",
+        type: "address",
+      },
+    ],
+    name: "AdminChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "investor",
+        type: "address",
+      },
+    ],
+    name: "DisableInvestor",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "investor",
+        type: "address",
+      },
+    ],
+    name: "EnableInvestor",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint64",
+        name: "version",
+        type: "uint64",
+      },
+    ],
+    name: "Initialized",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "previousAdminRole",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "newAdminRole",
+        type: "bytes32",
+      },
+    ],
+    name: "RoleAdminChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+    ],
+    name: "RoleGranted",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+    ],
+    name: "RoleRevoked",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "toBeAdded",
+        type: "address",
+      },
+    ],
+    name: "WalletAddedToWhitelist",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "toBeDeleted",
+        type: "address",
+      },
+    ],
+    name: "WalletDeletedFromWhitelist",
+    type: "event",
+  },
+  {
+    inputs: [],
+    name: "BND_ROLE",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "CAK_ROLE",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "CST_ROLE",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "PAY_ROLE",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+    ],
+    name: "getRoleAdmin",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
       },
       {
         internalType: "uint256",
-        name: "cutOfTime_",
+        name: "index",
         type: "uint256",
       },
     ],
-    name: "setCutOffTime",
+    name: "getRoleMember",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+    ],
+    name: "getRoleMemberCount",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "grantRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "hasRole",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+    ],
+    name: "renounceRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "revokeRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "creator",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "name",
+        type: "string",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "isin",
+        type: "string",
+      },
+    ],
+    name: "NewBondDrafted",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "target",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "message",
+        type: "string",
+      },
+    ],
+    name: "PublicMessage",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "emiter",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "name",
+        type: "string",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "isin",
+        type: "string",
+      },
+      {
+        indexed: false,
+        internalType: "enum IRegisterMetadataInternal.Status",
+        name: "status",
+        type: "uint8",
+      },
+    ],
+    name: "RegisterStatusChanged",
+    type: "event",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "date",
+        type: "uint256",
+      },
+    ],
+    name: "addCouponDate",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_couponDate",
+        type: "uint256",
+      },
+    ],
+    name: "checkIfCouponDateExists",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_maturityDate",
+        type: "uint256",
+      },
+    ],
+    name: "checkIfMaturityDateExists",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "date",
+        type: "uint256",
+      },
+    ],
+    name: "delCouponDate",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
     inputs: [],
-    name: "setDateAsCurrentCoupon",
+    name: "getBondCouponRate",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getBondData",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "string",
+            name: "name",
+            type: "string",
+          },
+          {
+            internalType: "string",
+            name: "isin",
+            type: "string",
+          },
+          {
+            internalType: "uint256",
+            name: "expectedSupply",
+            type: "uint256",
+          },
+          {
+            internalType: "bytes32",
+            name: "currency",
+            type: "bytes32",
+          },
+          {
+            internalType: "uint256",
+            name: "unitValue",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "couponRate",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "creationDate",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "issuanceDate",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "maturityDate",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256[]",
+            name: "couponDates",
+            type: "uint256[]",
+          },
+          {
+            internalType: "uint256",
+            name: "cutOffTime",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct IRegisterMetadataInternal.BondData",
+        name: "",
+        type: "tuple",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getBondUnitValue",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getCreationDate",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getIssuanceDate",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "makeReady",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "primaryIssuanceAccount",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        internalType: "string",
+        name: "message",
+        type: "string",
+      },
+    ],
+    name: "publicMessage",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "investor",
+        type: "address",
+      },
+    ],
+    name: "returnBalanceToPrimaryIssuanceAccount",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "revertReady",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "name_",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "expectedSupply_",
+        type: "uint256",
+      },
+      {
+        internalType: "bytes32",
+        name: "currency_",
+        type: "bytes32",
+      },
+      {
+        internalType: "uint256",
+        name: "unitVal_",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "couponRate_",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "issuanceDate_",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "maturityDate_",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "cutOffTime_",
+        type: "uint256",
+      },
+    ],
+    name: "setBondData",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -7354,13 +10382,1412 @@ const _abi = [
     inputs: [
       {
         internalType: "uint256",
-        name: "nbDays_",
+        name: "creationDate",
         type: "uint256",
       },
     ],
-    name: "setNbDays",
+    name: "setCreationDate",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "currency",
+        type: "bytes32",
+      },
+    ],
+    name: "setCurrency",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "couponDate_",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "recordDatetime_",
+        type: "uint256",
+      },
+    ],
+    name: "setCurrentCouponDate",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "expectedSupply",
+        type: "uint256",
+      },
+    ],
+    name: "setExpectedSupply",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "isinSymbol",
+        type: "string",
+      },
+    ],
+    name: "setIsinSymbol",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "issuanceDate",
+        type: "uint256",
+      },
+    ],
+    name: "setIssuanceDate",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "name_",
+        type: "string",
+      },
+    ],
+    name: "setName",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "status",
+    outputs: [
+      {
+        internalType: "enum IRegisterMetadataInternal.Status",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "toggleFrozen",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "creator",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "name",
+        type: "string",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "isin",
+        type: "string",
+      },
+    ],
+    name: "NewBondDrafted",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "target",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "message",
+        type: "string",
+      },
+    ],
+    name: "PublicMessage",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "emiter",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "name",
+        type: "string",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "isin",
+        type: "string",
+      },
+      {
+        indexed: false,
+        internalType: "enum IRegisterMetadataInternal.Status",
+        name: "status",
+        type: "uint8",
+      },
+    ],
+    name: "RegisterStatusChanged",
+    type: "event",
+  },
+  {
+    inputs: [],
+    name: "ERC20Base__ApproveFromZeroAddress",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "ERC20Base__ApproveToZeroAddress",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "ERC20Base__BurnExceedsBalance",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "ERC20Base__BurnFromZeroAddress",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "ERC20Base__InsufficientAllowance",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "ERC20Base__MintToZeroAddress",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "ERC20Base__TransferExceedsBalance",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "ERC20Base__TransferFromZeroAddress",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "ERC20Base__TransferToZeroAddress",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "ERC20Snapshot__SnapshotIdDoesNotExists",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "ERC20Snapshot__SnapshotIdIsZero",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "EnumerableSet__IndexOutOfBounds",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "ReentrancyGuard__ReentrantCall",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "UintUtils__InsufficientHexLength",
+    type: "error",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "_addressForNewAdmin",
+        type: "address",
+      },
+    ],
+    name: "AdminChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "owner",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "value",
+        type: "uint256",
+      },
+    ],
+    name: "Approval",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "bytes32",
+        name: "contractHash",
+        type: "bytes32",
+      },
+    ],
+    name: "DisableContract",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "investor",
+        type: "address",
+      },
+    ],
+    name: "DisableInvestor",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "bytes32",
+        name: "contractHash",
+        type: "bytes32",
+      },
+    ],
+    name: "EnableContract",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "investor",
+        type: "address",
+      },
+    ],
+    name: "EnableInvestor",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint64",
+        name: "version",
+        type: "uint64",
+      },
+    ],
+    name: "Initialized",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "creator",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "name",
+        type: "string",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "isin",
+        type: "string",
+      },
+    ],
+    name: "NewBondDrafted",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "target",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "message",
+        type: "string",
+      },
+    ],
+    name: "PublicMessage",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "emiter",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "name",
+        type: "string",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "isin",
+        type: "string",
+      },
+      {
+        indexed: false,
+        internalType: "enum IRegisterMetadataInternal.Status",
+        name: "status",
+        type: "uint8",
+      },
+    ],
+    name: "RegisterStatusChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "previousAdminRole",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "newAdminRole",
+        type: "bytes32",
+      },
+    ],
+    name: "RoleAdminChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+    ],
+    name: "RoleGranted",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+    ],
+    name: "RoleRevoked",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "id",
+        type: "uint256",
+      },
+    ],
+    name: "Snapshot",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "couponDate",
+        type: "uint256",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "currentTimestamp",
+        type: "uint256",
+      },
+      {
+        indexed: true,
+        internalType: "uint256",
+        name: "nextTimestamp",
+        type: "uint256",
+      },
+    ],
+    name: "SnapshotTimestampChange",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "from",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "value",
+        type: "uint256",
+      },
+    ],
+    name: "Transfer",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "toBeAdded",
+        type: "address",
+      },
+    ],
+    name: "WalletAddedToWhitelist",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "toBeDeleted",
+        type: "address",
+      },
+    ],
+    name: "WalletDeletedFromWhitelist",
+    type: "event",
+  },
+  {
+    inputs: [],
+    name: "BND_ROLE",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "CAK_ROLE",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "CST_ROLE",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "PAY_ROLE",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_couponDate",
+        type: "uint256",
+      },
+    ],
+    name: "_totalSupplyAtCoupon",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "date",
+        type: "uint256",
+      },
+    ],
+    name: "addCouponDate",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "holder",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+    ],
+    name: "allowance",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "approve",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "balanceOf",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "snapshotId",
+        type: "uint256",
+      },
+    ],
+    name: "balanceOfAt",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_couponDate",
+        type: "uint256",
+      },
+    ],
+    name: "checkIfCouponDateExists",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_maturityDate",
+        type: "uint256",
+      },
+    ],
+    name: "checkIfMaturityDateExists",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "decimals",
+    outputs: [
+      {
+        internalType: "uint8",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "subtractedValue",
+        type: "uint256",
+      },
+    ],
+    name: "decreaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "date",
+        type: "uint256",
+      },
+    ],
+    name: "delCouponDate",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getBondCouponRate",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getBondData",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "string",
+            name: "name",
+            type: "string",
+          },
+          {
+            internalType: "string",
+            name: "isin",
+            type: "string",
+          },
+          {
+            internalType: "uint256",
+            name: "expectedSupply",
+            type: "uint256",
+          },
+          {
+            internalType: "bytes32",
+            name: "currency",
+            type: "bytes32",
+          },
+          {
+            internalType: "uint256",
+            name: "unitValue",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "couponRate",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "creationDate",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "issuanceDate",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "maturityDate",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256[]",
+            name: "couponDates",
+            type: "uint256[]",
+          },
+          {
+            internalType: "uint256",
+            name: "cutOffTime",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct IRegisterMetadataInternal.BondData",
+        name: "",
+        type: "tuple",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getBondUnitValue",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getCreationDate",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getIssuanceDate",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+    ],
+    name: "getRoleAdmin",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        internalType: "uint256",
+        name: "index",
+        type: "uint256",
+      },
+    ],
+    name: "getRoleMember",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+    ],
+    name: "getRoleMemberCount",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "grantRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "hasRole",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "addedValue",
+        type: "uint256",
+      },
+    ],
+    name: "increaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "forwarder",
+        type: "address",
+      },
+    ],
+    name: "isTrustedForwarder",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "makeReady",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "name",
+    outputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "primaryIssuanceAccount",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        internalType: "string",
+        name: "message",
+        type: "string",
+      },
+    ],
+    name: "publicMessage",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+    ],
+    name: "renounceRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "investor",
+        type: "address",
+      },
+    ],
+    name: "returnBalanceToPrimaryIssuanceAccount",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "revertReady",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "revokeRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "name_",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "expectedSupply_",
+        type: "uint256",
+      },
+      {
+        internalType: "bytes32",
+        name: "currency_",
+        type: "bytes32",
+      },
+      {
+        internalType: "uint256",
+        name: "unitVal_",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "couponRate_",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "issuanceDate_",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "maturityDate_",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "cutOffTime_",
+        type: "uint256",
+      },
+    ],
+    name: "setBondData",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "creationDate",
+        type: "uint256",
+      },
+    ],
+    name: "setCreationDate",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "currency",
+        type: "bytes32",
+      },
+    ],
+    name: "setCurrency",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "couponDate_",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "recordDatetime_",
+        type: "uint256",
+      },
+    ],
+    name: "setCurrentCouponDate",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "expectedSupply",
+        type: "uint256",
+      },
+    ],
+    name: "setExpectedSupply",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "isinSymbol",
+        type: "string",
+      },
+    ],
+    name: "setIsinSymbol",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "issuanceDate",
+        type: "uint256",
+      },
+    ],
+    name: "setIssuanceDate",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "name_",
+        type: "string",
+      },
+    ],
+    name: "setName",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "status",
+    outputs: [
+      {
+        internalType: "enum IRegisterMetadataInternal.Status",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -7377,14 +11804,8 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "toggleCouponPayment",
+    inputs: [],
+    name: "toggleFrozen",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -7593,56 +12014,6 @@ const _abi = [
       },
     ],
     name: "Approval",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "enum ICouponInternal.CouponStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "CouponChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "status",
-        type: "uint8",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "previousStatus",
-        type: "uint8",
-      },
-    ],
-    name: "CouponPaymentStatusChanged",
     type: "event",
   },
   {
@@ -8133,6 +12504,30 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "subtractedValue",
+        type: "uint256",
+      },
+    ],
+    name: "decreaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "bytes32",
         name: "role",
         type: "bytes32",
@@ -8232,6 +12627,30 @@ const _abi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "addedValue",
+        type: "uint256",
+      },
+    ],
+    name: "increaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -8406,6 +12825,1263 @@ const _abi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "_addressForNewAdmin",
+        type: "address",
+      },
+    ],
+    name: "AdminChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "previousAdminRole",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "newAdminRole",
+        type: "bytes32",
+      },
+    ],
+    name: "RoleAdminChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+    ],
+    name: "RoleGranted",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+    ],
+    name: "RoleRevoked",
+    type: "event",
+  },
+  {
+    inputs: [],
+    name: "addressForNewAdmin",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "changeAdminRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "firstVoterForNewAdmin",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "bndAddress",
+        type: "address",
+      },
+    ],
+    name: "grantBndRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "cakAddress",
+        type: "address",
+      },
+    ],
+    name: "grantCakRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "cstAddress",
+        type: "address",
+      },
+    ],
+    name: "grantCstRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "cstAddress",
+        type: "address",
+      },
+    ],
+    name: "grantPayRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "isBnD",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "isCAK",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "isCustodian",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "isPay",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "registerAdmin",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "bndAddress",
+        type: "address",
+      },
+    ],
+    name: "revokeBndRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "cakAddress",
+        type: "address",
+      },
+    ],
+    name: "revokeCakRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "cstAddress",
+        type: "address",
+      },
+    ],
+    name: "revokeCstRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "cstAddress",
+        type: "address",
+      },
+    ],
+    name: "revokePayRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "votesForNewAdmin",
+    outputs: [
+      {
+        internalType: "uint8",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "_addressForNewAdmin",
+        type: "address",
+      },
+    ],
+    name: "AdminChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "previousAdminRole",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "newAdminRole",
+        type: "bytes32",
+      },
+    ],
+    name: "RoleAdminChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+    ],
+    name: "RoleGranted",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+    ],
+    name: "RoleRevoked",
+    type: "event",
+  },
+  {
+    inputs: [],
+    name: "EnumerableSet__IndexOutOfBounds",
+    type: "error",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "_addressForNewAdmin",
+        type: "address",
+      },
+    ],
+    name: "AdminChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint64",
+        name: "version",
+        type: "uint64",
+      },
+    ],
+    name: "Initialized",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "previousAdminRole",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "newAdminRole",
+        type: "bytes32",
+      },
+    ],
+    name: "RoleAdminChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+    ],
+    name: "RoleGranted",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+    ],
+    name: "RoleRevoked",
+    type: "event",
+  },
+  {
+    inputs: [],
+    name: "BND_ROLE",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "CAK_ROLE",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "CST_ROLE",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "PAY_ROLE",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "addressForNewAdmin",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "changeAdminRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "firstVoterForNewAdmin",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+    ],
+    name: "getRoleAdmin",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        internalType: "uint256",
+        name: "index",
+        type: "uint256",
+      },
+    ],
+    name: "getRoleMember",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+    ],
+    name: "getRoleMemberCount",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "bndAddress_",
+        type: "address",
+      },
+    ],
+    name: "grantBndRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "cakAddress_",
+        type: "address",
+      },
+    ],
+    name: "grantCakRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "cstAddress_",
+        type: "address",
+      },
+    ],
+    name: "grantCstRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "payAddress_",
+        type: "address",
+      },
+    ],
+    name: "grantPayRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "grantRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "hasRole",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "isBnD",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "isCAK",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "isCustodian",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "isPay",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "registerAdmin",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+    ],
+    name: "renounceRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "bndAddress_",
+        type: "address",
+      },
+    ],
+    name: "revokeBndRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "cakAddress_",
+        type: "address",
+      },
+    ],
+    name: "revokeCakRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "cstAddress_",
+        type: "address",
+      },
+    ],
+    name: "revokeCstRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "payAddress_",
+        type: "address",
+      },
+    ],
+    name: "revokePayRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "revokeRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "votesForNewAdmin",
+    outputs: [
+      {
+        internalType: "uint8",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "EnumerableSet__IndexOutOfBounds",
+    type: "error",
+  },
+  {
+    inputs: [],
+    name: "UintUtils__InsufficientHexLength",
+    type: "error",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "_addressForNewAdmin",
+        type: "address",
+      },
+    ],
+    name: "AdminChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "uint64",
+        name: "version",
+        type: "uint64",
+      },
+    ],
+    name: "Initialized",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "previousAdminRole",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "newAdminRole",
+        type: "bytes32",
+      },
+    ],
+    name: "RoleAdminChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+    ],
+    name: "RoleGranted",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "sender",
+        type: "address",
+      },
+    ],
+    name: "RoleRevoked",
+    type: "event",
+  },
+  {
+    inputs: [],
+    name: "BND_ROLE",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "CAK_ROLE",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "CST_ROLE",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "PAY_ROLE",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+    ],
+    name: "getRoleAdmin",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        internalType: "uint256",
+        name: "index",
+        type: "uint256",
+      },
+    ],
+    name: "getRoleMember",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+    ],
+    name: "getRoleMemberCount",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "grantRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "hasRole",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+    ],
+    name: "renounceRole",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "bytes32",
+        name: "role",
+        type: "bytes32",
+      },
+      {
+        internalType: "address",
+        name: "account",
+        type: "address",
+      },
+    ],
+    name: "revokeRole",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -9013,6 +14689,19 @@ const _abi = [
     type: "function",
   },
   {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "amount_",
+        type: "uint256",
+      },
+    ],
+    name: "burn",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "currentCouponDate",
     outputs: [
@@ -9046,6 +14735,49 @@ const _abi = [
         internalType: "uint8",
         name: "",
         type: "uint8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "decreaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "CouponDate",
+        type: "uint256",
+      },
+    ],
+    name: "getInvestorListAtCoupon",
+    outputs: [
+      {
+        internalType: "address[]",
+        name: "",
+        type: "address[]",
       },
     ],
     stateMutability: "view",
@@ -9159,6 +14891,30 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
+        name: "",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "increaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
         name: "forwarder",
         type: "address",
       },
@@ -9172,6 +14928,19 @@ const _abi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "amount_",
+        type: "uint256",
+      },
+    ],
+    name: "mint",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -9957,6 +15726,30 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "subtractedValue",
+        type: "uint256",
+      },
+    ],
+    name: "decreaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "bytes32",
         name: "role",
         type: "bytes32",
@@ -10056,6 +15849,30 @@ const _abi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "addedValue",
+        type: "uint256",
+      },
+    ],
+    name: "increaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -10231,299 +16048,6 @@ const _abi = [
     ],
     stateMutability: "view",
     type: "function",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "enum ICouponInternal.CouponStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "CouponChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "status",
-        type: "uint8",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "previousStatus",
-        type: "uint8",
-      },
-    ],
-    name: "CouponPaymentStatusChanged",
-    type: "event",
-  },
-  {
-    inputs: [],
-    name: "couponDate",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "cutOfTime",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "getInvestorPayments",
-    outputs: [
-      {
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "",
-        type: "uint8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "getPaymentAmountForInvestor",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "paymentAmount",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getTotalPaymentAmount",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "paymentAmount",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "nbDays",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "payingAgent",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "paymentIdForInvest",
-    outputs: [
-      {
-        internalType: "bytes8",
-        name: "",
-        type: "bytes8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "recordDate",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "rejectCoupon",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_recordDate",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_cutOfTime",
-        type: "uint256",
-      },
-    ],
-    name: "setCutOffTime",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "setDateAsCurrentCoupon",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_nbDays",
-        type: "uint256",
-      },
-    ],
-    name: "setNbDays",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "toggleCouponPayment",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "enum ICouponInternal.CouponStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "CouponChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "status",
-        type: "uint8",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "previousStatus",
-        type: "uint8",
-      },
-    ],
-    name: "CouponPaymentStatusChanged",
-    type: "event",
   },
   {
     inputs: [],
@@ -10784,6 +16308,19 @@ const _abi = [
     type: "function",
   },
   {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "amount_",
+        type: "uint256",
+      },
+    ],
+    name: "burn",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "currentCouponDate",
     outputs: [
@@ -10820,6 +16357,86 @@ const _abi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "subtractedValue",
+        type: "uint256",
+      },
+    ],
+    name: "decreaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "CouponDate",
+        type: "uint256",
+      },
+    ],
+    name: "getInvestorListAtCoupon",
+    outputs: [
+      {
+        internalType: "address[]",
+        name: "",
+        type: "address[]",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "addedValue",
+        type: "uint256",
+      },
+    ],
+    name: "increaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "amount_",
+        type: "uint256",
+      },
+    ],
+    name: "mint",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -10989,7240 +16606,6 @@ const _abi = [
     ],
     name: "SnapshotTimestampChange",
     type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "enum ICouponInternal.CouponStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "CouponChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "status",
-        type: "uint8",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "previousStatus",
-        type: "uint8",
-      },
-    ],
-    name: "CouponPaymentStatusChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "contract IRegister",
-        name: "register",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "enum ICouponInternal.CouponStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "RedemptionChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "status",
-        type: "uint8",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "previousStatus",
-        type: "uint8",
-      },
-    ],
-    name: "RedemptionPaymentStatusChanged",
-    type: "event",
-  },
-  {
-    inputs: [],
-    name: "couponDate",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "cutOfTime",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "getInvestorPayments",
-    outputs: [
-      {
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "",
-        type: "uint8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "getInvestorRedemptionPayments",
-    outputs: [
-      {
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "",
-        type: "uint8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "getMaturityAmountForInvestor",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "paymentAmount",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "getPaymentAmountForInvestor",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "paymentAmount",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getTotalMaturityAmount",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "paymentAmount",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getTotalPaymentAmount",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "paymentAmount",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "investorRedemptionPayments",
-    outputs: [
-      {
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "",
-        type: "uint8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "nbDays",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "payingAgent",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "paymentIdForInvest",
-    outputs: [
-      {
-        internalType: "bytes8",
-        name: "",
-        type: "bytes8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "paymentIdRedemptionForInvest",
-    outputs: [
-      {
-        internalType: "bytes8",
-        name: "",
-        type: "bytes8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "recordDate",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "rejectCoupon",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_recordDate",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_cutOfTime",
-        type: "uint256",
-      },
-    ],
-    name: "setCutOffTime",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "setDateAsCurrentCoupon",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_nbDays",
-        type: "uint256",
-      },
-    ],
-    name: "setNbDays",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "toggleCouponPayment",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "toggleRedemptionPayment",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "enum ICouponInternal.CouponStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "CouponChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "status",
-        type: "uint8",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "previousStatus",
-        type: "uint8",
-      },
-    ],
-    name: "CouponPaymentStatusChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "contract IRegister",
-        name: "register",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "enum ICouponInternal.CouponStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "RedemptionChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "status",
-        type: "uint8",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "previousStatus",
-        type: "uint8",
-      },
-    ],
-    name: "RedemptionPaymentStatusChanged",
-    type: "event",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__ApproveFromZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__ApproveToZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__BurnExceedsBalance",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__BurnFromZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__InsufficientAllowance",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__MintToZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__TransferExceedsBalance",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__TransferFromZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__TransferToZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Snapshot__SnapshotIdDoesNotExists",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Snapshot__SnapshotIdIsZero",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "EnumerableSet__IndexOutOfBounds",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ReentrancyGuard__ReentrantCall",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "UintUtils__InsufficientHexLength",
-    type: "error",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "_addressForNewAdmin",
-        type: "address",
-      },
-    ],
-    name: "AdminChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "owner",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
-      },
-    ],
-    name: "Approval",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "enum ICouponInternal.CouponStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "CouponChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "status",
-        type: "uint8",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "previousStatus",
-        type: "uint8",
-      },
-    ],
-    name: "CouponPaymentStatusChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "bytes32",
-        name: "contractHash",
-        type: "bytes32",
-      },
-    ],
-    name: "DisableContract",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "DisableInvestor",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "bytes32",
-        name: "contractHash",
-        type: "bytes32",
-      },
-    ],
-    name: "EnableContract",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "EnableInvestor",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint64",
-        name: "version",
-        type: "uint64",
-      },
-    ],
-    name: "Initialized",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "creator",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "isin",
-        type: "string",
-      },
-    ],
-    name: "NewBondDrafted",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "target",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "message",
-        type: "string",
-      },
-    ],
-    name: "PublicMessage",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "contract IRegister",
-        name: "register",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "enum ICouponInternal.CouponStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "RedemptionChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "status",
-        type: "uint8",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "previousStatus",
-        type: "uint8",
-      },
-    ],
-    name: "RedemptionPaymentStatusChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "emiter",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "isin",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "enum IRegisterMetadataInternal.Status",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "RegisterStatusChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "previousAdminRole",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "newAdminRole",
-        type: "bytes32",
-      },
-    ],
-    name: "RoleAdminChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-    ],
-    name: "RoleGranted",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-    ],
-    name: "RoleRevoked",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
-      },
-    ],
-    name: "Snapshot",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "currentTimestamp",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "nextTimestamp",
-        type: "uint256",
-      },
-    ],
-    name: "SnapshotTimestampChange",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "from",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
-      },
-    ],
-    name: "Transfer",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "toBeAdded",
-        type: "address",
-      },
-    ],
-    name: "WalletAddedToWhitelist",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "toBeDeleted",
-        type: "address",
-      },
-    ],
-    name: "WalletDeletedFromWhitelist",
-    type: "event",
-  },
-  {
-    inputs: [],
-    name: "BND_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "CAK_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "CST_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "PAY_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_couponDate",
-        type: "uint256",
-      },
-    ],
-    name: "_totalSupplyAtCoupon",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "holder",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-    ],
-    name: "allowance",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "approve",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "balanceOf",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "snapshotId",
-        type: "uint256",
-      },
-    ],
-    name: "balanceOfAt",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "couponDate",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "cutOfTime",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "decimals",
-    outputs: [
-      {
-        internalType: "uint8",
-        name: "",
-        type: "uint8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "getInvestorPayments",
-    outputs: [
-      {
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "",
-        type: "uint8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "getInvestorRedemptionPayments",
-    outputs: [
-      {
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "",
-        type: "uint8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "getMaturityAmountForInvestor",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "paymentAmount",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "getPaymentAmountForInvestor",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "paymentAmount",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-    ],
-    name: "getRoleAdmin",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "uint256",
-        name: "index",
-        type: "uint256",
-      },
-    ],
-    name: "getRoleMember",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-    ],
-    name: "getRoleMemberCount",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getTotalMaturityAmount",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "paymentAmount",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getTotalPaymentAmount",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "paymentAmount",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "grantRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "hasRole",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "investorRedemptionPayments",
-    outputs: [
-      {
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "",
-        type: "uint8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "forwarder",
-        type: "address",
-      },
-    ],
-    name: "isTrustedForwarder",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "name",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "nbDays",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "payingAgent",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "paymentIdForInvest",
-    outputs: [
-      {
-        internalType: "bytes8",
-        name: "",
-        type: "bytes8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "paymentIdRedemptionForInvest",
-    outputs: [
-      {
-        internalType: "bytes8",
-        name: "",
-        type: "bytes8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "recordDate",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "rejectCoupon",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-    ],
-    name: "renounceRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "revokeRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "recordDate_",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "cutOfTime_",
-        type: "uint256",
-      },
-    ],
-    name: "setCutOffTime",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "setDateAsCurrentCoupon",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "nbDays_",
-        type: "uint256",
-      },
-    ],
-    name: "setNbDays",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "symbol",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "toggleCouponPayment",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "toggleRedemptionPayment",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "totalSupply",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "snapshotId",
-        type: "uint256",
-      },
-    ],
-    name: "totalSupplyAt",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "recipient",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "transfer",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "holder",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "recipient",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "transferFrom",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "trustedForwarder",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__ApproveFromZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__ApproveToZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__BurnExceedsBalance",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__BurnFromZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__InsufficientAllowance",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__MintToZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__TransferExceedsBalance",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__TransferFromZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__TransferToZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Snapshot__SnapshotIdDoesNotExists",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Snapshot__SnapshotIdIsZero",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "EnumerableSet__IndexOutOfBounds",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ReentrancyGuard__ReentrantCall",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "UintUtils__InsufficientHexLength",
-    type: "error",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "_addressForNewAdmin",
-        type: "address",
-      },
-    ],
-    name: "AdminChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "owner",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
-      },
-    ],
-    name: "Approval",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "enum ICouponInternal.CouponStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "CouponChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "status",
-        type: "uint8",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "previousStatus",
-        type: "uint8",
-      },
-    ],
-    name: "CouponPaymentStatusChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "bytes32",
-        name: "contractHash",
-        type: "bytes32",
-      },
-    ],
-    name: "DisableContract",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "DisableInvestor",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "bytes32",
-        name: "contractHash",
-        type: "bytes32",
-      },
-    ],
-    name: "EnableContract",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "EnableInvestor",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint64",
-        name: "version",
-        type: "uint64",
-      },
-    ],
-    name: "Initialized",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "creator",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "isin",
-        type: "string",
-      },
-    ],
-    name: "NewBondDrafted",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "target",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "message",
-        type: "string",
-      },
-    ],
-    name: "PublicMessage",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "contract IRegister",
-        name: "register",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "enum ICouponInternal.CouponStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "RedemptionChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "status",
-        type: "uint8",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "previousStatus",
-        type: "uint8",
-      },
-    ],
-    name: "RedemptionPaymentStatusChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "emiter",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "isin",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "enum IRegisterMetadataInternal.Status",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "RegisterStatusChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "previousAdminRole",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "newAdminRole",
-        type: "bytes32",
-      },
-    ],
-    name: "RoleAdminChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-    ],
-    name: "RoleGranted",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-    ],
-    name: "RoleRevoked",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
-      },
-    ],
-    name: "Snapshot",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "currentTimestamp",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "nextTimestamp",
-        type: "uint256",
-      },
-    ],
-    name: "SnapshotTimestampChange",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "from",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
-      },
-    ],
-    name: "Transfer",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "toBeAdded",
-        type: "address",
-      },
-    ],
-    name: "WalletAddedToWhitelist",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "toBeDeleted",
-        type: "address",
-      },
-    ],
-    name: "WalletDeletedFromWhitelist",
-    type: "event",
-  },
-  {
-    inputs: [],
-    name: "BND_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "CAK_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "CST_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "PAY_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_couponDate",
-        type: "uint256",
-      },
-    ],
-    name: "_totalSupplyAtCoupon",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "holder",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-    ],
-    name: "allowance",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "approve",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "balanceOf",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "snapshotId",
-        type: "uint256",
-      },
-    ],
-    name: "balanceOfAt",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "couponDate",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "cutOfTime",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "decimals",
-    outputs: [
-      {
-        internalType: "uint8",
-        name: "",
-        type: "uint8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "getInvestorPayments",
-    outputs: [
-      {
-        internalType: "enum ICouponInternal.PaymentStatus",
-        name: "",
-        type: "uint8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "getPaymentAmountForInvestor",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "paymentAmount",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-    ],
-    name: "getRoleAdmin",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "uint256",
-        name: "index",
-        type: "uint256",
-      },
-    ],
-    name: "getRoleMember",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-    ],
-    name: "getRoleMemberCount",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getTotalPaymentAmount",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "paymentAmount",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "grantRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "hasRole",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "forwarder",
-        type: "address",
-      },
-    ],
-    name: "isTrustedForwarder",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "name",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "nbDays",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "payingAgent",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "paymentIdForInvest",
-    outputs: [
-      {
-        internalType: "bytes8",
-        name: "",
-        type: "bytes8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "recordDate",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "rejectCoupon",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-    ],
-    name: "renounceRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "revokeRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "recordDate_",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "cutOfTime_",
-        type: "uint256",
-      },
-    ],
-    name: "setCutOffTime",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "setDateAsCurrentCoupon",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "nbDays_",
-        type: "uint256",
-      },
-    ],
-    name: "setNbDays",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "symbol",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_investor",
-        type: "address",
-      },
-    ],
-    name: "toggleCouponPayment",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "totalSupply",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "snapshotId",
-        type: "uint256",
-      },
-    ],
-    name: "totalSupplyAt",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "recipient",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "transfer",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "holder",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "recipient",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "transferFrom",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "trustedForwarder",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "DisableInvestor",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "EnableInvestor",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "creator",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "isin",
-        type: "string",
-      },
-    ],
-    name: "NewBondDrafted",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "target",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "message",
-        type: "string",
-      },
-    ],
-    name: "PublicMessage",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "emiter",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "isin",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "enum IRegisterMetadataInternal.Status",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "RegisterStatusChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "toBeAdded",
-        type: "address",
-      },
-    ],
-    name: "WalletAddedToWhitelist",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "toBeDeleted",
-        type: "address",
-      },
-    ],
-    name: "WalletDeletedFromWhitelist",
-    type: "event",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "date",
-        type: "uint256",
-      },
-    ],
-    name: "addCouponDate",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_couponDate",
-        type: "uint256",
-      },
-    ],
-    name: "checkIfCouponDateExists",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_maturityDate",
-        type: "uint256",
-      },
-    ],
-    name: "checkIfMaturityDateExists",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "date",
-        type: "uint256",
-      },
-    ],
-    name: "delCouponDate",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "disableInvestorFromWhitelist",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "enableInvestorToWhitelist",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getAllInvestors",
-    outputs: [
-      {
-        internalType: "address[]",
-        name: "",
-        type: "address[]",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getBondCouponRate",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getBondData",
-    outputs: [
-      {
-        components: [
-          {
-            internalType: "string",
-            name: "name",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "isin",
-            type: "string",
-          },
-          {
-            internalType: "uint256",
-            name: "expectedSupply",
-            type: "uint256",
-          },
-          {
-            internalType: "bytes32",
-            name: "currency",
-            type: "bytes32",
-          },
-          {
-            internalType: "uint256",
-            name: "unitValue",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "couponRate",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "creationDate",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "issuanceDate",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "maturityDate",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256[]",
-            name: "couponDates",
-            type: "uint256[]",
-          },
-          {
-            internalType: "uint256",
-            name: "cutOffTime",
-            type: "uint256",
-          },
-        ],
-        internalType: "struct IRegisterMetadataInternal.BondData",
-        name: "",
-        type: "tuple",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getBondUnitValue",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getCreationDate",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "CouponDate",
-        type: "uint256",
-      },
-    ],
-    name: "getInvestorListAtCoupon",
-    outputs: [
-      {
-        internalType: "address[]",
-        name: "",
-        type: "address[]",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getIssuanceDate",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "investorCustodian",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "investorsAllowed",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "makeReady",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "primaryIssuanceAccount",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "message",
-        type: "string",
-      },
-    ],
-    name: "publicMessage",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "returnBalanceToPrimaryIssuanceAccount",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "revertReady",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "name_",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "expectedSupply_",
-        type: "uint256",
-      },
-      {
-        internalType: "bytes32",
-        name: "currency_",
-        type: "bytes32",
-      },
-      {
-        internalType: "uint256",
-        name: "unitVal_",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "couponRate_",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "issuanceDate_",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "maturityDate_",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "cutOffTime_",
-        type: "uint256",
-      },
-    ],
-    name: "setBondData",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "creationDate",
-        type: "uint256",
-      },
-    ],
-    name: "setCreationDate",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "currency",
-        type: "bytes32",
-      },
-    ],
-    name: "setCurrency",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "couponDate_",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "recordDatetime_",
-        type: "uint256",
-      },
-    ],
-    name: "setCurrentCouponDate",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "expectedSupply",
-        type: "uint256",
-      },
-    ],
-    name: "setExpectedSupply",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "isinSymbol",
-        type: "string",
-      },
-    ],
-    name: "setIsinSymbol",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "issuanceDate",
-        type: "uint256",
-      },
-    ],
-    name: "setIssuanceDate",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "status",
-    outputs: [
-      {
-        internalType: "enum IRegisterMetadataInternal.Status",
-        name: "",
-        type: "uint8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "toggleFrozen",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "DisableInvestor",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "EnableInvestor",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "creator",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "isin",
-        type: "string",
-      },
-    ],
-    name: "NewBondDrafted",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "target",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "message",
-        type: "string",
-      },
-    ],
-    name: "PublicMessage",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "emiter",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "isin",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "enum IRegisterMetadataInternal.Status",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "RegisterStatusChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "toBeAdded",
-        type: "address",
-      },
-    ],
-    name: "WalletAddedToWhitelist",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "toBeDeleted",
-        type: "address",
-      },
-    ],
-    name: "WalletDeletedFromWhitelist",
-    type: "event",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__ApproveFromZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__ApproveToZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__BurnExceedsBalance",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__BurnFromZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__InsufficientAllowance",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__MintToZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__TransferExceedsBalance",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__TransferFromZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__TransferToZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Snapshot__SnapshotIdDoesNotExists",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Snapshot__SnapshotIdIsZero",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "EnumerableSet__IndexOutOfBounds",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ReentrancyGuard__ReentrantCall",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "UintUtils__InsufficientHexLength",
-    type: "error",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "_addressForNewAdmin",
-        type: "address",
-      },
-    ],
-    name: "AdminChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "owner",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
-      },
-    ],
-    name: "Approval",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "bytes32",
-        name: "contractHash",
-        type: "bytes32",
-      },
-    ],
-    name: "DisableContract",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "DisableInvestor",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "bytes32",
-        name: "contractHash",
-        type: "bytes32",
-      },
-    ],
-    name: "EnableContract",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "EnableInvestor",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint64",
-        name: "version",
-        type: "uint64",
-      },
-    ],
-    name: "Initialized",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "creator",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "isin",
-        type: "string",
-      },
-    ],
-    name: "NewBondDrafted",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "target",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "message",
-        type: "string",
-      },
-    ],
-    name: "PublicMessage",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "emiter",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "isin",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "enum IRegisterMetadataInternal.Status",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "RegisterStatusChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "previousAdminRole",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "newAdminRole",
-        type: "bytes32",
-      },
-    ],
-    name: "RoleAdminChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-    ],
-    name: "RoleGranted",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-    ],
-    name: "RoleRevoked",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
-      },
-    ],
-    name: "Snapshot",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "currentTimestamp",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "nextTimestamp",
-        type: "uint256",
-      },
-    ],
-    name: "SnapshotTimestampChange",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "from",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
-      },
-    ],
-    name: "Transfer",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "toBeAdded",
-        type: "address",
-      },
-    ],
-    name: "WalletAddedToWhitelist",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "toBeDeleted",
-        type: "address",
-      },
-    ],
-    name: "WalletDeletedFromWhitelist",
-    type: "event",
-  },
-  {
-    inputs: [],
-    name: "BND_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "CAK_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "CST_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "PAY_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_couponDate",
-        type: "uint256",
-      },
-    ],
-    name: "_totalSupplyAtCoupon",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "date",
-        type: "uint256",
-      },
-    ],
-    name: "addCouponDate",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "holder",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-    ],
-    name: "allowance",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "approve",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "balanceOf",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "snapshotId",
-        type: "uint256",
-      },
-    ],
-    name: "balanceOfAt",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_couponDate",
-        type: "uint256",
-      },
-    ],
-    name: "checkIfCouponDateExists",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_maturityDate",
-        type: "uint256",
-      },
-    ],
-    name: "checkIfMaturityDateExists",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "decimals",
-    outputs: [
-      {
-        internalType: "uint8",
-        name: "",
-        type: "uint8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "date",
-        type: "uint256",
-      },
-    ],
-    name: "delCouponDate",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "investor_",
-        type: "address",
-      },
-    ],
-    name: "disableInvestorFromWhitelist",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "investor_",
-        type: "address",
-      },
-    ],
-    name: "enableInvestorToWhitelist",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getAllInvestors",
-    outputs: [
-      {
-        internalType: "address[]",
-        name: "",
-        type: "address[]",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getBondCouponRate",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getBondData",
-    outputs: [
-      {
-        components: [
-          {
-            internalType: "string",
-            name: "name",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "isin",
-            type: "string",
-          },
-          {
-            internalType: "uint256",
-            name: "expectedSupply",
-            type: "uint256",
-          },
-          {
-            internalType: "bytes32",
-            name: "currency",
-            type: "bytes32",
-          },
-          {
-            internalType: "uint256",
-            name: "unitValue",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "couponRate",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "creationDate",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "issuanceDate",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "maturityDate",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256[]",
-            name: "couponDates",
-            type: "uint256[]",
-          },
-          {
-            internalType: "uint256",
-            name: "cutOffTime",
-            type: "uint256",
-          },
-        ],
-        internalType: "struct IRegisterMetadataInternal.BondData",
-        name: "",
-        type: "tuple",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getBondUnitValue",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getCreationDate",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "CouponDate",
-        type: "uint256",
-      },
-    ],
-    name: "getInvestorListAtCoupon",
-    outputs: [
-      {
-        internalType: "address[]",
-        name: "",
-        type: "address[]",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getIssuanceDate",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-    ],
-    name: "getRoleAdmin",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "uint256",
-        name: "index",
-        type: "uint256",
-      },
-    ],
-    name: "getRoleMember",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-    ],
-    name: "getRoleMemberCount",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "grantRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "hasRole",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "investorCustodian",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "investorsAllowed",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "forwarder",
-        type: "address",
-      },
-    ],
-    name: "isTrustedForwarder",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "makeReady",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "name",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "primaryIssuanceAccount",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "message",
-        type: "string",
-      },
-    ],
-    name: "publicMessage",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-    ],
-    name: "renounceRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "returnBalanceToPrimaryIssuanceAccount",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "revertReady",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "revokeRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "name_",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "expectedSupply_",
-        type: "uint256",
-      },
-      {
-        internalType: "bytes32",
-        name: "currency_",
-        type: "bytes32",
-      },
-      {
-        internalType: "uint256",
-        name: "unitVal_",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "couponRate_",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "issuanceDate_",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "maturityDate_",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "cutOffTime_",
-        type: "uint256",
-      },
-    ],
-    name: "setBondData",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "creationDate",
-        type: "uint256",
-      },
-    ],
-    name: "setCreationDate",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "currency",
-        type: "bytes32",
-      },
-    ],
-    name: "setCurrency",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "couponDate_",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "recordDatetime_",
-        type: "uint256",
-      },
-    ],
-    name: "setCurrentCouponDate",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "expectedSupply",
-        type: "uint256",
-      },
-    ],
-    name: "setExpectedSupply",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "isinSymbol",
-        type: "string",
-      },
-    ],
-    name: "setIsinSymbol",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "issuanceDate",
-        type: "uint256",
-      },
-    ],
-    name: "setIssuanceDate",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "status",
-    outputs: [
-      {
-        internalType: "enum IRegisterMetadataInternal.Status",
-        name: "",
-        type: "uint8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "symbol",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "toggleFrozen",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "totalSupply",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "snapshotId",
-        type: "uint256",
-      },
-    ],
-    name: "totalSupplyAt",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "recipient",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "transfer",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "holder",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "recipient",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "transferFrom",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "trustedForwarder",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__ApproveFromZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__ApproveToZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__BurnExceedsBalance",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__BurnFromZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__InsufficientAllowance",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__MintToZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__TransferExceedsBalance",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__TransferFromZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__TransferToZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Snapshot__SnapshotIdDoesNotExists",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Snapshot__SnapshotIdIsZero",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "EnumerableSet__IndexOutOfBounds",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ReentrancyGuard__ReentrantCall",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "UintUtils__InsufficientHexLength",
-    type: "error",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "_addressForNewAdmin",
-        type: "address",
-      },
-    ],
-    name: "AdminChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "owner",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
-      },
-    ],
-    name: "Approval",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "bytes32",
-        name: "contractHash",
-        type: "bytes32",
-      },
-    ],
-    name: "DisableContract",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "DisableInvestor",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "bytes32",
-        name: "contractHash",
-        type: "bytes32",
-      },
-    ],
-    name: "EnableContract",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "EnableInvestor",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint64",
-        name: "version",
-        type: "uint64",
-      },
-    ],
-    name: "Initialized",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "creator",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "isin",
-        type: "string",
-      },
-    ],
-    name: "NewBondDrafted",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "target",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "message",
-        type: "string",
-      },
-    ],
-    name: "PublicMessage",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "emiter",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "isin",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "enum IRegisterMetadataInternal.Status",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "RegisterStatusChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "previousAdminRole",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "newAdminRole",
-        type: "bytes32",
-      },
-    ],
-    name: "RoleAdminChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-    ],
-    name: "RoleGranted",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-    ],
-    name: "RoleRevoked",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
-      },
-    ],
-    name: "Snapshot",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "currentTimestamp",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "nextTimestamp",
-        type: "uint256",
-      },
-    ],
-    name: "SnapshotTimestampChange",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "from",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
-      },
-    ],
-    name: "Transfer",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "toBeAdded",
-        type: "address",
-      },
-    ],
-    name: "WalletAddedToWhitelist",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "toBeDeleted",
-        type: "address",
-      },
-    ],
-    name: "WalletDeletedFromWhitelist",
-    type: "event",
-  },
-  {
-    inputs: [],
-    name: "BND_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "CAK_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "CST_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "PAY_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_couponDate",
-        type: "uint256",
-      },
-    ],
-    name: "_totalSupplyAtCoupon",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "holder",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-    ],
-    name: "allowance",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "approve",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "balanceOf",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "snapshotId",
-        type: "uint256",
-      },
-    ],
-    name: "balanceOfAt",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "decimals",
-    outputs: [
-      {
-        internalType: "uint8",
-        name: "",
-        type: "uint8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-    ],
-    name: "getRoleAdmin",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "uint256",
-        name: "index",
-        type: "uint256",
-      },
-    ],
-    name: "getRoleMember",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-    ],
-    name: "getRoleMemberCount",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "grantRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "hasRole",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "forwarder",
-        type: "address",
-      },
-    ],
-    name: "isTrustedForwarder",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "name",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-    ],
-    name: "renounceRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "revokeRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "symbol",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "totalSupply",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "snapshotId",
-        type: "uint256",
-      },
-    ],
-    name: "totalSupplyAt",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "recipient",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "transfer",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "holder",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "recipient",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "transferFrom",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "trustedForwarder",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "BND_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "CAK_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "CST_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "PAY_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "_addressForNewAdmin",
-        type: "address",
-      },
-    ],
-    name: "AdminChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "previousAdminRole",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "newAdminRole",
-        type: "bytes32",
-      },
-    ],
-    name: "RoleAdminChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-    ],
-    name: "RoleGranted",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-    ],
-    name: "RoleRevoked",
-    type: "event",
-  },
-  {
-    inputs: [],
-    name: "addressForNewAdmin",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "changeAdminRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "firstVoterForNewAdmin",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "bndAddress",
-        type: "address",
-      },
-    ],
-    name: "grantBndRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "cakAddress",
-        type: "address",
-      },
-    ],
-    name: "grantCakRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "cstAddress",
-        type: "address",
-      },
-    ],
-    name: "grantCstRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "cstAddress",
-        type: "address",
-      },
-    ],
-    name: "grantPayRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "isBnD",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "isCAK",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "isCustodian",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "isPay",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "registerAdmin",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "bndAddress",
-        type: "address",
-      },
-    ],
-    name: "revokeBndRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "cakAddress",
-        type: "address",
-      },
-    ],
-    name: "revokeCakRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "cstAddress",
-        type: "address",
-      },
-    ],
-    name: "revokeCstRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "cstAddress",
-        type: "address",
-      },
-    ],
-    name: "revokePayRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "_addressForNewAdmin",
-        type: "address",
-      },
-    ],
-    name: "AdminChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "previousAdminRole",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "newAdminRole",
-        type: "bytes32",
-      },
-    ],
-    name: "RoleAdminChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-    ],
-    name: "RoleGranted",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-    ],
-    name: "RoleRevoked",
-    type: "event",
-  },
-  {
-    inputs: [],
-    name: "EnumerableSet__IndexOutOfBounds",
-    type: "error",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "_addressForNewAdmin",
-        type: "address",
-      },
-    ],
-    name: "AdminChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint64",
-        name: "version",
-        type: "uint64",
-      },
-    ],
-    name: "Initialized",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "previousAdminRole",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "newAdminRole",
-        type: "bytes32",
-      },
-    ],
-    name: "RoleAdminChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-    ],
-    name: "RoleGranted",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-    ],
-    name: "RoleRevoked",
-    type: "event",
-  },
-  {
-    inputs: [],
-    name: "BND_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "CAK_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "CST_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "PAY_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "addressForNewAdmin",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "changeAdminRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "firstVoterForNewAdmin",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-    ],
-    name: "getRoleAdmin",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "uint256",
-        name: "index",
-        type: "uint256",
-      },
-    ],
-    name: "getRoleMember",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-    ],
-    name: "getRoleMemberCount",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "bndAddress_",
-        type: "address",
-      },
-    ],
-    name: "grantBndRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "cakAddress_",
-        type: "address",
-      },
-    ],
-    name: "grantCakRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "cstAddress_",
-        type: "address",
-      },
-    ],
-    name: "grantCstRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "payAddress_",
-        type: "address",
-      },
-    ],
-    name: "grantPayRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "grantRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "hasRole",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "isBnD",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "isCAK",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "isCustodian",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "isPay",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "registerAdmin",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-    ],
-    name: "renounceRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "bndAddress_",
-        type: "address",
-      },
-    ],
-    name: "revokeBndRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "cakAddress_",
-        type: "address",
-      },
-    ],
-    name: "revokeCakRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "cstAddress_",
-        type: "address",
-      },
-    ],
-    name: "revokeCstRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "payAddress_",
-        type: "address",
-      },
-    ],
-    name: "revokePayRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "revokeRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "EnumerableSet__IndexOutOfBounds",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "UintUtils__InsufficientHexLength",
-    type: "error",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "_addressForNewAdmin",
-        type: "address",
-      },
-    ],
-    name: "AdminChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint64",
-        name: "version",
-        type: "uint64",
-      },
-    ],
-    name: "Initialized",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "previousAdminRole",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "newAdminRole",
-        type: "bytes32",
-      },
-    ],
-    name: "RoleAdminChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-    ],
-    name: "RoleGranted",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-    ],
-    name: "RoleRevoked",
-    type: "event",
-  },
-  {
-    inputs: [],
-    name: "BND_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "CAK_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "CST_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "PAY_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-    ],
-    name: "getRoleAdmin",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "uint256",
-        name: "index",
-        type: "uint256",
-      },
-    ],
-    name: "getRoleMember",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-    ],
-    name: "getRoleMemberCount",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "grantRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "hasRole",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-    ],
-    name: "renounceRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "revokeRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
   },
   {
     inputs: [],
@@ -21443,6 +19826,54 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "subtractedValue",
+        type: "uint256",
+      },
+    ],
+    name: "decreaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "addedValue",
+        type: "uint256",
+      },
+    ],
+    name: "increaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
         name: "forwarder",
         type: "address",
       },
@@ -21842,6 +20273,54 @@ const _abi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "subtractedValue",
+        type: "uint256",
+      },
+    ],
+    name: "decreaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "addedValue",
+        type: "uint256",
+      },
+    ],
+    name: "increaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -22363,11 +20842,6 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "ReentrancyGuard__ReentrantCall",
-    type: "error",
-  },
-  {
     anonymous: false,
     inputs: [
       {
@@ -22388,25 +20862,6 @@ const _abi = [
         internalType: "uint8",
         name: "",
         type: "uint8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "forwarder",
-        type: "address",
-      },
-    ],
-    name: "isTrustedForwarder",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
       },
     ],
     stateMutability: "view",
@@ -22439,24 +20894,6 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "trustedForwarder",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "ReentrancyGuard__ReentrantCall",
-    type: "error",
-  },
-  {
     anonymous: false,
     inputs: [
       {
@@ -22468,38 +20905,6 @@ const _abi = [
     ],
     name: "Initialized",
     type: "event",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "forwarder",
-        type: "address",
-      },
-    ],
-    name: "isTrustedForwarder",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "trustedForwarder",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
   },
   {
     inputs: [],
@@ -22726,6 +21131,54 @@ const _abi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "subtractedValue",
+        type: "uint256",
+      },
+    ],
+    name: "decreaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "addedValue",
+        type: "uint256",
+      },
+    ],
+    name: "increaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -23052,6 +21505,54 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "subtractedValue",
+        type: "uint256",
+      },
+    ],
+    name: "decreaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "addedValue",
+        type: "uint256",
+      },
+    ],
+    name: "increaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
         name: "forwarder",
         type: "address",
       },
@@ -23423,6 +21924,54 @@ const _abi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "subtractedValue",
+        type: "uint256",
+      },
+    ],
+    name: "decreaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "addedValue",
+        type: "uint256",
+      },
+    ],
+    name: "increaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
@@ -25601,7 +24150,7 @@ const _abi = [
       },
       {
         indexed: true,
-        internalType: "enum ITradeInternal.TradeStatus",
+        internalType: "enum ITrade.Status",
         name: "status",
         type: "uint8",
       },
@@ -25660,7 +24209,7 @@ const _abi = [
             type: "uint256",
           },
         ],
-        internalType: "struct ITradeInternal.TradeDetail",
+        internalType: "struct ITrade.TradeDetail",
         name: "",
         type: "tuple",
       },
@@ -25712,9 +24261,288 @@ const _abi = [
     name: "status",
     outputs: [
       {
-        internalType: "enum ITradeInternal.TradeStatus",
+        internalType: "enum ITrade.Status",
         name: "",
         type: "uint8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "ReentrancyGuardReentrantCall",
+    type: "error",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "seller",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "buyer",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "enum ITrade.Status",
+        name: "status",
+        type: "uint8",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "quantity",
+        type: "uint256",
+      },
+    ],
+    name: "NotifyTrade",
+    type: "event",
+  },
+  {
+    inputs: [],
+    name: "approve",
+    outputs: [
+      {
+        internalType: "enum ITrade.Status",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "buyerAccount",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "details",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "quantity",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "buyer",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "tradeDate",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "valueDate",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "price",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "executeTransfer",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getDetails",
+    outputs: [
+      {
+        components: [
+          {
+            internalType: "uint256",
+            name: "quantity",
+            type: "uint256",
+          },
+          {
+            internalType: "address",
+            name: "buyer",
+            type: "address",
+          },
+          {
+            internalType: "uint256",
+            name: "tradeDate",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "valueDate",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "price",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct ITrade.TradeDetail",
+        name: "",
+        type: "tuple",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "forwarder",
+        type: "address",
+      },
+    ],
+    name: "isTrustedForwarder",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "paymentID",
+    outputs: [
+      {
+        internalType: "bytes8",
+        name: "",
+        type: "bytes8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "register",
+    outputs: [
+      {
+        internalType: "contract IRegister",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "reject",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "sellerAccount",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        components: [
+          {
+            internalType: "uint256",
+            name: "quantity",
+            type: "uint256",
+          },
+          {
+            internalType: "address",
+            name: "buyer",
+            type: "address",
+          },
+          {
+            internalType: "uint256",
+            name: "tradeDate",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "valueDate",
+            type: "uint256",
+          },
+          {
+            internalType: "uint256",
+            name: "price",
+            type: "uint256",
+          },
+        ],
+        internalType: "struct ITrade.TradeDetail",
+        name: "_details",
+        type: "tuple",
+      },
+    ],
+    name: "setDetails",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "status",
+    outputs: [
+      {
+        internalType: "enum ITrade.Status",
+        name: "",
+        type: "uint8",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "trustedForwarder",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
       },
     ],
     stateMutability: "view",
@@ -25737,51 +24565,7 @@ const _abi = [
       },
       {
         indexed: true,
-        internalType: "enum ITradeInternal.TradeStatus",
-        name: "status",
-        type: "uint8",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "quantity",
-        type: "uint256",
-      },
-    ],
-    name: "NotifyTrade",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint64",
-        name: "version",
-        type: "uint64",
-      },
-    ],
-    name: "Initialized",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "seller",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "buyer",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "enum ITradeInternal.TradeStatus",
+        internalType: "enum ITrade.Status",
         name: "status",
         type: "uint8",
       },
@@ -25800,7 +24584,7 @@ const _abi = [
     name: "approve",
     outputs: [
       {
-        internalType: "enum ITradeInternal.TradeStatus",
+        internalType: "enum ITrade.Status",
         name: "",
         type: "uint8",
       },
@@ -25866,7 +24650,7 @@ const _abi = [
             type: "uint256",
           },
         ],
-        internalType: "struct ITradeInternal.TradeDetail",
+        internalType: "struct ITrade.TradeDetail",
         name: "",
         type: "tuple",
       },
@@ -25950,7 +24734,7 @@ const _abi = [
             type: "uint256",
           },
         ],
-        internalType: "struct ITradeInternal.TradeDetail",
+        internalType: "struct ITrade.TradeDetail",
         name: "_details",
         type: "tuple",
       },
@@ -25965,260 +24749,7 @@ const _abi = [
     name: "status",
     outputs: [
       {
-        internalType: "enum ITradeInternal.TradeStatus",
-        name: "",
-        type: "uint8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint64",
-        name: "version",
-        type: "uint64",
-      },
-    ],
-    name: "Initialized",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "seller",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "buyer",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "enum ITradeInternal.TradeStatus",
-        name: "status",
-        type: "uint8",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "quantity",
-        type: "uint256",
-      },
-    ],
-    name: "NotifyTrade",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "seller",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "buyer",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "enum ITradeInternal.TradeStatus",
-        name: "status",
-        type: "uint8",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "quantity",
-        type: "uint256",
-      },
-    ],
-    name: "NotifyTrade",
-    type: "event",
-  },
-  {
-    inputs: [],
-    name: "approve",
-    outputs: [
-      {
-        internalType: "enum ITradeInternal.TradeStatus",
-        name: "",
-        type: "uint8",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "buyerAccount",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "executeTransfer",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "getDetails",
-    outputs: [
-      {
-        components: [
-          {
-            internalType: "uint256",
-            name: "quantity",
-            type: "uint256",
-          },
-          {
-            internalType: "address",
-            name: "buyer",
-            type: "address",
-          },
-          {
-            internalType: "uint256",
-            name: "tradeDate",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "valueDate",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "price",
-            type: "uint256",
-          },
-        ],
-        internalType: "struct ITradeInternal.TradeDetail",
-        name: "",
-        type: "tuple",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "paymentID",
-    outputs: [
-      {
-        internalType: "bytes8",
-        name: "",
-        type: "bytes8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "register",
-    outputs: [
-      {
-        internalType: "contract IRegister",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "reject",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "sellerAccount",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        components: [
-          {
-            internalType: "uint256",
-            name: "quantity",
-            type: "uint256",
-          },
-          {
-            internalType: "address",
-            name: "buyer",
-            type: "address",
-          },
-          {
-            internalType: "uint256",
-            name: "tradeDate",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "valueDate",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "price",
-            type: "uint256",
-          },
-        ],
-        internalType: "struct ITradeInternal.TradeDetail",
-        name: "_details",
-        type: "tuple",
-      },
-    ],
-    name: "setDetails",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "status",
-    outputs: [
-      {
-        internalType: "enum ITradeInternal.TradeStatus",
+        internalType: "enum ITrade.Status",
         name: "",
         type: "uint8",
       },
@@ -26243,38 +24774,7 @@ const _abi = [
       },
       {
         indexed: true,
-        internalType: "enum ITradeInternal.TradeStatus",
-        name: "status",
-        type: "uint8",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "quantity",
-        type: "uint256",
-      },
-    ],
-    name: "NotifyTrade",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "seller",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "buyer",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "enum ITradeInternal.TradeStatus",
+        internalType: "enum ITrade.Status",
         name: "status",
         type: "uint8",
       },
@@ -26359,7 +24859,7 @@ const _abi = [
             type: "uint256",
           },
         ],
-        internalType: "struct ITradeInternal.TradeDetail",
+        internalType: "struct ITrade.TradeDetail",
         name: "",
         type: "tuple",
       },
@@ -26388,19 +24888,6 @@ const _abi = [
         internalType: "bytes8",
         name: "",
         type: "bytes8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "primaryIssuanceAccount",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
       },
     ],
     stateMutability: "view",
@@ -26444,7 +24931,7 @@ const _abi = [
     name: "status",
     outputs: [
       {
-        internalType: "enum ITradeInternal.TradeStatus",
+        internalType: "enum ITrade.Status",
         name: "",
         type: "uint8",
       },
@@ -26460,6 +24947,11 @@ const _abi = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "ReentrancyGuardReentrantCall",
+    type: "error",
+  },
+  {
     anonymous: false,
     inputs: [
       {
@@ -26476,7 +24968,7 @@ const _abi = [
       },
       {
         indexed: true,
-        internalType: "enum ITradeInternal.TradeStatus",
+        internalType: "enum ITrade.Status",
         name: "status",
         type: "uint8",
       },
@@ -26502,578 +24994,6 @@ const _abi = [
     ],
     name: "PrimaryIssuanceCreated",
     type: "event",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__ApproveFromZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__ApproveToZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__BurnExceedsBalance",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__BurnFromZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__InsufficientAllowance",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__MintToZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__TransferExceedsBalance",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__TransferFromZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__TransferToZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Snapshot__SnapshotIdDoesNotExists",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Snapshot__SnapshotIdIsZero",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "EnumerableSet__IndexOutOfBounds",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ReentrancyGuard__ReentrantCall",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "UintUtils__InsufficientHexLength",
-    type: "error",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "_addressForNewAdmin",
-        type: "address",
-      },
-    ],
-    name: "AdminChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "owner",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
-      },
-    ],
-    name: "Approval",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "bytes32",
-        name: "contractHash",
-        type: "bytes32",
-      },
-    ],
-    name: "DisableContract",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "DisableInvestor",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "bytes32",
-        name: "contractHash",
-        type: "bytes32",
-      },
-    ],
-    name: "EnableContract",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "EnableInvestor",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint64",
-        name: "version",
-        type: "uint64",
-      },
-    ],
-    name: "Initialized",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "creator",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "isin",
-        type: "string",
-      },
-    ],
-    name: "NewBondDrafted",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "seller",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "buyer",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "enum ITradeInternal.TradeStatus",
-        name: "status",
-        type: "uint8",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "quantity",
-        type: "uint256",
-      },
-    ],
-    name: "NotifyTrade",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "contractAddress",
-        type: "address",
-      },
-    ],
-    name: "PrimaryIssuanceCreated",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "target",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "message",
-        type: "string",
-      },
-    ],
-    name: "PublicMessage",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "emiter",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "isin",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "enum IRegisterMetadataInternal.Status",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "RegisterStatusChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "previousAdminRole",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "newAdminRole",
-        type: "bytes32",
-      },
-    ],
-    name: "RoleAdminChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-    ],
-    name: "RoleGranted",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-    ],
-    name: "RoleRevoked",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
-      },
-    ],
-    name: "Snapshot",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "currentTimestamp",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "nextTimestamp",
-        type: "uint256",
-      },
-    ],
-    name: "SnapshotTimestampChange",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "from",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
-      },
-    ],
-    name: "Transfer",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "toBeAdded",
-        type: "address",
-      },
-    ],
-    name: "WalletAddedToWhitelist",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "toBeDeleted",
-        type: "address",
-      },
-    ],
-    name: "WalletDeletedFromWhitelist",
-    type: "event",
-  },
-  {
-    inputs: [],
-    name: "BND_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "CAK_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "CST_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "PAY_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "_account",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "_offerPrice",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "_register",
-    outputs: [
-      {
-        internalType: "contract IRegister",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_couponDate",
-        type: "uint256",
-      },
-    ],
-    name: "_totalSupplyAtCoupon",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
   },
   {
     inputs: [],
@@ -27089,97 +25009,6 @@ const _abi = [
     type: "function",
   },
   {
-    inputs: [
-      {
-        internalType: "address",
-        name: "holder",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-    ],
-    name: "allowance",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "approve",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "balanceOf",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "snapshotId",
-        type: "uint256",
-      },
-    ],
-    name: "balanceOfAt",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [],
     name: "buyerAccount",
     outputs: [
@@ -27187,19 +25016,6 @@ const _abi = [
         internalType: "address",
         name: "",
         type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "decimals",
-    outputs: [
-      {
-        internalType: "uint8",
-        name: "",
-        type: "uint8",
       },
     ],
     stateMutability: "view",
@@ -27237,145 +25053,9 @@ const _abi = [
             type: "uint256",
           },
         ],
-        internalType: "struct ITradeInternal.TradeDetail",
+        internalType: "struct ITrade.TradeDetail",
         name: "",
         type: "tuple",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-    ],
-    name: "getRoleAdmin",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "uint256",
-        name: "index",
-        type: "uint256",
-      },
-    ],
-    name: "getRoleMember",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-    ],
-    name: "getRoleMemberCount",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "grantRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "hasRole",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "forwarder",
-        type: "address",
-      },
-    ],
-    name: "isTrustedForwarder",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "name",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
       },
     ],
     stateMutability: "view",
@@ -27409,19 +25089,6 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "primaryIssuanceAccount",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
     name: "register",
     outputs: [
       {
@@ -27436,37 +25103,6 @@ const _abi = [
   {
     inputs: [],
     name: "reject",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-    ],
-    name: "renounceRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "revokeRole",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -27489,120 +25125,9 @@ const _abi = [
     name: "status",
     outputs: [
       {
-        internalType: "enum ITradeInternal.TradeStatus",
+        internalType: "enum ITrade.Status",
         name: "",
         type: "uint8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "symbol",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "totalSupply",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "snapshotId",
-        type: "uint256",
-      },
-    ],
-    name: "totalSupplyAt",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "recipient",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "transfer",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "holder",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "recipient",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "transferFrom",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "trustedForwarder",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
       },
     ],
     stateMutability: "view",
@@ -27613,960 +25138,6 @@ const _abi = [
     name: "validate",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__ApproveFromZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__ApproveToZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__BurnExceedsBalance",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__BurnFromZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__InsufficientAllowance",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__MintToZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__TransferExceedsBalance",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__TransferFromZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Base__TransferToZeroAddress",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Snapshot__SnapshotIdDoesNotExists",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ERC20Snapshot__SnapshotIdIsZero",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "EnumerableSet__IndexOutOfBounds",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ReentrancyGuard__ReentrantCall",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "UintUtils__InsufficientHexLength",
-    type: "error",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "_addressForNewAdmin",
-        type: "address",
-      },
-    ],
-    name: "AdminChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "owner",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
-      },
-    ],
-    name: "Approval",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "bytes32",
-        name: "contractHash",
-        type: "bytes32",
-      },
-    ],
-    name: "DisableContract",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "DisableInvestor",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "bytes32",
-        name: "contractHash",
-        type: "bytes32",
-      },
-    ],
-    name: "EnableContract",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "investor",
-        type: "address",
-      },
-    ],
-    name: "EnableInvestor",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint64",
-        name: "version",
-        type: "uint64",
-      },
-    ],
-    name: "Initialized",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "creator",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "isin",
-        type: "string",
-      },
-    ],
-    name: "NewBondDrafted",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "seller",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "buyer",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "enum ITradeInternal.TradeStatus",
-        name: "status",
-        type: "uint8",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "quantity",
-        type: "uint256",
-      },
-    ],
-    name: "NotifyTrade",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "address",
-        name: "contractAddress",
-        type: "address",
-      },
-    ],
-    name: "PrimaryIssuanceCreated",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "target",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "message",
-        type: "string",
-      },
-    ],
-    name: "PublicMessage",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "emiter",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "name",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "string",
-        name: "isin",
-        type: "string",
-      },
-      {
-        indexed: false,
-        internalType: "enum IRegisterMetadataInternal.Status",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "RegisterStatusChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "previousAdminRole",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "newAdminRole",
-        type: "bytes32",
-      },
-    ],
-    name: "RoleAdminChanged",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-    ],
-    name: "RoleGranted",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-    ],
-    name: "RoleRevoked",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
-      },
-    ],
-    name: "Snapshot",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "couponDate",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "currentTimestamp",
-        type: "uint256",
-      },
-      {
-        indexed: true,
-        internalType: "uint256",
-        name: "nextTimestamp",
-        type: "uint256",
-      },
-    ],
-    name: "SnapshotTimestampChange",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "from",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
-      },
-    ],
-    name: "Transfer",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "toBeAdded",
-        type: "address",
-      },
-    ],
-    name: "WalletAddedToWhitelist",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "toBeDeleted",
-        type: "address",
-      },
-    ],
-    name: "WalletDeletedFromWhitelist",
-    type: "event",
-  },
-  {
-    inputs: [],
-    name: "BND_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "CAK_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "CST_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "PAY_ROLE",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "_account",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "_offerPrice",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "_register",
-    outputs: [
-      {
-        internalType: "contract IRegister",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_couponDate",
-        type: "uint256",
-      },
-    ],
-    name: "_totalSupplyAtCoupon",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "holder",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-    ],
-    name: "allowance",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "approve",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "balanceOf",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "snapshotId",
-        type: "uint256",
-      },
-    ],
-    name: "balanceOfAt",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "decimals",
-    outputs: [
-      {
-        internalType: "uint8",
-        name: "",
-        type: "uint8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-    ],
-    name: "getRoleAdmin",
-    outputs: [
-      {
-        internalType: "bytes32",
-        name: "",
-        type: "bytes32",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "uint256",
-        name: "index",
-        type: "uint256",
-      },
-    ],
-    name: "getRoleMember",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-    ],
-    name: "getRoleMemberCount",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "grantRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "hasRole",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "forwarder",
-        type: "address",
-      },
-    ],
-    name: "isTrustedForwarder",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "name",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-    ],
-    name: "renounceRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "bytes32",
-        name: "role",
-        type: "bytes32",
-      },
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "revokeRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "symbol",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "totalSupply",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "snapshotId",
-        type: "uint256",
-      },
-    ],
-    name: "totalSupplyAt",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "recipient",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "transfer",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "holder",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "recipient",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "transferFrom",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "trustedForwarder",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
     type: "function",
   },
   {

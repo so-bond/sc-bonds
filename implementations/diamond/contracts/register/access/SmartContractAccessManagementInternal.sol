@@ -5,12 +5,18 @@ pragma solidity ^0.8.20;
 
 import { ISmartContractAccessManagementInternal } from "./ISmartContractAccessManagementInternal.sol";
 import { SmartContractAccessManagementStorage } from "./SmartContractAccessManagementStorage.sol";
+import { RegisterRoleManagementInternal } from "../role/RegisterRoleManagementInternal.sol";
 import { ContextInternal } from "../../metatx/ContextInternal.sol";
 
 abstract contract SmartContractAccessManagementInternal is
     ISmartContractAccessManagementInternal,
-    ContextInternal
+    ContextInternal,
+    RegisterRoleManagementInternal
 {
+    function _canManageSmartContracts() internal view virtual returns (bool) {
+        return _hasRole(CAK_ROLE, _msgSender());
+    }
+
     function _isCallerApprovedSmartContract() internal view returns (bool) {
         SmartContractAccessManagementStorage.Layout
             storage l = SmartContractAccessManagementStorage.layout();
@@ -50,11 +56,6 @@ abstract contract SmartContractAccessManagementInternal is
         require(_canManageSmartContracts(), "Caller must be CAK");
         l.contractsAllowed[contractHash_] = false;
         emit DisableContract(contractHash_);
-    }
-
-    // TODO Override this function in the child contract
-    function _canManageSmartContracts() internal view virtual returns (bool) {
-        return true;
     }
 
     /**

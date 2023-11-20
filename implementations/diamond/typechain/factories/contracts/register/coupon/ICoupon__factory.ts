@@ -14,13 +14,19 @@ const _abi = [
     inputs: [
       {
         indexed: true,
+        internalType: "contract IRegister",
+        name: "register",
+        type: "address",
+      },
+      {
+        indexed: true,
         internalType: "uint256",
         name: "couponDate",
         type: "uint256",
       },
       {
         indexed: true,
-        internalType: "enum ICouponInternal.CouponStatus",
+        internalType: "enum ICoupon.CouponStatus",
         name: "status",
         type: "uint8",
       },
@@ -31,6 +37,12 @@ const _abi = [
   {
     anonymous: false,
     inputs: [
+      {
+        indexed: true,
+        internalType: "contract IRegister",
+        name: "register",
+        type: "address",
+      },
       {
         indexed: true,
         internalType: "uint256",
@@ -45,13 +57,13 @@ const _abi = [
       },
       {
         indexed: false,
-        internalType: "enum ICouponInternal.PaymentStatus",
+        internalType: "enum ICoupon.PaymentStatus",
         name: "status",
         type: "uint8",
       },
       {
         indexed: false,
-        internalType: "enum ICouponInternal.PaymentStatus",
+        internalType: "enum ICoupon.PaymentStatus",
         name: "previousStatus",
         type: "uint8",
       },
@@ -96,7 +108,7 @@ const _abi = [
     name: "getInvestorPayments",
     outputs: [
       {
-        internalType: "enum ICouponInternal.PaymentStatus",
+        internalType: "enum ICoupon.PaymentStatus",
         name: "",
         type: "uint8",
       },

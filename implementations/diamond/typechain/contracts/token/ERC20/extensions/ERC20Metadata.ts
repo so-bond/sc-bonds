@@ -9,7 +9,6 @@ import type {
   Result,
   Interface,
   EventFragment,
-  AddressLike,
   ContractRunner,
   ContractMethod,
   Listener,
@@ -25,39 +24,18 @@ import type {
 
 export interface ERC20MetadataInterface extends Interface {
   getFunction(
-    nameOrSignature:
-      | "decimals"
-      | "isTrustedForwarder"
-      | "name"
-      | "symbol"
-      | "trustedForwarder"
+    nameOrSignature: "decimals" | "name" | "symbol"
   ): FunctionFragment;
 
   getEvent(nameOrSignatureOrTopic: "Initialized"): EventFragment;
 
   encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "isTrustedForwarder",
-    values: [AddressLike]
-  ): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "trustedForwarder",
-    values?: undefined
-  ): string;
 
   decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "isTrustedForwarder",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "trustedForwarder",
-    data: BytesLike
-  ): Result;
 }
 
 export namespace InitializedEvent {
@@ -117,17 +95,9 @@ export interface ERC20Metadata extends BaseContract {
 
   decimals: TypedContractMethod<[], [bigint], "view">;
 
-  isTrustedForwarder: TypedContractMethod<
-    [forwarder: AddressLike],
-    [boolean],
-    "view"
-  >;
-
   name: TypedContractMethod<[], [string], "view">;
 
   symbol: TypedContractMethod<[], [string], "view">;
-
-  trustedForwarder: TypedContractMethod<[], [string], "view">;
 
   getFunction<T extends ContractMethod = ContractMethod>(
     key: string | FunctionFragment
@@ -137,16 +107,10 @@ export interface ERC20Metadata extends BaseContract {
     nameOrSignature: "decimals"
   ): TypedContractMethod<[], [bigint], "view">;
   getFunction(
-    nameOrSignature: "isTrustedForwarder"
-  ): TypedContractMethod<[forwarder: AddressLike], [boolean], "view">;
-  getFunction(
     nameOrSignature: "name"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "symbol"
-  ): TypedContractMethod<[], [string], "view">;
-  getFunction(
-    nameOrSignature: "trustedForwarder"
   ): TypedContractMethod<[], [string], "view">;
 
   getEvent(

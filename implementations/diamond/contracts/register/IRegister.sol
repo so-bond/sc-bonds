@@ -4,13 +4,15 @@
 pragma solidity ^0.8.20;
 
 import { IRegisterMetadata } from "./metadata/IRegisterMetadata.sol";
+import { ICouponSnapshotManagement } from "./snapshot/ICouponSnapshotManagement.sol";
 import { IRegisterRoleManagement } from "./role/IRegisterRoleManagement.sol";
-import { ICouponSnapshotManagement } from "./coupon/ICouponSnapshotManagement.sol";
 import { ISmartContractAccessManagement } from "./access/ISmartContractAccessManagement.sol";
+import { IInvestorManagement } from "./investors/IInvestorManagement.sol";
 
 interface IRegister is
     IRegisterMetadata,
-    IRegisterRoleManagement,
     ICouponSnapshotManagement,
-    ISmartContractAccessManagement
+    IRegisterRoleManagement,
+    ISmartContractAccessManagement,
+    IInvestorManagement
 {}
