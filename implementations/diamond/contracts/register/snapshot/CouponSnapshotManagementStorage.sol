@@ -3,6 +3,8 @@
 
 pragma solidity ^0.8.20;
 
+import { ICouponSnapshotManagementInternal } from "./ICouponSnapshotManagementInternal.sol";
+
 library CouponSnapshotManagementStorage {
     struct Layout {
         uint256 currentSnapshotTimestamp; // Represents the datetime (in sec) of the next time a snap shot should be taken if a transfer or a coupon date setting is done after that moment
@@ -10,6 +12,8 @@ library CouponSnapshotManagementStorage {
         uint256 currentCouponDate; //the date part of _currentSnapshotTimestamp : needed to populate the 'couponDateSnapshotId' map when a new snapshotId is created
         bool forceAcceptNextTransfer; // should always be reset to false
         mapping(uint256 => uint256) couponDateSnapshotId; // couponDate => SnnapshotId
+        mapping(address => mapping(address => LockInfo)) sellerToBuyerLocks; // locked tokens
+        mapping(bytes32 => Artifacts) artifacts; // artifacts of the HTLC
     }
 
     bytes32 internal constant STORAGE_SLOT =

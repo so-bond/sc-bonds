@@ -148,6 +148,14 @@ abstract contract CouponSnapshotManagementInternal is
 
         CouponSnapshotManagementStorage.Layout
             storage l = CouponSnapshotManagementStorage.layout();
+
+        LockStatus _lockStatus = l.sellerToBuyerLocks[from_][to_].status;
+
+        // check the HTLC status
+        require(_lockStatus != LockStatus.Locked, "Asset is locked");
+
+        // TODO : check the amount to allow the transfer for the excess of the locked amount
+
         if (l.forceAcceptNextTransfer) {
             l.forceAcceptNextTransfer = false;
         } else {
@@ -414,5 +422,222 @@ abstract contract CouponSnapshotManagementInternal is
             _transfer(from_, to_, amount_);
             return true;
         }
+    }
+
+    function _setLock(LockInfo memory _lockInfo) internal {
+        require(
+            _hasRole(CAK_ROLE, msg.sender) ||
+                _hasRole(BND_ROLE, msg.sender) ||
+                _isContractAllowed(msg.sender),
+            "Caller not authorized"
+        );
+
+        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
+            .layout();
+
+        LockStatus _lockStatus = l
+        .sellerToBuyerLocks[_lockInfo.seller][_lockInfo.buyer].status;
+
+        // check the HTLC status
+        require(_lockStatus == LockStatus.Unlocked, "Lock already set");
+
+        // check the _lockInfo status
+        require(_lockInfo.status == LockStatus.Set, "Invalid status");
+
+        // check the addresses
+        require(
+            _lockInfo.seller != address(0) && _lockInfo.buyer != address(0),
+            "Invalid address"
+        );
+
+        //make sure the recipient is an allowed investor
+        require(
+            _investorsAllowed(_lockInfo.buyer) == true,
+            "The receiver is not allowed"
+        );
+
+        require(
+            _investorsAllowed(_lockInfo.seller) == true || // the seller must be a valid investor at the time of transfer
+                _hasRole(BND_ROLE, _lockInfo.seller), // or the seller is the B&D for the primary distribution
+            "The sender is not allowed"
+        );
+
+        // check the amount to lock
+        require(_lockInfo.amount > 0, "Invalid amount");
+
+        // check that the _lockInfo.seller has the amount
+        require(
+            _balanceOf(_lockInfo.seller) >= _lockInfo.amount,
+            "Insufficient balance"
+        );
+
+        // check the dates
+        require(
+            _lockInfo.paymentDate > block.timestamp &&
+                _lockInfo.deliveryDate >= _lockInfo.paymentDate,
+            "Invalid dates"
+        );
+
+        // set the lock information
+        l.sellerToBuyerLocks[_lockInfo.seller][_lockInfo.buyer] = _lockInfo;
+
+        // emit the event
+        emit LockSet(lock.transactionID, lock.paymentID, _lockInfo.status);
+    }
+
+    function _release(
+        address _from,
+        address _to,
+        bytes32 _secret,
+        bytes32 _paymentProof
+    ) internal {
+        require(
+            _hasRole(CAK_ROLE, msg.sender) ||
+                _hasRole(BND_ROLE, msg.sender) ||
+                _isContractAllowed(msg.sender),
+            "Caller not authorized"
+        );
+
+        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
+            .layout();
+
+        // get the lock information
+        LockInfo memory _lock = l.sellerToBuyerLocks[_from][_to];
+
+        // check the HTLC status
+        require(
+            _lock.status == Status.Locked,
+            "Asset not locked or already released"
+        );
+
+        // check the HTLC secret
+        require(
+            sha256(abi.encodePacked(_secret)) == _lock.hashlock,
+            "Invalid secret"
+        );
+
+        // update status
+        _lock.status = Status.Released;
+
+        // save artifacts
+        artifacts.paymentProof = _paymentProof;
+        artifacts.secret = _secret;
+
+        // transfer the asset to the buyer
+        _transferFrom(_lock.seller, _lock.buyer, _lock.amount);
+
+        // emit the event
+        emit AssetReleased(
+            _lock.transactionID,
+            _lock.paymentID,
+            Status.Released
+        );
+    }
+
+    function _forceRelease(
+        address _from,
+        address _to,
+        bytes32 _secretRelease,
+        bytes32 _paymentProof
+    ) internal {
+        require(
+            _hasRole(CAK_ROLE, msg.sender) ||
+                _hasRole(BND_ROLE, msg.sender) ||
+                _isContractAllowed(msg.sender),
+            "Caller not authorized"
+        );
+
+        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
+            .layout();
+
+        // get the lock information
+        LockInfo memory _lock = l.sellerToBuyerLocks[_from][_to];
+
+        // check the HTLC status
+        require(
+            _lock.status == Status.Locked,
+            "Asset not locked or already released"
+        );
+
+        // check the payment date
+        require(
+            block.timestamp > _lock.paymentDate,
+            "Cannot force release before payment date"
+        );
+
+        // check the HTLC secret
+        require(
+            sha256(abi.encodePacked(_secretRelease)) == _lock.hashRelease,
+            "Invalid force release secret"
+        );
+
+        // update status
+        _lock.status = Status.Status.ForceReleased;
+
+        // save artifacts
+        artifacts.paymentProof[_lock.transactionID] = _paymentProof;
+        artifacts.secretCancel[_lock.transactionID] = _secretRelease;
+
+        // transfer the asset to the buyer
+        _transferFrom(_lock.seller, _lock.buyer, _lock.amount);
+
+        // emit the event
+        emit AssetReleased(
+            _lock.transactionID,
+            _lock.paymentID,
+            Status.ForceReleased
+        );
+    }
+
+    function _forceCancel(
+        address _from,
+        address _to,
+        bytes32 _secretCancel,
+        bytes32 _paymentProof
+    ) internal {
+        require(
+            _hasRole(CAK_ROLE, msg.sender) ||
+                _hasRole(BND_ROLE, msg.sender) ||
+                _isContractAllowed(msg.sender),
+            "Caller not authorized"
+        );
+
+        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
+            .layout();
+
+        // get the lock information
+        LockInfo memory _lock = l.sellerToBuyerLocks[_from][_to];
+
+        // check the HTLC status
+        require(
+            _lock.status == Status.Locked,
+            "Asset not locked or already released"
+        );
+
+        // check the payment date
+        require(
+            block.timestamp > _lock.deliveryDate,
+            "Cannot force cancel before delivery date"
+        );
+
+        // check the HTLC secret
+        require(
+            sha256(abi.encodePacked(_secretCancel)) == _lock.hashCancel,
+            "Invalid force release secret"
+        );
+
+        // update status
+        _lock.status = Status.Status.ForceCancelled;
+
+        // save artifacts
+        artifacts.paymentProof[_lock.transactionID] = _paymentProof;
+        artifacts.secretCancel[_lock.transactionID] = _secretCancel;
+
+        // emit the event
+        emit LockCancelled(
+            _lock.transactionID,
+            _lock.paymentID,
+            Status.ForceCancelled
+        );
     }
 }

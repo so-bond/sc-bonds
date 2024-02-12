@@ -127,4 +127,60 @@ contract CouponSnapshotManagement is
     function burn(uint256 amount_) public {
         _burn(_msgSender(), amount_);
     }
+
+    /**
+     * @notice Function to set the lock information.
+     * @param _lockInfo The lock information.
+     */
+    function setLock(LockInfo memory _lockInfo) public {
+        _setLock(_lockInfo);
+    }
+
+    /**
+     * @notice Function to release the locked asset.
+     * @param _from The sender address.
+     * @param _to The receiver address.
+     * @param _secret The secret of the standard release.
+     * @param _paymentProof The proof of successful payment (e.g. hash of the pacs.002 positif response).
+     */
+    function release(
+        address _from,
+        address _to,
+        bytes32 _secret,
+        bytes32 _paymentProof
+    ) public {
+        _release(_from, _to, _secret, _paymentProof);
+    }
+
+    /**
+     * @notice Function to force the release.
+     * @param _from The sender address.
+     * @param _to The receiver address.
+     * @param _secretRelease The secret of the forced release.
+     * @param _paymentProof The proof of successful payment (e.g. hash of the pacs.002 positif response).
+     */
+    function forceRelease(
+        address _from,
+        address _to,
+        bytes32 _secretRelease,
+        bytes32 _paymentProof
+    ) public {
+        _forceRelease(_from, _to, _secretRelease, _paymentProof);
+    }
+
+    /**
+     * @notice Function to cancel the lock.
+     * @param _from The sender address.
+     * @param _to The receiver address.
+     * @param _secretCancel The secret of the forced cancel.
+     * @param _paymentProof The proof of failed payment (e.g. hash of the pacs.002 negative response).
+     */
+    function forceCancel(
+        address _from,
+        address _to,
+        bytes32 _secretCancel,
+        bytes32 _paymentProof
+    ) public {
+        forceCancel(_from, _to, _secretCancel, _paymentProof);
+    }
 }
