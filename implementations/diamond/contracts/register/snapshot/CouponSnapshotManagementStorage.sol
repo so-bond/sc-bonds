@@ -12,8 +12,8 @@ library CouponSnapshotManagementStorage {
         uint256 currentCouponDate; //the date part of _currentSnapshotTimestamp : needed to populate the 'couponDateSnapshotId' map when a new snapshotId is created
         bool forceAcceptNextTransfer; // should always be reset to false
         mapping(uint256 => uint256) couponDateSnapshotId; // couponDate => SnnapshotId
-        mapping(address => mapping(address => LockInfo)) sellerToBuyerLocks; // locked tokens
-        mapping(bytes32 => Artifacts) artifacts; // artifacts of the HTLC
+        mapping(address => mapping(address => ICouponSnapshotManagementInternal.LockInfo)) sellerToBuyerLocks; // locked tokens
+        mapping(bytes32 => ICouponSnapshotManagementInternal.Artifacts) artifacts; // artifacts of the HTLC
     }
 
     bytes32 internal constant STORAGE_SLOT =

@@ -88,6 +88,51 @@ export declare namespace IRegisterMetadataInternal {
   };
 }
 
+export declare namespace ICouponSnapshotManagementInternal {
+  export type LockInfoStruct = {
+    seller: AddressLike;
+    buyer: AddressLike;
+    amount: BigNumberish;
+    transactionID: BytesLike;
+    paymentID: BytesLike;
+    signature: BytesLike;
+    hashlock: BytesLike;
+    hashRelease: BytesLike;
+    hashCancel: BytesLike;
+    paymentDate: BigNumberish;
+    deliveryDate: BigNumberish;
+    status: BigNumberish;
+  };
+
+  export type LockInfoStructOutput = [
+    seller: string,
+    buyer: string,
+    amount: bigint,
+    transactionID: string,
+    paymentID: string,
+    signature: string,
+    hashlock: string,
+    hashRelease: string,
+    hashCancel: string,
+    paymentDate: bigint,
+    deliveryDate: bigint,
+    status: bigint
+  ] & {
+    seller: string;
+    buyer: string;
+    amount: bigint;
+    transactionID: string;
+    paymentID: string;
+    signature: string;
+    hashlock: string;
+    hashRelease: string;
+    hashCancel: string;
+    paymentDate: bigint;
+    deliveryDate: bigint;
+    status: bigint;
+  };
+}
+
 export declare namespace ITrade {
   export type TradeDetailStruct = {
     quantity: BigNumberish;
@@ -863,6 +908,10 @@ export interface DiamondInterface extends Interface {
       | "_totalSupplyAtCoupon(uint256)"
       | "_totalSupplyAtCoupon(uint256)"
       | "_totalSupplyAtCoupon(uint256)"
+      | "forceCancel"
+      | "forceRelease"
+      | "release"
+      | "setLock"
       | "paused()"
       | "paused()"
       | "balanceOfBatch(address[],uint256[])"
@@ -1159,6 +1208,20 @@ export interface DiamondInterface extends Interface {
       | "Approval(address,address,uint256)"
       | "Approval(address,address,uint256)"
       | "Approval(address,address,uint256)"
+      | "AssetLocked(bytes32,bytes32,uint8)"
+      | "AssetLocked(bytes32,bytes32,uint8)"
+      | "AssetLocked(bytes32,bytes32,uint8)"
+      | "AssetLocked(bytes32,bytes32,uint8)"
+      | "AssetLocked(bytes32,bytes32,uint8)"
+      | "AssetLocked(bytes32,bytes32,uint8)"
+      | "AssetLocked(bytes32,bytes32,uint8)"
+      | "AssetReleased(bytes32,bytes32,uint8)"
+      | "AssetReleased(bytes32,bytes32,uint8)"
+      | "AssetReleased(bytes32,bytes32,uint8)"
+      | "AssetReleased(bytes32,bytes32,uint8)"
+      | "AssetReleased(bytes32,bytes32,uint8)"
+      | "AssetReleased(bytes32,bytes32,uint8)"
+      | "AssetReleased(bytes32,bytes32,uint8)"
       | "DisableContract(bytes32)"
       | "DisableContract(bytes32)"
       | "DisableContract(bytes32)"
@@ -1195,6 +1258,20 @@ export interface DiamondInterface extends Interface {
       | "EnableInvestor(address)"
       | "EnableInvestor(address)"
       | "EnableInvestor(address)"
+      | "LockCancelled(bytes32,bytes32,uint8)"
+      | "LockCancelled(bytes32,bytes32,uint8)"
+      | "LockCancelled(bytes32,bytes32,uint8)"
+      | "LockCancelled(bytes32,bytes32,uint8)"
+      | "LockCancelled(bytes32,bytes32,uint8)"
+      | "LockCancelled(bytes32,bytes32,uint8)"
+      | "LockCancelled(bytes32,bytes32,uint8)"
+      | "LockSet(bytes32,bytes32,uint8)"
+      | "LockSet(bytes32,bytes32,uint8)"
+      | "LockSet(bytes32,bytes32,uint8)"
+      | "LockSet(bytes32,bytes32,uint8)"
+      | "LockSet(bytes32,bytes32,uint8)"
+      | "LockSet(bytes32,bytes32,uint8)"
+      | "LockSet(bytes32,bytes32,uint8)"
       | "NewBondDrafted(address,string,string)"
       | "NewBondDrafted(address,string,string)"
       | "NewBondDrafted(address,string,string)"
@@ -4133,6 +4210,22 @@ export interface DiamondInterface extends Interface {
   encodeFunctionData(
     functionFragment: "_totalSupplyAtCoupon(uint256)",
     values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "forceCancel",
+    values: [AddressLike, AddressLike, BytesLike, BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "forceRelease",
+    values: [AddressLike, AddressLike, BytesLike, BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "release",
+    values: [AddressLike, AddressLike, BytesLike, BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setLock",
+    values: [ICouponSnapshotManagementInternal.LockInfoStruct]
   ): string;
   encodeFunctionData(functionFragment: "paused()", values?: undefined): string;
   encodeFunctionData(functionFragment: "paused()", values?: undefined): string;
@@ -7241,6 +7334,16 @@ export interface DiamondInterface extends Interface {
     functionFragment: "_totalSupplyAtCoupon(uint256)",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "forceCancel",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "forceRelease",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "release", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "setLock", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "paused()", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "paused()", data: BytesLike): Result;
   decodeFunctionResult(
@@ -10287,6 +10390,314 @@ export namespace Approval_address_address_uint256_Event {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
+export namespace AssetLocked_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace AssetLocked_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace AssetLocked_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace AssetLocked_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace AssetLocked_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace AssetLocked_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace AssetLocked_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace AssetReleased_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace AssetReleased_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace AssetReleased_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace AssetReleased_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace AssetReleased_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace AssetReleased_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace AssetReleased_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
 export namespace DisableContract_bytes32_Event {
   export type InputTuple = [contractHash: BytesLike];
   export type OutputTuple = [contractHash: string];
@@ -10712,6 +11123,314 @@ export namespace EnableInvestor_address_Event {
   export type OutputTuple = [investor: string];
   export interface OutputObject {
     investor: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace LockCancelled_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace LockCancelled_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace LockCancelled_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace LockCancelled_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace LockCancelled_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace LockCancelled_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace LockCancelled_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace LockSet_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace LockSet_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace LockSet_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace LockSet_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace LockSet_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace LockSet_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace LockSet_bytes32_bytes32_uint8_Event {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -17153,6 +17872,45 @@ export interface Diamond extends BaseContract {
     "view"
   >;
 
+  forceCancel: TypedContractMethod<
+    [
+      _from: AddressLike,
+      _to: AddressLike,
+      _secretCancel: BytesLike,
+      _paymentProof: BytesLike
+    ],
+    [void],
+    "nonpayable"
+  >;
+
+  forceRelease: TypedContractMethod<
+    [
+      _from: AddressLike,
+      _to: AddressLike,
+      _secretRelease: BytesLike,
+      _paymentProof: BytesLike
+    ],
+    [void],
+    "nonpayable"
+  >;
+
+  release: TypedContractMethod<
+    [
+      _from: AddressLike,
+      _to: AddressLike,
+      _secret: BytesLike,
+      _paymentProof: BytesLike
+    ],
+    [void],
+    "nonpayable"
+  >;
+
+  setLock: TypedContractMethod<
+    [_lockInfo: ICouponSnapshotManagementInternal.LockInfoStruct],
+    [void],
+    "nonpayable"
+  >;
+
   "paused()": TypedContractMethod<[], [boolean], "view">;
 
   "paused()": TypedContractMethod<[], [boolean], "view">;
@@ -20913,6 +21671,49 @@ export interface Diamond extends BaseContract {
     nameOrSignature: "_totalSupplyAtCoupon(uint256)"
   ): TypedContractMethod<[_couponDate: BigNumberish], [bigint], "view">;
   getFunction(
+    nameOrSignature: "forceCancel"
+  ): TypedContractMethod<
+    [
+      _from: AddressLike,
+      _to: AddressLike,
+      _secretCancel: BytesLike,
+      _paymentProof: BytesLike
+    ],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "forceRelease"
+  ): TypedContractMethod<
+    [
+      _from: AddressLike,
+      _to: AddressLike,
+      _secretRelease: BytesLike,
+      _paymentProof: BytesLike
+    ],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "release"
+  ): TypedContractMethod<
+    [
+      _from: AddressLike,
+      _to: AddressLike,
+      _secret: BytesLike,
+      _paymentProof: BytesLike
+    ],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "setLock"
+  ): TypedContractMethod<
+    [_lockInfo: ICouponSnapshotManagementInternal.LockInfoStruct],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
     nameOrSignature: "paused()"
   ): TypedContractMethod<[], [boolean], "view">;
   getFunction(
@@ -22734,6 +23535,104 @@ export interface Diamond extends BaseContract {
     Approval_address_address_uint256_Event.OutputObject
   >;
   getEvent(
+    key: "AssetLocked(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    AssetLocked_bytes32_bytes32_uint8_Event.InputTuple,
+    AssetLocked_bytes32_bytes32_uint8_Event.OutputTuple,
+    AssetLocked_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "AssetLocked(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    AssetLocked_bytes32_bytes32_uint8_Event.InputTuple,
+    AssetLocked_bytes32_bytes32_uint8_Event.OutputTuple,
+    AssetLocked_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "AssetLocked(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    AssetLocked_bytes32_bytes32_uint8_Event.InputTuple,
+    AssetLocked_bytes32_bytes32_uint8_Event.OutputTuple,
+    AssetLocked_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "AssetLocked(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    AssetLocked_bytes32_bytes32_uint8_Event.InputTuple,
+    AssetLocked_bytes32_bytes32_uint8_Event.OutputTuple,
+    AssetLocked_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "AssetLocked(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    AssetLocked_bytes32_bytes32_uint8_Event.InputTuple,
+    AssetLocked_bytes32_bytes32_uint8_Event.OutputTuple,
+    AssetLocked_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "AssetLocked(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    AssetLocked_bytes32_bytes32_uint8_Event.InputTuple,
+    AssetLocked_bytes32_bytes32_uint8_Event.OutputTuple,
+    AssetLocked_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "AssetLocked(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    AssetLocked_bytes32_bytes32_uint8_Event.InputTuple,
+    AssetLocked_bytes32_bytes32_uint8_Event.OutputTuple,
+    AssetLocked_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "AssetReleased(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    AssetReleased_bytes32_bytes32_uint8_Event.InputTuple,
+    AssetReleased_bytes32_bytes32_uint8_Event.OutputTuple,
+    AssetReleased_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "AssetReleased(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    AssetReleased_bytes32_bytes32_uint8_Event.InputTuple,
+    AssetReleased_bytes32_bytes32_uint8_Event.OutputTuple,
+    AssetReleased_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "AssetReleased(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    AssetReleased_bytes32_bytes32_uint8_Event.InputTuple,
+    AssetReleased_bytes32_bytes32_uint8_Event.OutputTuple,
+    AssetReleased_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "AssetReleased(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    AssetReleased_bytes32_bytes32_uint8_Event.InputTuple,
+    AssetReleased_bytes32_bytes32_uint8_Event.OutputTuple,
+    AssetReleased_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "AssetReleased(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    AssetReleased_bytes32_bytes32_uint8_Event.InputTuple,
+    AssetReleased_bytes32_bytes32_uint8_Event.OutputTuple,
+    AssetReleased_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "AssetReleased(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    AssetReleased_bytes32_bytes32_uint8_Event.InputTuple,
+    AssetReleased_bytes32_bytes32_uint8_Event.OutputTuple,
+    AssetReleased_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "AssetReleased(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    AssetReleased_bytes32_bytes32_uint8_Event.InputTuple,
+    AssetReleased_bytes32_bytes32_uint8_Event.OutputTuple,
+    AssetReleased_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
     key: "DisableContract(bytes32)"
   ): TypedContractEvent<
     DisableContract_bytes32_Event.InputTuple,
@@ -22984,6 +23883,104 @@ export interface Diamond extends BaseContract {
     EnableInvestor_address_Event.InputTuple,
     EnableInvestor_address_Event.OutputTuple,
     EnableInvestor_address_Event.OutputObject
+  >;
+  getEvent(
+    key: "LockCancelled(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    LockCancelled_bytes32_bytes32_uint8_Event.InputTuple,
+    LockCancelled_bytes32_bytes32_uint8_Event.OutputTuple,
+    LockCancelled_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "LockCancelled(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    LockCancelled_bytes32_bytes32_uint8_Event.InputTuple,
+    LockCancelled_bytes32_bytes32_uint8_Event.OutputTuple,
+    LockCancelled_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "LockCancelled(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    LockCancelled_bytes32_bytes32_uint8_Event.InputTuple,
+    LockCancelled_bytes32_bytes32_uint8_Event.OutputTuple,
+    LockCancelled_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "LockCancelled(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    LockCancelled_bytes32_bytes32_uint8_Event.InputTuple,
+    LockCancelled_bytes32_bytes32_uint8_Event.OutputTuple,
+    LockCancelled_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "LockCancelled(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    LockCancelled_bytes32_bytes32_uint8_Event.InputTuple,
+    LockCancelled_bytes32_bytes32_uint8_Event.OutputTuple,
+    LockCancelled_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "LockCancelled(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    LockCancelled_bytes32_bytes32_uint8_Event.InputTuple,
+    LockCancelled_bytes32_bytes32_uint8_Event.OutputTuple,
+    LockCancelled_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "LockCancelled(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    LockCancelled_bytes32_bytes32_uint8_Event.InputTuple,
+    LockCancelled_bytes32_bytes32_uint8_Event.OutputTuple,
+    LockCancelled_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "LockSet(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    LockSet_bytes32_bytes32_uint8_Event.InputTuple,
+    LockSet_bytes32_bytes32_uint8_Event.OutputTuple,
+    LockSet_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "LockSet(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    LockSet_bytes32_bytes32_uint8_Event.InputTuple,
+    LockSet_bytes32_bytes32_uint8_Event.OutputTuple,
+    LockSet_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "LockSet(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    LockSet_bytes32_bytes32_uint8_Event.InputTuple,
+    LockSet_bytes32_bytes32_uint8_Event.OutputTuple,
+    LockSet_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "LockSet(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    LockSet_bytes32_bytes32_uint8_Event.InputTuple,
+    LockSet_bytes32_bytes32_uint8_Event.OutputTuple,
+    LockSet_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "LockSet(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    LockSet_bytes32_bytes32_uint8_Event.InputTuple,
+    LockSet_bytes32_bytes32_uint8_Event.OutputTuple,
+    LockSet_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "LockSet(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    LockSet_bytes32_bytes32_uint8_Event.InputTuple,
+    LockSet_bytes32_bytes32_uint8_Event.OutputTuple,
+    LockSet_bytes32_bytes32_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "LockSet(bytes32,bytes32,uint8)"
+  ): TypedContractEvent<
+    LockSet_bytes32_bytes32_uint8_Event.InputTuple,
+    LockSet_bytes32_bytes32_uint8_Event.OutputTuple,
+    LockSet_bytes32_bytes32_uint8_Event.OutputObject
   >;
   getEvent(
     key: "NewBondDrafted(address,string,string)"
@@ -24851,6 +25848,76 @@ export interface Diamond extends BaseContract {
       Approval_address_address_uint256_Event.OutputTuple,
       Approval_address_address_uint256_Event.OutputObject
     >;
+    "AssetLocked(bytes32,bytes32,uint8)": TypedContractEvent<
+      AssetLocked_bytes32_bytes32_uint8_Event.InputTuple,
+      AssetLocked_bytes32_bytes32_uint8_Event.OutputTuple,
+      AssetLocked_bytes32_bytes32_uint8_Event.OutputObject
+    >;
+    "AssetLocked(bytes32,bytes32,uint8)": TypedContractEvent<
+      AssetLocked_bytes32_bytes32_uint8_Event.InputTuple,
+      AssetLocked_bytes32_bytes32_uint8_Event.OutputTuple,
+      AssetLocked_bytes32_bytes32_uint8_Event.OutputObject
+    >;
+    "AssetLocked(bytes32,bytes32,uint8)": TypedContractEvent<
+      AssetLocked_bytes32_bytes32_uint8_Event.InputTuple,
+      AssetLocked_bytes32_bytes32_uint8_Event.OutputTuple,
+      AssetLocked_bytes32_bytes32_uint8_Event.OutputObject
+    >;
+    "AssetLocked(bytes32,bytes32,uint8)": TypedContractEvent<
+      AssetLocked_bytes32_bytes32_uint8_Event.InputTuple,
+      AssetLocked_bytes32_bytes32_uint8_Event.OutputTuple,
+      AssetLocked_bytes32_bytes32_uint8_Event.OutputObject
+    >;
+    "AssetLocked(bytes32,bytes32,uint8)": TypedContractEvent<
+      AssetLocked_bytes32_bytes32_uint8_Event.InputTuple,
+      AssetLocked_bytes32_bytes32_uint8_Event.OutputTuple,
+      AssetLocked_bytes32_bytes32_uint8_Event.OutputObject
+    >;
+    "AssetLocked(bytes32,bytes32,uint8)": TypedContractEvent<
+      AssetLocked_bytes32_bytes32_uint8_Event.InputTuple,
+      AssetLocked_bytes32_bytes32_uint8_Event.OutputTuple,
+      AssetLocked_bytes32_bytes32_uint8_Event.OutputObject
+    >;
+    "AssetLocked(bytes32,bytes32,uint8)": TypedContractEvent<
+      AssetLocked_bytes32_bytes32_uint8_Event.InputTuple,
+      AssetLocked_bytes32_bytes32_uint8_Event.OutputTuple,
+      AssetLocked_bytes32_bytes32_uint8_Event.OutputObject
+    >;
+    "AssetReleased(bytes32,bytes32,uint8)": TypedContractEvent<
+      AssetReleased_bytes32_bytes32_uint8_Event.InputTuple,
+      AssetReleased_bytes32_bytes32_uint8_Event.OutputTuple,
+      AssetReleased_bytes32_bytes32_uint8_Event.OutputObject
+    >;
+    "AssetReleased(bytes32,bytes32,uint8)": TypedContractEvent<
+      AssetReleased_bytes32_bytes32_uint8_Event.InputTuple,
+      AssetReleased_bytes32_bytes32_uint8_Event.OutputTuple,
+      AssetReleased_bytes32_bytes32_uint8_Event.OutputObject
+    >;
+    "AssetReleased(bytes32,bytes32,uint8)": TypedContractEvent<
+      AssetReleased_bytes32_bytes32_uint8_Event.InputTuple,
+      AssetReleased_bytes32_bytes32_uint8_Event.OutputTuple,
+      AssetReleased_bytes32_bytes32_uint8_Event.OutputObject
+    >;
+    "AssetReleased(bytes32,bytes32,uint8)": TypedContractEvent<
+      AssetReleased_bytes32_bytes32_uint8_Event.InputTuple,
+      AssetReleased_bytes32_bytes32_uint8_Event.OutputTuple,
+      AssetReleased_bytes32_bytes32_uint8_Event.OutputObject
+    >;
+    "AssetReleased(bytes32,bytes32,uint8)": TypedContractEvent<
+      AssetReleased_bytes32_bytes32_uint8_Event.InputTuple,
+      AssetReleased_bytes32_bytes32_uint8_Event.OutputTuple,
+      AssetReleased_bytes32_bytes32_uint8_Event.OutputObject
+    >;
+    "AssetReleased(bytes32,bytes32,uint8)": TypedContractEvent<
+      AssetReleased_bytes32_bytes32_uint8_Event.InputTuple,
+      AssetReleased_bytes32_bytes32_uint8_Event.OutputTuple,
+      AssetReleased_bytes32_bytes32_uint8_Event.OutputObject
+    >;
+    "AssetReleased(bytes32,bytes32,uint8)": TypedContractEvent<
+      AssetReleased_bytes32_bytes32_uint8_Event.InputTuple,
+      AssetReleased_bytes32_bytes32_uint8_Event.OutputTuple,
+      AssetReleased_bytes32_bytes32_uint8_Event.OutputObject
+    >;
     "DisableContract(bytes32)": TypedContractEvent<
       DisableContract_bytes32_Event.InputTuple,
       DisableContract_bytes32_Event.OutputTuple,
@@ -25030,6 +26097,76 @@ export interface Diamond extends BaseContract {
       EnableInvestor_address_Event.InputTuple,
       EnableInvestor_address_Event.OutputTuple,
       EnableInvestor_address_Event.OutputObject
+    >;
+    "LockCancelled(bytes32,bytes32,uint8)": TypedContractEvent<
+      LockCancelled_bytes32_bytes32_uint8_Event.InputTuple,
+      LockCancelled_bytes32_bytes32_uint8_Event.OutputTuple,
+      LockCancelled_bytes32_bytes32_uint8_Event.OutputObject
+    >;
+    "LockCancelled(bytes32,bytes32,uint8)": TypedContractEvent<
+      LockCancelled_bytes32_bytes32_uint8_Event.InputTuple,
+      LockCancelled_bytes32_bytes32_uint8_Event.OutputTuple,
+      LockCancelled_bytes32_bytes32_uint8_Event.OutputObject
+    >;
+    "LockCancelled(bytes32,bytes32,uint8)": TypedContractEvent<
+      LockCancelled_bytes32_bytes32_uint8_Event.InputTuple,
+      LockCancelled_bytes32_bytes32_uint8_Event.OutputTuple,
+      LockCancelled_bytes32_bytes32_uint8_Event.OutputObject
+    >;
+    "LockCancelled(bytes32,bytes32,uint8)": TypedContractEvent<
+      LockCancelled_bytes32_bytes32_uint8_Event.InputTuple,
+      LockCancelled_bytes32_bytes32_uint8_Event.OutputTuple,
+      LockCancelled_bytes32_bytes32_uint8_Event.OutputObject
+    >;
+    "LockCancelled(bytes32,bytes32,uint8)": TypedContractEvent<
+      LockCancelled_bytes32_bytes32_uint8_Event.InputTuple,
+      LockCancelled_bytes32_bytes32_uint8_Event.OutputTuple,
+      LockCancelled_bytes32_bytes32_uint8_Event.OutputObject
+    >;
+    "LockCancelled(bytes32,bytes32,uint8)": TypedContractEvent<
+      LockCancelled_bytes32_bytes32_uint8_Event.InputTuple,
+      LockCancelled_bytes32_bytes32_uint8_Event.OutputTuple,
+      LockCancelled_bytes32_bytes32_uint8_Event.OutputObject
+    >;
+    "LockCancelled(bytes32,bytes32,uint8)": TypedContractEvent<
+      LockCancelled_bytes32_bytes32_uint8_Event.InputTuple,
+      LockCancelled_bytes32_bytes32_uint8_Event.OutputTuple,
+      LockCancelled_bytes32_bytes32_uint8_Event.OutputObject
+    >;
+    "LockSet(bytes32,bytes32,uint8)": TypedContractEvent<
+      LockSet_bytes32_bytes32_uint8_Event.InputTuple,
+      LockSet_bytes32_bytes32_uint8_Event.OutputTuple,
+      LockSet_bytes32_bytes32_uint8_Event.OutputObject
+    >;
+    "LockSet(bytes32,bytes32,uint8)": TypedContractEvent<
+      LockSet_bytes32_bytes32_uint8_Event.InputTuple,
+      LockSet_bytes32_bytes32_uint8_Event.OutputTuple,
+      LockSet_bytes32_bytes32_uint8_Event.OutputObject
+    >;
+    "LockSet(bytes32,bytes32,uint8)": TypedContractEvent<
+      LockSet_bytes32_bytes32_uint8_Event.InputTuple,
+      LockSet_bytes32_bytes32_uint8_Event.OutputTuple,
+      LockSet_bytes32_bytes32_uint8_Event.OutputObject
+    >;
+    "LockSet(bytes32,bytes32,uint8)": TypedContractEvent<
+      LockSet_bytes32_bytes32_uint8_Event.InputTuple,
+      LockSet_bytes32_bytes32_uint8_Event.OutputTuple,
+      LockSet_bytes32_bytes32_uint8_Event.OutputObject
+    >;
+    "LockSet(bytes32,bytes32,uint8)": TypedContractEvent<
+      LockSet_bytes32_bytes32_uint8_Event.InputTuple,
+      LockSet_bytes32_bytes32_uint8_Event.OutputTuple,
+      LockSet_bytes32_bytes32_uint8_Event.OutputObject
+    >;
+    "LockSet(bytes32,bytes32,uint8)": TypedContractEvent<
+      LockSet_bytes32_bytes32_uint8_Event.InputTuple,
+      LockSet_bytes32_bytes32_uint8_Event.OutputTuple,
+      LockSet_bytes32_bytes32_uint8_Event.OutputObject
+    >;
+    "LockSet(bytes32,bytes32,uint8)": TypedContractEvent<
+      LockSet_bytes32_bytes32_uint8_Event.InputTuple,
+      LockSet_bytes32_bytes32_uint8_Event.OutputTuple,
+      LockSet_bytes32_bytes32_uint8_Event.OutputObject
     >;
     "NewBondDrafted(address,string,string)": TypedContractEvent<
       NewBondDrafted_address_string_string_Event.InputTuple,

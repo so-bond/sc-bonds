@@ -432,8 +432,8 @@ abstract contract CouponSnapshotManagementInternal is
             "Caller not authorized"
         );
 
-        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
-            .layout();
+        CouponSnapshotManagementStorage.Layout
+            storage l = CouponSnapshotManagementStorage.layout();
 
         LockStatus _lockStatus = l
         .sellerToBuyerLocks[_lockInfo.seller][_lockInfo.buyer].status;
@@ -442,7 +442,11 @@ abstract contract CouponSnapshotManagementInternal is
         require(_lockStatus == LockStatus.Unlocked, "Lock already set");
 
         // check the _lockInfo status
-        require(_lockInfo.status == LockStatus.Set, "Invalid status");
+        require(
+            _lockInfo.status ==
+                ICouponSnapshotManagementInternal.LockStatus.Unlocked,
+            "Invalid status"
+        );
 
         // check the addresses
         require(
@@ -482,7 +486,11 @@ abstract contract CouponSnapshotManagementInternal is
         l.sellerToBuyerLocks[_lockInfo.seller][_lockInfo.buyer] = _lockInfo;
 
         // emit the event
-        emit LockSet(lock.transactionID, lock.paymentID, _lockInfo.status);
+        emit LockSet(
+            _lockInfo.transactionID,
+            _lockInfo.paymentID,
+            _lockInfo.status
+        );
     }
 
     function _release(
@@ -498,15 +506,15 @@ abstract contract CouponSnapshotManagementInternal is
             "Caller not authorized"
         );
 
-        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
-            .layout();
+        CouponSnapshotManagementStorage.Layout
+            storage l = CouponSnapshotManagementStorage.layout();
 
         // get the lock information
         LockInfo memory _lock = l.sellerToBuyerLocks[_from][_to];
 
         // check the HTLC status
         require(
-            _lock.status == Status.Locked,
+            _lock.status == LockStatus.Locked,
             "Asset not locked or already released"
         );
 
@@ -517,11 +525,11 @@ abstract contract CouponSnapshotManagementInternal is
         );
 
         // update status
-        _lock.status = Status.Released;
+        _lock.status = LockStatus.Released;
 
         // save artifacts
-        artifacts.paymentProof = _paymentProof;
-        artifacts.secret = _secret;
+        l.artifacts[_lock.paymentID].paymentProof = _paymentProof;
+        l.artifacts[_lock.paymentID].secret = _secret;
 
         // transfer the asset to the buyer
         _transferFrom(_lock.seller, _lock.buyer, _lock.amount);
@@ -530,7 +538,7 @@ abstract contract CouponSnapshotManagementInternal is
         emit AssetReleased(
             _lock.transactionID,
             _lock.paymentID,
-            Status.Released
+            LockStatus.Released
         );
     }
 
@@ -547,15 +555,15 @@ abstract contract CouponSnapshotManagementInternal is
             "Caller not authorized"
         );
 
-        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
-            .layout();
+        CouponSnapshotManagementStorage.Layout
+            storage l = CouponSnapshotManagementStorage.layout();
 
         // get the lock information
         LockInfo memory _lock = l.sellerToBuyerLocks[_from][_to];
 
         // check the HTLC status
         require(
-            _lock.status == Status.Locked,
+            _lock.status == LockStatus.Locked,
             "Asset not locked or already released"
         );
 
@@ -572,11 +580,11 @@ abstract contract CouponSnapshotManagementInternal is
         );
 
         // update status
-        _lock.status = Status.Status.ForceReleased;
+        _lock.status = LockStatus.ForceReleased;
 
         // save artifacts
-        artifacts.paymentProof[_lock.transactionID] = _paymentProof;
-        artifacts.secretCancel[_lock.transactionID] = _secretRelease;
+        l.artifacts[_lock.paymentID].paymentProof = _paymentProof;
+        l.artifacts[_lock.paymentID].secretCancel = _secretRelease;
 
         // transfer the asset to the buyer
         _transferFrom(_lock.seller, _lock.buyer, _lock.amount);
@@ -585,7 +593,7 @@ abstract contract CouponSnapshotManagementInternal is
         emit AssetReleased(
             _lock.transactionID,
             _lock.paymentID,
-            Status.ForceReleased
+            LockStatus.ForceReleased
         );
     }
 
@@ -602,15 +610,15 @@ abstract contract CouponSnapshotManagementInternal is
             "Caller not authorized"
         );
 
-        RegisterMetadataStorage.Layout storage l = RegisterMetadataStorage
-            .layout();
+        CouponSnapshotManagementStorage.Layout
+            storage l = CouponSnapshotManagementStorage.layout();
 
         // get the lock information
         LockInfo memory _lock = l.sellerToBuyerLocks[_from][_to];
 
         // check the HTLC status
         require(
-            _lock.status == Status.Locked,
+            _lock.status == LockStatus.Locked,
             "Asset not locked or already released"
         );
 
@@ -627,17 +635,17 @@ abstract contract CouponSnapshotManagementInternal is
         );
 
         // update status
-        _lock.status = Status.Status.ForceCancelled;
+        _lock.status = LockStatus.ForceCancelled;
 
         // save artifacts
-        artifacts.paymentProof[_lock.transactionID] = _paymentProof;
-        artifacts.secretCancel[_lock.transactionID] = _secretCancel;
+        l.artifacts[_lock.paymentID].paymentProof = _paymentProof;
+        l.artifacts[_lock.paymentID].secretCancel = _secretCancel;
 
         // emit the event
         emit LockCancelled(
             _lock.transactionID,
             _lock.paymentID,
-            Status.ForceCancelled
+            LockStatus.ForceCancelled
         );
     }
 }

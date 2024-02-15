@@ -65,6 +65,70 @@ export declare namespace IRegisterMetadata {
   };
 }
 
+export declare namespace Register {
+  export type ArtifactStruct = {
+    paymentProof: BytesLike;
+    secret: BytesLike;
+    secretRelease: BytesLike;
+    secretCancel: BytesLike;
+  };
+
+  export type ArtifactStructOutput = [
+    paymentProof: string,
+    secret: string,
+    secretRelease: string,
+    secretCancel: string
+  ] & {
+    paymentProof: string;
+    secret: string;
+    secretRelease: string;
+    secretCancel: string;
+  };
+
+  export type LockInfoStruct = {
+    seller: AddressLike;
+    buyer: AddressLike;
+    amount: BigNumberish;
+    transactionID: BytesLike;
+    paymentID: BytesLike;
+    hashlock: BytesLike;
+    hashRelease: BytesLike;
+    hashCancel: BytesLike;
+    paymentDate: BigNumberish;
+    deliveryDate: BigNumberish;
+    artifact: Register.ArtifactStruct;
+    status: BigNumberish;
+  };
+
+  export type LockInfoStructOutput = [
+    seller: string,
+    buyer: string,
+    amount: bigint,
+    transactionID: string,
+    paymentID: string,
+    hashlock: string,
+    hashRelease: string,
+    hashCancel: string,
+    paymentDate: bigint,
+    deliveryDate: bigint,
+    artifact: Register.ArtifactStructOutput,
+    status: bigint
+  ] & {
+    seller: string;
+    buyer: string;
+    amount: bigint;
+    transactionID: string;
+    paymentID: string;
+    hashlock: string;
+    hashRelease: string;
+    hashCancel: string;
+    paymentDate: bigint;
+    deliveryDate: bigint;
+    artifact: Register.ArtifactStructOutput;
+    status: bigint;
+  };
+}
+
 export interface RegisterInterface extends Interface {
   getFunction(
     nameOrSignature:
@@ -80,6 +144,7 @@ export interface RegisterInterface extends Interface {
       | "_votesForNewAdmin"
       | "addCouponDate"
       | "allowance"
+      | "amountLocked"
       | "approve"
       | "atReturningHash"
       | "balanceOf"
@@ -98,6 +163,8 @@ export interface RegisterInterface extends Interface {
       | "disableInvestorFromWhitelist"
       | "enableContractToWhitelist"
       | "enableInvestorToWhitelist"
+      | "forceCancel"
+      | "forceRelease"
       | "getAllInvestors"
       | "getBondCouponRate"
       | "getBondData"
@@ -123,6 +190,7 @@ export interface RegisterInterface extends Interface {
       | "isContractAllowed"
       | "isCustodian"
       | "isPay"
+      | "lockAsset"
       | "makeReady"
       | "mint"
       | "name"
@@ -130,6 +198,7 @@ export interface RegisterInterface extends Interface {
       | "primaryIssuanceAccount"
       | "publicMessage"
       | "registerAdmin"
+      | "release"
       | "renounceRole"
       | "returnBalanceToPrimaryIssuanceAccount"
       | "revertReady"
@@ -138,6 +207,7 @@ export interface RegisterInterface extends Interface {
       | "revokeCstRole"
       | "revokePayRole"
       | "revokeRole"
+      | "sellerLocks"
       | "setBondData"
       | "setCreationDate"
       | "setCurrency"
@@ -161,10 +231,13 @@ export interface RegisterInterface extends Interface {
     nameOrSignatureOrTopic:
       | "AdminChanged"
       | "Approval"
+      | "AssetLocked"
+      | "AssetReleased"
       | "DisableContract"
       | "DisableInvestor"
       | "EnableContract"
       | "EnableInvestor"
+      | "LockCancelled"
       | "NewBondDrafted"
       | "PublicMessage"
       | "RegisterStatusChanged"
@@ -213,6 +286,10 @@ export interface RegisterInterface extends Interface {
   encodeFunctionData(
     functionFragment: "allowance",
     values: [AddressLike, AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "amountLocked",
+    values: [AddressLike]
   ): string;
   encodeFunctionData(
     functionFragment: "approve",
@@ -279,6 +356,14 @@ export interface RegisterInterface extends Interface {
   encodeFunctionData(
     functionFragment: "enableInvestorToWhitelist",
     values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "forceCancel",
+    values: [BytesLike, BytesLike, BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "forceRelease",
+    values: [BytesLike, BytesLike, BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "getAllInvestors",
@@ -371,6 +456,10 @@ export interface RegisterInterface extends Interface {
     values: [AddressLike]
   ): string;
   encodeFunctionData(functionFragment: "isPay", values: [AddressLike]): string;
+  encodeFunctionData(
+    functionFragment: "lockAsset",
+    values: [Register.LockInfoStruct]
+  ): string;
   encodeFunctionData(functionFragment: "makeReady", values?: undefined): string;
   encodeFunctionData(functionFragment: "mint", values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
@@ -389,6 +478,10 @@ export interface RegisterInterface extends Interface {
   encodeFunctionData(
     functionFragment: "registerAdmin",
     values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "release",
+    values: [BytesLike, BytesLike, BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "renounceRole",
@@ -421,6 +514,10 @@ export interface RegisterInterface extends Interface {
   encodeFunctionData(
     functionFragment: "revokeRole",
     values: [BytesLike, AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "sellerLocks",
+    values: [BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "setBondData",
@@ -524,6 +621,10 @@ export interface RegisterInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "allowance", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "amountLocked",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "atReturningHash",
@@ -582,6 +683,14 @@ export interface RegisterInterface extends Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "enableInvestorToWhitelist",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "forceCancel",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "forceRelease",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -669,6 +778,7 @@ export interface RegisterInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "isPay", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "lockAsset", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "makeReady", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
@@ -688,6 +798,7 @@ export interface RegisterInterface extends Interface {
     functionFragment: "registerAdmin",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "release", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "renounceRole",
     data: BytesLike
@@ -717,6 +828,10 @@ export interface RegisterInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "revokeRole", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "sellerLocks",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "setBondData",
     data: BytesLike
@@ -805,6 +920,50 @@ export namespace ApprovalEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
+export namespace AssetLockedEvent {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace AssetReleasedEvent {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
 export namespace DisableContractEvent {
   export type InputTuple = [contractHash: BytesLike];
   export type OutputTuple = [contractHash: string];
@@ -846,6 +1005,28 @@ export namespace EnableInvestorEvent {
   export type OutputTuple = [investor: string];
   export interface OutputObject {
     investor: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace LockCancelledEvent {
+  export type InputTuple = [
+    transactionID: BytesLike,
+    paymentID: BytesLike,
+    status: BigNumberish
+  ];
+  export type OutputTuple = [
+    transactionID: string,
+    paymentID: string,
+    status: bigint
+  ];
+  export interface OutputObject {
+    transactionID: string;
+    paymentID: string;
+    status: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -1119,6 +1300,8 @@ export interface Register extends BaseContract {
     "view"
   >;
 
+  amountLocked: TypedContractMethod<[arg0: AddressLike], [bigint], "view">;
+
   approve: TypedContractMethod<
     [arg0: AddressLike, arg1: BigNumberish],
     [boolean],
@@ -1199,6 +1382,26 @@ export interface Register extends BaseContract {
 
   enableInvestorToWhitelist: TypedContractMethod<
     [investor_: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+
+  forceCancel: TypedContractMethod<
+    [
+      _transactionID: BytesLike,
+      _secretCancel: BytesLike,
+      _paymentProof: BytesLike
+    ],
+    [void],
+    "nonpayable"
+  >;
+
+  forceRelease: TypedContractMethod<
+    [
+      _transactionID: BytesLike,
+      _secretRelease: BytesLike,
+      _paymentProof: BytesLike
+    ],
     [void],
     "nonpayable"
   >;
@@ -1305,6 +1508,12 @@ export interface Register extends BaseContract {
 
   isPay: TypedContractMethod<[account: AddressLike], [boolean], "view">;
 
+  lockAsset: TypedContractMethod<
+    [_lockInfo: Register.LockInfoStruct],
+    [void],
+    "nonpayable"
+  >;
+
   makeReady: TypedContractMethod<[], [void], "nonpayable">;
 
   mint: TypedContractMethod<[amount_: BigNumberish], [void], "nonpayable">;
@@ -1322,6 +1531,12 @@ export interface Register extends BaseContract {
   >;
 
   registerAdmin: TypedContractMethod<[], [string], "view">;
+
+  release: TypedContractMethod<
+    [_transactionID: BytesLike, _secret: BytesLike, _paymentProof: BytesLike],
+    [void],
+    "nonpayable"
+  >;
 
   renounceRole: TypedContractMethod<
     [role: BytesLike, account: AddressLike],
@@ -1365,6 +1580,40 @@ export interface Register extends BaseContract {
     [role: BytesLike, account: AddressLike],
     [void],
     "nonpayable"
+  >;
+
+  sellerLocks: TypedContractMethod<
+    [arg0: BytesLike],
+    [
+      [
+        string,
+        string,
+        bigint,
+        string,
+        string,
+        string,
+        string,
+        string,
+        bigint,
+        bigint,
+        Register.ArtifactStructOutput,
+        bigint
+      ] & {
+        seller: string;
+        buyer: string;
+        amount: bigint;
+        transactionID: string;
+        paymentID: string;
+        hashlock: string;
+        hashRelease: string;
+        hashCancel: string;
+        paymentDate: bigint;
+        deliveryDate: bigint;
+        artifact: Register.ArtifactStructOutput;
+        status: bigint;
+      }
+    ],
+    "view"
   >;
 
   setBondData: TypedContractMethod<
@@ -1503,6 +1752,9 @@ export interface Register extends BaseContract {
     "view"
   >;
   getFunction(
+    nameOrSignature: "amountLocked"
+  ): TypedContractMethod<[arg0: AddressLike], [bigint], "view">;
+  getFunction(
     nameOrSignature: "approve"
   ): TypedContractMethod<
     [arg0: AddressLike, arg1: BigNumberish],
@@ -1572,6 +1824,28 @@ export interface Register extends BaseContract {
   getFunction(
     nameOrSignature: "enableInvestorToWhitelist"
   ): TypedContractMethod<[investor_: AddressLike], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "forceCancel"
+  ): TypedContractMethod<
+    [
+      _transactionID: BytesLike,
+      _secretCancel: BytesLike,
+      _paymentProof: BytesLike
+    ],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "forceRelease"
+  ): TypedContractMethod<
+    [
+      _transactionID: BytesLike,
+      _secretRelease: BytesLike,
+      _paymentProof: BytesLike
+    ],
+    [void],
+    "nonpayable"
+  >;
   getFunction(
     nameOrSignature: "getAllInvestors"
   ): TypedContractMethod<[], [string[]], "view">;
@@ -1664,6 +1938,13 @@ export interface Register extends BaseContract {
     nameOrSignature: "isPay"
   ): TypedContractMethod<[account: AddressLike], [boolean], "view">;
   getFunction(
+    nameOrSignature: "lockAsset"
+  ): TypedContractMethod<
+    [_lockInfo: Register.LockInfoStruct],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
     nameOrSignature: "makeReady"
   ): TypedContractMethod<[], [void], "nonpayable">;
   getFunction(
@@ -1688,6 +1969,13 @@ export interface Register extends BaseContract {
   getFunction(
     nameOrSignature: "registerAdmin"
   ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "release"
+  ): TypedContractMethod<
+    [_transactionID: BytesLike, _secret: BytesLike, _paymentProof: BytesLike],
+    [void],
+    "nonpayable"
+  >;
   getFunction(
     nameOrSignature: "renounceRole"
   ): TypedContractMethod<
@@ -1719,6 +2007,41 @@ export interface Register extends BaseContract {
     [role: BytesLike, account: AddressLike],
     [void],
     "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "sellerLocks"
+  ): TypedContractMethod<
+    [arg0: BytesLike],
+    [
+      [
+        string,
+        string,
+        bigint,
+        string,
+        string,
+        string,
+        string,
+        string,
+        bigint,
+        bigint,
+        Register.ArtifactStructOutput,
+        bigint
+      ] & {
+        seller: string;
+        buyer: string;
+        amount: bigint;
+        transactionID: string;
+        paymentID: string;
+        hashlock: string;
+        hashRelease: string;
+        hashCancel: string;
+        paymentDate: bigint;
+        deliveryDate: bigint;
+        artifact: Register.ArtifactStructOutput;
+        status: bigint;
+      }
+    ],
+    "view"
   >;
   getFunction(
     nameOrSignature: "setBondData"
@@ -1812,6 +2135,20 @@ export interface Register extends BaseContract {
     ApprovalEvent.OutputObject
   >;
   getEvent(
+    key: "AssetLocked"
+  ): TypedContractEvent<
+    AssetLockedEvent.InputTuple,
+    AssetLockedEvent.OutputTuple,
+    AssetLockedEvent.OutputObject
+  >;
+  getEvent(
+    key: "AssetReleased"
+  ): TypedContractEvent<
+    AssetReleasedEvent.InputTuple,
+    AssetReleasedEvent.OutputTuple,
+    AssetReleasedEvent.OutputObject
+  >;
+  getEvent(
     key: "DisableContract"
   ): TypedContractEvent<
     DisableContractEvent.InputTuple,
@@ -1838,6 +2175,13 @@ export interface Register extends BaseContract {
     EnableInvestorEvent.InputTuple,
     EnableInvestorEvent.OutputTuple,
     EnableInvestorEvent.OutputObject
+  >;
+  getEvent(
+    key: "LockCancelled"
+  ): TypedContractEvent<
+    LockCancelledEvent.InputTuple,
+    LockCancelledEvent.OutputTuple,
+    LockCancelledEvent.OutputObject
   >;
   getEvent(
     key: "NewBondDrafted"
@@ -1940,6 +2284,28 @@ export interface Register extends BaseContract {
       ApprovalEvent.OutputObject
     >;
 
+    "AssetLocked(bytes32,bytes32,uint8)": TypedContractEvent<
+      AssetLockedEvent.InputTuple,
+      AssetLockedEvent.OutputTuple,
+      AssetLockedEvent.OutputObject
+    >;
+    AssetLocked: TypedContractEvent<
+      AssetLockedEvent.InputTuple,
+      AssetLockedEvent.OutputTuple,
+      AssetLockedEvent.OutputObject
+    >;
+
+    "AssetReleased(bytes32,bytes32,uint8)": TypedContractEvent<
+      AssetReleasedEvent.InputTuple,
+      AssetReleasedEvent.OutputTuple,
+      AssetReleasedEvent.OutputObject
+    >;
+    AssetReleased: TypedContractEvent<
+      AssetReleasedEvent.InputTuple,
+      AssetReleasedEvent.OutputTuple,
+      AssetReleasedEvent.OutputObject
+    >;
+
     "DisableContract(bytes32)": TypedContractEvent<
       DisableContractEvent.InputTuple,
       DisableContractEvent.OutputTuple,
@@ -1982,6 +2348,17 @@ export interface Register extends BaseContract {
       EnableInvestorEvent.InputTuple,
       EnableInvestorEvent.OutputTuple,
       EnableInvestorEvent.OutputObject
+    >;
+
+    "LockCancelled(bytes32,bytes32,uint8)": TypedContractEvent<
+      LockCancelledEvent.InputTuple,
+      LockCancelledEvent.OutputTuple,
+      LockCancelledEvent.OutputObject
+    >;
+    LockCancelled: TypedContractEvent<
+      LockCancelledEvent.InputTuple,
+      LockCancelledEvent.OutputTuple,
+      LockCancelledEvent.OutputObject
     >;
 
     "NewBondDrafted(address,string,string)": TypedContractEvent<

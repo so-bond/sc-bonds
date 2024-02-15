@@ -14,6 +14,106 @@ const _abi = [
     inputs: [
       {
         indexed: true,
+        internalType: "bytes32",
+        name: "transactionID",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "paymentID",
+        type: "bytes32",
+      },
+      {
+        indexed: false,
+        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
+        name: "status",
+        type: "uint8",
+      },
+    ],
+    name: "AssetLocked",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "transactionID",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "paymentID",
+        type: "bytes32",
+      },
+      {
+        indexed: false,
+        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
+        name: "status",
+        type: "uint8",
+      },
+    ],
+    name: "AssetReleased",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "transactionID",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "paymentID",
+        type: "bytes32",
+      },
+      {
+        indexed: false,
+        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
+        name: "status",
+        type: "uint8",
+      },
+    ],
+    name: "LockCancelled",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "transactionID",
+        type: "bytes32",
+      },
+      {
+        indexed: true,
+        internalType: "bytes32",
+        name: "paymentID",
+        type: "bytes32",
+      },
+      {
+        indexed: false,
+        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
+        name: "status",
+        type: "uint8",
+      },
+    ],
+    name: "LockSet",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
         internalType: "uint256",
         name: "couponDate",
         type: "uint256",
