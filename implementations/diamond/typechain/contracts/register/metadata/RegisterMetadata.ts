@@ -125,15 +125,12 @@ export interface RegisterMetadataInterface extends Interface {
     nameOrSignatureOrTopic:
       | "AdminChanged"
       | "Approval"
-      | "AssetLocked"
-      | "AssetReleased"
+      | "AssetHTLC"
       | "DisableContract"
       | "DisableInvestor"
       | "EnableContract"
       | "EnableInvestor"
       | "Initialized"
-      | "LockCancelled"
-      | "LockSet"
       | "NewBondDrafted"
       | "PublicMessage"
       | "RegisterStatusChanged"
@@ -516,42 +513,26 @@ export namespace ApprovalEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export namespace AssetLockedEvent {
+export namespace AssetHTLCEvent {
   export type InputTuple = [
-    transactionID: BytesLike,
-    paymentID: BytesLike,
+    txId: BytesLike,
+    from: AddressLike,
+    to: AddressLike,
+    hL: BytesLike,
     status: BigNumberish
   ];
   export type OutputTuple = [
-    transactionID: string,
-    paymentID: string,
+    txId: string,
+    from: string,
+    to: string,
+    hL: string,
     status: bigint
   ];
   export interface OutputObject {
-    transactionID: string;
-    paymentID: string;
-    status: bigint;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace AssetReleasedEvent {
-  export type InputTuple = [
-    transactionID: BytesLike,
-    paymentID: BytesLike,
-    status: BigNumberish
-  ];
-  export type OutputTuple = [
-    transactionID: string,
-    paymentID: string,
-    status: bigint
-  ];
-  export interface OutputObject {
-    transactionID: string;
-    paymentID: string;
+    txId: string;
+    from: string;
+    to: string;
+    hL: string;
     status: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
@@ -613,50 +594,6 @@ export namespace InitializedEvent {
   export type OutputTuple = [version: bigint];
   export interface OutputObject {
     version: bigint;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace LockCancelledEvent {
-  export type InputTuple = [
-    transactionID: BytesLike,
-    paymentID: BytesLike,
-    status: BigNumberish
-  ];
-  export type OutputTuple = [
-    transactionID: string,
-    paymentID: string,
-    status: bigint
-  ];
-  export interface OutputObject {
-    transactionID: string;
-    paymentID: string;
-    status: bigint;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace LockSetEvent {
-  export type InputTuple = [
-    transactionID: BytesLike,
-    paymentID: BytesLike,
-    status: BigNumberish
-  ];
-  export type OutputTuple = [
-    transactionID: string,
-    paymentID: string,
-    status: bigint
-  ];
-  export interface OutputObject {
-    transactionID: string;
-    paymentID: string;
-    status: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -1359,18 +1296,11 @@ export interface RegisterMetadata extends BaseContract {
     ApprovalEvent.OutputObject
   >;
   getEvent(
-    key: "AssetLocked"
+    key: "AssetHTLC"
   ): TypedContractEvent<
-    AssetLockedEvent.InputTuple,
-    AssetLockedEvent.OutputTuple,
-    AssetLockedEvent.OutputObject
-  >;
-  getEvent(
-    key: "AssetReleased"
-  ): TypedContractEvent<
-    AssetReleasedEvent.InputTuple,
-    AssetReleasedEvent.OutputTuple,
-    AssetReleasedEvent.OutputObject
+    AssetHTLCEvent.InputTuple,
+    AssetHTLCEvent.OutputTuple,
+    AssetHTLCEvent.OutputObject
   >;
   getEvent(
     key: "DisableContract"
@@ -1406,20 +1336,6 @@ export interface RegisterMetadata extends BaseContract {
     InitializedEvent.InputTuple,
     InitializedEvent.OutputTuple,
     InitializedEvent.OutputObject
-  >;
-  getEvent(
-    key: "LockCancelled"
-  ): TypedContractEvent<
-    LockCancelledEvent.InputTuple,
-    LockCancelledEvent.OutputTuple,
-    LockCancelledEvent.OutputObject
-  >;
-  getEvent(
-    key: "LockSet"
-  ): TypedContractEvent<
-    LockSetEvent.InputTuple,
-    LockSetEvent.OutputTuple,
-    LockSetEvent.OutputObject
   >;
   getEvent(
     key: "NewBondDrafted"
@@ -1522,26 +1438,15 @@ export interface RegisterMetadata extends BaseContract {
       ApprovalEvent.OutputObject
     >;
 
-    "AssetLocked(bytes32,bytes32,uint8)": TypedContractEvent<
-      AssetLockedEvent.InputTuple,
-      AssetLockedEvent.OutputTuple,
-      AssetLockedEvent.OutputObject
+    "AssetHTLC(bytes32,address,address,bytes32,uint8)": TypedContractEvent<
+      AssetHTLCEvent.InputTuple,
+      AssetHTLCEvent.OutputTuple,
+      AssetHTLCEvent.OutputObject
     >;
-    AssetLocked: TypedContractEvent<
-      AssetLockedEvent.InputTuple,
-      AssetLockedEvent.OutputTuple,
-      AssetLockedEvent.OutputObject
-    >;
-
-    "AssetReleased(bytes32,bytes32,uint8)": TypedContractEvent<
-      AssetReleasedEvent.InputTuple,
-      AssetReleasedEvent.OutputTuple,
-      AssetReleasedEvent.OutputObject
-    >;
-    AssetReleased: TypedContractEvent<
-      AssetReleasedEvent.InputTuple,
-      AssetReleasedEvent.OutputTuple,
-      AssetReleasedEvent.OutputObject
+    AssetHTLC: TypedContractEvent<
+      AssetHTLCEvent.InputTuple,
+      AssetHTLCEvent.OutputTuple,
+      AssetHTLCEvent.OutputObject
     >;
 
     "DisableContract(bytes32)": TypedContractEvent<
@@ -1597,28 +1502,6 @@ export interface RegisterMetadata extends BaseContract {
       InitializedEvent.InputTuple,
       InitializedEvent.OutputTuple,
       InitializedEvent.OutputObject
-    >;
-
-    "LockCancelled(bytes32,bytes32,uint8)": TypedContractEvent<
-      LockCancelledEvent.InputTuple,
-      LockCancelledEvent.OutputTuple,
-      LockCancelledEvent.OutputObject
-    >;
-    LockCancelled: TypedContractEvent<
-      LockCancelledEvent.InputTuple,
-      LockCancelledEvent.OutputTuple,
-      LockCancelledEvent.OutputObject
-    >;
-
-    "LockSet(bytes32,bytes32,uint8)": TypedContractEvent<
-      LockSetEvent.InputTuple,
-      LockSetEvent.OutputTuple,
-      LockSetEvent.OutputObject
-    >;
-    LockSet: TypedContractEvent<
-      LockSetEvent.InputTuple,
-      LockSetEvent.OutputTuple,
-      LockSetEvent.OutputObject
     >;
 
     "NewBondDrafted(address,string,string)": TypedContractEvent<

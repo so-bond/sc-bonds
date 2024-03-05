@@ -23,51 +23,6 @@ import type {
   TypedContractMethod,
 } from "../../../common";
 
-export declare namespace ICouponSnapshotManagementInternal {
-  export type LockInfoStruct = {
-    seller: AddressLike;
-    buyer: AddressLike;
-    amount: BigNumberish;
-    transactionID: BytesLike;
-    paymentID: BytesLike;
-    signature: BytesLike;
-    hashlock: BytesLike;
-    hashRelease: BytesLike;
-    hashCancel: BytesLike;
-    paymentDate: BigNumberish;
-    deliveryDate: BigNumberish;
-    status: BigNumberish;
-  };
-
-  export type LockInfoStructOutput = [
-    seller: string,
-    buyer: string,
-    amount: bigint,
-    transactionID: string,
-    paymentID: string,
-    signature: string,
-    hashlock: string,
-    hashRelease: string,
-    hashCancel: string,
-    paymentDate: bigint,
-    deliveryDate: bigint,
-    status: bigint
-  ] & {
-    seller: string;
-    buyer: string;
-    amount: bigint;
-    transactionID: string;
-    paymentID: string;
-    signature: string;
-    hashlock: string;
-    hashRelease: string;
-    hashCancel: string;
-    paymentDate: bigint;
-    deliveryDate: bigint;
-    status: bigint;
-  };
-}
-
 export interface CouponSnapshotManagementInterface extends Interface {
   getFunction(
     nameOrSignature:
@@ -86,8 +41,6 @@ export interface CouponSnapshotManagementInterface extends Interface {
       | "currentSnapshotDatetime"
       | "decimals"
       | "decreaseAllowance"
-      | "forceCancel"
-      | "forceRelease"
       | "getInvestorListAtCoupon"
       | "getRoleAdmin"
       | "getRoleMember"
@@ -96,13 +49,13 @@ export interface CouponSnapshotManagementInterface extends Interface {
       | "hasRole"
       | "increaseAllowance"
       | "isTrustedForwarder"
+      | "lock"
       | "mint"
       | "name"
       | "nextSnapshotDatetime"
       | "release"
       | "renounceRole"
       | "revokeRole"
-      | "setLock"
       | "symbol"
       | "totalSupply"
       | "totalSupplyAt"
@@ -116,15 +69,12 @@ export interface CouponSnapshotManagementInterface extends Interface {
     nameOrSignatureOrTopic:
       | "AdminChanged"
       | "Approval"
-      | "AssetLocked"
-      | "AssetReleased"
+      | "AssetHTLC"
       | "DisableContract"
       | "DisableInvestor"
       | "EnableContract"
       | "EnableInvestor"
       | "Initialized"
-      | "LockCancelled"
-      | "LockSet"
       | "NewBondDrafted"
       | "PublicMessage"
       | "RegisterStatusChanged"
@@ -181,14 +131,6 @@ export interface CouponSnapshotManagementInterface extends Interface {
     values: [AddressLike, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "forceCancel",
-    values: [AddressLike, AddressLike, BytesLike, BytesLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "forceRelease",
-    values: [AddressLike, AddressLike, BytesLike, BytesLike]
-  ): string;
-  encodeFunctionData(
     functionFragment: "getInvestorListAtCoupon",
     values: [BigNumberish]
   ): string;
@@ -220,6 +162,21 @@ export interface CouponSnapshotManagementInterface extends Interface {
     functionFragment: "isTrustedForwarder",
     values: [AddressLike]
   ): string;
+  encodeFunctionData(
+    functionFragment: "lock",
+    values: [
+      AddressLike,
+      AddressLike,
+      BigNumberish,
+      BytesLike,
+      BytesLike,
+      BytesLike,
+      BytesLike,
+      BigNumberish,
+      BigNumberish,
+      BytesLike
+    ]
+  ): string;
   encodeFunctionData(functionFragment: "mint", values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(
@@ -228,7 +185,7 @@ export interface CouponSnapshotManagementInterface extends Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "release",
-    values: [AddressLike, AddressLike, BytesLike, BytesLike]
+    values: [BytesLike, BytesLike, BytesLike, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "renounceRole",
@@ -237,10 +194,6 @@ export interface CouponSnapshotManagementInterface extends Interface {
   encodeFunctionData(
     functionFragment: "revokeRole",
     values: [BytesLike, AddressLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setLock",
-    values: [ICouponSnapshotManagementInternal.LockInfoStruct]
   ): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
   encodeFunctionData(
@@ -302,14 +255,6 @@ export interface CouponSnapshotManagementInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "forceCancel",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "forceRelease",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "getInvestorListAtCoupon",
     data: BytesLike
   ): Result;
@@ -335,6 +280,7 @@ export interface CouponSnapshotManagementInterface extends Interface {
     functionFragment: "isTrustedForwarder",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "lock", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(
@@ -347,7 +293,6 @@ export interface CouponSnapshotManagementInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "revokeRole", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "setLock", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "totalSupply",
@@ -402,42 +347,26 @@ export namespace ApprovalEvent {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export namespace AssetLockedEvent {
+export namespace AssetHTLCEvent {
   export type InputTuple = [
-    transactionID: BytesLike,
-    paymentID: BytesLike,
+    txId: BytesLike,
+    from: AddressLike,
+    to: AddressLike,
+    hL: BytesLike,
     status: BigNumberish
   ];
   export type OutputTuple = [
-    transactionID: string,
-    paymentID: string,
+    txId: string,
+    from: string,
+    to: string,
+    hL: string,
     status: bigint
   ];
   export interface OutputObject {
-    transactionID: string;
-    paymentID: string;
-    status: bigint;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace AssetReleasedEvent {
-  export type InputTuple = [
-    transactionID: BytesLike,
-    paymentID: BytesLike,
-    status: BigNumberish
-  ];
-  export type OutputTuple = [
-    transactionID: string,
-    paymentID: string,
-    status: bigint
-  ];
-  export interface OutputObject {
-    transactionID: string;
-    paymentID: string;
+    txId: string;
+    from: string;
+    to: string;
+    hL: string;
     status: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
@@ -499,50 +428,6 @@ export namespace InitializedEvent {
   export type OutputTuple = [version: bigint];
   export interface OutputObject {
     version: bigint;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace LockCancelledEvent {
-  export type InputTuple = [
-    transactionID: BytesLike,
-    paymentID: BytesLike,
-    status: BigNumberish
-  ];
-  export type OutputTuple = [
-    transactionID: string,
-    paymentID: string,
-    status: bigint
-  ];
-  export interface OutputObject {
-    transactionID: string;
-    paymentID: string;
-    status: bigint;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace LockSetEvent {
-  export type InputTuple = [
-    transactionID: BytesLike,
-    paymentID: BytesLike,
-    status: BigNumberish
-  ];
-  export type OutputTuple = [
-    transactionID: string,
-    paymentID: string,
-    status: bigint
-  ];
-  export interface OutputObject {
-    transactionID: string;
-    paymentID: string;
-    status: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -838,28 +723,6 @@ export interface CouponSnapshotManagement extends BaseContract {
     "nonpayable"
   >;
 
-  forceCancel: TypedContractMethod<
-    [
-      _from: AddressLike,
-      _to: AddressLike,
-      _secretCancel: BytesLike,
-      _paymentProof: BytesLike
-    ],
-    [void],
-    "nonpayable"
-  >;
-
-  forceRelease: TypedContractMethod<
-    [
-      _from: AddressLike,
-      _to: AddressLike,
-      _secretRelease: BytesLike,
-      _paymentProof: BytesLike
-    ],
-    [void],
-    "nonpayable"
-  >;
-
   getInvestorListAtCoupon: TypedContractMethod<
     [CouponDate: BigNumberish],
     [string[]],
@@ -900,6 +763,23 @@ export interface CouponSnapshotManagement extends BaseContract {
     "view"
   >;
 
+  lock: TypedContractMethod<
+    [
+      from: AddressLike,
+      to: AddressLike,
+      amount: BigNumberish,
+      txId: BytesLike,
+      hL: BytesLike,
+      hR: BytesLike,
+      hC: BytesLike,
+      pDate: BigNumberish,
+      dDate: BigNumberish,
+      proof: BytesLike
+    ],
+    [void],
+    "nonpayable"
+  >;
+
   mint: TypedContractMethod<[amount_: BigNumberish], [void], "nonpayable">;
 
   name: TypedContractMethod<[], [string], "view">;
@@ -908,10 +788,10 @@ export interface CouponSnapshotManagement extends BaseContract {
 
   release: TypedContractMethod<
     [
-      _from: AddressLike,
-      _to: AddressLike,
-      _secret: BytesLike,
-      _paymentProof: BytesLike
+      txId: BytesLike,
+      secret: BytesLike,
+      proof: BytesLike,
+      status_: BigNumberish
     ],
     [void],
     "nonpayable"
@@ -921,12 +801,6 @@ export interface CouponSnapshotManagement extends BaseContract {
 
   revokeRole: TypedContractMethod<
     [role: BytesLike, account: AddressLike],
-    [void],
-    "nonpayable"
-  >;
-
-  setLock: TypedContractMethod<
-    [_lockInfo: ICouponSnapshotManagementInternal.LockInfoStruct],
     [void],
     "nonpayable"
   >;
@@ -1031,30 +905,6 @@ export interface CouponSnapshotManagement extends BaseContract {
     "nonpayable"
   >;
   getFunction(
-    nameOrSignature: "forceCancel"
-  ): TypedContractMethod<
-    [
-      _from: AddressLike,
-      _to: AddressLike,
-      _secretCancel: BytesLike,
-      _paymentProof: BytesLike
-    ],
-    [void],
-    "nonpayable"
-  >;
-  getFunction(
-    nameOrSignature: "forceRelease"
-  ): TypedContractMethod<
-    [
-      _from: AddressLike,
-      _to: AddressLike,
-      _secretRelease: BytesLike,
-      _paymentProof: BytesLike
-    ],
-    [void],
-    "nonpayable"
-  >;
-  getFunction(
     nameOrSignature: "getInvestorListAtCoupon"
   ): TypedContractMethod<[CouponDate: BigNumberish], [string[]], "view">;
   getFunction(
@@ -1095,6 +945,24 @@ export interface CouponSnapshotManagement extends BaseContract {
     nameOrSignature: "isTrustedForwarder"
   ): TypedContractMethod<[forwarder: AddressLike], [boolean], "view">;
   getFunction(
+    nameOrSignature: "lock"
+  ): TypedContractMethod<
+    [
+      from: AddressLike,
+      to: AddressLike,
+      amount: BigNumberish,
+      txId: BytesLike,
+      hL: BytesLike,
+      hR: BytesLike,
+      hC: BytesLike,
+      pDate: BigNumberish,
+      dDate: BigNumberish,
+      proof: BytesLike
+    ],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
     nameOrSignature: "mint"
   ): TypedContractMethod<[amount_: BigNumberish], [void], "nonpayable">;
   getFunction(
@@ -1107,10 +975,10 @@ export interface CouponSnapshotManagement extends BaseContract {
     nameOrSignature: "release"
   ): TypedContractMethod<
     [
-      _from: AddressLike,
-      _to: AddressLike,
-      _secret: BytesLike,
-      _paymentProof: BytesLike
+      txId: BytesLike,
+      secret: BytesLike,
+      proof: BytesLike,
+      status_: BigNumberish
     ],
     [void],
     "nonpayable"
@@ -1122,13 +990,6 @@ export interface CouponSnapshotManagement extends BaseContract {
     nameOrSignature: "revokeRole"
   ): TypedContractMethod<
     [role: BytesLike, account: AddressLike],
-    [void],
-    "nonpayable"
-  >;
-  getFunction(
-    nameOrSignature: "setLock"
-  ): TypedContractMethod<
-    [_lockInfo: ICouponSnapshotManagementInternal.LockInfoStruct],
     [void],
     "nonpayable"
   >;
@@ -1177,18 +1038,11 @@ export interface CouponSnapshotManagement extends BaseContract {
     ApprovalEvent.OutputObject
   >;
   getEvent(
-    key: "AssetLocked"
+    key: "AssetHTLC"
   ): TypedContractEvent<
-    AssetLockedEvent.InputTuple,
-    AssetLockedEvent.OutputTuple,
-    AssetLockedEvent.OutputObject
-  >;
-  getEvent(
-    key: "AssetReleased"
-  ): TypedContractEvent<
-    AssetReleasedEvent.InputTuple,
-    AssetReleasedEvent.OutputTuple,
-    AssetReleasedEvent.OutputObject
+    AssetHTLCEvent.InputTuple,
+    AssetHTLCEvent.OutputTuple,
+    AssetHTLCEvent.OutputObject
   >;
   getEvent(
     key: "DisableContract"
@@ -1224,20 +1078,6 @@ export interface CouponSnapshotManagement extends BaseContract {
     InitializedEvent.InputTuple,
     InitializedEvent.OutputTuple,
     InitializedEvent.OutputObject
-  >;
-  getEvent(
-    key: "LockCancelled"
-  ): TypedContractEvent<
-    LockCancelledEvent.InputTuple,
-    LockCancelledEvent.OutputTuple,
-    LockCancelledEvent.OutputObject
-  >;
-  getEvent(
-    key: "LockSet"
-  ): TypedContractEvent<
-    LockSetEvent.InputTuple,
-    LockSetEvent.OutputTuple,
-    LockSetEvent.OutputObject
   >;
   getEvent(
     key: "NewBondDrafted"
@@ -1340,26 +1180,15 @@ export interface CouponSnapshotManagement extends BaseContract {
       ApprovalEvent.OutputObject
     >;
 
-    "AssetLocked(bytes32,bytes32,uint8)": TypedContractEvent<
-      AssetLockedEvent.InputTuple,
-      AssetLockedEvent.OutputTuple,
-      AssetLockedEvent.OutputObject
+    "AssetHTLC(bytes32,address,address,bytes32,uint8)": TypedContractEvent<
+      AssetHTLCEvent.InputTuple,
+      AssetHTLCEvent.OutputTuple,
+      AssetHTLCEvent.OutputObject
     >;
-    AssetLocked: TypedContractEvent<
-      AssetLockedEvent.InputTuple,
-      AssetLockedEvent.OutputTuple,
-      AssetLockedEvent.OutputObject
-    >;
-
-    "AssetReleased(bytes32,bytes32,uint8)": TypedContractEvent<
-      AssetReleasedEvent.InputTuple,
-      AssetReleasedEvent.OutputTuple,
-      AssetReleasedEvent.OutputObject
-    >;
-    AssetReleased: TypedContractEvent<
-      AssetReleasedEvent.InputTuple,
-      AssetReleasedEvent.OutputTuple,
-      AssetReleasedEvent.OutputObject
+    AssetHTLC: TypedContractEvent<
+      AssetHTLCEvent.InputTuple,
+      AssetHTLCEvent.OutputTuple,
+      AssetHTLCEvent.OutputObject
     >;
 
     "DisableContract(bytes32)": TypedContractEvent<
@@ -1415,28 +1244,6 @@ export interface CouponSnapshotManagement extends BaseContract {
       InitializedEvent.InputTuple,
       InitializedEvent.OutputTuple,
       InitializedEvent.OutputObject
-    >;
-
-    "LockCancelled(bytes32,bytes32,uint8)": TypedContractEvent<
-      LockCancelledEvent.InputTuple,
-      LockCancelledEvent.OutputTuple,
-      LockCancelledEvent.OutputObject
-    >;
-    LockCancelled: TypedContractEvent<
-      LockCancelledEvent.InputTuple,
-      LockCancelledEvent.OutputTuple,
-      LockCancelledEvent.OutputObject
-    >;
-
-    "LockSet(bytes32,bytes32,uint8)": TypedContractEvent<
-      LockSetEvent.InputTuple,
-      LockSetEvent.OutputTuple,
-      LockSetEvent.OutputObject
-    >;
-    LockSet: TypedContractEvent<
-      LockSetEvent.InputTuple,
-      LockSetEvent.OutputTuple,
-      LockSetEvent.OutputObject
     >;
 
     "NewBondDrafted(address,string,string)": TypedContractEvent<

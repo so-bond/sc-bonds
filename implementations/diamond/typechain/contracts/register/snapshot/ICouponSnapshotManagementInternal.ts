@@ -8,6 +8,7 @@ import type {
   FunctionFragment,
   Interface,
   EventFragment,
+  AddressLike,
   ContractRunner,
   ContractMethod,
   Listener,
@@ -22,95 +23,30 @@ import type {
 
 export interface ICouponSnapshotManagementInternalInterface extends Interface {
   getEvent(
-    nameOrSignatureOrTopic:
-      | "AssetLocked"
-      | "AssetReleased"
-      | "LockCancelled"
-      | "LockSet"
-      | "SnapshotTimestampChange"
+    nameOrSignatureOrTopic: "AssetHTLC" | "SnapshotTimestampChange"
   ): EventFragment;
 }
 
-export namespace AssetLockedEvent {
+export namespace AssetHTLCEvent {
   export type InputTuple = [
-    transactionID: BytesLike,
-    paymentID: BytesLike,
+    txId: BytesLike,
+    from: AddressLike,
+    to: AddressLike,
+    hL: BytesLike,
     status: BigNumberish
   ];
   export type OutputTuple = [
-    transactionID: string,
-    paymentID: string,
+    txId: string,
+    from: string,
+    to: string,
+    hL: string,
     status: bigint
   ];
   export interface OutputObject {
-    transactionID: string;
-    paymentID: string;
-    status: bigint;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace AssetReleasedEvent {
-  export type InputTuple = [
-    transactionID: BytesLike,
-    paymentID: BytesLike,
-    status: BigNumberish
-  ];
-  export type OutputTuple = [
-    transactionID: string,
-    paymentID: string,
-    status: bigint
-  ];
-  export interface OutputObject {
-    transactionID: string;
-    paymentID: string;
-    status: bigint;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace LockCancelledEvent {
-  export type InputTuple = [
-    transactionID: BytesLike,
-    paymentID: BytesLike,
-    status: BigNumberish
-  ];
-  export type OutputTuple = [
-    transactionID: string,
-    paymentID: string,
-    status: bigint
-  ];
-  export interface OutputObject {
-    transactionID: string;
-    paymentID: string;
-    status: bigint;
-  }
-  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
-  export type Filter = TypedDeferredTopicFilter<Event>;
-  export type Log = TypedEventLog<Event>;
-  export type LogDescription = TypedLogDescription<Event>;
-}
-
-export namespace LockSetEvent {
-  export type InputTuple = [
-    transactionID: BytesLike,
-    paymentID: BytesLike,
-    status: BigNumberish
-  ];
-  export type OutputTuple = [
-    transactionID: string,
-    paymentID: string,
-    status: bigint
-  ];
-  export interface OutputObject {
-    transactionID: string;
-    paymentID: string;
+    txId: string;
+    from: string;
+    to: string;
+    hL: string;
     status: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
@@ -189,32 +125,11 @@ export interface ICouponSnapshotManagementInternal extends BaseContract {
   ): T;
 
   getEvent(
-    key: "AssetLocked"
+    key: "AssetHTLC"
   ): TypedContractEvent<
-    AssetLockedEvent.InputTuple,
-    AssetLockedEvent.OutputTuple,
-    AssetLockedEvent.OutputObject
-  >;
-  getEvent(
-    key: "AssetReleased"
-  ): TypedContractEvent<
-    AssetReleasedEvent.InputTuple,
-    AssetReleasedEvent.OutputTuple,
-    AssetReleasedEvent.OutputObject
-  >;
-  getEvent(
-    key: "LockCancelled"
-  ): TypedContractEvent<
-    LockCancelledEvent.InputTuple,
-    LockCancelledEvent.OutputTuple,
-    LockCancelledEvent.OutputObject
-  >;
-  getEvent(
-    key: "LockSet"
-  ): TypedContractEvent<
-    LockSetEvent.InputTuple,
-    LockSetEvent.OutputTuple,
-    LockSetEvent.OutputObject
+    AssetHTLCEvent.InputTuple,
+    AssetHTLCEvent.OutputTuple,
+    AssetHTLCEvent.OutputObject
   >;
   getEvent(
     key: "SnapshotTimestampChange"
@@ -225,48 +140,15 @@ export interface ICouponSnapshotManagementInternal extends BaseContract {
   >;
 
   filters: {
-    "AssetLocked(bytes32,bytes32,uint8)": TypedContractEvent<
-      AssetLockedEvent.InputTuple,
-      AssetLockedEvent.OutputTuple,
-      AssetLockedEvent.OutputObject
+    "AssetHTLC(bytes32,address,address,bytes32,uint8)": TypedContractEvent<
+      AssetHTLCEvent.InputTuple,
+      AssetHTLCEvent.OutputTuple,
+      AssetHTLCEvent.OutputObject
     >;
-    AssetLocked: TypedContractEvent<
-      AssetLockedEvent.InputTuple,
-      AssetLockedEvent.OutputTuple,
-      AssetLockedEvent.OutputObject
-    >;
-
-    "AssetReleased(bytes32,bytes32,uint8)": TypedContractEvent<
-      AssetReleasedEvent.InputTuple,
-      AssetReleasedEvent.OutputTuple,
-      AssetReleasedEvent.OutputObject
-    >;
-    AssetReleased: TypedContractEvent<
-      AssetReleasedEvent.InputTuple,
-      AssetReleasedEvent.OutputTuple,
-      AssetReleasedEvent.OutputObject
-    >;
-
-    "LockCancelled(bytes32,bytes32,uint8)": TypedContractEvent<
-      LockCancelledEvent.InputTuple,
-      LockCancelledEvent.OutputTuple,
-      LockCancelledEvent.OutputObject
-    >;
-    LockCancelled: TypedContractEvent<
-      LockCancelledEvent.InputTuple,
-      LockCancelledEvent.OutputTuple,
-      LockCancelledEvent.OutputObject
-    >;
-
-    "LockSet(bytes32,bytes32,uint8)": TypedContractEvent<
-      LockSetEvent.InputTuple,
-      LockSetEvent.OutputTuple,
-      LockSetEvent.OutputObject
-    >;
-    LockSet: TypedContractEvent<
-      LockSetEvent.InputTuple,
-      LockSetEvent.OutputTuple,
-      LockSetEvent.OutputObject
+    AssetHTLC: TypedContractEvent<
+      AssetHTLCEvent.InputTuple,
+      AssetHTLCEvent.OutputTuple,
+      AssetHTLCEvent.OutputObject
     >;
 
     "SnapshotTimestampChange(uint256,uint256,uint256)": TypedContractEvent<

@@ -5245,48 +5245,35 @@ const _abi = [
       {
         indexed: true,
         internalType: "bytes32",
-        name: "transactionID",
+        name: "txId",
         type: "bytes32",
       },
       {
         indexed: true,
+        internalType: "address",
+        name: "from",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        indexed: false,
         internalType: "bytes32",
-        name: "paymentID",
+        name: "hL",
         type: "bytes32",
       },
       {
         indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
+        internalType: "enum ICouponSnapshotManagementInternal.LStatus",
         name: "status",
         type: "uint8",
       },
     ],
-    name: "AssetLocked",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "transactionID",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "paymentID",
-        type: "bytes32",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "AssetReleased",
+    name: "AssetHTLC",
     type: "event",
   },
   {
@@ -5339,56 +5326,6 @@ const _abi = [
       },
     ],
     name: "EnableInvestor",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "transactionID",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "paymentID",
-        type: "bytes32",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "LockCancelled",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "transactionID",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "paymentID",
-        type: "bytes32",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "LockSet",
     type: "event",
   },
   {
@@ -10789,48 +10726,35 @@ const _abi = [
       {
         indexed: true,
         internalType: "bytes32",
-        name: "transactionID",
+        name: "txId",
         type: "bytes32",
       },
       {
         indexed: true,
+        internalType: "address",
+        name: "from",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        indexed: false,
         internalType: "bytes32",
-        name: "paymentID",
+        name: "hL",
         type: "bytes32",
       },
       {
         indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
+        internalType: "enum ICouponSnapshotManagementInternal.LStatus",
         name: "status",
         type: "uint8",
       },
     ],
-    name: "AssetLocked",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "transactionID",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "paymentID",
-        type: "bytes32",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "AssetReleased",
+    name: "AssetHTLC",
     type: "event",
   },
   {
@@ -10896,56 +10820,6 @@ const _abi = [
       },
     ],
     name: "Initialized",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "transactionID",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "paymentID",
-        type: "bytes32",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "LockCancelled",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "transactionID",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "paymentID",
-        type: "bytes32",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "LockSet",
     type: "event",
   },
   {
@@ -12222,48 +12096,35 @@ const _abi = [
       {
         indexed: true,
         internalType: "bytes32",
-        name: "transactionID",
+        name: "txId",
         type: "bytes32",
       },
       {
         indexed: true,
+        internalType: "address",
+        name: "from",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        indexed: false,
         internalType: "bytes32",
-        name: "paymentID",
+        name: "hL",
         type: "bytes32",
       },
       {
         indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
+        internalType: "enum ICouponSnapshotManagementInternal.LStatus",
         name: "status",
         type: "uint8",
       },
     ],
-    name: "AssetLocked",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "transactionID",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "paymentID",
-        type: "bytes32",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "AssetReleased",
+    name: "AssetHTLC",
     type: "event",
   },
   {
@@ -12329,56 +12190,6 @@ const _abi = [
       },
     ],
     name: "Initialized",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "transactionID",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "paymentID",
-        type: "bytes32",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "LockCancelled",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "transactionID",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "paymentID",
-        type: "bytes32",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "LockSet",
     type: "event",
   },
   {
@@ -14498,48 +14309,35 @@ const _abi = [
       {
         indexed: true,
         internalType: "bytes32",
-        name: "transactionID",
+        name: "txId",
         type: "bytes32",
       },
       {
         indexed: true,
+        internalType: "address",
+        name: "from",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        indexed: false,
         internalType: "bytes32",
-        name: "paymentID",
+        name: "hL",
         type: "bytes32",
       },
       {
         indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
+        internalType: "enum ICouponSnapshotManagementInternal.LStatus",
         name: "status",
         type: "uint8",
       },
     ],
-    name: "AssetLocked",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "transactionID",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "paymentID",
-        type: "bytes32",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "AssetReleased",
+    name: "AssetHTLC",
     type: "event",
   },
   {
@@ -14605,56 +14403,6 @@ const _abi = [
       },
     ],
     name: "Initialized",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "transactionID",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "paymentID",
-        type: "bytes32",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "LockCancelled",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "transactionID",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "paymentID",
-        type: "bytes32",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "LockSet",
     type: "event",
   },
   {
@@ -15167,62 +14915,6 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_from",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_to",
-        type: "address",
-      },
-      {
-        internalType: "bytes32",
-        name: "_secretCancel",
-        type: "bytes32",
-      },
-      {
-        internalType: "bytes32",
-        name: "_paymentProof",
-        type: "bytes32",
-      },
-    ],
-    name: "forceCancel",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_from",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_to",
-        type: "address",
-      },
-      {
-        internalType: "bytes32",
-        name: "_secretRelease",
-        type: "bytes32",
-      },
-      {
-        internalType: "bytes32",
-        name: "_paymentProof",
-        type: "bytes32",
-      },
-    ],
-    name: "forceRelease",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
         internalType: "uint256",
         name: "CouponDate",
         type: "uint256",
@@ -15389,6 +15081,64 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "address",
+        name: "from",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+      {
+        internalType: "bytes32",
+        name: "txId",
+        type: "bytes32",
+      },
+      {
+        internalType: "bytes32",
+        name: "hL",
+        type: "bytes32",
+      },
+      {
+        internalType: "bytes32",
+        name: "hR",
+        type: "bytes32",
+      },
+      {
+        internalType: "bytes32",
+        name: "hC",
+        type: "bytes32",
+      },
+      {
+        internalType: "uint256",
+        name: "pDate",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "dDate",
+        type: "uint256",
+      },
+      {
+        internalType: "bytes32",
+        name: "proof",
+        type: "bytes32",
+      },
+    ],
+    name: "lock",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "uint256",
         name: "amount_",
         type: "uint256",
@@ -15428,24 +15178,24 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_from",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_to",
-        type: "address",
-      },
-      {
         internalType: "bytes32",
-        name: "_secret",
+        name: "txId",
         type: "bytes32",
       },
       {
         internalType: "bytes32",
-        name: "_paymentProof",
+        name: "secret",
         type: "bytes32",
+      },
+      {
+        internalType: "bytes32",
+        name: "proof",
+        type: "bytes32",
+      },
+      {
+        internalType: "enum ICouponSnapshotManagementInternal.LStatus",
+        name: "status_",
+        type: "uint8",
       },
     ],
     name: "release",
@@ -15480,81 +15230,6 @@ const _abi = [
       },
     ],
     name: "revokeRole",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        components: [
-          {
-            internalType: "address",
-            name: "seller",
-            type: "address",
-          },
-          {
-            internalType: "address",
-            name: "buyer",
-            type: "address",
-          },
-          {
-            internalType: "uint256",
-            name: "amount",
-            type: "uint256",
-          },
-          {
-            internalType: "bytes32",
-            name: "transactionID",
-            type: "bytes32",
-          },
-          {
-            internalType: "bytes32",
-            name: "paymentID",
-            type: "bytes32",
-          },
-          {
-            internalType: "bytes32",
-            name: "signature",
-            type: "bytes32",
-          },
-          {
-            internalType: "bytes32",
-            name: "hashlock",
-            type: "bytes32",
-          },
-          {
-            internalType: "bytes32",
-            name: "hashRelease",
-            type: "bytes32",
-          },
-          {
-            internalType: "bytes32",
-            name: "hashCancel",
-            type: "bytes32",
-          },
-          {
-            internalType: "uint256",
-            name: "paymentDate",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "deliveryDate",
-            type: "uint256",
-          },
-          {
-            internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
-            name: "status",
-            type: "uint8",
-          },
-        ],
-        internalType: "struct ICouponSnapshotManagementInternal.LockInfo",
-        name: "_lockInfo",
-        type: "tuple",
-      },
-    ],
-    name: "setLock",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -15803,48 +15478,35 @@ const _abi = [
       {
         indexed: true,
         internalType: "bytes32",
-        name: "transactionID",
+        name: "txId",
         type: "bytes32",
       },
       {
         indexed: true,
+        internalType: "address",
+        name: "from",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        indexed: false,
         internalType: "bytes32",
-        name: "paymentID",
+        name: "hL",
         type: "bytes32",
       },
       {
         indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
+        internalType: "enum ICouponSnapshotManagementInternal.LStatus",
         name: "status",
         type: "uint8",
       },
     ],
-    name: "AssetLocked",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "transactionID",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "paymentID",
-        type: "bytes32",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "AssetReleased",
+    name: "AssetHTLC",
     type: "event",
   },
   {
@@ -15910,56 +15572,6 @@ const _abi = [
       },
     ],
     name: "Initialized",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "transactionID",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "paymentID",
-        type: "bytes32",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "LockCancelled",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "transactionID",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "paymentID",
-        type: "bytes32",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "LockSet",
     type: "event",
   },
   {
@@ -16794,98 +16406,35 @@ const _abi = [
       {
         indexed: true,
         internalType: "bytes32",
-        name: "transactionID",
+        name: "txId",
         type: "bytes32",
       },
       {
         indexed: true,
+        internalType: "address",
+        name: "from",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        indexed: false,
         internalType: "bytes32",
-        name: "paymentID",
+        name: "hL",
         type: "bytes32",
       },
       {
         indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
+        internalType: "enum ICouponSnapshotManagementInternal.LStatus",
         name: "status",
         type: "uint8",
       },
     ],
-    name: "AssetLocked",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "transactionID",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "paymentID",
-        type: "bytes32",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "AssetReleased",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "transactionID",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "paymentID",
-        type: "bytes32",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "LockCancelled",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "transactionID",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "paymentID",
-        type: "bytes32",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "LockSet",
+    name: "AssetHTLC",
     type: "event",
   },
   {
@@ -17347,98 +16896,35 @@ const _abi = [
       {
         indexed: true,
         internalType: "bytes32",
-        name: "transactionID",
+        name: "txId",
         type: "bytes32",
       },
       {
         indexed: true,
+        internalType: "address",
+        name: "from",
+        type: "address",
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+      {
+        indexed: false,
         internalType: "bytes32",
-        name: "paymentID",
+        name: "hL",
         type: "bytes32",
       },
       {
         indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
+        internalType: "enum ICouponSnapshotManagementInternal.LStatus",
         name: "status",
         type: "uint8",
       },
     ],
-    name: "AssetLocked",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "transactionID",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "paymentID",
-        type: "bytes32",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "AssetReleased",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "transactionID",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "paymentID",
-        type: "bytes32",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "LockCancelled",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "transactionID",
-        type: "bytes32",
-      },
-      {
-        indexed: true,
-        internalType: "bytes32",
-        name: "paymentID",
-        type: "bytes32",
-      },
-      {
-        indexed: false,
-        internalType: "enum ICouponSnapshotManagementInternal.LockStatus",
-        name: "status",
-        type: "uint8",
-      },
-    ],
-    name: "LockSet",
+    name: "AssetHTLC",
     type: "event",
   },
   {
