@@ -142,6 +142,14 @@ export type { IRedemption } from "./contracts/register/coupon/redemption/IRedemp
 export { IRedemption__factory } from "./factories/contracts/register/coupon/redemption/IRedemption__factory";
 export type { Redemption } from "./contracts/register/coupon/redemption/Redemption";
 export { Redemption__factory } from "./factories/contracts/register/coupon/redemption/Redemption__factory";
+export type { DelegateInvestorManagement } from "./contracts/register/delegateInvestors/DelegateInvestorManagement";
+export { DelegateInvestorManagement__factory } from "./factories/contracts/register/delegateInvestors/DelegateInvestorManagement__factory";
+export type { DelegateInvestorManagementInternal } from "./contracts/register/delegateInvestors/DelegateInvestorManagementInternal";
+export { DelegateInvestorManagementInternal__factory } from "./factories/contracts/register/delegateInvestors/DelegateInvestorManagementInternal__factory";
+export type { IDelegateInvestorManagement } from "./contracts/register/delegateInvestors/IDelegateInvestorManagement";
+export { IDelegateInvestorManagement__factory } from "./factories/contracts/register/delegateInvestors/IDelegateInvestorManagement__factory";
+export type { IDelegateInvestorManagementInternal } from "./contracts/register/delegateInvestors/IDelegateInvestorManagementInternal";
+export { IDelegateInvestorManagementInternal__factory } from "./factories/contracts/register/delegateInvestors/IDelegateInvestorManagementInternal__factory";
 export type { IInvestorManagement } from "./contracts/register/investors/IInvestorManagement";
 export { IInvestorManagement__factory } from "./factories/contracts/register/investors/IInvestorManagement__factory";
 export type { IInvestorManagementInternal } from "./contracts/register/investors/IInvestorManagementInternal";

@@ -301,6 +301,22 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Redemption__factory>;
     getContractFactory(
+      name: "DelegateInvestorManagement",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.DelegateInvestorManagement__factory>;
+    getContractFactory(
+      name: "DelegateInvestorManagementInternal",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.DelegateInvestorManagementInternal__factory>;
+    getContractFactory(
+      name: "IDelegateInvestorManagement",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IDelegateInvestorManagement__factory>;
+    getContractFactory(
+      name: "IDelegateInvestorManagementInternal",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IDelegateInvestorManagementInternal__factory>;
+    getContractFactory(
       name: "IInvestorManagement",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IInvestorManagement__factory>;
@@ -998,6 +1014,26 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.Redemption>;
     getContractAt(
+      name: "DelegateInvestorManagement",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.DelegateInvestorManagement>;
+    getContractAt(
+      name: "DelegateInvestorManagementInternal",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.DelegateInvestorManagementInternal>;
+    getContractAt(
+      name: "IDelegateInvestorManagement",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IDelegateInvestorManagement>;
+    getContractAt(
+      name: "IDelegateInvestorManagementInternal",
+      address: string | ethers.Addressable,
+      signer?: ethers.Signer
+    ): Promise<Contracts.IDelegateInvestorManagementInternal>;
+    getContractAt(
       name: "IInvestorManagement",
       address: string | ethers.Addressable,
       signer?: ethers.Signer
@@ -1707,6 +1743,22 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Redemption>;
     deployContract(
+      name: "DelegateInvestorManagement",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.DelegateInvestorManagement>;
+    deployContract(
+      name: "DelegateInvestorManagementInternal",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.DelegateInvestorManagementInternal>;
+    deployContract(
+      name: "IDelegateInvestorManagement",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IDelegateInvestorManagement>;
+    deployContract(
+      name: "IDelegateInvestorManagementInternal",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IDelegateInvestorManagementInternal>;
+    deployContract(
       name: "IInvestorManagement",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IInvestorManagement>;
@@ -2403,6 +2455,26 @@ declare module "hardhat/types/runtime" {
       args: any[],
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.Redemption>;
+    deployContract(
+      name: "DelegateInvestorManagement",
+      args: any[],
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.DelegateInvestorManagement>;
+    deployContract(
+      name: "DelegateInvestorManagementInternal",
+      args: any[],
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.DelegateInvestorManagementInternal>;
+    deployContract(
+      name: "IDelegateInvestorManagement",
+      args: any[],
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IDelegateInvestorManagement>;
+    deployContract(
+      name: "IDelegateInvestorManagementInternal",
+      args: any[],
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.IDelegateInvestorManagementInternal>;
     deployContract(
       name: "IInvestorManagement",
       args: any[],

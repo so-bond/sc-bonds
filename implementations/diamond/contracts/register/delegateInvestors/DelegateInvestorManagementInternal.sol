@@ -3,71 +3,84 @@
 
 pragma solidity ^0.8.20;
 
-import { InvestorManagementStorage } from "./InvestorManagementStorage.sol";
+import { InvestorManagementStorage } from "../investors/InvestorManagementStorage.sol";
 import { InvestorManagementInternal } from "../investors/InvestorManagementInternal.sol";
 import { DelegateInvestorManagementStorage } from "./DelegateInvestorManagementStorage.sol";
 import { IDelegateInvestorManagementInternal } from "./IDelegateInvestorManagementInternal.sol";
 
 contract DelegateInvestorManagementInternal is
     IDelegateInvestorManagementInternal,
-    InvestorManagementInternal,
+    InvestorManagementInternal
 {
-    function _setCustodianDelegate(
-        address delegate
-    ) internal {
+    function _setCustodianDelegate(address delegate) internal {
         require(_hasRole(CST_ROLE, _msgSender()), "Caller must be CST");
-        DelegateInvestorManagementStorage.Layout storage l = DelegateInvestorManagementStorage
-            .layout();
+        DelegateInvestorManagementStorage.Layout
+            storage l = DelegateInvestorManagementStorage.layout();
         address oldDelegate = l.custodianDelegates[_msgSender()];
         l.custodianDelegates[_msgSender()] = delegate;
         if (oldDelegate != address(0)) {
             emit CustodianDelegateUnset(_msgSender(), oldDelegate);
         }
         emit CustodianDelegateSet(_msgSender(), delegate);
-    };
+    }
 
     function _unsetCustodianDelegate() internal {
         require(_hasRole(CST_ROLE, _msgSender()), "Caller must be CST");
-        DelegateInvestorManagementStorage.Layout storage l = DelegateInvestorManagementStorage
-            .layout();
+        DelegateInvestorManagementStorage.Layout
+            storage l = DelegateInvestorManagementStorage.layout();
         address oldDelegate = l.custodianDelegates[_msgSender()];
         l.custodianDelegates[_msgSender()] = address(0);
         emit CustodianDelegateUnset(_msgSender(), oldDelegate);
     }
 
-    function _isCustodianDelegate(address custodian, address delegate) internal view returns (bool) {
+    function _isCustodianDelegate(
+        address custodian,
+        address delegate
+    ) internal view returns (bool) {
         if (!_hasRole(CST_ROLE, custodian)) {
             return false;
         }
-        DelegateInvestorManagementStorage.Layout storage l = DelegateInvestorManagementStorage
-            .layout();
+        DelegateInvestorManagementStorage.Layout
+            storage l = DelegateInvestorManagementStorage.layout();
         return l.custodianDelegates[custodian] == delegate;
     }
 
-    function _getCustodianDelegate(address custodian) internal view returns (address memory) {
-        DelegateInvestorManagementStorage.Layout storage l = DelegateInvestorManagementStorage
-            .layout();
+    function _getCustodianDelegate(
+        address custodian
+    ) internal view returns (address) {
+        DelegateInvestorManagementStorage.Layout
+            storage l = DelegateInvestorManagementStorage.layout();
         return l.custodianDelegates[custodian];
     }
 
-    function _delegateEnableInvestorToWhitelist(address investor_, address delegator) internal {
+    function _delegateEnableInvestorToWhitelist(
+        address investor_,
+        address delegator
+    ) internal {
         require(investor_ != address(0), "investor address cannot be zero");
-        InvestorManagementStorage.Layout storage l = InvestorManagementStorage
-            .layout();
 
-        require(_isCustodianDelegate(delegator, _msgSender()), "Caller must be a custodian delegate");
+        require(
+            _isCustodianDelegate(delegator, _msgSender()),
+            "Caller must be a custodian delegate"
+        );
 
         _enableInvestor(investor_, delegator);
     }
 
-    function _delegateDisableInvestorFromWhitelist(address investor_) internal {
+    function _delegateDisableInvestorFromWhitelist(
+        address investor_,
+        address delegator_
+    ) internal {
         require(investor_ != address(0), "investor address cannot be zero");
         InvestorManagementStorage.Layout storage l = InvestorManagementStorage
             .layout();
-        
-        require(_isCustodianDelegate(delegator, _msgSender()), "Caller must be a custodian delegate");
+
         require(
-            l.investorInfos[investor_].custodian == delegator,
+            _isCustodianDelegate(delegator_, _msgSender()),
+            "Caller must be a custodian delegate"
+        );
+        require(
+            l.investorInfos[investor_].custodian == delegator_,
             "only the custodian can disallow the investor"
         );
         l.investorInfos[investor_].allowed = false;

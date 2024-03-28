@@ -6,15 +6,16 @@ pragma solidity ^0.8.20;
 import { IDelegateInvestorManagement } from "./IDelegateInvestorManagement.sol";
 import { DelegateInvestorManagementInternal } from "./DelegateInvestorManagementInternal.sol";
 
-contract DelegateInvestorManagement is IDelegateInvestorManagement, DelegateInvestorManagementInternal {
+contract DelegateInvestorManagement is
+    IDelegateInvestorManagement,
+    DelegateInvestorManagementInternal
+{
     /**
      * @inheritdoc IDelegateInvestorManagement
      */
-    function setCustodianDelegate(
-        address delegate
-    ) public {
+    function setCustodianDelegate(address delegate) public {
         _setCustodianDelegate(delegate);
-    };
+    }
 
     /**
      * @inheritdoc IDelegateInvestorManagement
@@ -26,28 +27,39 @@ contract DelegateInvestorManagement is IDelegateInvestorManagement, DelegateInve
     /**
      * @inheritdoc IDelegateInvestorManagement
      */
-    function isCustodianDelegate(address custodian, address delegate) public view returns (bool) {
+    function isCustodianDelegate(
+        address custodian,
+        address delegate
+    ) public view returns (bool) {
         return _isCustodianDelegate(custodian, delegate);
     }
 
     /**
      * @inheritdoc IDelegateInvestorManagement
      */
-    function getCustodianDelegate(address custodian) public view returns (address memory) {
+    function getCustodianDelegate(
+        address custodian
+    ) public view returns (address) {
         return _getCustodianDelegate(custodian);
     }
 
     /**
      * @inheritdoc IDelegateInvestorManagement
      */
-    function delegateEnableInvestorToWhitelist(address investor_, address delegator) public {
-        _delegateEnableInvestorToWhitelist(investor_);
+    function delegateEnableInvestorToWhitelist(
+        address investor_,
+        address delegator
+    ) public {
+        _delegateEnableInvestorToWhitelist(investor_, delegator);
     }
 
     /**
      * @inheritdoc IDelegateInvestorManagement
      */
-    function delegateDisableInvestorFromWhitelist(address investor_, address delegator) public {
-        _delegateDisableInvestorFromWhitelist(investor_);
+    function delegateDisableInvestorFromWhitelist(
+        address investor_,
+        address delegator_
+    ) public {
+        _delegateDisableInvestorFromWhitelist(investor_, delegator_);
     }
 }

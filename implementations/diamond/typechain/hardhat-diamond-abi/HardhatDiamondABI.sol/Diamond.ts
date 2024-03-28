@@ -130,6 +130,8 @@ export interface DiamondInterface extends Interface {
       | "getRoleAdmin(bytes32)"
       | "getRoleAdmin(bytes32)"
       | "getRoleAdmin(bytes32)"
+      | "getRoleAdmin(bytes32)"
+      | "getRoleAdmin(bytes32)"
       | "grantRole(bytes32,address)"
       | "grantRole(bytes32,address)"
       | "grantRole(bytes32,address)"
@@ -144,6 +146,10 @@ export interface DiamondInterface extends Interface {
       | "grantRole(bytes32,address)"
       | "grantRole(bytes32,address)"
       | "grantRole(bytes32,address)"
+      | "grantRole(bytes32,address)"
+      | "grantRole(bytes32,address)"
+      | "hasRole(bytes32,address)"
+      | "hasRole(bytes32,address)"
       | "hasRole(bytes32,address)"
       | "hasRole(bytes32,address)"
       | "hasRole(bytes32,address)"
@@ -172,6 +178,10 @@ export interface DiamondInterface extends Interface {
       | "renounceRole(bytes32)"
       | "renounceRole(bytes32)"
       | "renounceRole(bytes32)"
+      | "renounceRole(bytes32)"
+      | "renounceRole(bytes32)"
+      | "revokeRole(bytes32,address)"
+      | "revokeRole(bytes32,address)"
       | "revokeRole(bytes32,address)"
       | "revokeRole(bytes32,address)"
       | "revokeRole(bytes32,address)"
@@ -251,6 +261,10 @@ export interface DiamondInterface extends Interface {
       | "getRoleMember(bytes32,uint256)"
       | "getRoleMember(bytes32,uint256)"
       | "getRoleMember(bytes32,uint256)"
+      | "getRoleMember(bytes32,uint256)"
+      | "getRoleMember(bytes32,uint256)"
+      | "getRoleMemberCount(bytes32)"
+      | "getRoleMemberCount(bytes32)"
       | "getRoleMemberCount(bytes32)"
       | "getRoleMemberCount(bytes32)"
       | "getRoleMemberCount(bytes32)"
@@ -752,6 +766,10 @@ export interface DiamondInterface extends Interface {
       | "BND_ROLE()"
       | "BND_ROLE()"
       | "BND_ROLE()"
+      | "BND_ROLE()"
+      | "BND_ROLE()"
+      | "CAK_ROLE()"
+      | "CAK_ROLE()"
       | "CAK_ROLE()"
       | "CAK_ROLE()"
       | "CAK_ROLE()"
@@ -772,6 +790,10 @@ export interface DiamondInterface extends Interface {
       | "CST_ROLE()"
       | "CST_ROLE()"
       | "CST_ROLE()"
+      | "CST_ROLE()"
+      | "CST_ROLE()"
+      | "PAY_ROLE()"
+      | "PAY_ROLE()"
       | "PAY_ROLE()"
       | "PAY_ROLE()"
       | "PAY_ROLE()"
@@ -859,6 +881,18 @@ export interface DiamondInterface extends Interface {
       | "paymentIdRedemptionForInvest(address)"
       | "toggleRedemptionPayment(address)"
       | "toggleRedemptionPayment(address)"
+      | "delegateDisableInvestorFromWhitelist(address,address)"
+      | "delegateDisableInvestorFromWhitelist(address,address)"
+      | "delegateEnableInvestorToWhitelist(address,address)"
+      | "delegateEnableInvestorToWhitelist(address,address)"
+      | "getCustodianDelegate(address)"
+      | "getCustodianDelegate(address)"
+      | "isCustodianDelegate(address,address)"
+      | "isCustodianDelegate(address,address)"
+      | "setCustodianDelegate(address)"
+      | "setCustodianDelegate(address)"
+      | "unsetCustodianDelegate()"
+      | "unsetCustodianDelegate()"
       | "_totalSupplyAtCoupon(uint256)"
       | "_totalSupplyAtCoupon(uint256)"
       | "_totalSupplyAtCoupon(uint256)"
@@ -1020,6 +1054,8 @@ export interface DiamondInterface extends Interface {
       | "RoleAdminChanged(bytes32,bytes32,bytes32)"
       | "RoleAdminChanged(bytes32,bytes32,bytes32)"
       | "RoleAdminChanged(bytes32,bytes32,bytes32)"
+      | "RoleAdminChanged(bytes32,bytes32,bytes32)"
+      | "RoleAdminChanged(bytes32,bytes32,bytes32)"
       | "RoleGranted(bytes32,address,address)"
       | "RoleGranted(bytes32,address,address)"
       | "RoleGranted(bytes32,address,address)"
@@ -1039,6 +1075,10 @@ export interface DiamondInterface extends Interface {
       | "RoleGranted(bytes32,address,address)"
       | "RoleGranted(bytes32,address,address)"
       | "RoleGranted(bytes32,address,address)"
+      | "RoleGranted(bytes32,address,address)"
+      | "RoleGranted(bytes32,address,address)"
+      | "RoleRevoked(bytes32,address,address)"
+      | "RoleRevoked(bytes32,address,address)"
       | "RoleRevoked(bytes32,address,address)"
       | "RoleRevoked(bytes32,address,address)"
       | "RoleRevoked(bytes32,address,address)"
@@ -1068,6 +1108,8 @@ export interface DiamondInterface extends Interface {
       | "OwnershipTransferred(address,address)"
       | "OwnershipTransferred(address,address)"
       | "OwnershipTransferred(address,address)"
+      | "Initialized(uint64)"
+      | "Initialized(uint64)"
       | "Initialized(uint64)"
       | "Initialized(uint64)"
       | "Initialized(uint64)"
@@ -1134,6 +1176,8 @@ export interface DiamondInterface extends Interface {
       | "AdminChanged(address)"
       | "AdminChanged(address)"
       | "AdminChanged(address)"
+      | "AdminChanged(address)"
+      | "AdminChanged(address)"
       | "Approval(address,address,uint256)"
       | "Approval(address,address,uint256)"
       | "Approval(address,address,uint256)"
@@ -1186,6 +1230,8 @@ export interface DiamondInterface extends Interface {
       | "DisableInvestor(address)"
       | "DisableInvestor(address)"
       | "DisableInvestor(address)"
+      | "DisableInvestor(address)"
+      | "DisableInvestor(address)"
       | "EnableContract(bytes32)"
       | "EnableContract(bytes32)"
       | "EnableContract(bytes32)"
@@ -1195,6 +1241,8 @@ export interface DiamondInterface extends Interface {
       | "EnableContract(bytes32)"
       | "EnableContract(bytes32)"
       | "EnableContract(bytes32)"
+      | "EnableInvestor(address)"
+      | "EnableInvestor(address)"
       | "EnableInvestor(address)"
       | "EnableInvestor(address)"
       | "EnableInvestor(address)"
@@ -1278,6 +1326,10 @@ export interface DiamondInterface extends Interface {
       | "WalletAddedToWhitelist(address)"
       | "WalletAddedToWhitelist(address)"
       | "WalletAddedToWhitelist(address)"
+      | "WalletAddedToWhitelist(address)"
+      | "WalletAddedToWhitelist(address)"
+      | "WalletDeletedFromWhitelist(address)"
+      | "WalletDeletedFromWhitelist(address)"
       | "WalletDeletedFromWhitelist(address)"
       | "WalletDeletedFromWhitelist(address)"
       | "WalletDeletedFromWhitelist(address)"
@@ -1299,6 +1351,14 @@ export interface DiamondInterface extends Interface {
       | "RedemptionChanged(address,uint256,uint8)"
       | "RedemptionPaymentStatusChanged(address,uint256,address,uint8,uint8)"
       | "RedemptionPaymentStatusChanged(address,uint256,address,uint8,uint8)"
+      | "CustodianDelegateSet(address,address)"
+      | "CustodianDelegateSet(address,address)"
+      | "CustodianDelegateSet(address,address)"
+      | "CustodianDelegateSet(address,address)"
+      | "CustodianDelegateUnset(address,address)"
+      | "CustodianDelegateUnset(address,address)"
+      | "CustodianDelegateUnset(address,address)"
+      | "CustodianDelegateUnset(address,address)"
       | "Paused(address)"
       | "Paused(address)"
       | "Paused(address)"
@@ -1419,8 +1479,12 @@ export interface DiamondInterface extends Interface {
     values: [BytesLike]
   ): string;
   encodeFunctionData(
-    functionFragment: "grantRole(bytes32,address)",
-    values: [BytesLike, AddressLike]
+    functionFragment: "getRoleAdmin(bytes32)",
+    values: [BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getRoleAdmin(bytes32)",
+    values: [BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "grantRole(bytes32,address)",
@@ -1472,6 +1536,26 @@ export interface DiamondInterface extends Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "grantRole(bytes32,address)",
+    values: [BytesLike, AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "grantRole(bytes32,address)",
+    values: [BytesLike, AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "grantRole(bytes32,address)",
+    values: [BytesLike, AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "grantRole(bytes32,address)",
+    values: [BytesLike, AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "hasRole(bytes32,address)",
+    values: [BytesLike, AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "hasRole(bytes32,address)",
     values: [BytesLike, AddressLike]
   ): string;
   encodeFunctionData(
@@ -1587,6 +1671,22 @@ export interface DiamondInterface extends Interface {
     values: [BytesLike]
   ): string;
   encodeFunctionData(
+    functionFragment: "renounceRole(bytes32)",
+    values: [BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "renounceRole(bytes32)",
+    values: [BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "revokeRole(bytes32,address)",
+    values: [BytesLike, AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "revokeRole(bytes32,address)",
+    values: [BytesLike, AddressLike]
+  ): string;
+  encodeFunctionData(
     functionFragment: "revokeRole(bytes32,address)",
     values: [BytesLike, AddressLike]
   ): string;
@@ -1886,6 +1986,22 @@ export interface DiamondInterface extends Interface {
   encodeFunctionData(
     functionFragment: "getRoleMember(bytes32,uint256)",
     values: [BytesLike, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getRoleMember(bytes32,uint256)",
+    values: [BytesLike, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getRoleMember(bytes32,uint256)",
+    values: [BytesLike, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getRoleMemberCount(bytes32)",
+    values: [BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getRoleMemberCount(bytes32)",
+    values: [BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "getRoleMemberCount(bytes32)",
@@ -3712,6 +3828,22 @@ export interface DiamondInterface extends Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "BND_ROLE()",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "BND_ROLE()",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "CAK_ROLE()",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "CAK_ROLE()",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "CAK_ROLE()",
     values?: undefined
   ): string;
@@ -3789,6 +3921,22 @@ export interface DiamondInterface extends Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "CST_ROLE()",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "CST_ROLE()",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "CST_ROLE()",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "PAY_ROLE()",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "PAY_ROLE()",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -4126,6 +4274,54 @@ export interface DiamondInterface extends Interface {
   encodeFunctionData(
     functionFragment: "toggleRedemptionPayment(address)",
     values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "delegateDisableInvestorFromWhitelist(address,address)",
+    values: [AddressLike, AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "delegateDisableInvestorFromWhitelist(address,address)",
+    values: [AddressLike, AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "delegateEnableInvestorToWhitelist(address,address)",
+    values: [AddressLike, AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "delegateEnableInvestorToWhitelist(address,address)",
+    values: [AddressLike, AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getCustodianDelegate(address)",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getCustodianDelegate(address)",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "isCustodianDelegate(address,address)",
+    values: [AddressLike, AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "isCustodianDelegate(address,address)",
+    values: [AddressLike, AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setCustodianDelegate(address)",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setCustodianDelegate(address)",
+    values: [AddressLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "unsetCustodianDelegate()",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "unsetCustodianDelegate()",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "_totalSupplyAtCoupon(uint256)",
@@ -4740,7 +4936,11 @@ export interface DiamondInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "grantRole(bytes32,address)",
+    functionFragment: "getRoleAdmin(bytes32)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getRoleAdmin(bytes32)",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -4793,6 +4993,26 @@ export interface DiamondInterface extends Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "grantRole(bytes32,address)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "grantRole(bytes32,address)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "grantRole(bytes32,address)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "grantRole(bytes32,address)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "hasRole(bytes32,address)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "hasRole(bytes32,address)",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -4908,6 +5128,22 @@ export interface DiamondInterface extends Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "renounceRole(bytes32)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "renounceRole(bytes32)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "revokeRole(bytes32,address)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "revokeRole(bytes32,address)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "revokeRole(bytes32,address)",
     data: BytesLike
   ): Result;
@@ -5206,6 +5442,22 @@ export interface DiamondInterface extends Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "getRoleMember(bytes32,uint256)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getRoleMember(bytes32,uint256)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getRoleMember(bytes32,uint256)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getRoleMemberCount(bytes32)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getRoleMemberCount(bytes32)",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -6948,6 +7200,10 @@ export interface DiamondInterface extends Interface {
   decodeFunctionResult(functionFragment: "BND_ROLE()", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "BND_ROLE()", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "BND_ROLE()", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "BND_ROLE()", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "BND_ROLE()", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "CAK_ROLE()", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "CAK_ROLE()", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "CAK_ROLE()", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "CAK_ROLE()", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "CAK_ROLE()", data: BytesLike): Result;
@@ -6968,6 +7224,10 @@ export interface DiamondInterface extends Interface {
   decodeFunctionResult(functionFragment: "CST_ROLE()", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "CST_ROLE()", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "CST_ROLE()", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "CST_ROLE()", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "CST_ROLE()", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "PAY_ROLE()", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "PAY_ROLE()", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "PAY_ROLE()", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "PAY_ROLE()", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "PAY_ROLE()", data: BytesLike): Result;
@@ -7251,6 +7511,54 @@ export interface DiamondInterface extends Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "toggleRedemptionPayment(address)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "delegateDisableInvestorFromWhitelist(address,address)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "delegateDisableInvestorFromWhitelist(address,address)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "delegateEnableInvestorToWhitelist(address,address)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "delegateEnableInvestorToWhitelist(address,address)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getCustodianDelegate(address)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getCustodianDelegate(address)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "isCustodianDelegate(address,address)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "isCustodianDelegate(address,address)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setCustodianDelegate(address)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setCustodianDelegate(address)",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "unsetCustodianDelegate()",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "unsetCustodianDelegate()",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -8165,17 +8473,43 @@ export namespace RoleAdminChanged_bytes32_bytes32_bytes32_Event {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export namespace RoleGranted_bytes32_address_address_Event {
+export namespace RoleAdminChanged_bytes32_bytes32_bytes32_Event {
   export type InputTuple = [
     role: BytesLike,
-    account: AddressLike,
-    sender: AddressLike
+    previousAdminRole: BytesLike,
+    newAdminRole: BytesLike
   ];
-  export type OutputTuple = [role: string, account: string, sender: string];
+  export type OutputTuple = [
+    role: string,
+    previousAdminRole: string,
+    newAdminRole: string
+  ];
   export interface OutputObject {
     role: string;
-    account: string;
-    sender: string;
+    previousAdminRole: string;
+    newAdminRole: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace RoleAdminChanged_bytes32_bytes32_bytes32_Event {
+  export type InputTuple = [
+    role: BytesLike,
+    previousAdminRole: BytesLike,
+    newAdminRole: BytesLike
+  ];
+  export type OutputTuple = [
+    role: string,
+    previousAdminRole: string,
+    newAdminRole: string
+  ];
+  export interface OutputObject {
+    role: string;
+    previousAdminRole: string;
+    newAdminRole: string;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -8490,6 +8824,96 @@ export namespace RoleGranted_bytes32_address_address_Event {
 }
 
 export namespace RoleGranted_bytes32_address_address_Event {
+  export type InputTuple = [
+    role: BytesLike,
+    account: AddressLike,
+    sender: AddressLike
+  ];
+  export type OutputTuple = [role: string, account: string, sender: string];
+  export interface OutputObject {
+    role: string;
+    account: string;
+    sender: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace RoleGranted_bytes32_address_address_Event {
+  export type InputTuple = [
+    role: BytesLike,
+    account: AddressLike,
+    sender: AddressLike
+  ];
+  export type OutputTuple = [role: string, account: string, sender: string];
+  export interface OutputObject {
+    role: string;
+    account: string;
+    sender: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace RoleGranted_bytes32_address_address_Event {
+  export type InputTuple = [
+    role: BytesLike,
+    account: AddressLike,
+    sender: AddressLike
+  ];
+  export type OutputTuple = [role: string, account: string, sender: string];
+  export interface OutputObject {
+    role: string;
+    account: string;
+    sender: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace RoleGranted_bytes32_address_address_Event {
+  export type InputTuple = [
+    role: BytesLike,
+    account: AddressLike,
+    sender: AddressLike
+  ];
+  export type OutputTuple = [role: string, account: string, sender: string];
+  export interface OutputObject {
+    role: string;
+    account: string;
+    sender: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace RoleRevoked_bytes32_address_address_Event {
+  export type InputTuple = [
+    role: BytesLike,
+    account: AddressLike,
+    sender: AddressLike
+  ];
+  export type OutputTuple = [role: string, account: string, sender: string];
+  export interface OutputObject {
+    role: string;
+    account: string;
+    sender: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace RoleRevoked_bytes32_address_address_Event {
   export type InputTuple = [
     role: BytesLike,
     account: AddressLike,
@@ -8972,6 +9396,30 @@ export namespace OwnershipTransferred_address_address_Event {
   export interface OutputObject {
     previousOwner: string;
     newOwner: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace Initialized_uint64_Event {
+  export type InputTuple = [version: BigNumberish];
+  export type OutputTuple = [version: bigint];
+  export interface OutputObject {
+    version: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace Initialized_uint64_Event {
+  export type InputTuple = [version: BigNumberish];
+  export type OutputTuple = [version: bigint];
+  export interface OutputObject {
+    version: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -9831,6 +10279,30 @@ export namespace AdminChanged_address_Event {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
+export namespace AdminChanged_address_Event {
+  export type InputTuple = [_addressForNewAdmin: AddressLike];
+  export type OutputTuple = [_addressForNewAdmin: string];
+  export interface OutputObject {
+    _addressForNewAdmin: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace AdminChanged_address_Event {
+  export type InputTuple = [_addressForNewAdmin: AddressLike];
+  export type OutputTuple = [_addressForNewAdmin: string];
+  export interface OutputObject {
+    _addressForNewAdmin: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
 export namespace Approval_address_address_uint256_Event {
   export type InputTuple = [
     owner: AddressLike,
@@ -10729,11 +11201,23 @@ export namespace DisableInvestor_address_Event {
   export type LogDescription = TypedLogDescription<Event>;
 }
 
-export namespace EnableContract_bytes32_Event {
-  export type InputTuple = [contractHash: BytesLike];
-  export type OutputTuple = [contractHash: string];
+export namespace DisableInvestor_address_Event {
+  export type InputTuple = [investor: AddressLike];
+  export type OutputTuple = [investor: string];
   export interface OutputObject {
-    contractHash: string;
+    investor: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace DisableInvestor_address_Event {
+  export type InputTuple = [investor: AddressLike];
+  export type OutputTuple = [investor: string];
+  export interface OutputObject {
+    investor: string;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -10830,6 +11314,42 @@ export namespace EnableContract_bytes32_Event {
   export type OutputTuple = [contractHash: string];
   export interface OutputObject {
     contractHash: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace EnableContract_bytes32_Event {
+  export type InputTuple = [contractHash: BytesLike];
+  export type OutputTuple = [contractHash: string];
+  export interface OutputObject {
+    contractHash: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace EnableInvestor_address_Event {
+  export type InputTuple = [investor: AddressLike];
+  export type OutputTuple = [investor: string];
+  export interface OutputObject {
+    investor: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace EnableInvestor_address_Event {
+  export type InputTuple = [investor: AddressLike];
+  export type OutputTuple = [investor: string];
+  export interface OutputObject {
+    investor: string;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -12205,6 +12725,54 @@ export namespace WalletAddedToWhitelist_address_Event {
   export type OutputTuple = [toBeAdded: string];
   export interface OutputObject {
     toBeAdded: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace WalletAddedToWhitelist_address_Event {
+  export type InputTuple = [toBeAdded: AddressLike];
+  export type OutputTuple = [toBeAdded: string];
+  export interface OutputObject {
+    toBeAdded: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace WalletAddedToWhitelist_address_Event {
+  export type InputTuple = [toBeAdded: AddressLike];
+  export type OutputTuple = [toBeAdded: string];
+  export interface OutputObject {
+    toBeAdded: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace WalletDeletedFromWhitelist_address_Event {
+  export type InputTuple = [toBeDeleted: AddressLike];
+  export type OutputTuple = [toBeDeleted: string];
+  export interface OutputObject {
+    toBeDeleted: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace WalletDeletedFromWhitelist_address_Event {
+  export type InputTuple = [toBeDeleted: AddressLike];
+  export type OutputTuple = [toBeDeleted: string];
+  export interface OutputObject {
+    toBeDeleted: string;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -12613,6 +13181,110 @@ export namespace RedemptionPaymentStatusChanged_address_uint256_address_uint8_ui
     investor: string;
     status: bigint;
     previousStatus: bigint;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace CustodianDelegateSet_address_address_Event {
+  export type InputTuple = [custodian: AddressLike, delegate: AddressLike];
+  export type OutputTuple = [custodian: string, delegate: string];
+  export interface OutputObject {
+    custodian: string;
+    delegate: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace CustodianDelegateSet_address_address_Event {
+  export type InputTuple = [custodian: AddressLike, delegate: AddressLike];
+  export type OutputTuple = [custodian: string, delegate: string];
+  export interface OutputObject {
+    custodian: string;
+    delegate: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace CustodianDelegateSet_address_address_Event {
+  export type InputTuple = [custodian: AddressLike, delegate: AddressLike];
+  export type OutputTuple = [custodian: string, delegate: string];
+  export interface OutputObject {
+    custodian: string;
+    delegate: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace CustodianDelegateSet_address_address_Event {
+  export type InputTuple = [custodian: AddressLike, delegate: AddressLike];
+  export type OutputTuple = [custodian: string, delegate: string];
+  export interface OutputObject {
+    custodian: string;
+    delegate: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace CustodianDelegateUnset_address_address_Event {
+  export type InputTuple = [custodian: AddressLike, delegate: AddressLike];
+  export type OutputTuple = [custodian: string, delegate: string];
+  export interface OutputObject {
+    custodian: string;
+    delegate: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace CustodianDelegateUnset_address_address_Event {
+  export type InputTuple = [custodian: AddressLike, delegate: AddressLike];
+  export type OutputTuple = [custodian: string, delegate: string];
+  export interface OutputObject {
+    custodian: string;
+    delegate: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace CustodianDelegateUnset_address_address_Event {
+  export type InputTuple = [custodian: AddressLike, delegate: AddressLike];
+  export type OutputTuple = [custodian: string, delegate: string];
+  export interface OutputObject {
+    custodian: string;
+    delegate: string;
+  }
+  export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
+  export type Filter = TypedDeferredTopicFilter<Event>;
+  export type Log = TypedEventLog<Event>;
+  export type LogDescription = TypedLogDescription<Event>;
+}
+
+export namespace CustodianDelegateUnset_address_address_Event {
+  export type InputTuple = [custodian: AddressLike, delegate: AddressLike];
+  export type OutputTuple = [custodian: string, delegate: string];
+  export interface OutputObject {
+    custodian: string;
+    delegate: string;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -14022,10 +14694,16 @@ export interface Diamond extends BaseContract {
     "view"
   >;
 
-  "grantRole(bytes32,address)": TypedContractMethod<
-    [role: BytesLike, account: AddressLike],
-    [void],
-    "nonpayable"
+  "getRoleAdmin(bytes32)": TypedContractMethod<
+    [role: BytesLike],
+    [string],
+    "view"
+  >;
+
+  "getRoleAdmin(bytes32)": TypedContractMethod<
+    [role: BytesLike],
+    [string],
+    "view"
   >;
 
   "grantRole(bytes32,address)": TypedContractMethod<
@@ -14104,6 +14782,36 @@ export interface Diamond extends BaseContract {
     [role: BytesLike, account: AddressLike],
     [void],
     "nonpayable"
+  >;
+
+  "grantRole(bytes32,address)": TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+
+  "grantRole(bytes32,address)": TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+
+  "grantRole(bytes32,address)": TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+
+  "hasRole(bytes32,address)": TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [boolean],
+    "view"
+  >;
+
+  "hasRole(bytes32,address)": TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [boolean],
+    "view"
   >;
 
   "hasRole(bytes32,address)": TypedContractMethod<
@@ -14274,6 +14982,30 @@ export interface Diamond extends BaseContract {
     "nonpayable"
   >;
 
+  "renounceRole(bytes32)": TypedContractMethod<
+    [role: BytesLike],
+    [void],
+    "nonpayable"
+  >;
+
+  "renounceRole(bytes32)": TypedContractMethod<
+    [role: BytesLike],
+    [void],
+    "nonpayable"
+  >;
+
+  "revokeRole(bytes32,address)": TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+
+  "revokeRole(bytes32,address)": TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+
   "revokeRole(bytes32,address)": TypedContractMethod<
     [role: BytesLike, account: AddressLike],
     [void],
@@ -14645,6 +15377,30 @@ export interface Diamond extends BaseContract {
   "getRoleMember(bytes32,uint256)": TypedContractMethod<
     [role: BytesLike, index: BigNumberish],
     [string],
+    "view"
+  >;
+
+  "getRoleMember(bytes32,uint256)": TypedContractMethod<
+    [role: BytesLike, index: BigNumberish],
+    [string],
+    "view"
+  >;
+
+  "getRoleMember(bytes32,uint256)": TypedContractMethod<
+    [role: BytesLike, index: BigNumberish],
+    [string],
+    "view"
+  >;
+
+  "getRoleMemberCount(bytes32)": TypedContractMethod<
+    [role: BytesLike],
+    [bigint],
+    "view"
+  >;
+
+  "getRoleMemberCount(bytes32)": TypedContractMethod<
+    [role: BytesLike],
+    [bigint],
     "view"
   >;
 
@@ -16997,6 +17753,14 @@ export interface Diamond extends BaseContract {
 
   "BND_ROLE()": TypedContractMethod<[], [string], "view">;
 
+  "BND_ROLE()": TypedContractMethod<[], [string], "view">;
+
+  "BND_ROLE()": TypedContractMethod<[], [string], "view">;
+
+  "CAK_ROLE()": TypedContractMethod<[], [string], "view">;
+
+  "CAK_ROLE()": TypedContractMethod<[], [string], "view">;
+
   "CAK_ROLE()": TypedContractMethod<[], [string], "view">;
 
   "CAK_ROLE()": TypedContractMethod<[], [string], "view">;
@@ -17036,6 +17800,14 @@ export interface Diamond extends BaseContract {
   "CST_ROLE()": TypedContractMethod<[], [string], "view">;
 
   "CST_ROLE()": TypedContractMethod<[], [string], "view">;
+
+  "CST_ROLE()": TypedContractMethod<[], [string], "view">;
+
+  "CST_ROLE()": TypedContractMethod<[], [string], "view">;
+
+  "PAY_ROLE()": TypedContractMethod<[], [string], "view">;
+
+  "PAY_ROLE()": TypedContractMethod<[], [string], "view">;
 
   "PAY_ROLE()": TypedContractMethod<[], [string], "view">;
 
@@ -17354,6 +18126,70 @@ export interface Diamond extends BaseContract {
     [void],
     "nonpayable"
   >;
+
+  "delegateDisableInvestorFromWhitelist(address,address)": TypedContractMethod<
+    [investor_: AddressLike, delegator_: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+
+  "delegateDisableInvestorFromWhitelist(address,address)": TypedContractMethod<
+    [investor_: AddressLike, delegator_: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+
+  "delegateEnableInvestorToWhitelist(address,address)": TypedContractMethod<
+    [investor_: AddressLike, delegator: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+
+  "delegateEnableInvestorToWhitelist(address,address)": TypedContractMethod<
+    [investor_: AddressLike, delegator_: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+
+  "getCustodianDelegate(address)": TypedContractMethod<
+    [custodian: AddressLike],
+    [string],
+    "view"
+  >;
+
+  "getCustodianDelegate(address)": TypedContractMethod<
+    [custodian: AddressLike],
+    [string],
+    "view"
+  >;
+
+  "isCustodianDelegate(address,address)": TypedContractMethod<
+    [custodian: AddressLike, delegate: AddressLike],
+    [boolean],
+    "view"
+  >;
+
+  "isCustodianDelegate(address,address)": TypedContractMethod<
+    [custodian: AddressLike, delegate: AddressLike],
+    [boolean],
+    "view"
+  >;
+
+  "setCustodianDelegate(address)": TypedContractMethod<
+    [delegate: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+
+  "setCustodianDelegate(address)": TypedContractMethod<
+    [delegate: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+
+  "unsetCustodianDelegate()": TypedContractMethod<[], [void], "nonpayable">;
+
+  "unsetCustodianDelegate()": TypedContractMethod<[], [void], "nonpayable">;
 
   "_totalSupplyAtCoupon(uint256)": TypedContractMethod<
     [_couponDate: BigNumberish],
@@ -18181,12 +19017,11 @@ export interface Diamond extends BaseContract {
     nameOrSignature: "getRoleAdmin(bytes32)"
   ): TypedContractMethod<[role: BytesLike], [string], "view">;
   getFunction(
-    nameOrSignature: "grantRole(bytes32,address)"
-  ): TypedContractMethod<
-    [role: BytesLike, account: AddressLike],
-    [void],
-    "nonpayable"
-  >;
+    nameOrSignature: "getRoleAdmin(bytes32)"
+  ): TypedContractMethod<[role: BytesLike], [string], "view">;
+  getFunction(
+    nameOrSignature: "getRoleAdmin(bytes32)"
+  ): TypedContractMethod<[role: BytesLike], [string], "view">;
   getFunction(
     nameOrSignature: "grantRole(bytes32,address)"
   ): TypedContractMethod<
@@ -18277,6 +19112,41 @@ export interface Diamond extends BaseContract {
     [role: BytesLike, account: AddressLike],
     [void],
     "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "grantRole(bytes32,address)"
+  ): TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "grantRole(bytes32,address)"
+  ): TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "grantRole(bytes32,address)"
+  ): TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "hasRole(bytes32,address)"
+  ): TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [boolean],
+    "view"
+  >;
+  getFunction(
+    nameOrSignature: "hasRole(bytes32,address)"
+  ): TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [boolean],
+    "view"
   >;
   getFunction(
     nameOrSignature: "hasRole(bytes32,address)"
@@ -18427,6 +19297,26 @@ export interface Diamond extends BaseContract {
     nameOrSignature: "renounceRole(bytes32)"
   ): TypedContractMethod<[role: BytesLike], [void], "nonpayable">;
   getFunction(
+    nameOrSignature: "renounceRole(bytes32)"
+  ): TypedContractMethod<[role: BytesLike], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "renounceRole(bytes32)"
+  ): TypedContractMethod<[role: BytesLike], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "revokeRole(bytes32,address)"
+  ): TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "revokeRole(bytes32,address)"
+  ): TypedContractMethod<
+    [role: BytesLike, account: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
     nameOrSignature: "revokeRole(bytes32,address)"
   ): TypedContractMethod<
     [role: BytesLike, account: AddressLike],
@@ -18767,6 +19657,26 @@ export interface Diamond extends BaseContract {
     [string],
     "view"
   >;
+  getFunction(
+    nameOrSignature: "getRoleMember(bytes32,uint256)"
+  ): TypedContractMethod<
+    [role: BytesLike, index: BigNumberish],
+    [string],
+    "view"
+  >;
+  getFunction(
+    nameOrSignature: "getRoleMember(bytes32,uint256)"
+  ): TypedContractMethod<
+    [role: BytesLike, index: BigNumberish],
+    [string],
+    "view"
+  >;
+  getFunction(
+    nameOrSignature: "getRoleMemberCount(bytes32)"
+  ): TypedContractMethod<[role: BytesLike], [bigint], "view">;
+  getFunction(
+    nameOrSignature: "getRoleMemberCount(bytes32)"
+  ): TypedContractMethod<[role: BytesLike], [bigint], "view">;
   getFunction(
     nameOrSignature: "getRoleMemberCount(bytes32)"
   ): TypedContractMethod<[role: BytesLike], [bigint], "view">;
@@ -20818,6 +21728,18 @@ export interface Diamond extends BaseContract {
     nameOrSignature: "BND_ROLE()"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
+    nameOrSignature: "BND_ROLE()"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "BND_ROLE()"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "CAK_ROLE()"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "CAK_ROLE()"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
     nameOrSignature: "CAK_ROLE()"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
@@ -20876,6 +21798,18 @@ export interface Diamond extends BaseContract {
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "CST_ROLE()"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "CST_ROLE()"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "CST_ROLE()"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "PAY_ROLE()"
+  ): TypedContractMethod<[], [string], "view">;
+  getFunction(
+    nameOrSignature: "PAY_ROLE()"
   ): TypedContractMethod<[], [string], "view">;
   getFunction(
     nameOrSignature: "PAY_ROLE()"
@@ -21154,6 +22088,66 @@ export interface Diamond extends BaseContract {
   getFunction(
     nameOrSignature: "toggleRedemptionPayment(address)"
   ): TypedContractMethod<[_investor: AddressLike], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "delegateDisableInvestorFromWhitelist(address,address)"
+  ): TypedContractMethod<
+    [investor_: AddressLike, delegator_: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "delegateDisableInvestorFromWhitelist(address,address)"
+  ): TypedContractMethod<
+    [investor_: AddressLike, delegator_: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "delegateEnableInvestorToWhitelist(address,address)"
+  ): TypedContractMethod<
+    [investor_: AddressLike, delegator: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "delegateEnableInvestorToWhitelist(address,address)"
+  ): TypedContractMethod<
+    [investor_: AddressLike, delegator_: AddressLike],
+    [void],
+    "nonpayable"
+  >;
+  getFunction(
+    nameOrSignature: "getCustodianDelegate(address)"
+  ): TypedContractMethod<[custodian: AddressLike], [string], "view">;
+  getFunction(
+    nameOrSignature: "getCustodianDelegate(address)"
+  ): TypedContractMethod<[custodian: AddressLike], [string], "view">;
+  getFunction(
+    nameOrSignature: "isCustodianDelegate(address,address)"
+  ): TypedContractMethod<
+    [custodian: AddressLike, delegate: AddressLike],
+    [boolean],
+    "view"
+  >;
+  getFunction(
+    nameOrSignature: "isCustodianDelegate(address,address)"
+  ): TypedContractMethod<
+    [custodian: AddressLike, delegate: AddressLike],
+    [boolean],
+    "view"
+  >;
+  getFunction(
+    nameOrSignature: "setCustodianDelegate(address)"
+  ): TypedContractMethod<[delegate: AddressLike], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "setCustodianDelegate(address)"
+  ): TypedContractMethod<[delegate: AddressLike], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "unsetCustodianDelegate()"
+  ): TypedContractMethod<[], [void], "nonpayable">;
+  getFunction(
+    nameOrSignature: "unsetCustodianDelegate()"
+  ): TypedContractMethod<[], [void], "nonpayable">;
   getFunction(
     nameOrSignature: "_totalSupplyAtCoupon(uint256)"
   ): TypedContractMethod<[_couponDate: BigNumberish], [bigint], "view">;
@@ -22031,11 +23025,18 @@ export interface Diamond extends BaseContract {
     RoleAdminChanged_bytes32_bytes32_bytes32_Event.OutputObject
   >;
   getEvent(
-    key: "RoleGranted(bytes32,address,address)"
+    key: "RoleAdminChanged(bytes32,bytes32,bytes32)"
   ): TypedContractEvent<
-    RoleGranted_bytes32_address_address_Event.InputTuple,
-    RoleGranted_bytes32_address_address_Event.OutputTuple,
-    RoleGranted_bytes32_address_address_Event.OutputObject
+    RoleAdminChanged_bytes32_bytes32_bytes32_Event.InputTuple,
+    RoleAdminChanged_bytes32_bytes32_bytes32_Event.OutputTuple,
+    RoleAdminChanged_bytes32_bytes32_bytes32_Event.OutputObject
+  >;
+  getEvent(
+    key: "RoleAdminChanged(bytes32,bytes32,bytes32)"
+  ): TypedContractEvent<
+    RoleAdminChanged_bytes32_bytes32_bytes32_Event.InputTuple,
+    RoleAdminChanged_bytes32_bytes32_bytes32_Event.OutputTuple,
+    RoleAdminChanged_bytes32_bytes32_bytes32_Event.OutputObject
   >;
   getEvent(
     key: "RoleGranted(bytes32,address,address)"
@@ -22162,6 +23163,41 @@ export interface Diamond extends BaseContract {
     RoleGranted_bytes32_address_address_Event.InputTuple,
     RoleGranted_bytes32_address_address_Event.OutputTuple,
     RoleGranted_bytes32_address_address_Event.OutputObject
+  >;
+  getEvent(
+    key: "RoleGranted(bytes32,address,address)"
+  ): TypedContractEvent<
+    RoleGranted_bytes32_address_address_Event.InputTuple,
+    RoleGranted_bytes32_address_address_Event.OutputTuple,
+    RoleGranted_bytes32_address_address_Event.OutputObject
+  >;
+  getEvent(
+    key: "RoleGranted(bytes32,address,address)"
+  ): TypedContractEvent<
+    RoleGranted_bytes32_address_address_Event.InputTuple,
+    RoleGranted_bytes32_address_address_Event.OutputTuple,
+    RoleGranted_bytes32_address_address_Event.OutputObject
+  >;
+  getEvent(
+    key: "RoleGranted(bytes32,address,address)"
+  ): TypedContractEvent<
+    RoleGranted_bytes32_address_address_Event.InputTuple,
+    RoleGranted_bytes32_address_address_Event.OutputTuple,
+    RoleGranted_bytes32_address_address_Event.OutputObject
+  >;
+  getEvent(
+    key: "RoleRevoked(bytes32,address,address)"
+  ): TypedContractEvent<
+    RoleRevoked_bytes32_address_address_Event.InputTuple,
+    RoleRevoked_bytes32_address_address_Event.OutputTuple,
+    RoleRevoked_bytes32_address_address_Event.OutputObject
+  >;
+  getEvent(
+    key: "RoleRevoked(bytes32,address,address)"
+  ): TypedContractEvent<
+    RoleRevoked_bytes32_address_address_Event.InputTuple,
+    RoleRevoked_bytes32_address_address_Event.OutputTuple,
+    RoleRevoked_bytes32_address_address_Event.OutputObject
   >;
   getEvent(
     key: "RoleRevoked(bytes32,address,address)"
@@ -22365,6 +23401,20 @@ export interface Diamond extends BaseContract {
     OwnershipTransferred_address_address_Event.InputTuple,
     OwnershipTransferred_address_address_Event.OutputTuple,
     OwnershipTransferred_address_address_Event.OutputObject
+  >;
+  getEvent(
+    key: "Initialized(uint64)"
+  ): TypedContractEvent<
+    Initialized_uint64_Event.InputTuple,
+    Initialized_uint64_Event.OutputTuple,
+    Initialized_uint64_Event.OutputObject
+  >;
+  getEvent(
+    key: "Initialized(uint64)"
+  ): TypedContractEvent<
+    Initialized_uint64_Event.InputTuple,
+    Initialized_uint64_Event.OutputTuple,
+    Initialized_uint64_Event.OutputObject
   >;
   getEvent(
     key: "Initialized(uint64)"
@@ -22829,6 +23879,20 @@ export interface Diamond extends BaseContract {
     AdminChanged_address_Event.OutputObject
   >;
   getEvent(
+    key: "AdminChanged(address)"
+  ): TypedContractEvent<
+    AdminChanged_address_Event.InputTuple,
+    AdminChanged_address_Event.OutputTuple,
+    AdminChanged_address_Event.OutputObject
+  >;
+  getEvent(
+    key: "AdminChanged(address)"
+  ): TypedContractEvent<
+    AdminChanged_address_Event.InputTuple,
+    AdminChanged_address_Event.OutputTuple,
+    AdminChanged_address_Event.OutputObject
+  >;
+  getEvent(
     key: "Approval(address,address,uint256)"
   ): TypedContractEvent<
     Approval_address_address_uint256_Event.InputTuple,
@@ -23193,11 +24257,18 @@ export interface Diamond extends BaseContract {
     DisableInvestor_address_Event.OutputObject
   >;
   getEvent(
-    key: "EnableContract(bytes32)"
+    key: "DisableInvestor(address)"
   ): TypedContractEvent<
-    EnableContract_bytes32_Event.InputTuple,
-    EnableContract_bytes32_Event.OutputTuple,
-    EnableContract_bytes32_Event.OutputObject
+    DisableInvestor_address_Event.InputTuple,
+    DisableInvestor_address_Event.OutputTuple,
+    DisableInvestor_address_Event.OutputObject
+  >;
+  getEvent(
+    key: "DisableInvestor(address)"
+  ): TypedContractEvent<
+    DisableInvestor_address_Event.InputTuple,
+    DisableInvestor_address_Event.OutputTuple,
+    DisableInvestor_address_Event.OutputObject
   >;
   getEvent(
     key: "EnableContract(bytes32)"
@@ -23254,6 +24325,27 @@ export interface Diamond extends BaseContract {
     EnableContract_bytes32_Event.InputTuple,
     EnableContract_bytes32_Event.OutputTuple,
     EnableContract_bytes32_Event.OutputObject
+  >;
+  getEvent(
+    key: "EnableContract(bytes32)"
+  ): TypedContractEvent<
+    EnableContract_bytes32_Event.InputTuple,
+    EnableContract_bytes32_Event.OutputTuple,
+    EnableContract_bytes32_Event.OutputObject
+  >;
+  getEvent(
+    key: "EnableInvestor(address)"
+  ): TypedContractEvent<
+    EnableInvestor_address_Event.InputTuple,
+    EnableInvestor_address_Event.OutputTuple,
+    EnableInvestor_address_Event.OutputObject
+  >;
+  getEvent(
+    key: "EnableInvestor(address)"
+  ): TypedContractEvent<
+    EnableInvestor_address_Event.InputTuple,
+    EnableInvestor_address_Event.OutputTuple,
+    EnableInvestor_address_Event.OutputObject
   >;
   getEvent(
     key: "EnableInvestor(address)"
@@ -23835,6 +24927,34 @@ export interface Diamond extends BaseContract {
     WalletAddedToWhitelist_address_Event.InputTuple,
     WalletAddedToWhitelist_address_Event.OutputTuple,
     WalletAddedToWhitelist_address_Event.OutputObject
+  >;
+  getEvent(
+    key: "WalletAddedToWhitelist(address)"
+  ): TypedContractEvent<
+    WalletAddedToWhitelist_address_Event.InputTuple,
+    WalletAddedToWhitelist_address_Event.OutputTuple,
+    WalletAddedToWhitelist_address_Event.OutputObject
+  >;
+  getEvent(
+    key: "WalletAddedToWhitelist(address)"
+  ): TypedContractEvent<
+    WalletAddedToWhitelist_address_Event.InputTuple,
+    WalletAddedToWhitelist_address_Event.OutputTuple,
+    WalletAddedToWhitelist_address_Event.OutputObject
+  >;
+  getEvent(
+    key: "WalletDeletedFromWhitelist(address)"
+  ): TypedContractEvent<
+    WalletDeletedFromWhitelist_address_Event.InputTuple,
+    WalletDeletedFromWhitelist_address_Event.OutputTuple,
+    WalletDeletedFromWhitelist_address_Event.OutputObject
+  >;
+  getEvent(
+    key: "WalletDeletedFromWhitelist(address)"
+  ): TypedContractEvent<
+    WalletDeletedFromWhitelist_address_Event.InputTuple,
+    WalletDeletedFromWhitelist_address_Event.OutputTuple,
+    WalletDeletedFromWhitelist_address_Event.OutputObject
   >;
   getEvent(
     key: "WalletDeletedFromWhitelist(address)"
@@ -23982,6 +25102,62 @@ export interface Diamond extends BaseContract {
     RedemptionPaymentStatusChanged_address_uint256_address_uint8_uint8_Event.InputTuple,
     RedemptionPaymentStatusChanged_address_uint256_address_uint8_uint8_Event.OutputTuple,
     RedemptionPaymentStatusChanged_address_uint256_address_uint8_uint8_Event.OutputObject
+  >;
+  getEvent(
+    key: "CustodianDelegateSet(address,address)"
+  ): TypedContractEvent<
+    CustodianDelegateSet_address_address_Event.InputTuple,
+    CustodianDelegateSet_address_address_Event.OutputTuple,
+    CustodianDelegateSet_address_address_Event.OutputObject
+  >;
+  getEvent(
+    key: "CustodianDelegateSet(address,address)"
+  ): TypedContractEvent<
+    CustodianDelegateSet_address_address_Event.InputTuple,
+    CustodianDelegateSet_address_address_Event.OutputTuple,
+    CustodianDelegateSet_address_address_Event.OutputObject
+  >;
+  getEvent(
+    key: "CustodianDelegateSet(address,address)"
+  ): TypedContractEvent<
+    CustodianDelegateSet_address_address_Event.InputTuple,
+    CustodianDelegateSet_address_address_Event.OutputTuple,
+    CustodianDelegateSet_address_address_Event.OutputObject
+  >;
+  getEvent(
+    key: "CustodianDelegateSet(address,address)"
+  ): TypedContractEvent<
+    CustodianDelegateSet_address_address_Event.InputTuple,
+    CustodianDelegateSet_address_address_Event.OutputTuple,
+    CustodianDelegateSet_address_address_Event.OutputObject
+  >;
+  getEvent(
+    key: "CustodianDelegateUnset(address,address)"
+  ): TypedContractEvent<
+    CustodianDelegateUnset_address_address_Event.InputTuple,
+    CustodianDelegateUnset_address_address_Event.OutputTuple,
+    CustodianDelegateUnset_address_address_Event.OutputObject
+  >;
+  getEvent(
+    key: "CustodianDelegateUnset(address,address)"
+  ): TypedContractEvent<
+    CustodianDelegateUnset_address_address_Event.InputTuple,
+    CustodianDelegateUnset_address_address_Event.OutputTuple,
+    CustodianDelegateUnset_address_address_Event.OutputObject
+  >;
+  getEvent(
+    key: "CustodianDelegateUnset(address,address)"
+  ): TypedContractEvent<
+    CustodianDelegateUnset_address_address_Event.InputTuple,
+    CustodianDelegateUnset_address_address_Event.OutputTuple,
+    CustodianDelegateUnset_address_address_Event.OutputObject
+  >;
+  getEvent(
+    key: "CustodianDelegateUnset(address,address)"
+  ): TypedContractEvent<
+    CustodianDelegateUnset_address_address_Event.InputTuple,
+    CustodianDelegateUnset_address_address_Event.OutputTuple,
+    CustodianDelegateUnset_address_address_Event.OutputObject
   >;
   getEvent(
     key: "Paused(address)"
@@ -24479,10 +25655,15 @@ export interface Diamond extends BaseContract {
       RoleAdminChanged_bytes32_bytes32_bytes32_Event.OutputTuple,
       RoleAdminChanged_bytes32_bytes32_bytes32_Event.OutputObject
     >;
-    "RoleGranted(bytes32,address,address)": TypedContractEvent<
-      RoleGranted_bytes32_address_address_Event.InputTuple,
-      RoleGranted_bytes32_address_address_Event.OutputTuple,
-      RoleGranted_bytes32_address_address_Event.OutputObject
+    "RoleAdminChanged(bytes32,bytes32,bytes32)": TypedContractEvent<
+      RoleAdminChanged_bytes32_bytes32_bytes32_Event.InputTuple,
+      RoleAdminChanged_bytes32_bytes32_bytes32_Event.OutputTuple,
+      RoleAdminChanged_bytes32_bytes32_bytes32_Event.OutputObject
+    >;
+    "RoleAdminChanged(bytes32,bytes32,bytes32)": TypedContractEvent<
+      RoleAdminChanged_bytes32_bytes32_bytes32_Event.InputTuple,
+      RoleAdminChanged_bytes32_bytes32_bytes32_Event.OutputTuple,
+      RoleAdminChanged_bytes32_bytes32_bytes32_Event.OutputObject
     >;
     "RoleGranted(bytes32,address,address)": TypedContractEvent<
       RoleGranted_bytes32_address_address_Event.InputTuple,
@@ -24573,6 +25754,31 @@ export interface Diamond extends BaseContract {
       RoleGranted_bytes32_address_address_Event.InputTuple,
       RoleGranted_bytes32_address_address_Event.OutputTuple,
       RoleGranted_bytes32_address_address_Event.OutputObject
+    >;
+    "RoleGranted(bytes32,address,address)": TypedContractEvent<
+      RoleGranted_bytes32_address_address_Event.InputTuple,
+      RoleGranted_bytes32_address_address_Event.OutputTuple,
+      RoleGranted_bytes32_address_address_Event.OutputObject
+    >;
+    "RoleGranted(bytes32,address,address)": TypedContractEvent<
+      RoleGranted_bytes32_address_address_Event.InputTuple,
+      RoleGranted_bytes32_address_address_Event.OutputTuple,
+      RoleGranted_bytes32_address_address_Event.OutputObject
+    >;
+    "RoleGranted(bytes32,address,address)": TypedContractEvent<
+      RoleGranted_bytes32_address_address_Event.InputTuple,
+      RoleGranted_bytes32_address_address_Event.OutputTuple,
+      RoleGranted_bytes32_address_address_Event.OutputObject
+    >;
+    "RoleRevoked(bytes32,address,address)": TypedContractEvent<
+      RoleRevoked_bytes32_address_address_Event.InputTuple,
+      RoleRevoked_bytes32_address_address_Event.OutputTuple,
+      RoleRevoked_bytes32_address_address_Event.OutputObject
+    >;
+    "RoleRevoked(bytes32,address,address)": TypedContractEvent<
+      RoleRevoked_bytes32_address_address_Event.InputTuple,
+      RoleRevoked_bytes32_address_address_Event.OutputTuple,
+      RoleRevoked_bytes32_address_address_Event.OutputObject
     >;
     "RoleRevoked(bytes32,address,address)": TypedContractEvent<
       RoleRevoked_bytes32_address_address_Event.InputTuple,
@@ -24718,6 +25924,16 @@ export interface Diamond extends BaseContract {
       OwnershipTransferred_address_address_Event.InputTuple,
       OwnershipTransferred_address_address_Event.OutputTuple,
       OwnershipTransferred_address_address_Event.OutputObject
+    >;
+    "Initialized(uint64)": TypedContractEvent<
+      Initialized_uint64_Event.InputTuple,
+      Initialized_uint64_Event.OutputTuple,
+      Initialized_uint64_Event.OutputObject
+    >;
+    "Initialized(uint64)": TypedContractEvent<
+      Initialized_uint64_Event.InputTuple,
+      Initialized_uint64_Event.OutputTuple,
+      Initialized_uint64_Event.OutputObject
     >;
     "Initialized(uint64)": TypedContractEvent<
       Initialized_uint64_Event.InputTuple,
@@ -25049,6 +26265,16 @@ export interface Diamond extends BaseContract {
       AdminChanged_address_Event.OutputTuple,
       AdminChanged_address_Event.OutputObject
     >;
+    "AdminChanged(address)": TypedContractEvent<
+      AdminChanged_address_Event.InputTuple,
+      AdminChanged_address_Event.OutputTuple,
+      AdminChanged_address_Event.OutputObject
+    >;
+    "AdminChanged(address)": TypedContractEvent<
+      AdminChanged_address_Event.InputTuple,
+      AdminChanged_address_Event.OutputTuple,
+      AdminChanged_address_Event.OutputObject
+    >;
     "Approval(address,address,uint256)": TypedContractEvent<
       Approval_address_address_uint256_Event.InputTuple,
       Approval_address_address_uint256_Event.OutputTuple,
@@ -25309,10 +26535,15 @@ export interface Diamond extends BaseContract {
       DisableInvestor_address_Event.OutputTuple,
       DisableInvestor_address_Event.OutputObject
     >;
-    "EnableContract(bytes32)": TypedContractEvent<
-      EnableContract_bytes32_Event.InputTuple,
-      EnableContract_bytes32_Event.OutputTuple,
-      EnableContract_bytes32_Event.OutputObject
+    "DisableInvestor(address)": TypedContractEvent<
+      DisableInvestor_address_Event.InputTuple,
+      DisableInvestor_address_Event.OutputTuple,
+      DisableInvestor_address_Event.OutputObject
+    >;
+    "DisableInvestor(address)": TypedContractEvent<
+      DisableInvestor_address_Event.InputTuple,
+      DisableInvestor_address_Event.OutputTuple,
+      DisableInvestor_address_Event.OutputObject
     >;
     "EnableContract(bytes32)": TypedContractEvent<
       EnableContract_bytes32_Event.InputTuple,
@@ -25353,6 +26584,21 @@ export interface Diamond extends BaseContract {
       EnableContract_bytes32_Event.InputTuple,
       EnableContract_bytes32_Event.OutputTuple,
       EnableContract_bytes32_Event.OutputObject
+    >;
+    "EnableContract(bytes32)": TypedContractEvent<
+      EnableContract_bytes32_Event.InputTuple,
+      EnableContract_bytes32_Event.OutputTuple,
+      EnableContract_bytes32_Event.OutputObject
+    >;
+    "EnableInvestor(address)": TypedContractEvent<
+      EnableInvestor_address_Event.InputTuple,
+      EnableInvestor_address_Event.OutputTuple,
+      EnableInvestor_address_Event.OutputObject
+    >;
+    "EnableInvestor(address)": TypedContractEvent<
+      EnableInvestor_address_Event.InputTuple,
+      EnableInvestor_address_Event.OutputTuple,
+      EnableInvestor_address_Event.OutputObject
     >;
     "EnableInvestor(address)": TypedContractEvent<
       EnableInvestor_address_Event.InputTuple,
@@ -25768,6 +27014,26 @@ export interface Diamond extends BaseContract {
       WalletAddedToWhitelist_address_Event.InputTuple,
       WalletAddedToWhitelist_address_Event.OutputTuple,
       WalletAddedToWhitelist_address_Event.OutputObject
+    >;
+    "WalletAddedToWhitelist(address)": TypedContractEvent<
+      WalletAddedToWhitelist_address_Event.InputTuple,
+      WalletAddedToWhitelist_address_Event.OutputTuple,
+      WalletAddedToWhitelist_address_Event.OutputObject
+    >;
+    "WalletAddedToWhitelist(address)": TypedContractEvent<
+      WalletAddedToWhitelist_address_Event.InputTuple,
+      WalletAddedToWhitelist_address_Event.OutputTuple,
+      WalletAddedToWhitelist_address_Event.OutputObject
+    >;
+    "WalletDeletedFromWhitelist(address)": TypedContractEvent<
+      WalletDeletedFromWhitelist_address_Event.InputTuple,
+      WalletDeletedFromWhitelist_address_Event.OutputTuple,
+      WalletDeletedFromWhitelist_address_Event.OutputObject
+    >;
+    "WalletDeletedFromWhitelist(address)": TypedContractEvent<
+      WalletDeletedFromWhitelist_address_Event.InputTuple,
+      WalletDeletedFromWhitelist_address_Event.OutputTuple,
+      WalletDeletedFromWhitelist_address_Event.OutputObject
     >;
     "WalletDeletedFromWhitelist(address)": TypedContractEvent<
       WalletDeletedFromWhitelist_address_Event.InputTuple,
@@ -25873,6 +27139,46 @@ export interface Diamond extends BaseContract {
       RedemptionPaymentStatusChanged_address_uint256_address_uint8_uint8_Event.InputTuple,
       RedemptionPaymentStatusChanged_address_uint256_address_uint8_uint8_Event.OutputTuple,
       RedemptionPaymentStatusChanged_address_uint256_address_uint8_uint8_Event.OutputObject
+    >;
+    "CustodianDelegateSet(address,address)": TypedContractEvent<
+      CustodianDelegateSet_address_address_Event.InputTuple,
+      CustodianDelegateSet_address_address_Event.OutputTuple,
+      CustodianDelegateSet_address_address_Event.OutputObject
+    >;
+    "CustodianDelegateSet(address,address)": TypedContractEvent<
+      CustodianDelegateSet_address_address_Event.InputTuple,
+      CustodianDelegateSet_address_address_Event.OutputTuple,
+      CustodianDelegateSet_address_address_Event.OutputObject
+    >;
+    "CustodianDelegateSet(address,address)": TypedContractEvent<
+      CustodianDelegateSet_address_address_Event.InputTuple,
+      CustodianDelegateSet_address_address_Event.OutputTuple,
+      CustodianDelegateSet_address_address_Event.OutputObject
+    >;
+    "CustodianDelegateSet(address,address)": TypedContractEvent<
+      CustodianDelegateSet_address_address_Event.InputTuple,
+      CustodianDelegateSet_address_address_Event.OutputTuple,
+      CustodianDelegateSet_address_address_Event.OutputObject
+    >;
+    "CustodianDelegateUnset(address,address)": TypedContractEvent<
+      CustodianDelegateUnset_address_address_Event.InputTuple,
+      CustodianDelegateUnset_address_address_Event.OutputTuple,
+      CustodianDelegateUnset_address_address_Event.OutputObject
+    >;
+    "CustodianDelegateUnset(address,address)": TypedContractEvent<
+      CustodianDelegateUnset_address_address_Event.InputTuple,
+      CustodianDelegateUnset_address_address_Event.OutputTuple,
+      CustodianDelegateUnset_address_address_Event.OutputObject
+    >;
+    "CustodianDelegateUnset(address,address)": TypedContractEvent<
+      CustodianDelegateUnset_address_address_Event.InputTuple,
+      CustodianDelegateUnset_address_address_Event.OutputTuple,
+      CustodianDelegateUnset_address_address_Event.OutputObject
+    >;
+    "CustodianDelegateUnset(address,address)": TypedContractEvent<
+      CustodianDelegateUnset_address_address_Event.InputTuple,
+      CustodianDelegateUnset_address_address_Event.OutputTuple,
+      CustodianDelegateUnset_address_address_Event.OutputObject
     >;
     "Paused(address)": TypedContractEvent<
       Paused_address_Event.InputTuple,

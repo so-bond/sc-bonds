@@ -5,7 +5,7 @@ pragma solidity ^0.8.20;
 
 library DelegateInvestorManagementStorage {
     struct Layout {
-        mapping(address => address) private custodianDelegates; /// @dev Mapping of custodians to their delegates
+        mapping(address => address) custodianDelegates; /// @dev Mapping of custodians to their delegates
     }
 
     bytes32 internal constant STORAGE_SLOT =

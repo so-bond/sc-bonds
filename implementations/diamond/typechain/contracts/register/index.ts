@@ -5,6 +5,8 @@ import type * as access from "./access";
 export type { access };
 import type * as coupon from "./coupon";
 export type { coupon };
+import type * as delegateInvestors from "./delegateInvestors";
+export type { delegateInvestors };
 import type * as investors from "./investors";
 export type { investors };
 import type * as metadata from "./metadata";
