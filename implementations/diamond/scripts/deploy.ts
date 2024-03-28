@@ -1,27 +1,38 @@
-import { ethers } from "hardhat";
+
+import hre from "hardhat";
+
+import { prepareDiamondLoupeFacet } from './prepareFacets/prepareDiamondLoupeFacet';
+import { prepareOwnershipFacet } from './prepareFacets/prepareOwnershipFacet';
+
+import { deployDiamond } from './deployDiamond';
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
 
-  const lockedAmount = ethers.parseEther("0.001");
+    
+    // Assuming you have a signer or provider set up in your Hardhat environment
+    const signer = await hre.ethers.provider.getSigner();
+    const contractOwner = await signer.getAddress();
 
-  const lock = await ethers.deployContract("Lock", [unlockTime], {
-    value: lockedAmount,
-  });
+    const diamondLoupeFacetCut = await prepareDiamondLoupeFacet(contractOwner);
+    const ownershipFacetCut = await prepareOwnershipFacet(contractOwner);
 
-  await lock.waitForDeployment();
+    // Define the facets you want to deploy and upgrade the diamond with
+    const cut = [
+        ownershipFacetCut,
+        diamondLoupeFacetCut,
+        
+    ];
 
-  console.log(
-    `Lock with ${ethers.formatEther(
-      lockedAmount,
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.target}`,
-  );
+    try {
+        const contractAddress = await deployDiamond(cut);
+        console.log(`Diamond contract deployed at address: ${contractAddress}`);
+    } catch (error) {
+        console.error('Deployment failed:', error);
+    }
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+// Execute the main function if the script is run directly
+if (require.main === module) {
+    main();
+}
+

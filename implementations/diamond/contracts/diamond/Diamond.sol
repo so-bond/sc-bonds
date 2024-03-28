@@ -1,132 +1,60 @@
 // SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
 
-pragma solidity ^0.8.8;
+import {LibDiamond} from "./libraries/LibDiamond.sol";
+import {IDiamondCut} from "./interfaces/IDiamondCut.sol";
 
-import { IOwnable, Ownable, OwnableInternal } from "../access/ownable/Ownable.sol";
-import { IERC165 } from "../introspection/IERC165.sol";
-import { IERC173 } from "../access/ownable/IERC173.sol";
-import { ERC165Storage } from "../introspection/ERC165Storage.sol";
-import { ERC165 } from "../introspection/ERC165.sol";
-import { DiamondBase } from "./base/DiamondBase.sol";
-import { DiamondFallback, IDiamondFallback } from "./fallback/DiamondFallback.sol";
-import { DiamondLoupe, IDiamondLoupe } from "./loupe/DiamondLoupe.sol";
-import { DiamondCut, IDiamondCut } from "./cut/DiamondCut.sol";
-import { IDiamond } from "./IDiamond.sol";
-import { ERC2771ContextInternal } from "../metatx/ERC2771ContextInternal.sol";
-import { ContextInternal } from "../metatx/ContextInternal.sol";
+contract Diamond {
 
-/**
- * @title "Diamond" proxy reference implementation
- */
-abstract contract Diamond is
-    IDiamond,
-    DiamondBase,
-    DiamondFallback,
-    DiamondLoupe,
-    DiamondCut,
-    Ownable,
-    ERC165,
-    ERC2771ContextInternal
-{
-    function _msgSender()
-        internal
-        view
-        virtual
-        override(ERC2771ContextInternal, ContextInternal)
-        returns (address sender)
-    {
-        return ERC2771ContextInternal._msgSender();
+    constructor(
+        address _contractOwner,
+        address _diamondCutFacet,
+        address facetAddress,
+        bytes memory constructData
+    ) payable {
+        LibDiamond.setContractOwner(_contractOwner);
+
+        // Add the diamondCut external function from the diamondCutFacet
+        IDiamondCut.FacetCut[] memory cut = new IDiamondCut.FacetCut[](1);
+        bytes4[] memory functionSelectors = new bytes4[](1);
+        functionSelectors[0] = IDiamondCut.diamondCut.selector;
+        cut[0] = IDiamondCut.FacetCut({facetAddress: _diamondCutFacet, action: IDiamondCut.FacetCutAction.Add, functionSelectors: functionSelectors});
+        LibDiamond.diamondCut(cut, facetAddress, constructData);
     }
 
-    function _msgData()
-        internal
-        view
-        virtual
-        override(ERC2771ContextInternal, ContextInternal)
-        returns (bytes calldata)
-    {
-        return ERC2771ContextInternal._msgData();
+    
+
+    
+    // Find facet for function that is called and execute the
+    // function if a facet is found and return any value.
+    fallback() external payable {
+        LibDiamond.DiamondStorage storage ds;
+        bytes32 position = LibDiamond.DIAMOND_STORAGE_POSITION;
+        // get diamond storage
+        assembly {
+            ds.slot := position
+        }
+        // get facet from function selector
+        address facet = ds.selectorToFacetAndPosition[msg.sig].facetAddress;
+        require(facet != address(0), "Diamond: Function does not exist");
+        // Execute external function from facet using delegatecall and return any value.
+        assembly {
+            // copy function selector and any arguments
+            calldatacopy(0, 0, calldatasize())
+            // execute function call using the facet
+            let result := delegatecall(gas(), facet, 0, calldatasize(), 0, 0)
+            // get any return value
+            returndatacopy(0, 0, returndatasize())
+            // return any return value or error back to the caller
+            switch result
+            case 0 {
+                revert(0, returndatasize())
+            }
+            default {
+                return(0, returndatasize())
+            }
+        }
     }
 
-    constructor() {
-        bytes4[] memory selectors = new bytes4[](12);
-        uint256 selectorIndex;
-
-        // register DiamondFallback
-
-        selectors[selectorIndex++] = IDiamondFallback
-            .getFallbackAddress
-            .selector;
-        selectors[selectorIndex++] = IDiamondFallback
-            .setFallbackAddress
-            .selector;
-
-        _setSupportedInterface(type(IDiamondFallback).interfaceId, true);
-
-        // register DiamondWritable
-
-        selectors[selectorIndex++] = IDiamondCut.diamondCut.selector;
-
-        _setSupportedInterface(type(IDiamondCut).interfaceId, true);
-
-        // register DiamondLoupe
-
-        selectors[selectorIndex++] = IDiamondLoupe.facets.selector;
-        selectors[selectorIndex++] = IDiamondLoupe
-            .facetFunctionSelectors
-            .selector;
-        selectors[selectorIndex++] = IDiamondLoupe.facetAddresses.selector;
-        selectors[selectorIndex++] = IDiamondLoupe.facetAddress.selector;
-
-        _setSupportedInterface(type(IDiamondLoupe).interfaceId, true);
-
-        // register ERC165
-
-        selectors[selectorIndex++] = IERC165.supportsInterface.selector;
-
-        _setSupportedInterface(type(IERC165).interfaceId, true);
-
-        // register Ownable
-        selectors[selectorIndex++] = Ownable.owner.selector;
-        selectors[selectorIndex++] = Ownable.transferOwnership.selector;
-        // TODO Use RBAC instead of ownership
-
-        _setSupportedInterface(type(IERC173).interfaceId, true);
-
-        // diamond cut
-
-        FacetCut[] memory facetCuts = new FacetCut[](1);
-
-        facetCuts[0] = FacetCut({
-            target: address(this),
-            action: FacetCutAction.ADD,
-            selectors: selectors
-        });
-
-        _diamondCut(facetCuts, address(0), "");
-
-        // set owner
-
-        _setOwner(_msgSender());
-    }
-
-    receive() external payable override {}
-
-    function _transferOwnership(
-        address account
-    ) internal virtual override(OwnableInternal) {
-        super._transferOwnership(account);
-    }
-
-    /**
-     * @inheritdoc DiamondFallback
-     */
-    function _getImplementation()
-        internal
-        view
-        override(DiamondBase, DiamondFallback)
-        returns (address implementation)
-    {
-        implementation = super._getImplementation();
-    }
+    receive() external payable {}
 }
