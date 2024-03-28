@@ -1,0 +1,54 @@
+{
+  "name": "tests-hardhat",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "Guénolé de Cadoudal",
+  "license": "Apache 2.0",
+  "scripts": {
+    "test": "hardhat test",
+    "prettier-ts": "prettier --config .prettierrc 'tests/**/*.ts' --write"
+  },
+  "prettier": {
+    "bracketSpacing": true
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
+    "@nomicfoundation/hardhat-ethers": "3.0.0",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.9",
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+    "@nomicfoundation/hardhat-verify": "^1.0.0",
+    "@saturn-chain/dlt-tx-data-functions": "1.0.9",
+    "@saturn-chain/web3-functions": "^1.0.13",
+    "@typechain/ethers-v6": "^0.4.0",
+    "@typechain/hardhat": "^8.0.0",
+    "@types/chai": "^4.2.0",
+    "@types/chai-as-promised": "^7.1.4",
+    "@types/mocha": ">=9.1.0",
+    "@types/node": ">=16.0.0",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "ethers": "^6.4.0",
+    "ganache": "^7.8.0",
+    "hardhat": "^2.17.2",
+    "hardhat-contract-sizer": "^2.10.0",
+    "hardhat-gas-reporter": "^1.0.9",
+    "mocha": "^9.1.3",
+    "prettier": "^3.0.3",
+    "prettier-plugin-solidity": "^1.1.3",
+    "solidity-coverage": "^0.8.0",
+    "solidity-docgen": "0.6.0-beta.36",
+    "strip-hex-prefix": "^1.0.0",
+    "ts-node": ">=8.0.0",
+    "typechain": "^8.1.0",
+    "typescript": ">=4.5.0",
+    "web3": "^1.7.3",
+    "web3-eth-contract": "^1.7.3",
+    "web3-utils": "^1.7.3"
+  },
+  "packageManager": "pnpm@8.5.1",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.9.3",
+    "@saturn-chain/smart-contract": "^1.0.18"
+  }
+}

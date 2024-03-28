@@ -1,0 +1,52 @@
+{
+  "name": "implementations-vanilla",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "Guénolé de Cadoudal",
+  "license": "Apache 2.0",
+  "scripts": {
+    "clean": "pnpm exec hardhat clean",
+    "build": "./build.sh",
+    "compile": "pnpm exec hardhat compile",
+    "test:hardhat": "pnpm exec hardhat test",
+    "size": "hardhat size-contracts",
+    "docgen": "pnpm exec hardhat docgen",
+    "size:no-compile": "pnpm exec hardhat size-contracts --no-compile",
+    "solc-combined-json": "solc -o contracts-artifacts/solc --optimize --combined-json abi,bin,bin-runtime --metadata-hash none --overwrite --base-path . --include-path ../node_modules  src/*.sol",
+    "hardhat-combined-json": "pnpm clean && pnpm compile && pnpm exec hardhat combined-json --output contracts-artifacts/hardhat/combined.json",
+    "prettier": "prettier --write --plugin=prettier-plugin-solidity 'src/**/*.sol'"
+  },
+  "prettier": {
+    "bracketSpacing": true
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
+    "@nomicfoundation/hardhat-ethers": "3.0.0",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.9",
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+    "@nomicfoundation/hardhat-verify": "^1.0.0",
+    "@openzeppelin/contracts": "^4.9.3",
+    "@saturn-chain/smart-contract": "^1.0.18",
+    "@typechain/ethers-v6": "^0.4.0",
+    "@typechain/hardhat": "^8.0.0",
+    "@types/node": ">=16.0.0",
+    "ethers": "^6.4.0",
+    "hardhat": "^2.17.2",
+    "hardhat-contract-size": "0.0.1-security",
+    "hardhat-contract-sizer": "^2.10.0",
+    "hardhat-gas-reporter": "^1.0.9",
+    "prettier": "^3.0.3",
+    "prettier-plugin-solidity": "^1.1.3",
+    "solidity-coverage": "^0.8.0",
+    "strip-hex-prefix": "^1.0.0",
+    "ts-node": "^10.9.1",
+    "typechain": "^8.1.0",
+    "typescript": ">=4.5.0"
+  },
+  "packageManager": "pnpm@8.5.1",
+  "dependencies": {
+    "chai": "^4.3.10",
+    "mocha": "^9.1.3"
+  }
+}

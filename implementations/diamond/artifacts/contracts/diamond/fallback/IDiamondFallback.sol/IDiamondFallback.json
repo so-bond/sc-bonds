@@ -1,0 +1,42 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "IDiamondFallback",
+  "sourceName": "contracts/diamond/fallback/IDiamondFallback.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "Proxy__ImplementationIsNotContract",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "getFallbackAddress",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "fallbackAddress",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "fallbackAddress",
+          "type": "address"
+        }
+      ],
+      "name": "setFallbackAddress",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

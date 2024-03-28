@@ -1,33 +1,27 @@
 {
+  "private": true,
   "name": "sc-bonds",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "keywords": [],
-  "author": "Guénolé de Cadoudal",
   "license": "Apache 2.0",
+  "author": "Guénolé de Cadoudal",
   "scripts": {
-    "clean": "pnpm exec hardhat clean",
-    "compile": "pnpm exec hardhat compile",
-    "test": "hardhat test",
-    "size": "hardhat size-contracts",
-    "docgen": "pnpm exec hardhat docgen",
-    "size:no-compile": "pnpm exec hardhat size-contracts --no-compile",
-    "solc-combined-json": "solc -o contracts-artifacts/solc --optimize --combined-json abi,bin,bin-runtime --metadata-hash none --overwrite --base-path . --include-path ./node_modules  src/*.sol",
-    "hardhat-combined-json": "pnpm clean && pnpm compile && pnpm exec hardhat combined-json --output contracts-artifacts/hardhat/combined.json",
-    "prettier": "prettier --write --plugin=prettier-plugin-solidity 'src/**/*.sol'",
-    "prettier-ts": "prettier --config .prettierrc 'test/**/*.ts' --write"
-  },
-  "prettier": {
-    "bracketSpacing": true
+    "build": "turbo run build",
+    "compile": "turbo run compile",
+    "clean": "turbo run clean",
+    "dev": "turbo run dev",
+    "test:solc": "turbo run test:solc",
+    "test:hardhat": "turbo run test:hardhat",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
-    "@nomicfoundation/hardhat-ethers": "^3.0.0",
+    "@nomicfoundation/hardhat-ethers": "3.0.0",
     "@nomicfoundation/hardhat-network-helpers": "^1.0.9",
     "@nomicfoundation/hardhat-toolbox": "^3.0.0",
     "@nomicfoundation/hardhat-verify": "^1.0.0",
     "@saturn-chain/dlt-tx-data-functions": "1.0.9",
+    "@saturn-chain/smart-contract": "^1.0.18",
     "@saturn-chain/web3-functions": "^1.0.13",
     "@typechain/ethers-v6": "^0.4.0",
     "@typechain/hardhat": "^8.0.0",
@@ -37,6 +31,7 @@
     "@types/node": ">=16.0.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
+    "eslint": "^8.48.0",
     "ethers": "^6.4.0",
     "ganache": "^7.8.0",
     "hardhat": "^2.17.2",
@@ -48,16 +43,14 @@
     "solidity-coverage": "^0.8.0",
     "solidity-docgen": "0.6.0-beta.36",
     "strip-hex-prefix": "^1.0.0",
-    "ts-node": ">=8.0.0",
+    "ts-node": "^10.9.1",
+    "tsconfig": "workspace:*",
+    "turbo": "latest",
     "typechain": "^8.1.0",
     "typescript": ">=4.5.0",
     "web3": "^1.7.3",
     "web3-eth-contract": "^1.7.3",
     "web3-utils": "^1.7.3"
   },
-  "packageManager": "pnpm@8.5.1",
-  "dependencies": {
-    "@openzeppelin/contracts": "^4.9.3",
-    "@saturn-chain/smart-contract": "^1.0.18"
-  }
+  "packageManager": "pnpm@8.6.10"
 }
